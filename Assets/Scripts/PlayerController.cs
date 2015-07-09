@@ -23,6 +23,9 @@ public class PlayerController : NetworkBehaviour {
     void FixedUpdate()
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
+        Debug.Log(GameManager.turnId);
+
+
         if (!isLocalPlayer)
         {
             return;
