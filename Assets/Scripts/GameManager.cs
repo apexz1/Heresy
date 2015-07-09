@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : NetworkBehaviour {
 
     public Card card = new Card();
     GameState state = new GameState();
 
+    public static int turnId;
     int cardID;
     string cardName;
 
@@ -21,12 +23,20 @@ public class GameManager : MonoBehaviour {
     }
 	void Start () 
     {
+        if (isServer)
+        {
+            turnId = 0;
+        }
+        else
+        {
+            turnId = 1;
+        }
         //DEBUGGING ONLY; checking if the turn progression script is working - Working as intended: 07/07/14, 12:40
-        for (int i = 0; i < 10; i++)
+        /*for (int i = 0; i < 10; i++)
         {
             Debug.Log(state.GetCount() + "/" + state.GetTurn() + "/" + state.GetPhase());
             state.SetState();
-        }
+        }*/
 	}
 	
 	void Update ()

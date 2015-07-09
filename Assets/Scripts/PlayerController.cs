@@ -8,6 +8,8 @@ public class PlayerController : NetworkBehaviour {
     private Rigidbody rb;
     [SyncVar]
     public int speed;
+    [SyncVar]
+    int turnStorage;
 
     void Start() {
         rb = GetComponent<Rigidbody>();
@@ -15,13 +17,16 @@ public class PlayerController : NetworkBehaviour {
 
     void FixedUpdate()
     {
-        /*if(!isLocalPlayer) {
+        if(!isLocalPlayer) {
             return;
-        }*/
+        }
 
         //Don't know what the fuck I'm doing here, but works. #coding101
-        if(!isServer)
-            return;
+        //if(!isServer)
+          //  return;
+
+        Debug.Log(turnStorage);
+        Debug.Log(GameManager.turnId);
 
         RpcMove();
     }
