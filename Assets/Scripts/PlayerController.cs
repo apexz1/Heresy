@@ -55,12 +55,23 @@ public class PlayerController : NetworkBehaviour {
     {
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
-        Vector3 move = new Vector3(hori, 0.0f, vert) * speed;
+    }
+
+    [Command]
+    public void CmdMove(float v, float h)
+    {
+        Vector3 move = new Vector3(h, 0.0f, v) * speed;
 
         if (move.magnitude > 0.0001f)
         {
-            transform.position += move * speed * Time.deltaTime;
+            RpcMove(transform.position + move * speed * Time.deltaTime);
         }
+    }
+
+    [ClientRpc]
+    public void RpcMove(Vector3 pos)
+    {
+        transform.position = pos;
     }
 
     public void endTurn(int turn)
