@@ -55,6 +55,7 @@ public class PlayerController : NetworkBehaviour {
     {
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
+        CmdMove(vert, hori);
     }
 
     [Command]
