@@ -32,7 +32,7 @@ public class DeckManager : MonoBehaviour {
             //used to add Cards individually; handle through buttons via PlayerController
             if (deck[i].GetID() == -1)
             {
-                Debug.Log(deck[i]);
+                //Debug.Log(deck[i]);
                 deck[i] = cardLibary.cardList[i];
             }
         }
@@ -46,7 +46,7 @@ public class DeckManager : MonoBehaviour {
     {
         StringBuilder builder = new StringBuilder();
 
-        fileLocation = ("D:/SmartGit_Rep/Assets/Resources/deck.txt");
+        fileLocation = ("D:/ProtoTest/Assets/Resources/deck.txt");
         Debug.Log(fileLocation);
 
         for(int i = 0; i < deck.Count; i++)
@@ -93,19 +93,19 @@ public class DeckManager : MonoBehaviour {
                 if (counter == 0)
                 {
                     id = builder.ToString(start, index);
-                    Debug.Log("1");
+                    //Debug.Log("1");
                 }
 
                 if (counter == 1)
                 {
                     name = builder.ToString(start, index);
-                    Debug.Log("2");
+                    //Debug.Log("2");
                 }
 
                 if (counter == 2)
                 {
                     textureID = builder.ToString(start, index);
-                    Debug.Log("3");
+                    //Debug.Log("3");
                 }
 
                 counter++;
@@ -120,7 +120,7 @@ public class DeckManager : MonoBehaviour {
                 counter = 0;
                 start = 0;
                 index = 0;
-                Debug.Log("end");
+                //Debug.Log("end");
                 //Debug.Log(";");
             }
         }

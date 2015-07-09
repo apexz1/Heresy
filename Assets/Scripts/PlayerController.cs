@@ -11,18 +11,61 @@ public class PlayerController : NetworkBehaviour {
     [SyncVar]
     int turnStorage;
 
-    void Start() {
+    public bool allowMove = true;
+    private int inputcount;
+
+    public GameState state = new GameState();
+
+    void Start()
+    {
         rb = GetComponent<Rigidbody>();
+        inputcount = 0;
     }
 
     void FixedUpdate()
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
 
+        Debug.Log(turnStorage);
+        Debug.Log(GameManager.turnId);
+
         if (!isLocalPlayer)
         {
             return;
         }
+
+        if (Input.GetButtonDown("switch"))
+        {
+            inputcount++;
+
+            for (int i = 0; i < 4; i++)
+            {
+                //Debug.Log(state.GetCount() + "/" + state.GetTurn() + "/" + state.GetPhase());
+                //Player 1 = return 0 | Player 2 = return 1;
+
+                turnStorage = state.SetState();
+
+                if (turnStorage != GameManager.turnId)
+                {
+                    allowMove = false;
+                    return;
+                    //Application.LoadLevel("menu");
+                }
+                else
+                {
+                    allowMove = true;
+                }
+            }
+        }
+
+        Debug.Log(allowMove);
+        if (allowMove == true)
+        {
+            Move();
+        }
+    }
+    public void Move()
+    {
 
         Debug.Log(turnStorage);
         Debug.Log(GameManager.turnId);
@@ -37,3 +80,5 @@ public class PlayerController : NetworkBehaviour {
         }
     }
 }
+
+

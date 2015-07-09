@@ -15,15 +15,24 @@ public class GameState {
 
     private static int _godState;
 
+    private bool init = true;
+
     void Start()
     {
 
     }
 
     //Sets player turns and phases, controlled via GameManager
-    public void SetState()
+    public int SetState()
     {
-        if (_phase >= 3)
+        if (init == true)
+        {
+            _turnCount++;
+            _turn = _turnCount % 2;
+            init = false;
+        }
+
+        if (_phase >= 3 && init == false)
         {
             _turnCount++;
             _turn = _turnCount % 2;
@@ -34,6 +43,8 @@ public class GameState {
         {
             _phase++;
         }
+
+        return _turn;
     }
 
     //TENTATIVE || Adds Resources to player; modify based on mechanics
