@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 public class GameManager : NetworkBehaviour {
 
     public Card card = new Card();
-    //public GameState state = new GameState();
 
     public static int turnId;
     int cardID;
