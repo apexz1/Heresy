@@ -17,13 +17,14 @@ public class PlayerController : NetworkBehaviour {
 
     void FixedUpdate()
     {
+        /*
         if(!isLocalPlayer) {
             return;
-        }
+        }*/
 
         //Don't know what the fuck I'm doing here, but works. #coding101
-        //if(!isServer)
-          //  return;
+        if(!isServer)
+            return;
 
         Debug.Log(turnStorage);
         Debug.Log(GameManager.turnId);
