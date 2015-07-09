@@ -7,10 +7,12 @@ public class GameManager : NetworkBehaviour {
     public Card card = new Card();
 
     [SyncVar]
-    public int turn;
+    public int speed;
     [SyncVar]
-    public int turnId;
-
+    public bool currentTurn;
+    [SyncVar]
+    public bool turnId;
+    public bool allowMove = true;
     int cardID;
     string cardName;
 
@@ -20,22 +22,24 @@ public class GameManager : NetworkBehaviour {
 
         cardID = card.GetID();
         cardName = card.GetName();
+        currentTurn = false;
 
         //Debug.Log(cardID);
         //Debug.Log(cardName);
     }
 	void Start () 
     {
-        turn = 0;
-
         if (isServer)
         {
-            turnId = 0;
+            turnId = true;
         }
-        else
+
+        if (!isServer)
         {
-            turnId = 1;
+            turnId = false;
         }
+
+        Debug.Log(turnId);
 
         //DEBUGGING ONLY; checking if the turn progression script is working - Working as intended: 07/07/14, 12:40
         /*for (int i = 0; i < 100; i++)
@@ -55,4 +59,26 @@ public class GameManager : NetworkBehaviour {
         Debug.Log("Player connected from" + player.ipAddress + ":" + player.port);
     }
 
+    [Command]
+    public void CmdCheckTurn(bool turnID, bool turn)
+    {
+        bool check;
+
+        if (turnId == currentTurn)
+        {
+            check = true;
+        }
+        else
+        {
+            check = false;
+        }
+
+        RpcCheckTurn(check);
+    }
+
+    [ClientRpc]
+    public void RpcCheckTurn(bool check)
+    {
+        allowMove = check;
+    }
 }
