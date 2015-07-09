@@ -6,7 +6,11 @@ public class GameManager : NetworkBehaviour {
 
     public Card card = new Card();
 
-    public static int turnId;
+    [SyncVar]
+    public int turn;
+    [SyncVar]
+    public int turnId;
+
     int cardID;
     string cardName;
 
@@ -22,6 +26,8 @@ public class GameManager : NetworkBehaviour {
     }
 	void Start () 
     {
+        turn = 0;
+
         if (isServer)
         {
             turnId = 0;

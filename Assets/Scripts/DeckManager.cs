@@ -21,8 +21,8 @@ public class DeckManager : MonoBehaviour {
     void Start()
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
-        cardLibary = GameObject.Find("CardLibary").GetComponent<CardLibrary>();
-        cardCount = cardLibary.cardList.Count;
+        //cardLibary = GameObject.Find("CardLibary").GetComponent<CardLibrary>();
+        //cardCount = cardLibary.cardList.Count;
 
         //Sets up the deck with empties to ensure decks being of known size and size being usable
         for (int i = 0; i < cardCount; i++)
