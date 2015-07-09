@@ -58,27 +58,4 @@ public class GameManager : NetworkBehaviour {
     {
         Debug.Log("Player connected from" + player.ipAddress + ":" + player.port);
     }
-
-    [Command]
-    public void CmdCheckTurn(bool turnID, bool turn)
-    {
-        bool check;
-
-        if (turnId == currentTurn)
-        {
-            check = true;
-        }
-        else
-        {
-            check = false;
-        }
-
-        RpcCheckTurn(check);
-    }
-
-    [ClientRpc]
-    public void RpcCheckTurn(bool check)
-    {
-        allowMove = check;
-    }
 }

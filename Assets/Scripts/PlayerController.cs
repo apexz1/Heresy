@@ -12,8 +12,6 @@ public class PlayerController : NetworkBehaviour {
     int turnStorage;
 
     GameManager game = new GameManager();
-
-    public bool allowMove = true;
     private int inputcount;
 
     void Start()
@@ -31,8 +29,16 @@ public class PlayerController : NetworkBehaviour {
             return;
         }
 
+        if (game.allowMove == true)
+        {
             Move();
 
+            if (Input.GetButtonDown("switch"))
+            {
+                CmdEndTurn(game.currentTurn);
+            }
+
+        }
     }
     public void Move()
     {
@@ -51,16 +57,48 @@ public class PlayerController : NetworkBehaviour {
             RpcMove(transform.position + move * speed * Time.deltaTime);
         }
     }
-
     [ClientRpc]
     public void RpcMove(Vector3 pos)
     {
         transform.position = pos;
     }
 
-    public void endTurn(int turn)
+    [Command]
+    public void CmdCheckTurn(bool turnID, bool turn)
     {
+        bool check;
 
+        if (game.turnId == game.currentTurn)
+        {
+            check = true;
+        }
+        else
+        {
+            check = false;
+        }
+
+        RpcCheckTurn(check);
+    }
+    [ClientRpc]
+    public void RpcCheckTurn(bool check)
+    {
+        game.allowMove = check;
+    }
+
+    [Command]
+    public void CmdEndTurn(bool turnid)
+    {
+        Debug.Log(turnid);
+        turnid = !turnid;
+        Debug.Log(turnid);
+        RpcEndTurn(turnid);
+    }
+    [ClientRpc]
+    public void RpcEndTurn(bool turnid)
+    {
+        game.currentTurn = turnid;
+        Debug.Log(game.currentTurn + "//" + turnid);
+        game.allowMove = turnid;
     }
 }
 
