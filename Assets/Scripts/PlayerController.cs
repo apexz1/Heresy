@@ -68,5 +68,7 @@ public class PlayerController : NetworkBehaviour
     public void CmdEndTurn()
     {
         game.currentTurn = !game.currentTurn;
+        Debug.Log(game.currentTurn);
+        Debug.Log(game.turnId);
     }
 }
