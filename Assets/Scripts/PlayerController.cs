@@ -36,7 +36,7 @@ public class PlayerController : NetworkBehaviour
 
             if (Input.GetButtonDown("switch"))
             {
-                //CmdEndTurn(game.currentTurn);
+                CmdEndTurn();
             }
         }
 
@@ -65,30 +65,8 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    public void CmdCheckTurn(bool turnID, bool turn)
-    {
-        bool check;
-
-        if (game.turnId == game.currentTurn)
-        {
-            check = true;
-        }
-        else
-        {
-            check = false;
-        }
-
-        RpcCheckTurn(check);
-    }
-    [ClientRpc]
-    public void RpcCheckTurn(bool check)
-    {
-        game.allowMove = check;
-    }
-
-    [Command]
     public void CmdEndTurn()
     {
-
+        game.currentTurn = !game.currentTurn;
     }
 }

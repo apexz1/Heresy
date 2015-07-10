@@ -24,8 +24,6 @@ public class GameManager : NetworkBehaviour {
         cardName = card.GetName();
         currentTurn = false;
 
-        Debug.Log(GameObject.Find("GameManager"));
-
         //Debug.Log(cardID);
         //Debug.Log(cardName);
     }
