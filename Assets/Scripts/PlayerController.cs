@@ -12,6 +12,8 @@ public class PlayerController : NetworkBehaviour
     [SyncVar]
     int turnStorage;
 
+    public bool allowMove = false;
+
     GameManager game = new GameManager();
     private int inputcount;
 
@@ -30,7 +32,9 @@ public class PlayerController : NetworkBehaviour
             return;
         }
 
-        if (game.allowMove == true)
+        allowMove = CheckMove();
+
+        if (allowMove == true)
         {
             Move();
 
@@ -46,6 +50,12 @@ public class PlayerController : NetworkBehaviour
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
         CmdMove(vert, hori);
+    }
+
+    public bool CheckMove()
+    {
+        Debug.Log(game.turnId == game.currentTurn);
+        return(game.turnId == game.currentTurn);
     }
 
     [Command]

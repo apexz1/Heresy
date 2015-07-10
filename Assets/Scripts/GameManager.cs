@@ -9,10 +9,9 @@ public class GameManager : NetworkBehaviour {
     [SyncVar]
     public int speed;
     [SyncVar]
-    public bool currentTurn;
+    public bool currentTurn = false;
     [SyncVar]
-    public bool turnId;
-    public bool allowMove = true;
+    public bool turnId = false;
     int cardID;
     string cardName;
 
@@ -22,7 +21,6 @@ public class GameManager : NetworkBehaviour {
 
         cardID = card.GetID();
         cardName = card.GetName();
-        currentTurn = false;
 
         //Debug.Log(cardID);
         //Debug.Log(cardName);
@@ -36,10 +34,20 @@ public class GameManager : NetworkBehaviour {
 
         if (!isServer)
         {
-            turnId = false;
+            turnId = true;
         }
 
-        Debug.Log(turnId);
+        int rnd = Random.Range(0, 9);
+
+        Debug.Log(rnd);
+
+        if (rnd < 5)
+            currentTurn = true;
+        if (rnd >= 5)
+            currentTurn = false;
+
+        //Debug.Log(turnId);
+        //Debug.Log(currentTurn);
 
         //DEBUGGING ONLY; checking if the turn progression script is working - Working as intended: 07/07/14, 12:40
         /*for (int i = 0; i < 100; i++)
