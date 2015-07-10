@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class PlayerController : NetworkBehaviour {
+public class PlayerController : NetworkBehaviour
+{
 
     [SyncVar]
     private Rigidbody rb;
@@ -35,7 +36,7 @@ public class PlayerController : NetworkBehaviour {
 
             if (Input.GetButtonDown("switch"))
             {
-                CmdEndTurn(game.currentTurn);
+                //CmdEndTurn(game.currentTurn);
             }
         }
 
@@ -90,5 +91,4 @@ public class PlayerController : NetworkBehaviour {
     {
 
     }
-
-
+}
