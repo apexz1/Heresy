@@ -34,7 +34,7 @@ public class GameManager : NetworkBehaviour {
 
         if (!isServer)
         {
-            turnId = true;
+            turnId = false;
         }
 
         int rnd = Random.Range(0, 9);
