@@ -86,19 +86,9 @@ public class PlayerController : NetworkBehaviour {
     }
 
     [Command]
-    public void CmdEndTurn(bool turnid)
+    public void CmdEndTurn()
     {
-        game.currentTurn = turnid;
-        Debug.Log(turnid);
-        RpcEndTurn(turnid);
+
     }
-    [ClientRpc]
-    public void RpcEndTurn(bool turnid)
-    {
-        //game.currentTurn = turnid;
-        Debug.Log(game.currentTurn + "//" + turnid);
-        game.allowMove = !game.allowMove;
-    }
-}
 
 
