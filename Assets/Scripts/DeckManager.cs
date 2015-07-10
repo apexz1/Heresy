@@ -14,15 +14,15 @@ public class DeckManager : MonoBehaviour {
     int cardCount;
     string fileLocation;
  
-    CardLibrary cardLibary;
+    CardLibrary cardLibrary;
 
 
     //Start 
     void Start()
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
-        //cardLibary = GameObject.Find("CardLibary").GetComponent<CardLibrary>();
-        //cardCount = cardLibary.cardList.Count;
+        cardLibrary = GameObject.Find("CardLibary").GetComponent<CardLibrary>();
+        cardCount = cardLibrary.cardList.Count;
 
         //Sets up the deck with empties to ensure decks being of known size and size being usable
         for (int i = 0; i < cardCount; i++)
@@ -33,8 +33,10 @@ public class DeckManager : MonoBehaviour {
             if (deck[i].GetID() == -1)
             {
                 //Debug.Log(deck[i]);
-                deck[i] = cardLibary.cardList[i];
+                deck[i] = cardLibrary.cardList[i];
             }
+
+            //Debug.Log(deck.Count);
         }
 
         SaveDeck();
@@ -76,7 +78,7 @@ public class DeckManager : MonoBehaviour {
         int start = 0;
         int counter = 0;
         //Uncomment to check for file content
-        //Debug.Log(builder);
+        Debug.Log(builder);
 
         for(int i = 0; i < builder.Length; i++)
         {
@@ -88,24 +90,24 @@ public class DeckManager : MonoBehaviour {
 
             if ((builder[i]).Equals(','))
             {
-                //Debug.Log(counter);
+                Debug.Log(counter);
 
                 if (counter == 0)
                 {
                     id = builder.ToString(start, index);
-                    //Debug.Log("1");
+                    Debug.Log(id);
                 }
 
                 if (counter == 1)
                 {
                     name = builder.ToString(start, index);
-                    //Debug.Log("2");
+                    Debug.Log(name);
                 }
 
                 if (counter == 2)
                 {
                     textureID = builder.ToString(start, index);
-                    //Debug.Log("3");
+                    Debug.Log(textureID);
                 }
 
                 counter++;

@@ -37,8 +37,8 @@ public class PlayerController : NetworkBehaviour {
             {
                 CmdEndTurn(game.currentTurn);
             }
-
         }
+
     }
     public void Move()
     {
@@ -88,17 +88,16 @@ public class PlayerController : NetworkBehaviour {
     [Command]
     public void CmdEndTurn(bool turnid)
     {
-        Debug.Log(turnid);
-        turnid = !turnid;
+        game.currentTurn = turnid;
         Debug.Log(turnid);
         RpcEndTurn(turnid);
     }
     [ClientRpc]
     public void RpcEndTurn(bool turnid)
     {
-        game.currentTurn = turnid;
+        //game.currentTurn = turnid;
         Debug.Log(game.currentTurn + "//" + turnid);
-        game.allowMove = turnid;
+        game.allowMove = !game.allowMove;
     }
 }
 
