@@ -10,7 +10,9 @@ public class GameManager : NetworkBehaviour
     [SyncVar]
     public int speed;
 
-    public bool turn = false;
+    [SyncVar]
+    public bool currentTurn = false;
+
     public bool turnId = false;
 
     int cardID;
@@ -38,8 +40,7 @@ public class GameManager : NetworkBehaviour
             turnId = false;
         }
 
-        //Debug.Log(turnId);
-        //Debug.Log(currentTurn);
+
 
         //DEBUGGING ONLY; checking if the turn progression script is working - Working as intended: 07/07/14, 12:40
         /*for (int i = 0; i < 100; i++)
@@ -59,7 +60,7 @@ public class GameManager : NetworkBehaviour
         Debug.Log("Player connected from" + player.ipAddress + ":" + player.port);
     }
 
-    [Command]
+    /*[Command]
     public void CmdAssignTurn()
     {
         int rnd = Random.Range(0, 9);
@@ -79,5 +80,5 @@ public class GameManager : NetworkBehaviour
     public void RpcAssignTurn(bool i)
     {
         turn = i;
-    }
+    }*/
 }

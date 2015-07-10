@@ -26,10 +26,17 @@ public class PlayerController : NetworkBehaviour
     void FixedUpdate()
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
-
+        Debug.Log(game.turnId);
+        Debug.Log(game.currentTurn);
+        
         if (!isLocalPlayer)
         {
             return;
+        }
+
+        if (Input.GetButtonDown("switch"))
+        {
+            CmdEndTurn(game.currentTurn);
         }
 
         allowMove = CheckMove();
@@ -38,10 +45,6 @@ public class PlayerController : NetworkBehaviour
         {
             Move();
 
-            if (Input.GetButtonDown("switch"))
-            {
-                CmdEndTurn();
-            }
         }
 
     }
@@ -54,8 +57,7 @@ public class PlayerController : NetworkBehaviour
 
     public bool CheckMove()
     {
-        Debug.Log(game.turnId == game.turn);
-        return(game.turnId == game.turn);
+        return (game.turnId == game.currentTurn);
     }
 
     [Command]
@@ -75,10 +77,15 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    public void CmdEndTurn()
+    public void CmdEndTurn(bool i)
     {
-        game.turn = !game.turn;
-        Debug.Log(game.turn);
-        Debug.Log(game.turnId);
+        i = !i;
+        RpcEndTurn(i);
+    }
+
+    [ClientRpc]
+    public void RpcEndTurn(bool j)
+    {
+        game.currentTurn = j;
     }
 }
