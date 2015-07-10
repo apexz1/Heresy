@@ -54,8 +54,8 @@ public class PlayerController : NetworkBehaviour
 
     public bool CheckMove()
     {
-        Debug.Log(game.turnId == game.currentTurn);
-        return(game.turnId == game.currentTurn);
+        Debug.Log(game.turnId == game.turn);
+        return(game.turnId == game.turn);
     }
 
     [Command]
@@ -77,8 +77,8 @@ public class PlayerController : NetworkBehaviour
     [Command]
     public void CmdEndTurn()
     {
-        game.currentTurn = !game.currentTurn;
-        Debug.Log(game.currentTurn);
+        game.turn = !game.turn;
+        Debug.Log(game.turn);
         Debug.Log(game.turnId);
     }
 }

@@ -2,16 +2,17 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class GameManager : NetworkBehaviour {
+public class GameManager : NetworkBehaviour
+{
 
     public Card card = new Card();
 
     [SyncVar]
     public int speed;
-    [SyncVar]
-    public bool currentTurn = false;
-    [SyncVar]
+
+    public bool turn = false;
     public bool turnId = false;
+
     int cardID;
     string cardName;
 
@@ -25,7 +26,7 @@ public class GameManager : NetworkBehaviour {
         //Debug.Log(cardID);
         //Debug.Log(cardName);
     }
-	void Start () 
+    void Start()
     {
         if (isServer)
         {
@@ -37,15 +38,6 @@ public class GameManager : NetworkBehaviour {
             turnId = false;
         }
 
-        int rnd = Random.Range(0, 9);
-
-        Debug.Log(rnd);
-
-        if (rnd < 5)
-            currentTurn = true;
-        if (rnd >= 5)
-            currentTurn = false;
-
         //Debug.Log(turnId);
         //Debug.Log(currentTurn);
 
@@ -55,9 +47,9 @@ public class GameManager : NetworkBehaviour {
             Debug.Log(state.GetCount() + "/" + state.GetTurn() + "/" + state.GetPhase());
             state.SetState();
         }*/
-	}
-	
-	void Update ()
+    }
+
+    void Update()
     {
 
     }
@@ -65,5 +57,27 @@ public class GameManager : NetworkBehaviour {
     void OnPlayerConnected(NetworkPlayer player)
     {
         Debug.Log("Player connected from" + player.ipAddress + ":" + player.port);
+    }
+
+    [Command]
+    public void CmdAssignTurn()
+    {
+        int rnd = Random.Range(0, 9);
+        bool currentTurn = false;
+
+        Debug.Log(rnd);
+
+        if (rnd < 5)
+            currentTurn = true;
+        if (rnd >= 5)
+            currentTurn = false;
+
+        RpcAssignTurn(currentTurn);
+    }
+
+    [ClientRpc]
+    public void RpcAssignTurn(bool i)
+    {
+        turn = i;
     }
 }
