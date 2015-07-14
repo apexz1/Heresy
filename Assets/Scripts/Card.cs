@@ -4,9 +4,9 @@ using System.Collections;
 [System.Serializable]
 public class Card
 {
-    private int _cardID = 0;
-    private int _textureID = 0;
-    private string _cardName = "testname";
+    protected int _cardID = 0;
+    protected int _textureID = 0;
+    protected string _cardName = "testname";
 
     public Card()
     {
