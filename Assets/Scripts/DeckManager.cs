@@ -40,7 +40,7 @@ public class DeckManager : MonoBehaviour {
         }
 
         SaveDeck();
-        LoadDeck();
+        //LoadDeck();
     }
 
 
@@ -68,7 +68,7 @@ public class DeckManager : MonoBehaviour {
         }
     }
 
-    public void LoadDeck()
+    /*public void LoadDeck()
     {
         StringBuilder builder = new StringBuilder();
         TextAsset textFile = (TextAsset)Resources.Load("deck", typeof(TextAsset));
@@ -127,5 +127,5 @@ public class DeckManager : MonoBehaviour {
             }
         }
 
-    }
+    }*/
 }
