@@ -22,9 +22,6 @@ public class GameManager : NetworkBehaviour
     {
         //Debug.Log(card);
 
-        cardID = card.GetID();
-        cardName = card.GetName();
-
         //Debug.Log(cardID);
         //Debug.Log(cardName);
     }

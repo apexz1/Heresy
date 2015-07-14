@@ -45,13 +45,18 @@ public class DeckManager : MonoBehaviour {
     }
 
     public void AddCard(string name) {
+
         Cultist card;
+
         for(int i = 0;i < cardCount;i++) {
             if(cardLibrary.cardList[i].GetName().Equals(name)) {
+
                 card = (Cultist)cardLibrary.cardList[i];
                 deck.Add(card);
                 Debug.Log(deck[deck.Count - 1].GetName());
             }
+
+            SaveDeck();
         }          
     }
 
@@ -81,7 +86,7 @@ public class DeckManager : MonoBehaviour {
     {
         StringBuilder builder = new StringBuilder();
 
-        fileLocation = ("C:/users/kewegner/Documents/SmartGit/ProtoTest/ProtoTest/Assets/Resources/deck.txt");
+        fileLocation = ("D:/ProtoTest/Assets/Resources/deck.txt");
         Debug.Log(fileLocation);
 
         for(int i = 0; i < deck.Count; i++)
