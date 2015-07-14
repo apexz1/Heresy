@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-
+[System.Serializable]
 //DeckManager, probably have to build the fucking inventory again and modify
 public class DeckManager : MonoBehaviour {
 
@@ -16,6 +16,8 @@ public class DeckManager : MonoBehaviour {
  
     CardLibrary cardLibrary;
 
+    public GameObject card;
+    
 
     //Start 
     void Start()
@@ -30,25 +32,56 @@ public class DeckManager : MonoBehaviour {
             deck.Add(new Card());
 
             //used to add Cards individually; handle through buttons via PlayerController
-            if (deck[i].GetID() == -1)
-            {
-                //Debug.Log(deck[i]);
+            //if (deck[i].GetID() == -1)
+            //{
                 deck[i] = cardLibrary.cardList[i];
-            }
-
-            //Debug.Log(deck.Count);
+                Debug.Log(deck[i].GetName());
+            //}            
         }
-
+        SpawnCard();
+        Debug.Log(deck.Count);
         SaveDeck();
         //LoadDeck();
     }
 
+    public void AddCard(string name) {
+        Cultist card;
+        for(int i = 0;i < cardCount;i++) {
+            if(cardLibrary.cardList[i].GetName().Equals(name)) {
+                card = (Cultist)cardLibrary.cardList[i];
+                deck.Add(card);
+                Debug.Log(deck[deck.Count - 1].GetName());
+            }
+        }          
+    }
+
+    public void SpawnCard() {
+        Vector3 spawnPos;
+        float x = -1.5f;
+        float y = -1.5f;
+
+        for(int i = 0; i < 5;i++){
+            for(int j = 0;j < 3;j++) {
+                spawnPos = new Vector3(x+(i * 2f),y+(j* 2.5f), 0);
+                GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
+            }
+        }
+    }
+
+    void OnMouseOver() {
+        Debug.Log("collision");
+
+        if(Input.GetButtonDown("Fire1")) {
+            //Debug.Log(this.gameObject.name);
+            Debug.Log(cardLibrary.cardList[3].GetName());
+        }
+    }
 
     public void SaveDeck()
     {
         StringBuilder builder = new StringBuilder();
 
-        fileLocation = ("D:/ProtoTest/Assets/Resources/deck.txt");
+        fileLocation = ("C:/users/kewegner/Documents/SmartGit/ProtoTest/ProtoTest/Assets/Resources/deck.txt");
         Debug.Log(fileLocation);
 
         for(int i = 0; i < deck.Count; i++)
