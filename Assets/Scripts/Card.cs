@@ -6,7 +6,8 @@ public class Card
 {
     protected int _cardID = 0;
     protected int _textureID = 0;
-    protected string _cardName = "testname";
+    [SerializeField]
+    protected string _cardName = "";
 
     public Card()
     {

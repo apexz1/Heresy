@@ -10,8 +10,10 @@ public class CardLibrary : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            cardList.Add(new Card());
-        }     
+            cardList.Add(new Cultist());
+        }
+
+        cardList.Add(new Cultist(0, 0, "TestCard", 0, 0, 0, 0, 0, 0));
     }
 }
 
