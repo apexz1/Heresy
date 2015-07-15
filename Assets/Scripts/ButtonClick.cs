@@ -39,4 +39,10 @@ public class ButtonClick : MonoBehaviour {
         deckManager.SaveDeck();
     }
 
+    public void Delete()
+    {
+        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
+        deckManager.DeleteDeck();
+    }
+
 }

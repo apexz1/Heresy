@@ -8,7 +8,9 @@ public class CardLibrary : MonoBehaviour
 
     void Start()
     {
-        cardList.Add(new Cultist(0, 0, "TestCard", 0, 0, 0, 0, 0, 0));
+        cardList.Add(new Cultist(0, "TestCard0", 0, 0, 0, 0, 0, 0));
+        cardList.Add(new Cultist(1, "TestCard1", 0, 0, 0, 0, 0, 0));
+        cardList.Add(new Cultist(2, "TestCard2", 0, 0, 0, 0, 0, 0));
     }
 }
 

@@ -16,11 +16,10 @@ public class Cultist : Card {
         this._cardID = -1;
     }
 
-    public Cultist(int cardID, int textureID, string cardName, int cult, int costs,
+    public Cultist(int cardID, string cardName, int cult, int costs,
         int attack, int health, int retaliate, int effectID){
 
         this._cardID = cardID;
-        this._textureID = textureID;
         this._cardName = cardName;
 
         this._cult = cult;

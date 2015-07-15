@@ -11,11 +11,16 @@ public class DeckManager : MonoBehaviour {
 
     public List<Card> deck = new List<Card>();
    
-    int cardCount;
-    string fileLocation;
+    int libCount;
+    int deckCount;
+    [SerializeField]
+    int maxDeckCount;
+    string deckName;
+    string deckLocation;
  
     CardLibrary cardLibrary;
 
+    [NonSerialized]
     public GameObject card;
     
 
@@ -24,7 +29,8 @@ public class DeckManager : MonoBehaviour {
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
         cardLibrary = GameObject.Find("CardLibary").GetComponent<CardLibrary>();
-        cardCount = cardLibrary.cardList.Count;
+        libCount = cardLibrary.cardList.Count;
+        deckLocation = (Application.dataPath + "/Resources/deck.txt");
 
         //Debugging, sets up deck with one copy of each card in the CardLibrary
         /*for (int i = 0; i < cardCount; i++)
@@ -50,11 +56,15 @@ public class DeckManager : MonoBehaviour {
 
         Cultist card;
 
-        for(int i = 0;i < cardCount;i++) {
+        if (deckCount == maxDeckCount)
+            return;
+
+        for(int i = 0;i < libCount;i++) {
             if(cardLibrary.cardList[i].GetName().Equals(name)) {
 
                 card = (Cultist)cardLibrary.cardList[i];
                 deck.Add(card);
+                deckCount++;
                 Debug.Log(deck[deck.Count - 1].GetName());
             }
         }          
@@ -64,18 +74,23 @@ public class DeckManager : MonoBehaviour {
         Vector3 spawnPos;
         float x = -1.5f;
         float y = -1.5f;
-        int cardcount = 0;
+        int counter = -1;
 
         GameObject card;
 
         for(int i = 0; i < 5;i++){
             for(int j = 0;j < 3;j++) {
 
-                //cardcount++;
+                counter++;
 
-                card = (GameObject)Resources.Load("Prefabs/" + cardLibrary.cardList[cardcount].GetName());
+                card = (GameObject)Resources.Load("Prefabs/" + cardLibrary.cardList[counter].GetName());
                 spawnPos = new Vector3(x+(i * 2f),y+(j* 2.5f), 0);
                 GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
+
+                if (counter >= (cardLibrary.cardList.Count - 1))
+                {
+                    counter = -1;
+                }
             }
         }
     }
@@ -84,18 +99,17 @@ public class DeckManager : MonoBehaviour {
     {
         StringBuilder builder = new StringBuilder();
 
-        fileLocation = (Application.dataPath + "/Resources/deck.txt");
-        Debug.Log(fileLocation);
+        Debug.Log(deckLocation);
 
         for(int i = 0; i < deck.Count; i++)
         {
             builder.Append(deck[i].GetID() + ",");
         }
 
-        File.WriteAllText(fileLocation, builder.ToString());
+        File.WriteAllText(deckLocation, builder.ToString());
         builder.Remove(0, builder.Length);
        
-        if (File.Exists(fileLocation))
+        if (File.Exists(deckLocation))
         {
             Debug.Log("File saved");
         }
@@ -162,4 +176,9 @@ public class DeckManager : MonoBehaviour {
         }
 
     }*/
+
+    public void DeleteDeck()
+    {
+        File.Delete(deckLocation);
+    }
 }
