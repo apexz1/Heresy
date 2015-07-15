@@ -3,6 +3,12 @@ using System.Collections;
 
 public class ButtonClick : MonoBehaviour {
 
+    public DeckManager deckManager;
+
+    public void Start()
+    {
+        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
+    }
     public void LoadGame() {
         Debug.Log("game loaded");
         Application.LoadLevel("first");
@@ -29,6 +35,11 @@ public class ButtonClick : MonoBehaviour {
     public void QuitGame() {
         Debug.Log("game quit");
         Application.Quit();
+    }
+
+    public void Save()
+    {
+        deckManager.SaveDeck();
     }
 
 }

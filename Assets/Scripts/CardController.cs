@@ -26,7 +26,7 @@ public class CardController : MonoBehaviour {
             //Debug.Log(this.gameObject.name);
             //Debug.Log(cardLibrary.cardList[3].GetName());
             string name = this.gameObject.name.Replace("(Clone)","");
-            Debug.Log(name);
+            //Debug.Log(name);
             deckManager.AddCard(name);
         }
     }

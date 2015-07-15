@@ -26,8 +26,8 @@ public class DeckManager : MonoBehaviour {
         cardLibrary = GameObject.Find("CardLibary").GetComponent<CardLibrary>();
         cardCount = cardLibrary.cardList.Count;
 
-        //Sets up the deck with empties to ensure decks being of known size and size being usable
-        for (int i = 0; i < cardCount; i++)
+        //Debugging, sets up deck with one copy of each card in the CardLibrary
+        /*for (int i = 0; i < cardCount; i++)
         {
             deck.Add(new Card());
 
@@ -37,10 +37,12 @@ public class DeckManager : MonoBehaviour {
                 deck[i] = cardLibrary.cardList[i];
                 Debug.Log(deck[i].GetName());
             //}            
-        }
+        }*/
+
         SpawnCard();
         Debug.Log(deck.Count);
-        SaveDeck();
+
+        //SaveDeck();
         //LoadDeck();
     }
 
@@ -55,8 +57,6 @@ public class DeckManager : MonoBehaviour {
                 deck.Add(card);
                 Debug.Log(deck[deck.Count - 1].GetName());
             }
-
-            SaveDeck();
         }          
     }
 
@@ -73,28 +73,16 @@ public class DeckManager : MonoBehaviour {
         }
     }
 
-    void OnMouseOver() {
-        Debug.Log("collision");
-
-        if(Input.GetButtonDown("Fire1")) {
-            //Debug.Log(this.gameObject.name);
-            Debug.Log(cardLibrary.cardList[3].GetName());
-        }
-    }
-
     public void SaveDeck()
     {
         StringBuilder builder = new StringBuilder();
 
-        fileLocation = ("D:/ProtoTest/Assets/Resources/deck.txt");
+        fileLocation = (Application.dataPath + "/Resources/deck.txt");
         Debug.Log(fileLocation);
 
         for(int i = 0; i < deck.Count; i++)
         {
             builder.Append(deck[i].GetID() + ",");
-            builder.Append(deck[i].GetName() + ",");
-            builder.Append(deck[i].GetTexture() + ",");
-            builder.Append(";");
         }
 
         File.WriteAllText(fileLocation, builder.ToString());
@@ -106,6 +94,7 @@ public class DeckManager : MonoBehaviour {
         }
     }
 
+    //Not working anymore, changed SaveDeck() method
     /*public void LoadDeck()
     {
         StringBuilder builder = new StringBuilder();
