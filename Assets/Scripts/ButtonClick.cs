@@ -16,17 +16,14 @@ public class ButtonClick : MonoBehaviour {
         Debug.Log("Deckbuilder loaded");
         Application.LoadLevel("deckbuilder");
     }
-
     public void LoadMenu() {
         Debug.Log("menu loaded");
         Application.LoadLevel("menu");
     }
-
     public void LoadOptions() {
         Debug.Log("options loaded");
         Application.LoadLevel("options");
     }
-
     public void LoadCredits() {
         Debug.Log("credits loaded");
         Application.LoadLevel("credits");
@@ -36,15 +33,15 @@ public class ButtonClick : MonoBehaviour {
         Application.Quit();
     }
 
+
     public void Save()
     {
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         inputField = GameObject.Find("deckName").GetComponent<InputField>();
-        string deckName = inputField.text;
-        Debug.Log(deckName);
-
+        string deckName = inputField.text; 
+       
         deckManager.SaveDeck(deckName);
-        Debug.Log("File saved");
+        Debug.Log(deckName + " saved. Inhalt: " + deckManager.deck.Count);
     }
 
     public void Delete()
@@ -54,7 +51,14 @@ public class ButtonClick : MonoBehaviour {
         string deckName = inputField.text;
 
         deckManager.DeleteDeck(deckName);
-        Debug.Log("File deleted");
+        Debug.Log(deckName + "deleted");
     }
 
+    public void Clear() {
+        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
+        Debug.Log("old:" + deckManager.deck.Count);
+        deckManager.deck.Clear();
+        Debug.Log("new " + deckManager.deck.Count);
+        Debug.Log("cleared");
+    }
 }

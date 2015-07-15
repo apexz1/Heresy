@@ -17,6 +17,7 @@ public class DeckManager : MonoBehaviour {
     int maxDeckCount;
     string deckName;
     string deckLocation;
+    bool isNewDeck = false;
  
     CardLibrary cardLibrary;
 
@@ -54,14 +55,18 @@ public class DeckManager : MonoBehaviour {
 
     public void AddCard(string name) {
 
+        Debug.Log(isNewDeck);
+        if(isNewDeck) 
+            deckCount = 0;        
+
         Cultist card;
 
-        if (deckCount == maxDeckCount)
+        if(deckCount == maxDeckCount)
             return;
 
         for(int i = 0;i < libCount;i++) {
             if(cardLibrary.cardList[i].GetName().Equals(name)) {
-
+                isNewDeck = false;
                 card = (Cultist)cardLibrary.cardList[i];
                 deck.Add(card);
                 deckCount++;
@@ -113,6 +118,8 @@ public class DeckManager : MonoBehaviour {
         {
             Debug.Log("File saved");
         }
+
+        isNewDeck = true;
     }
 
     //Not working anymore, changed SaveDeck() method
