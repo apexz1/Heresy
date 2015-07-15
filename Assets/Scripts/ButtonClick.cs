@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+
 
 public class ButtonClick : MonoBehaviour {
 
     public DeckManager deckManager;
+    public InputField inputField;
 
     public void LoadGame() {
         Debug.Log("game loaded");
@@ -36,13 +39,22 @@ public class ButtonClick : MonoBehaviour {
     public void Save()
     {
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-        deckManager.SaveDeck();
+        inputField = GameObject.Find("deckName").GetComponent<InputField>();
+        string deckName = inputField.text;
+        Debug.Log(deckName);
+
+        deckManager.SaveDeck(deckName);
+        Debug.Log("File saved");
     }
 
     public void Delete()
     {
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-        deckManager.DeleteDeck();
+        inputField = GameObject.Find("deckName").GetComponent<InputField>();
+        string deckName = inputField.text;
+
+        deckManager.DeleteDeck(deckName);
+        Debug.Log("File deleted");
     }
 
 }

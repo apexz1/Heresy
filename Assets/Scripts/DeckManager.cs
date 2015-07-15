@@ -30,7 +30,7 @@ public class DeckManager : MonoBehaviour {
         //Don't know what the fuck I'm doing here, but works. #coding101
         cardLibrary = GameObject.Find("CardLibary").GetComponent<CardLibrary>();
         libCount = cardLibrary.cardList.Count;
-        deckLocation = (Application.dataPath + "/Resources/deck.txt");
+        deckLocation = (Application.dataPath + "/Resources/");
 
         //Debugging, sets up deck with one copy of each card in the CardLibrary
         /*for (int i = 0; i < cardCount; i++)
@@ -95,7 +95,7 @@ public class DeckManager : MonoBehaviour {
         }
     }
 
-    public void SaveDeck()
+    public void SaveDeck(string name)
     {
         StringBuilder builder = new StringBuilder();
 
@@ -106,7 +106,7 @@ public class DeckManager : MonoBehaviour {
             builder.Append(deck[i].GetID() + ",");
         }
 
-        File.WriteAllText(deckLocation, builder.ToString());
+        File.WriteAllText(deckLocation + name + ".txt", builder.ToString());
         builder.Remove(0, builder.Length);
        
         if (File.Exists(deckLocation))
@@ -177,8 +177,8 @@ public class DeckManager : MonoBehaviour {
 
     }*/
 
-    public void DeleteDeck()
+    public void DeleteDeck(string name)
     {
-        File.Delete(deckLocation);
+        File.Delete(deckLocation + name + ".txt");
     }
 }
