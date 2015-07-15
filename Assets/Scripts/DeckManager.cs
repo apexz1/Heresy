@@ -64,9 +64,16 @@ public class DeckManager : MonoBehaviour {
         Vector3 spawnPos;
         float x = -1.5f;
         float y = -1.5f;
+        int cardcount = 0;
+
+        GameObject card;
 
         for(int i = 0; i < 5;i++){
             for(int j = 0;j < 3;j++) {
+
+                //cardcount++;
+
+                card = (GameObject)Resources.Load("Prefabs/" + cardLibrary.cardList[cardcount].GetName());
                 spawnPos = new Vector3(x+(i * 2f),y+(j* 2.5f), 0);
                 GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
             }
