@@ -77,16 +77,15 @@ public class DeckManager : MonoBehaviour {
                 ListCard(deckCount);
 
                 Debug.Log(deck[deck.Count - 1].GetName());
+                Debug.Log(card.GetID());
             }
         }          
     }
 
     public void RemoveCard(string name)
     {
-        Debug.Log("Method entered");
         for (int i = 0; i < libCount; i++)
         {
-            Debug.Log("Loop entered");
             if (cardLibrary.cardList[i].GetName().Equals(name))
             {
                 Debug.Log("Entry found");
@@ -153,66 +152,41 @@ public class DeckManager : MonoBehaviour {
     }
 
     //Not working anymore, changed SaveDeck() method
-    /*public void LoadDeck()
+    public void LoadDeck(string name)
     {
+        Cultist card;
         StringBuilder builder = new StringBuilder();
-        TextAsset textFile = (TextAsset)Resources.Load("deck", typeof(TextAsset));
+        TextAsset textFile = (TextAsset)Resources.Load(name, typeof(TextAsset));
+        Debug.Log(textFile);
         builder.Append(textFile.text);
 
-        int index = 0;
-        int start = 0;
-        int counter = 0;
         //Uncomment to check for file content
         Debug.Log(builder);
 
-        for(int i = 0; i < builder.Length; i++)
+        for (int i = 0; i < builder.Length; i++)
         {
-            index++;
-
-            string id = "";
-            string name = "";
-            string textureID = "";
+            int id;
+            string addName;
 
             if ((builder[i]).Equals(','))
             {
-                Debug.Log(counter);
+                addName = builder.ToString(i - 3, 3);
+                id = Int32.Parse(builder.ToString((i - 3), 3));
+                 for(int j = 0; j < libCount ; j++) 
+                 {
+                    if(cardLibrary.cardList[j].GetID() == id)
+                    {
+                        card = (Cultist)cardLibrary.cardList[j];
+                        deck.Add(card);
+                        deckCount++;
 
-                if (counter == 0)
-                {
-                    id = builder.ToString(start, index);
-                    Debug.Log(id);
-                }
-
-                if (counter == 1)
-                {
-                    name = builder.ToString(start, index);
-                    Debug.Log(name);
-                }
-
-                if (counter == 2)
-                {
-                    textureID = builder.ToString(start, index);
-                    Debug.Log(textureID);
-                }
-
-                counter++;
-                start = index;
-                //Debug.Log(",");
-            }
-
-            if ((builder[i]).Equals(';'))
-            {
-                builder.Remove(0, index);
-
-                counter = 0;
-                start = 0;
-                index = 0;
-                //Debug.Log("end");
-                //Debug.Log(";");
+                        ListCard(deckCount);
+                    }
+                 }
+                Debug.Log(id);
             }
         }
-
-    }*/
+    }
 
     public void DeleteDeck(string name)
     {

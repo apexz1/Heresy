@@ -4,6 +4,7 @@ using System.Collections;
 [System.Serializable]
 public class Card
 {
+    [SerializeField]
     protected int _cardID = 0;
     [SerializeField]
     protected string _cardName = "";

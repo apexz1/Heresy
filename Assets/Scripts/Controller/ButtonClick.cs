@@ -41,21 +41,33 @@ public class ButtonClick : MonoBehaviour {
 
     public void Save()
     {
-        string deckName = inputField.text;
-
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         inputField = GameObject.Find("deckName").GetComponent<InputField>();
+
+        string deckName = inputField.text;
 
         deckManager.SaveDeck(deckName);
         Debug.Log(deckName + "saved " + deckManager.deck.Count + " entries");
     }
 
-    public void Delete()
+    public void Load()
     {
-        string deckName = inputField.text;
-
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         inputField = GameObject.Find("deckName").GetComponent<InputField>();
+
+        string deckName = inputField.text;
+        //inputField.text.Remove(0,inputField.text.Length);
+        //inputField.textComponent.text = "";
+
+        deckManager.LoadDeck(deckName);
+        Debug.Log(deckName + "loaded " + deckManager.deck.Count + " entries");
+    }
+    public void Delete()
+    {
+        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
+        inputField = GameObject.Find("deckName").GetComponent<InputField>();
+
+        string deckName = inputField.text;
 
         deckManager.DeleteDeck(deckName);
         Debug.Log(deckName + "deleted");
