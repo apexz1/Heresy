@@ -180,6 +180,7 @@ public class DeckManager : MonoBehaviour {
                         deck.Add(card);
                         deckCount++;
 
+                        listCardName = cardLibrary.cardList[j].GetName();
                         ListCard(deckCount);
                     }
                  }

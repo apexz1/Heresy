@@ -8,6 +8,7 @@ public class FuckingText : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        //Still no idea. Fuck yeah.
         txt = gameObject.GetComponent<Text>();
         txt.text = DeckManager.listCardName;
 	}
