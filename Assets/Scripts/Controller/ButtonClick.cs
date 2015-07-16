@@ -60,7 +60,6 @@ public class ButtonClick : MonoBehaviour {
         //inputField.textComponent.text = "";
 
         deckManager.LoadDeck(deckName);
-        Debug.Log(deckName + "loaded " + deckManager.deck.Count + " entries");
     }
     public void Delete()
     {

@@ -154,8 +154,16 @@ public class DeckManager : MonoBehaviour {
     //Not working anymore, changed SaveDeck() method
     public void LoadDeck(string name)
     {
+        Debug.Log(deckLocation + name + ".txt");
+        if (!File.Exists(deckLocation + name + ".txt"))
+        {
+            Debug.Log("File not found");
+            return;
+        }
+
         Cultist card;
         StringBuilder builder = new StringBuilder();
+
         TextAsset textFile = (TextAsset)Resources.Load(name, typeof(TextAsset));
         Debug.Log(textFile);
         builder.Append(textFile.text);
@@ -172,21 +180,22 @@ public class DeckManager : MonoBehaviour {
             {
                 addName = builder.ToString(i - 3, 3);
                 id = Int32.Parse(builder.ToString((i - 3), 3));
-                 for(int j = 0; j < libCount ; j++) 
-                 {
-                    if(cardLibrary.cardList[j].GetID() == id)
+                for (int j = 0; j < libCount; j++)
+                {
+                    if (cardLibrary.cardList[j].GetID() == id)
                     {
-                        card = (Cultist)cardLibrary.cardList[j];
-                        deck.Add(card);
                         deckCount++;
 
+                        card = (Cultist)cardLibrary.cardList[j];
                         listCardName = cardLibrary.cardList[j].GetName();
                         ListCard(deckCount);
+                        deck.Add(card);
                     }
-                 }
+                }
                 Debug.Log(id);
             }
         }
+        Debug.Log(deck.Count + " entries loaded");
     }
 
     public void DeleteDeck(string name)
