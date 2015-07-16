@@ -8,6 +8,11 @@ public class ButtonClick : MonoBehaviour {
     public DeckManager deckManager;
     public InputField inputField;
 
+    public void Start()
+    {
+
+    }
+
     public void LoadGame() {
         Debug.Log("game loaded");
         Application.LoadLevel("first");
@@ -36,29 +41,49 @@ public class ButtonClick : MonoBehaviour {
 
     public void Save()
     {
+        string deckName = inputField.text;
+
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         inputField = GameObject.Find("deckName").GetComponent<InputField>();
-        string deckName = inputField.text; 
-       
+
         deckManager.SaveDeck(deckName);
-        Debug.Log(deckName + " saved. Inhalt: " + deckManager.deck.Count);
+        Debug.Log(deckName + "saved " + deckManager.deck.Count + " entries");
     }
 
     public void Delete()
     {
+        string deckName = inputField.text;
+
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         inputField = GameObject.Find("deckName").GetComponent<InputField>();
-        string deckName = inputField.text;
 
         deckManager.DeleteDeck(deckName);
         Debug.Log(deckName + "deleted");
     }
 
-    public void Clear() {
+    public void Clear() 
+    {
+        //Debug.Log("old:" + deckManager.deck.Count);
+
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-        Debug.Log("old:" + deckManager.deck.Count);
+        inputField = GameObject.Find("deckName").GetComponent<InputField>();
+
         deckManager.deck.Clear();
-        Debug.Log("new " + deckManager.deck.Count);
+        //Debug.Log("new " + deckManager.deck.Count);
         Debug.Log("cleared");
+    }
+
+    public void Remove()
+    {
+        print(gameObject.name);
+
+        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
+        inputField = GameObject.Find("deckName").GetComponent<InputField>();
+
+        Text txt = GameObject.Find(this.name).GetComponent<Text>();
+        Debug.Log(txt);
+        deckManager.RemoveCard(txt.ToString());
+
+        Destroy(gameObject.transform.parent.gameObject);
     }
 }

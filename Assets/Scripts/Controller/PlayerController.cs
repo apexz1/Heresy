@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
 
@@ -15,6 +16,7 @@ public class PlayerController : NetworkBehaviour
     public bool allowMove = false;
 
     GameManager game = new GameManager();
+    public Slider slider;
     private int inputcount;
 
     void Start()

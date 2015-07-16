@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.IO;
 using System.Collections;
@@ -23,6 +24,8 @@ public class DeckManager : MonoBehaviour {
 
     [NonSerialized]
     public GameObject card;
+    public Button listPrefab;
+    public static string listCardName;
     
 
     //Start 
@@ -67,29 +70,56 @@ public class DeckManager : MonoBehaviour {
         for(int i = 0;i < libCount;i++) {
             if(cardLibrary.cardList[i].GetName().Equals(name)) {
                 isNewDeck = false;
+                listCardName = cardLibrary.cardList[i].GetName();
                 card = (Cultist)cardLibrary.cardList[i];
                 deck.Add(card);
                 deckCount++;
+                ListCard(deckCount);
+
                 Debug.Log(deck[deck.Count - 1].GetName());
             }
         }          
     }
 
+    public void RemoveCard(string name)
+    {
+        Debug.Log("Method entered");
+        for (int i = 0; i < libCount; i++)
+        {
+            Debug.Log("Loop entered");
+            if (cardLibrary.cardList[i].GetName().Equals(name))
+            {
+                Debug.Log("Entry found");
+                deck.Remove(cardLibrary.cardList[i]);
+                Debug.Log("Removed?");
+            }
+        }
+    }
+
+    public void ListCard(int deckCount)
+    {
+        Vector2 spawnPos = new Vector2(0, 0);
+        Button listCard = Instantiate(listPrefab, spawnPos, Quaternion.identity) as Button;
+
+        listCard.transform.SetParent(GameObject.Find("List").transform, false);
+        listCard.transform.localPosition = new Vector3(0, (219 - (23* (deckCount-1))), 0);
+    }
+
     public void SpawnCard() {
         Vector3 spawnPos;
-        float x = -1.5f;
-        float y = -1.5f;
+        float x = 6f;
+        float y = 3.5f;
         int counter = -1;
 
         GameObject card;
 
         for(int i = 0; i < 5;i++){
-            for(int j = 0;j < 3;j++) {
+            for(int j = 0;j < 17;j++) {
 
                 counter++;
 
                 card = (GameObject)Resources.Load("Prefabs/" + cardLibrary.cardList[counter].GetName());
-                spawnPos = new Vector3(x+(i * 2f),y+(j* 2.5f), 0);
+                spawnPos = new Vector3(x-(i * 1.9f),y-(j* 2.5f), 0);
                 GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
 
                 if (counter >= (cardLibrary.cardList.Count - 1))
