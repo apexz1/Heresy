@@ -79,7 +79,7 @@ public class ButtonClick : MonoBehaviour {
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
-        deckManager.deck.Clear();
+        deckManager.ClearDeck();
         //Debug.Log("new " + deckManager.deck.Count);
         Debug.Log("cleared");
     }
@@ -91,9 +91,8 @@ public class ButtonClick : MonoBehaviour {
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
         inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
-        Text txt = GameObject.Find(this.name).GetComponent<Text>();
-        Debug.Log(txt);
-        deckManager.RemoveCard(txt.ToString());
+        Text txt = gameObject.GetComponentInChildren<Text>();
+        deckManager.RemoveCard(txt.text);
 
         Destroy(gameObject.transform.parent.gameObject);
     }

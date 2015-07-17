@@ -88,11 +88,45 @@ public class DeckManager : MonoBehaviour {
         {
             if (cardLibrary.cardList[i].GetName().Equals(name))
             {
+                int countStorage;
                 Debug.Log("Entry found");
                 deck.Remove(cardLibrary.cardList[i]);
+                countStorage = deckCount -1;
+                deckCount = 0;
+                Debug.Log(deckCount);
+
+                var objects = GameObject.FindGameObjectsWithTag("Destroy");
+                foreach (GameObject o in objects)
+                {
+                    Destroy(o.gameObject);
+                }
+
+                for (int j = 0; j < countStorage; j++)
+                {
+                    Debug.Log("-");
+                    deckCount++;    
+                    ListCard(deckCount);
+
+                }
+                //AssetDatabase.Refresh();
+
+                deckCount = countStorage;
                 Debug.Log("Removed?");
             }
         }
+    }
+
+    public void ClearDeck()
+    {
+        deck.Clear();
+
+        var objects = GameObject.FindGameObjectsWithTag("Destroy");
+        foreach (GameObject o in objects)
+        {
+            Destroy(o.gameObject);
+        }
+
+        deckCount = 0;
     }
 
     public void ListCard(int deckCount)
@@ -102,6 +136,8 @@ public class DeckManager : MonoBehaviour {
 
         listCard.transform.SetParent(GameObject.Find("List").transform, false);
         listCard.transform.localPosition = new Vector3(0, (219 - (23* (deckCount-1))), 0);
+
+        listCard.transform.SetParent(GameObject.FindWithTag("ListTransform").transform, true);
     }
 
     public void SpawnCard() {
@@ -151,7 +187,7 @@ public class DeckManager : MonoBehaviour {
         isNewDeck = true;
     }
 
-    //Not working anymore, changed SaveDeck() method
+    //Not quite working, better though
     public void LoadDeck(string name)
     {
         Debug.Log(deckLocation + name + ".txt");
@@ -164,6 +200,8 @@ public class DeckManager : MonoBehaviour {
         Cultist card;
         StringBuilder builder = new StringBuilder();
 
+
+        Debug.Log(name);
         TextAsset textFile = (TextAsset)Resources.Load(name, typeof(TextAsset));
         Debug.Log(textFile);
         builder.Append(textFile.text);

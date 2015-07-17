@@ -3,8 +3,6 @@ using System.Collections;
 
 public class CardController : MonoBehaviour {
 
-    public GameObject abcObject;
-
     public CardLibrary cardLibrary;
     public DeckManager deckManager;
 
