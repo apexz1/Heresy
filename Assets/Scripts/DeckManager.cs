@@ -257,8 +257,6 @@ public class DeckManager : MonoBehaviour {
 
     void ErrorWindow(int windowID)
     {
-        GUI.Label(new Rect(20,20,rect.width,20), "File not found");
-
         if (GUI.Button(new Rect(5,20, rect.width -10, 20), "Close"))
         {
             window = false;
