@@ -19,6 +19,9 @@ public class DeckManager : MonoBehaviour {
     string deckName;
     string deckLocation;
     bool isNewDeck = false;
+
+    private Rect rect = new Rect((Screen.width - 200)/2, (Screen.height - 50)/2, 200, 50);
+    bool window;
  
     CardLibrary cardLibrary;
 
@@ -54,6 +57,14 @@ public class DeckManager : MonoBehaviour {
 
         //SaveDeck();
         //LoadDeck();
+    }
+
+    public void OnGUI()
+    {
+        if (window)
+        {
+            rect = GUI.Window(0, rect, ErrorWindow, "Error: File not found");
+        }
     }
 
     public void AddCard(string name) {
@@ -176,6 +187,9 @@ public class DeckManager : MonoBehaviour {
             builder.Append(deck[i].GetID() + ",");
         }
 
+        if (name.Equals(""))
+            name = "deck";
+
         File.WriteAllText(deckLocation + name + ".txt", builder.ToString());
         builder.Remove(0, builder.Length);
        
@@ -193,7 +207,7 @@ public class DeckManager : MonoBehaviour {
         Debug.Log(deckLocation + name + ".txt");
         if (!File.Exists(deckLocation + name + ".txt"))
         {
-            Debug.Log("File not found");
+            window = true;
             return;
         }
 
@@ -239,5 +253,15 @@ public class DeckManager : MonoBehaviour {
     public void DeleteDeck(string name)
     {
         File.Delete(deckLocation + name + ".txt");
+    }
+
+    void ErrorWindow(int windowID)
+    {
+        GUI.Label(new Rect(20,20,rect.width,20), "File not found");
+
+        if (GUI.Button(new Rect(5,20, rect.width -10, 20), "Close"))
+        {
+            window = false;
+        }
     }
 }
