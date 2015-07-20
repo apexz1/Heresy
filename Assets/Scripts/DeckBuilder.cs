@@ -15,7 +15,8 @@ public class DeckBuilder : MonoBehaviour {
    
     int libCount;
     [SerializeField]
-    int maxDeckCount;
+    const int maxDeckCount = 30; 
+    const int maxUICount = 13;
     string deckName;
     string deckLocation;
 
@@ -41,34 +42,12 @@ public class DeckBuilder : MonoBehaviour {
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
         libCount = cardLibrary.cardList.Count;
-        deckLocation = SaveGameLocation.getSaveGameDirectory();
-
-        //Debugging, sets up deck with one copy of each card in the CardLibrary
-        /*for (int i = 0; i < cardCount; i++)
-        {
-            deck.Add(new Card());
-
-            //used to add Cards individually; handle through buttons via PlayerController
-            //if (deck[i].GetID() == -1)
-            //{
-                deck[i] = cardLibrary.cardList[i];
-                Debug.Log(deck[i].GetName());
-            //}            
-        }*/
+        deckLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy";
+        Directory.CreateDirectory(deckLocation);
 
         SpawnCard();
         Debug.Log(deck.Count);
-
-        //SaveDeck();
-        //LoadDeck();
-    }
-
-    public void OnGUI()
-    {
-        if (window)
-        {
-            rect = GUI.Window(0, rect, ErrorWindow, "Error: File not found");
-        }
+        Debug.Log(Application.dataPath);
     }
 
     public void AddCard(string name) {
@@ -96,7 +75,7 @@ public class DeckBuilder : MonoBehaviour {
         Vector2 spawnPos = new Vector2(0, 0);
         Button listCard = Instantiate(listPrefab, spawnPos, Quaternion.identity) as Button;
 
-        listCard.transform.SetParent(GameObject.Find("ListTransform").transform, false);
+        listCard.transform.SetParent(GetListTransform().transform, false);
 
         var txt = listCard.GetComponentInChildren<Text>();
         var ident = listCard.GetComponent<CardIdentity>();
@@ -105,6 +84,11 @@ public class DeckBuilder : MonoBehaviour {
 
         uiCards.Add(listCard);
         MoveCardsUI();
+    }
+
+    private static Transform GetListTransform()
+    {
+        return GameObject.Find("ListTransform").transform;
     }
 
     public void MoveCardsUI()
@@ -233,8 +217,14 @@ public class DeckBuilder : MonoBehaviour {
             Card card = cardLibrary.GetCard(id);
 
             deck.Add(card);
-            AddCardUI(id);
         }
+        CreateAllCardsUI();
+    }
+
+    public void CreateAllCardsUI()
+    {
+        for (int i = 0; i < deck.Count; i++)
+            AddCardUI(deck[i].GetID());
     }
 
     public void DeleteDeck(string name)
@@ -242,11 +232,37 @@ public class DeckBuilder : MonoBehaviour {
         File.Delete(deckLocation + name + ".txt");
     }
 
-    void ErrorWindow(int windowID)
+    public void OnGUI()
+    {
+        if (window)
+        {
+            rect = GUI.Window(0, rect, ErrorWindow, "Error: File not found");
+        }
+    }
+    public void ErrorWindow(int windowID)
     {
         if (GUI.Button(new Rect(5,20, rect.width -10, 20), "Close"))
         {
             window = false;
         }
+    }
+    
+    public void OnSlider(float val)
+    {
+        Transform listTransform = GetListTransform();
+
+        Vector3 pos = listTransform.localPosition;
+        int diff = uiCards.Count - maxUICount;
+
+        if (diff <= 0)
+            pos.y = 0;
+
+        else
+        {
+            //HEIGHT VALUE CHANGED
+            pos.y = (-1 + (val * ((25-2)*diff)));
+        }
+
+        listTransform.localPosition = pos;
     }
 }
