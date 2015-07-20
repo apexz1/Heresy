@@ -14,12 +14,10 @@ public class DeckManager : MonoBehaviour {
     public List<Button> uiCards = new List<Button>();
    
     int libCount;
-    int deckCount;
     [SerializeField]
     int maxDeckCount;
     string deckName;
     string deckLocation;
-    bool isNewDeck = false;
 
     private Rect rect = new Rect((Screen.width - 200)/2, (Screen.height - 50)/2, 200, 50);
     bool window;
@@ -72,23 +70,17 @@ public class DeckManager : MonoBehaviour {
 
     public void AddCard(string name) {
 
-        Debug.Log(isNewDeck);
-        if(isNewDeck) 
-            deckCount = 0;        
-
         Cultist card;
 
-        if(deckCount == maxDeckCount)
+        if(deck.Count == maxDeckCount)
             return;
 
         for(int i = 0;i < libCount;i++) {
             if(cardLibrary.cardList[i].GetName().Equals(name)) {
-                isNewDeck = false;
                 listCardName = cardLibrary.cardList[i].GetName();
                 card = (Cultist)cardLibrary.cardList[i];
                 deck.Add(card);
-                deckCount++;
-                ListCard(deckCount);
+                AddCardUI();
 
                 Debug.Log(deck[deck.Count - 1].GetName());
                 Debug.Log(card.GetID());
@@ -96,76 +88,68 @@ public class DeckManager : MonoBehaviour {
         }          
     }
 
+    public void AddCardUI()
+    {
+        Vector2 spawnPos = new Vector2(0, 0);
+        Button listCard = Instantiate(listPrefab, spawnPos, Quaternion.identity) as Button;
+
+        listCard.transform.SetParent(GameObject.Find("ListTransform").transform, false);
+
+        var txt = listCard.GetComponentInChildren<Text>();
+        var ident = listCard.GetComponent<CardIdentity>();
+        ident.id = cardLibrary.GetCard(DeckManager.listCardName).GetID();
+        txt.text = ident.GetName();
+
+        uiCards.Add(listCard);
+        MoveCardsUI();
+    }
+
+    public void MoveCardsUI()
+    {
+        for (int i = 0; i < uiCards.Count; i++)
+        {
+            var listCard = uiCards[i];
+            var locPos = listCard.transform.localPosition;
+            var h = listCard.GetComponent<RectTransform>().rect.height;
+            locPos.y = -(i * (h - 2)) - (h / 2);
+
+            listCard.transform.localPosition = locPos;
+        }
+    }
+
     public void RemoveCard(Button button)
     {
-       /* for (int i = 0; i < libCount; i++)
+        int cardIndex = -1;
+
+        for (int i = 0; i < uiCards.Count; i++)
         {
-            if (cardLibrary.cardList[i].GetName().Equals(name))
+            if (uiCards[i] == button)
             {
-                int countStorage;
-                var card = cardLibrary.cardList[i];
-
-                Debug.Log("Entry found");
-                deck.Remove(card);
-                countStorage = deckCount -1;
-                deckCount = 0;
-                Debug.Log(deckCount);
-
-                //var objects = GameObject.FindGameObjectsWithTag("Destroy");
-                //foreach (GameObject o in objects)
-                //{
-                //    Destroy(card.gameObject);
-                //}
-
-                for (int j = 0; j < countStorage; j++)
-                {
-                    Debug.Log("-");
-                    deckCount++;    
-                    ListCard(deckCount);
-
-                }
-                //AssetDatabase.Refresh();
-
-                deckCount = countStorage;
-                Debug.Log("Removed?");
+                cardIndex = i;
+                break;
             }
-        }*/
+        }
 
+        Debug.Log(cardIndex);
+
+        deck.RemoveAt(cardIndex);
+        uiCards.RemoveAt(cardIndex);
+
+        Destroy(button.gameObject);
+        MoveCardsUI();
 
     }
 
     public void ClearDeck()
     {
         deck.Clear();
+        uiCards.Clear();
 
         var objects = GameObject.FindGameObjectsWithTag("Destroy");
         foreach (GameObject o in objects)
         {
             Destroy(o.gameObject);
         }
-
-        deckCount = 0;
-    }
-
-    public void ListCard(int deckCount)
-    {
-        Vector2 spawnPos = new Vector2(0, 0);
-        Button listCard = Instantiate(listPrefab, spawnPos, Quaternion.identity) as Button;
-
-        listCard.transform.SetParent(GameObject.FindWithTag("ListTransform").transform, false);
-        var locPos = listCard.transform.localPosition;
-        var h = listCard.GetComponent<RectTransform>().rect.height;
-        locPos.y = -(deckCount * (h-2)) + (h/2);
-
-        listCard.transform.localPosition = locPos;
-
-        var txt = listCard.GetComponentInChildren<Text>();
-        //txt.text = DeckManager.listCardName;
-        var ident=listCard.GetComponent<CardIdentity>();
-        ident.id = cardLibrary.GetCard(DeckManager.listCardName).GetID();
-        txt.text = ident.GetName();
-
-        uiCards.Add(listCard);
     }
 
     public void SpawnCard() {
@@ -214,8 +198,6 @@ public class DeckManager : MonoBehaviour {
         {
             Debug.Log("File saved");
         }
-
-        isNewDeck = true;
     }
 
     //Not quite working, better though
@@ -253,11 +235,9 @@ public class DeckManager : MonoBehaviour {
                 {
                     if (cardLibrary.cardList[j].GetID() == id)
                     {
-                        deckCount++;
-
                         card = (Cultist)cardLibrary.cardList[j];
                         listCardName = cardLibrary.cardList[j].GetName();
-                        ListCard(deckCount);
+                        AddCardUI();
                         deck.Add(card);
                     }
                 }
