@@ -27,10 +27,8 @@ public class DeckManager : MonoBehaviour {
         get { return CardLibrary.Get(); }
     }
 
-    [NonSerialized]
-    public GameObject card;
     public Button listPrefab;
-    public static string listCardName;
+    //public static string listCardName;
     
 
     //Start 
@@ -38,7 +36,7 @@ public class DeckManager : MonoBehaviour {
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
         libCount = cardLibrary.cardList.Count;
-        deckLocation = (Application.dataPath + "/Resources/");
+        deckLocation = SaveGameLocation.getSaveGameDirectory();
 
         //Debugging, sets up deck with one copy of each card in the CardLibrary
         /*for (int i = 0; i < cardCount; i++)
@@ -77,10 +75,10 @@ public class DeckManager : MonoBehaviour {
 
         for(int i = 0;i < libCount;i++) {
             if(cardLibrary.cardList[i].GetName().Equals(name)) {
-                listCardName = cardLibrary.cardList[i].GetName();
+                //listCardName = cardLibrary.cardList[i].GetName();
                 card = (Cultist)cardLibrary.cardList[i];
                 deck.Add(card);
-                AddCardUI();
+                AddCardUI(card.GetID());
 
                 Debug.Log(deck[deck.Count - 1].GetName());
                 Debug.Log(card.GetID());
@@ -88,7 +86,7 @@ public class DeckManager : MonoBehaviour {
         }          
     }
 
-    public void AddCardUI()
+    public void AddCardUI(int id)
     {
         Vector2 spawnPos = new Vector2(0, 0);
         Button listCard = Instantiate(listPrefab, spawnPos, Quaternion.identity) as Button;
@@ -97,7 +95,7 @@ public class DeckManager : MonoBehaviour {
 
         var txt = listCard.GetComponentInChildren<Text>();
         var ident = listCard.GetComponent<CardIdentity>();
-        ident.id = cardLibrary.GetCard(DeckManager.listCardName).GetID();
+        ident.id = id;
         txt.text = ident.GetName();
 
         uiCards.Add(listCard);
@@ -177,24 +175,30 @@ public class DeckManager : MonoBehaviour {
         }
     }
 
+    public string GetDeckPath(string name)
+    {
+        return deckLocation + "/" + name + ".json";
+    }
     public void SaveDeck(string name)
     {
-        StringBuilder builder = new StringBuilder();
 
         Debug.Log(deckLocation);
 
-        for(int i = 0; i < deck.Count; i++)
+        JSONObject jsDeck = new JSONObject();
+        for (int i = 0; i < deck.Count; i++)
         {
-            builder.Append(deck[i].GetID() + ",");
+            jsDeck.Add(deck[i].GetID());
         }
+
+        JSONObject jsSave = new JSONObject();
+        jsSave["Deck"] = jsDeck;
 
         if (name.Equals(""))
             name = "deck";
 
-        File.WriteAllText(deckLocation + name + ".txt", builder.ToString());
-        builder.Remove(0, builder.Length);
+        File.WriteAllText(GetDeckPath(name), jsSave.ToString(), Encoding.UTF8);
        
-        if (File.Exists(deckLocation))
+        if (File.Exists(deckLocation + "/"))
         {
             Debug.Log("File saved");
         }
@@ -203,48 +207,29 @@ public class DeckManager : MonoBehaviour {
     //Not quite working, better though
     public void LoadDeck(string name)
     {
-        Debug.Log(deckLocation + name + ".txt");
-        if (!File.Exists(deckLocation + name + ".txt"))
+        Debug.Log(deckLocation + "/" + name + ".json");
+        if (!File.Exists(deckLocation + "/" + name + ".json"))
         {
             window = true;
             return;
         }
 
-        Cultist card;
-        StringBuilder builder = new StringBuilder();
-
+        string textFile = File.ReadAllText(GetDeckPath(name), Encoding.UTF8);
+        JSONObject jsSave = JSONParser.parse(textFile);
 
         Debug.Log(name);
-        TextAsset textFile = (TextAsset)Resources.Load(name, typeof(TextAsset));
-        Debug.Log(textFile);
-        builder.Append(textFile.text);
+        Debug.Log(jsSave);
 
-        //Uncomment to check for file content
-        Debug.Log(builder);
+        JSONObject jsDeck = jsSave["Deck"];
 
-        for (int i = 0; i < builder.Length; i++)
+        for (int i = 0; i < jsDeck.Count; i++)
         {
-            int id;
-            string addName;
+            int id = (int)jsDeck[i];
+            Card card = cardLibrary.GetCard(id);
 
-            if ((builder[i]).Equals(','))
-            {
-                addName = builder.ToString(i - 3, 3);
-                id = Int32.Parse(builder.ToString((i - 3), 3));
-                for (int j = 0; j < libCount; j++)
-                {
-                    if (cardLibrary.cardList[j].GetID() == id)
-                    {
-                        card = (Cultist)cardLibrary.cardList[j];
-                        listCardName = cardLibrary.cardList[j].GetName();
-                        AddCardUI();
-                        deck.Add(card);
-                    }
-                }
-                Debug.Log(id);
-            }
+            deck.Add(card);
+            AddCardUI(id);
         }
-        Debug.Log(deck.Count + " entries loaded");
     }
 
     public void DeleteDeck(string name)
