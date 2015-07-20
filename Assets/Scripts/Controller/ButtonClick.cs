@@ -5,9 +5,6 @@ using System.Collections;
 
 public class ButtonClick : MonoBehaviour {
 
-    public DeckManager deckManager;
-    public InputField inputField;
-
     public void LoadGame() {
         Debug.Log("game loaded");
         Application.LoadLevel("first");
@@ -35,34 +32,31 @@ public class ButtonClick : MonoBehaviour {
 
     public void Save()
     {
-        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-        inputField = GameObject.Find("deckName").GetComponent<InputField>();
+        InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
         string deckName = inputField.text;
 
-        deckManager.SaveDeck(deckName);
-        Debug.Log(deckName + "saved " + deckManager.deck.Count + " entries");
+        DeckBuilder.Get().SaveDeck(deckName);
+        Debug.Log(deckName + "saved " + DeckBuilder.Get().deck.Count + " entries");
     }
 
     public void Load()
     {
-        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-        inputField = GameObject.Find("deckName").GetComponent<InputField>();
+        InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
         string deckName = inputField.text;
         //inputField.text.Remove(0,inputField.text.Length);
         //inputField.textComponent.text = "";
 
-        deckManager.LoadDeck(deckName);
+        DeckBuilder.Get().LoadDeck(deckName);
     }
     public void Delete()
     {
-        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-        inputField = GameObject.Find("deckName").GetComponent<InputField>();
+        InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
         string deckName = inputField.text;
 
-        deckManager.DeleteDeck(deckName);
+        DeckBuilder.Get().DeleteDeck(deckName);
         Debug.Log(deckName + "deleted");
     }
 
@@ -70,10 +64,10 @@ public class ButtonClick : MonoBehaviour {
     {
         //Debug.Log("old:" + deckManager.deck.Count);
 
-        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-        inputField = GameObject.Find("deckName").GetComponent<InputField>();
+        DeckBuilder.Get();
+        InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
-        deckManager.ClearDeck();
+        DeckBuilder.Get().ClearDeck();
         //Debug.Log("new " + deckManager.deck.Count);
         Debug.Log("cleared");
     }
@@ -81,10 +75,7 @@ public class ButtonClick : MonoBehaviour {
     public void Remove()
     {
         Debug.Log(gameObject.name);
-
-        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-
-        deckManager.RemoveCard(this.GetComponent<Button>());
+        DeckBuilder.Get().RemoveCard(this.GetComponent<Button>());
 
         //Destroy(gameObject.transform.parent.gameObject);
     }

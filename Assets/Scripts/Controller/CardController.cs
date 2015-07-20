@@ -3,12 +3,12 @@ using System.Collections;
 
 public class CardController : MonoBehaviour {
 
-    public DeckManager deckManager;
+    public DeckBuilder deckManager;
 
 	// Use this for initialization
 	void Start () {
         //Don't know what the fuck I'm doing here, but works. #coding101
-        deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
+        deckManager = GameObject.Find("DeckBuilder").GetComponent<DeckBuilder>();
 	}
 	
 	// Update is called once per frame

@@ -8,7 +8,7 @@ using System.Text;
 
 [System.Serializable]
 //DeckManager, probably have to build the fucking inventory again and modify
-public class DeckManager : MonoBehaviour {
+public class DeckBuilder : MonoBehaviour {
 
     public List<Card> deck = new List<Card>();
     public List<Button> uiCards = new List<Button>();
@@ -25,6 +25,11 @@ public class DeckManager : MonoBehaviour {
     public CardLibrary cardLibrary
     {
         get { return CardLibrary.Get(); }
+    }
+
+    public static DeckBuilder Get()
+    {
+        return GameObject.Find("DeckBuilder").GetComponent<DeckBuilder>();
     }
 
     public Button listPrefab;
