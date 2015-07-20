@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.Networking;
+using System.Collections;
+using System.Collections.Generic;
+
 
 public class GameManager : NetworkBehaviour
 {
 
-    public Card card = new Card();
+    Player[] players; 
 
     [SyncVar]
     public int speed;
@@ -18,64 +20,70 @@ public class GameManager : NetworkBehaviour
     int cardID;
     string cardName;
 
-    void Awake()
-    {
-        //Debug.Log(card);
-
-        //Debug.Log(cardID);
-        //Debug.Log(cardName);
-    }
-    void Start()
-    {
-        if (isServer)
-        {
-            turnId = true;
-        }
-
-        if (!isServer)
-        {
-            turnId = false;
-        }
-
-
-
-        //DEBUGGING ONLY; checking if the turn progression script is working - Working as intended: 07/07/14, 12:40
-        /*for (int i = 0; i < 100; i++)
-        {
-            Debug.Log(state.GetCount() + "/" + state.GetTurn() + "/" + state.GetPhase());
-            state.SetState();
-        }*/
-    }
-
-    void Update()
-    {
-
-    }
-
     void OnPlayerConnected(NetworkPlayer player)
     {
         Debug.Log("Player connected from" + player.ipAddress + ":" + player.port);
     }
 
-    /*[Command]
-    public void CmdAssignTurn()
+    void Start()
     {
-        int rnd = Random.Range(0, 9);
-        bool currentTurn = false;
+        players = new Player[2]; 
 
-        Debug.Log(rnd);
-
-        if (rnd < 5)
-            currentTurn = true;
-        if (rnd >= 5)
-            currentTurn = false;
-
-        RpcAssignTurn(currentTurn);
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i] = new Player();
+        }
     }
 
-    [ClientRpc]
-    public void RpcAssignTurn(bool i)
+    public int FindPlayer(short playerId)
     {
-        turn = i;
-    }*/
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].playerId == playerId)
+                return i;
+        }
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i].playerId == -1)
+            {
+                players[i].playerId = (short)i;
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    public void AssignDeck(short playerId, string deck)
+    {
+        Debug.Log("" + playerId + " : " + FindPlayer(playerId) +  " : " + deck);
+    }
+}
+
+public class Player
+{
+    public short playerId = -1;
+    public List<Card> deck;
+    public string name;
+
+    public void FromJSON(JSONObject jsPlayer)
+    {
+        name = (string)jsPlayer["Name"];
+        deck = DeckBuilder.ParseDeck(jsPlayer["Deck"]);
+    }
+
+    public JSONObject ToJSON()
+    {
+        JSONObject jsPlayer = new JSONObject();
+        jsPlayer.AddField("Name", name);
+
+        JSONObject jsDeck = new JSONObject();
+        for (int i = 0; i < deck.Count; i++)
+        {
+            jsDeck.Add(deck[i].GetID());
+        } 
+
+        jsPlayer.AddField("Deck", jsDeck);
+
+        return jsPlayer; 
+    }
 }

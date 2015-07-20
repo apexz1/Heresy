@@ -211,14 +211,23 @@ public class DeckBuilder : MonoBehaviour {
 
         JSONObject jsDeck = jsSave["Deck"];
 
+        deck = ParseDeck(jsDeck);
+
+        CreateAllCardsUI();
+    }
+    
+    public static List<Card> ParseDeck(JSONObject jsDeck)
+    {
+        List<Card> deck = new List<Card>();
+
         for (int i = 0; i < jsDeck.Count; i++)
         {
             int id = (int)jsDeck[i];
-            Card card = cardLibrary.GetCard(id);
+            Card card = CardLibrary.Get().GetCard(id);
 
             deck.Add(card);
         }
-        CreateAllCardsUI();
+        return deck;
     }
 
     public void CreateAllCardsUI()
