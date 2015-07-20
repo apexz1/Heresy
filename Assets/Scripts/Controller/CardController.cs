@@ -3,13 +3,11 @@ using System.Collections;
 
 public class CardController : MonoBehaviour {
 
-    public CardLibrary cardLibrary;
     public DeckManager deckManager;
 
 	// Use this for initialization
 	void Start () {
         //Don't know what the fuck I'm doing here, but works. #coding101
-        cardLibrary = GameObject.Find("CardLibary").GetComponent<CardLibrary>();
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
 	}
 	

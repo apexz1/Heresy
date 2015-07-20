@@ -11,6 +11,7 @@ using System.Text;
 public class DeckManager : MonoBehaviour {
 
     public List<Card> deck = new List<Card>();
+    public List<Button> uiCards = new List<Button>();
    
     int libCount;
     int deckCount;
@@ -22,8 +23,11 @@ public class DeckManager : MonoBehaviour {
 
     private Rect rect = new Rect((Screen.width - 200)/2, (Screen.height - 50)/2, 200, 50);
     bool window;
- 
-    CardLibrary cardLibrary;
+
+    public CardLibrary cardLibrary
+    {
+        get { return CardLibrary.Get(); }
+    }
 
     [NonSerialized]
     public GameObject card;
@@ -35,7 +39,6 @@ public class DeckManager : MonoBehaviour {
     void Start()
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
-        cardLibrary = GameObject.Find("CardLibary").GetComponent<CardLibrary>();
         libCount = cardLibrary.cardList.Count;
         deckLocation = (Application.dataPath + "/Resources/");
 
@@ -93,24 +96,26 @@ public class DeckManager : MonoBehaviour {
         }          
     }
 
-    public void RemoveCard(string name)
+    public void RemoveCard(Button button)
     {
-        for (int i = 0; i < libCount; i++)
+       /* for (int i = 0; i < libCount; i++)
         {
             if (cardLibrary.cardList[i].GetName().Equals(name))
             {
                 int countStorage;
+                var card = cardLibrary.cardList[i];
+
                 Debug.Log("Entry found");
-                deck.Remove(cardLibrary.cardList[i]);
+                deck.Remove(card);
                 countStorage = deckCount -1;
                 deckCount = 0;
                 Debug.Log(deckCount);
 
-                var objects = GameObject.FindGameObjectsWithTag("Destroy");
-                foreach (GameObject o in objects)
-                {
-                    Destroy(o.gameObject);
-                }
+                //var objects = GameObject.FindGameObjectsWithTag("Destroy");
+                //foreach (GameObject o in objects)
+                //{
+                //    Destroy(card.gameObject);
+                //}
 
                 for (int j = 0; j < countStorage; j++)
                 {
@@ -124,7 +129,9 @@ public class DeckManager : MonoBehaviour {
                 deckCount = countStorage;
                 Debug.Log("Removed?");
             }
-        }
+        }*/
+
+
     }
 
     public void ClearDeck()
@@ -145,10 +152,20 @@ public class DeckManager : MonoBehaviour {
         Vector2 spawnPos = new Vector2(0, 0);
         Button listCard = Instantiate(listPrefab, spawnPos, Quaternion.identity) as Button;
 
-        listCard.transform.SetParent(GameObject.Find("List").transform, false);
-        listCard.transform.localPosition = new Vector3(0, (219 - (23* (deckCount-1))), 0);
+        listCard.transform.SetParent(GameObject.FindWithTag("ListTransform").transform, false);
+        var locPos = listCard.transform.localPosition;
+        var h = listCard.GetComponent<RectTransform>().rect.height;
+        locPos.y = -(deckCount * (h-2)) + (h/2);
 
-        listCard.transform.SetParent(GameObject.FindWithTag("ListTransform").transform, true);
+        listCard.transform.localPosition = locPos;
+
+        var txt = listCard.GetComponentInChildren<Text>();
+        //txt.text = DeckManager.listCardName;
+        var ident=listCard.GetComponent<CardIdentity>();
+        ident.id = cardLibrary.GetCard(DeckManager.listCardName).GetID();
+        txt.text = ident.GetName();
+
+        uiCards.Add(listCard);
     }
 
     public void SpawnCard() {

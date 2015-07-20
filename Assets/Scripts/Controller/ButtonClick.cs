@@ -8,11 +8,6 @@ public class ButtonClick : MonoBehaviour {
     public DeckManager deckManager;
     public InputField inputField;
 
-    public void Start()
-    {
-
-    }
-
     public void LoadGame() {
         Debug.Log("game loaded");
         Application.LoadLevel("first");
@@ -37,7 +32,6 @@ public class ButtonClick : MonoBehaviour {
         Debug.Log("game quit");
         Application.Quit();
     }
-
 
     public void Save()
     {
@@ -86,14 +80,12 @@ public class ButtonClick : MonoBehaviour {
 
     public void Remove()
     {
-        print(gameObject.name);
+        Debug.Log(gameObject.name);
 
         deckManager = GameObject.Find("DeckManager").GetComponent<DeckManager>();
-        inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
-        Text txt = gameObject.GetComponentInChildren<Text>();
-        deckManager.RemoveCard(txt.text);
+        deckManager.RemoveCard(this.GetComponent<Button>());
 
-        Destroy(gameObject.transform.parent.gameObject);
+        //Destroy(gameObject.transform.parent.gameObject);
     }
 }
