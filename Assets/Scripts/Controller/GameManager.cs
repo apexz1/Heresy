@@ -86,10 +86,15 @@ public class GameManager : MonoBehaviour
 
     public void SendPlayer(int playerIndex)
     {
-        RpcReceivePlayer(playerIndex, players[playerIndex].ToJSON().ToString());
+        if (!Network.isServer)
+        {
+            Debug.LogError("Client trying to send player");
+            return;
+        }
+        this.NetRPC("RpcReceivePlayer", RPCMode.All, playerIndex, players[playerIndex].ToJSON().ToString());
     }
 
-    //[ClientRpc]
+    [RPC]
     public void RpcReceivePlayer(int playerIndex, string player)
     {
         Debug.Log("Receive()" + playerIndex + " | " + player);
