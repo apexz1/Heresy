@@ -19,9 +19,9 @@ public class CardController : MonoBehaviour {
     void OnMouseOver() {
         
         if(Input.GetButtonDown("Fire1")) {            
-            Debug.Log(transform.parent.gameObject.name);
+            Debug.Log(transform.gameObject.name);
             //Debug.Log(cardLibrary.cardList[3].GetName());
-            string name = transform.parent.gameObject.name.Replace("(Clone)", "");
+            string name = transform.gameObject.name.Replace("(Clone)", "");
             //Debug.Log(name);
             deckManager.AddCard(name);
         }

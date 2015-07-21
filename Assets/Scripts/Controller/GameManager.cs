@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public Player[] players;
     NetworkView networkView;
-    int localPlayerId=-1;
+    public int localPlayerId=-1;
 
     public static GameManager Get()
     {
@@ -107,6 +107,20 @@ public class GameManager : MonoBehaviour
         Debug.Log("Receive()" + playerIndex + " | " + player);
         players[playerIndex].FromJSON(JSONParser.parse(player));
     }
+
+    public void DrawCard(int playerIndex)
+    {
+        var player = players[playerIndex];
+
+        if (player.playPile.Count == 0)
+            return;
+
+        var card = player.playPile[player.playPile.Count - 1];
+        player.playPile.RemoveAt(player.playPile.Count - 1);
+        player.playHand.Add(card);
+
+        SendPlayer(playerIndex);
+    }
 }
 
 public class Player
@@ -118,6 +132,7 @@ public class Player
     public List<PlayCard> playHand = new List<PlayCard>();
     public List<PlayCard> discardPile = new List<PlayCard>();
     public List<PlayCard> field = new List<PlayCard>();
+    static int globalIdx=0;
 
     public void BuildPlayPile()
     {
@@ -128,7 +143,8 @@ public class Player
 
         for (int i = 0; i < deck.Count; i++)
         {
-            playPile.Add(new PlayCard(deck[i].cardID));
+            globalIdx++;
+            playPile.Add(new PlayCard(deck[i].cardID, globalIdx));
         }
 
         playPile.Shuffle();
