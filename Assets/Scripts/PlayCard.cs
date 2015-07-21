@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayCard : CardIdentity
+public class PlayCard
 {
+    public int id;
     public int health;
     public int globalIdx;
     //public Transform cardGfx;
+
+    public string GetName()
+    {
+        return CardLibrary.Get().GetCard(id).cardName;
+    }
 
     public PlayCard(int id = -1,int idx = 0)
     {
@@ -14,7 +20,7 @@ public class PlayCard : CardIdentity
     }
     public void FromJSON(JSONObject jsCard)
     {
-        base.FromJSON(jsCard);
+        id = (int)jsCard["id"];
         globalIdx = (int)jsCard["globalIdx"];
         health = (int)jsCard["health"];
 
@@ -22,7 +28,8 @@ public class PlayCard : CardIdentity
 
     public JSONObject ToJSON()
     {
-        JSONObject jsCard = base.ToJSON();
+        JSONObject jsCard = JSONObject.obj;
+        jsCard.AddField("id", id);
         jsCard.AddField("globalIdx", globalIdx);
         jsCard.AddField("health", health);
 
