@@ -65,13 +65,14 @@ public class DeckBuilder : MonoBehaviour {
     {
         Vector2 spawnPos = new Vector2(0, 0);
         Button listCard = Instantiate(listPrefab, spawnPos, Quaternion.identity) as Button;
+        listCard.gameObject.AddComponent<CardController>();
 
         listCard.transform.SetParent(GetListTransform().transform, false);
 
         var txt = listCard.GetComponentInChildren<Text>();
         var ident = listCard.GetComponent<CardIdentity>();
         ident.id = id;
-        txt.text = ident.GetName(id);
+        txt.text = ident.GetName();
 
         uiCards.Add(listCard);
         MoveCardsUI();

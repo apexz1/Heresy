@@ -7,9 +7,14 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
 
-    Player[] players;
+    public Player[] players;
     NetworkView networkView;
     int localPlayerId=-1;
+
+    public static GameManager Get()
+    {
+        return GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 
     void OnPlayerConnected(NetworkPlayer player)
     {
@@ -108,11 +113,11 @@ public class Player
 {
     public int playerId = -1;
     public string name;
-    public List<LibraryCard> deck;
-    public List<PlayCard> playPile;
-    public List<PlayCard> playHand;
-    public List<PlayCard> discardPile;
-    public List<PlayCard> field;
+    public List<LibraryCard> deck = new List<LibraryCard>();
+    public List<PlayCard> playPile = new List<PlayCard>();
+    public List<PlayCard> playHand = new List<PlayCard>();
+    public List<PlayCard> discardPile = new List<PlayCard>();
+    public List<PlayCard> field = new List<PlayCard>();
 
     public void BuildPlayPile()
     {

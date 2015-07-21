@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        GameManager.Get();
 
         TextAsset textFile = (TextAsset)Resources.Load("default");
         JSONObject jsPlayer = JSONParser.parse(textFile.text);

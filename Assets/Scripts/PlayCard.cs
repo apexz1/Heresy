@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayCard : CardIdentity
 {
     public int health;
+    public Transform cardGfx;
 
     public PlayCard(int id = -1)
     {

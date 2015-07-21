@@ -5,7 +5,7 @@ public class CardIdentity : MonoBehaviour
 {
     public int id;
 
-    public string GetName(int id)
+    public string GetName()
     {
         return CardLibrary.Get().GetCard(id).cardName;
     }
