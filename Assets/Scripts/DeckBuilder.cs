@@ -65,7 +65,6 @@ public class DeckBuilder : MonoBehaviour {
     {
         Vector2 spawnPos = new Vector2(0, 0);
         Button listCard = Instantiate(listPrefab, spawnPos, Quaternion.identity) as Button;
-        listCard.gameObject.AddComponent<CardController>();
 
         listCard.transform.SetParent(GetListTransform().transform, false);
 
@@ -147,6 +146,9 @@ public class DeckBuilder : MonoBehaviour {
                 card = (GameObject)Resources.Load("Prefabs/" + cardLibrary.cardList[counter].cardName);
                 spawnPos = new Vector3(x-(i * 1.9f),y-(j* 2.5f), 0);
                 GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
+                cardSpawn.transform.GetChild(0).localRotation = Quaternion.EulerAngles(0, 0, 0);
+                cardSpawn.transform.GetChild(0).gameObject.AddComponent<CardController>();
+
 
                 if (counter >= (cardLibrary.cardList.Count - 1))
                 {
