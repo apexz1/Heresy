@@ -35,7 +35,7 @@ public class NetworkManager : MonoBehaviour {
         {
             GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             var initServer = Network.InitializeServer(2, port, true);
-            gameManager.StartGame();
+            gameManager.StartGame(0);
         }
     }
 

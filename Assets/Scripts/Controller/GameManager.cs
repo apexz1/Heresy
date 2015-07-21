@@ -9,11 +9,12 @@ public class GameManager : MonoBehaviour
 
     Player[] players;
     NetworkView networkView;
+    int localPlayerId=-1;
 
     void OnPlayerConnected(NetworkPlayer player)
     {
         Debug.Log("Player connected from" + player.ipAddress + ":" + player.port);
-        StartGame();
+        StartGame(0);
     }
 
     void Start()
@@ -24,21 +25,39 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             players[i] = new Player();
+            players[i].playerId = i;
         }
 
         networkView = GetComponent<NetworkView>();
     }
 
     [RPC]
-    public void StartGame()
+    public void StartGame(int playerId)
     {
         NetworkManager networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         networkManager.enabled = false;
+        localPlayerId = playerId;
 
-        networkView.RPC("StartGame", RPCMode.Others);
+        if (Network.isServer)
+        {
+            this.NetRPC("StartGame", RPCMode.Others, playerId + 1);
+        };
+        LoadDeck();
     }
 
-    public int FindPlayer(short playerId)
+    public void LoadDeck()
+    {
+        TextAsset textFile = (TextAsset)Resources.Load("default");
+        JSONObject jsPlayer = JSONParser.parse(textFile.text);
+
+        Debug.Log("start");
+
+        this.NetRPC("AssignDeck", RPCMode.Server, localPlayerId, jsPlayer["Deck"].ToString());
+    }
+
+
+
+   /* public int FindPlayer(short playerId)
     {
         for (int i = 0; i < players.Length; i++)
         {
@@ -55,14 +74,14 @@ public class GameManager : MonoBehaviour
         }
 
         return -1;
-    }
-    public void AssignDeck(short playerId, string deck)
+    }*/
+    [RPC]
+    public void AssignDeck(int playerId, string deck)
     {
-        int playerIndex = FindPlayer(playerId);
-        Debug.Log("AssignDeck()" + playerId + " : " + playerIndex +  " : " + deck);
+        Debug.Log("AssignDeck()" + playerId +  " : " + deck);
 
-        players[playerIndex].deck = DeckBuilder.ParseDeck(JSONParser.parse(deck));
-        SendPlayer(playerIndex);
+        players[playerId].deck = DeckBuilder.ParseDeck(JSONParser.parse(deck));
+        SendPlayer(playerId);
     }
 
     public void SendPlayer(int playerIndex)
@@ -80,13 +99,13 @@ public class GameManager : MonoBehaviour
 
 public class Player
 {
-    public short playerId = -1;
+    public int playerId = -1;
     public List<Card> deck;
     public string name;
 
     public void FromJSON(JSONObject jsPlayer)
     {
-        playerId = (short)jsPlayer["PlayerId"];
+        playerId = (int)jsPlayer["PlayerId"];
         name = (string)jsPlayer["Name"];
         deck = DeckBuilder.ParseDeck(jsPlayer["Deck"]);
     }
