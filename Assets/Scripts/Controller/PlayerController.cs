@@ -3,9 +3,13 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
 
-public class PlayerController : NetworkBehaviour
+public class PlayerController : MonoBehaviour
 {
     GameManager gameManager;
+    void Awake()
+    {
+        NetworkServer.SpawnObjects();
+    }
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -14,10 +18,10 @@ public class PlayerController : NetworkBehaviour
         JSONObject jsPlayer = JSONParser.parse(textFile.text);
 
         Debug.Log("start");
-        CmdAssignDeck((short)netId.Value, jsPlayer["Deck"].ToString());
+        //CmdAssignDeck((short)netId.Value, jsPlayer["Deck"].ToString());
     }
 
-    [Command]
+    //[Command]
     public void CmdAssignDeck(short playerId, string deck)
     {
         gameManager.AssignDeck(playerId, deck);

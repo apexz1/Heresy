@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 
-public class ButtonClick : MonoBehaviour {
+public class MenuButtonController : MonoBehaviour {
 
     public void LoadGame() {
         Debug.Log("game loaded");

@@ -16,7 +16,7 @@ Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.050 seconds
+- Completed reload, in  0.045 seconds
 desktop: 1920x1080 60Hz; virtual: 3600x1080 at -1680,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -24,15 +24,9 @@ desktop: 1920x1080 60Hz; virtual: 3600x1080 at -1680,0
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\System.dll (this message is harmless)
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 20ec -> priority: 1 
-  Thread -> id: 5ec -> priority: 1 
-NullReferenceException: Object reference not set to an instance of an object
-  at PlayerController.Start () [0x00000] in <filename unknown>:0 
+  Thread -> id: 1cfc -> priority: 1 
+  Thread -> id: 1e78 -> priority: 1 
+NoError
  
-(Filename:  Line: -1)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at PlayerController.Start () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
 

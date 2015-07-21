@@ -34,10 +34,6 @@ public class DeckBuilder : MonoBehaviour {
     }
 
     public Button listPrefab;
-    //public static string listCardName;
-    
-
-    //Start 
     void Start()
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
@@ -59,13 +55,12 @@ public class DeckBuilder : MonoBehaviour {
 
         for(int i = 0;i < libCount;i++) {
             if(cardLibrary.cardList[i].GetName().Equals(name)) {
-                //listCardName = cardLibrary.cardList[i].GetName();
                 card = (Cultist)cardLibrary.cardList[i];
                 deck.Add(card);
                 AddCardUI(card.GetID());
 
-                Debug.Log(deck[deck.Count - 1].GetName());
-                Debug.Log(card.GetID());
+                //Debug.Log(deck[deck.Count - 1].GetName());
+                //Debug.Log(card.GetID());
             }
         }          
     }
@@ -80,7 +75,7 @@ public class DeckBuilder : MonoBehaviour {
         var txt = listCard.GetComponentInChildren<Text>();
         var ident = listCard.GetComponent<CardIdentity>();
         ident.id = id;
-        txt.text = ident.GetName();
+        txt.text = ident.GetName(id);
 
         uiCards.Add(listCard);
         MoveCardsUI();
@@ -117,7 +112,7 @@ public class DeckBuilder : MonoBehaviour {
             }
         }
 
-        Debug.Log(cardIndex);
+        //Debug.Log(cardIndex);
 
         deck.RemoveAt(cardIndex);
         uiCards.RemoveAt(cardIndex);
@@ -171,7 +166,7 @@ public class DeckBuilder : MonoBehaviour {
     public void SaveDeck(string name)
     {
 
-        Debug.Log(deckLocation);
+        //Debug.Log(deckLocation);
 
         JSONObject jsDeck = new JSONObject();
         for (int i = 0; i < deck.Count; i++)
@@ -193,10 +188,9 @@ public class DeckBuilder : MonoBehaviour {
         }
     }
 
-    //Not quite working, better though
     public void LoadDeck(string name)
     {
-        Debug.Log(deckLocation + "/" + name + ".json");
+        //Debug.Log(deckLocation + "/" + name + ".json");
         if (!File.Exists(deckLocation + "/" + name + ".json"))
         {
             window = true;
@@ -206,8 +200,8 @@ public class DeckBuilder : MonoBehaviour {
         string textFile = File.ReadAllText(GetDeckPath(name), Encoding.UTF8);
         JSONObject jsSave = JSONParser.parse(textFile);
 
-        Debug.Log(name);
-        Debug.Log(jsSave);
+        //Debug.Log(name);
+        //Debug.Log(jsSave);
 
         JSONObject jsDeck = jsSave["Deck"];
 
