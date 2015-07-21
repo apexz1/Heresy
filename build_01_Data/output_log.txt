@@ -16,7 +16,7 @@ Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.043 seconds
+- Completed reload, in  0.104 seconds
 desktop: 1920x1080 60Hz; virtual: 3600x1080 at -1680,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -24,39 +24,5 @@ desktop: 1920x1080 60Hz; virtual: 3600x1080 at -1680,0
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\System.dll (this message is harmless)
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 1890 -> priority: 1 
-  Thread -> id: 1a64 -> priority: 1 
-NoError
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
-
-start
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
-
-Receive()0 | {
-		"Name":"",
-		"PlayerId":0,
-		"Deck":[
-				901,
-				902,
-				901,
-				900,
-				902,
-				900]}
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
-
-Receive()1 | {
-		"Name":"",
-		"PlayerId":1,
-		"Deck":[
-				901,
-				902,
-				901,
-				900,
-				902,
-				900]}
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
-
+  Thread -> id: 1584 -> priority: 1 
+  Thread -> id: 21d8 -> priority: 1 

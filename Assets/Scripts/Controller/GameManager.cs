@@ -80,7 +80,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("AssignDeck()" + playerId +  " : " + deck);
 
-        players[playerId].deck = DeckBuilder.ParseDeck(JSONParser.parse(deck));
+        players[playerId].deck = DeckBuilder.DeckFromJSON(JSONParser.parse(deck));
+        players[playerId].BuildPlayPile();
+
         SendPlayer(playerId);
     }
 
@@ -105,30 +107,76 @@ public class GameManager : MonoBehaviour
 public class Player
 {
     public int playerId = -1;
-    public List<Card> deck;
     public string name;
+    public List<LibraryCard> deck;
+    public List<PlayCard> playPile;
+    public List<PlayCard> playHand;
+    public List<PlayCard> discardPile;
+    public List<PlayCard> field;
+
+    public void BuildPlayPile()
+    {
+        playPile.Clear();
+        playHand.Clear();
+        discardPile.Clear();
+        field.Clear();
+
+        for (int i = 0; i < deck.Count; i++)
+        {
+            playPile.Add(new PlayCard(deck[i].cardID));
+        }
+
+        playPile.Shuffle();
+    }
+
 
     public void FromJSON(JSONObject jsPlayer)
     {
         playerId = (int)jsPlayer["PlayerId"];
         name = (string)jsPlayer["Name"];
-        deck = DeckBuilder.ParseDeck(jsPlayer["Deck"]);
+        deck = DeckBuilder.DeckFromJSON(jsPlayer["Deck"]);
+        playPile = PileFromJSON(jsPlayer["PlayPile"]);
+        playHand = PileFromJSON(jsPlayer["PlayHand"]);
+        discardPile = PileFromJSON(jsPlayer["DiscardPile"]);
+        field = PileFromJSON(jsPlayer["Field"]);
+
     }
 
     public JSONObject ToJSON()
     {
-        JSONObject jsPlayer = new JSONObject();
+        JSONObject jsPlayer = JSONObject.obj;
         jsPlayer.AddField("Name", name);
         jsPlayer.AddField("PlayerId", playerId);
-
-        JSONObject jsDeck = new JSONObject();
-        for (int i = 0; i < deck.Count; i++)
-        {
-            jsDeck.Add(deck[i].GetID());
-        } 
-
-        jsPlayer.AddField("Deck", jsDeck);
+        jsPlayer.AddField("Deck", DeckBuilder.DeckToJSON(deck));
+        jsPlayer.AddField("PlayPile", PileToJSON(playPile));
+        jsPlayer.AddField("PlayHand", PileToJSON(playHand));
+        jsPlayer.AddField("DiscardPile", PileToJSON(discardPile));
+        jsPlayer.AddField("Field", PileToJSON(field));
 
         return jsPlayer; 
+    }
+
+    public static JSONObject PileToJSON(List<PlayCard> pile)
+    {
+        JSONObject jsPile = JSONObject.arr;
+        for (int i = 0; i < pile.Count; i++)
+        {
+            jsPile.Add(pile[i].ToJSON());
+        }
+        return jsPile;
+    }
+
+    public static List<PlayCard> PileFromJSON(JSONObject jsPile)
+    {
+        List<PlayCard> pile = new List<PlayCard>();
+
+        for (int i = 0; i < jsPile.Count; i++)
+        {
+            PlayCard card = new PlayCard();
+            card.FromJSON(jsPile[i]);
+
+            pile.Add(card);
+        }
+        return pile;
     }
 }

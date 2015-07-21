@@ -10,7 +10,7 @@ using System.Text;
 //DeckManager, probably have to build the fucking inventory again and modify
 public class DeckBuilder : MonoBehaviour {
 
-    public List<Card> deck = new List<Card>();
+    public List<LibraryCard> deck = new List<LibraryCard>();
     public List<Button> uiCards = new List<Button>();
    
     int libCount;
@@ -48,21 +48,17 @@ public class DeckBuilder : MonoBehaviour {
 
     public void AddCard(string name) {
 
-        Cultist card;
+        LibraryCard card;
 
         if(deck.Count == maxDeckCount)
             return;
 
-        for(int i = 0;i < libCount;i++) {
-            if(cardLibrary.cardList[i].GetName().Equals(name)) {
-                card = (Cultist)cardLibrary.cardList[i];
-                deck.Add(card);
-                AddCardUI(card.GetID());
+        card = cardLibrary.GetCard(name);
+        deck.Add(card);
+        AddCardUI(card.cardID);
 
                 //Debug.Log(deck[deck.Count - 1].GetName());
                 //Debug.Log(card.GetID());
-            }
-        }          
     }
 
     public void AddCardUI(int id)
@@ -147,7 +143,7 @@ public class DeckBuilder : MonoBehaviour {
 
                 counter++;
 
-                card = (GameObject)Resources.Load("Prefabs/" + cardLibrary.cardList[counter].GetName());
+                card = (GameObject)Resources.Load("Prefabs/" + cardLibrary.cardList[counter].cardName);
                 spawnPos = new Vector3(x-(i * 1.9f),y-(j* 2.5f), 0);
                 GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
 
@@ -171,7 +167,7 @@ public class DeckBuilder : MonoBehaviour {
         JSONObject jsDeck = new JSONObject();
         for (int i = 0; i < deck.Count; i++)
         {
-            jsDeck.Add(deck[i].GetID());
+            jsDeck.Add(deck[i].cardID);
         }
 
         JSONObject jsSave = new JSONObject();
@@ -205,29 +201,39 @@ public class DeckBuilder : MonoBehaviour {
 
         JSONObject jsDeck = jsSave["Deck"];
 
-        deck = ParseDeck(jsDeck);
+        deck = DeckFromJSON(jsDeck);
 
         CreateAllCardsUI();
     }
     
-    public static List<Card> ParseDeck(JSONObject jsDeck)
+    public static List<LibraryCard> DeckFromJSON(JSONObject jsDeck)
     {
-        List<Card> deck = new List<Card>();
+        List<LibraryCard> deck = new List<LibraryCard>();
 
         for (int i = 0; i < jsDeck.Count; i++)
         {
             int id = (int)jsDeck[i];
-            Card card = CardLibrary.Get().GetCard(id);
+            LibraryCard card = CardLibrary.Get().GetCard(id);
 
             deck.Add(card);
         }
         return deck;
     }
 
+    public static JSONObject DeckToJSON(List<LibraryCard> deck)
+    {
+        JSONObject jsDeck = JSONObject.arr;
+        for (int i = 0; i < deck.Count; i++)
+        {
+            jsDeck.Add(deck[i].cardID);
+        }
+        return jsDeck;
+    }
+
     public void CreateAllCardsUI()
     {
         for (int i = 0; i < deck.Count; i++)
-            AddCardUI(deck[i].GetID());
+            AddCardUI(deck[i].cardID);
     }
 
     public void DeleteDeck(string name)
