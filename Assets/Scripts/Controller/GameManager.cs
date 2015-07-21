@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     void OnPlayerConnected(NetworkPlayer player)
     {
         Debug.Log("Player connected from" + player.ipAddress + ":" + player.port);
-        StartGame(0);
+        StartGame(0, true);
     }
 
     void Start()
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     }
 
     [RPC]
-    public void StartGame(int playerId)
+    public void StartGame(int playerId, bool network)
     {
         NetworkManager networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         networkManager.enabled = false;
@@ -45,19 +45,25 @@ public class GameManager : MonoBehaviour
 
         if (Network.isServer)
         {
-            this.NetRPC("StartGame", RPCMode.Others, playerId + 1);
+            this.NetRPC("StartGame", RPCMode.Others, playerId + 1, true);
         };
-        LoadDeck();
+
+        LoadDeck(localPlayerId);
+
+        if (network == false)
+        {
+            LoadDeck(1);
+        }
     }
 
-    public void LoadDeck()
+    public void LoadDeck(int playerIdx)
     {
         TextAsset textFile = (TextAsset)Resources.Load("default");
         JSONObject jsPlayer = JSONParser.parse(textFile.text);
 
         Debug.Log("start");
 
-        this.NetRPC("AssignDeck", RPCMode.Server, localPlayerId, jsPlayer["Deck"].ToString());
+        this.NetRPC("AssignDeck", RPCMode.Server, playerIdx, jsPlayer["Deck"].ToString());
     }
 
 
@@ -107,7 +113,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Receive()" + playerIndex + " | " + player);
         players[playerIndex].FromJSON(JSONParser.parse(player));
     }
-
+    [RPC]
     public void DrawCard(int playerIndex)
     {
         var player = players[playerIndex];
