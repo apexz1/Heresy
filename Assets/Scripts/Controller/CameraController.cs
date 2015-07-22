@@ -8,13 +8,11 @@ public class CameraController : MonoBehaviour
     Camera cam;
     Slider slider;
 
-    // Use this for initialization
     void Start()
     {
         slider = GameObject.Find("ViewSlider").GetComponent<Slider>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetAxis("Mouse ScrollWheel") < 0)

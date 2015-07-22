@@ -13,8 +13,6 @@ public class CardLibrary
         cardList.Add(new LibraryCard(900, "TestCard0", 0, 0, 0, 0, 0));
         cardList.Add(new LibraryCard(901, "TestCard1", 0, 0, 0, 0, 0));
         cardList.Add(new LibraryCard(902, "TestCard2", 0, 0, 0, 0, 0));
-
-        //Debug.Log(GetCard(901).GetName());
     }
 
     public static CardLibrary Get()

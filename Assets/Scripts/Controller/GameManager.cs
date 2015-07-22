@@ -4,31 +4,26 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
     public Player[] players;
     NetworkView networkView;
-    public int localPlayerId=-1;
+    public int localPlayerId = -1;
 
-    public static GameManager Get()
-    {
+    public static GameManager Get() {
         return GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    void OnPlayerConnected(NetworkPlayer player)
-    {
+    void OnPlayerConnected( NetworkPlayer player ) {
         Debug.Log("Player connected from" + player.ipAddress + ":" + player.port);
         StartGame(0, true);
     }
 
-    void Start()
-    {
+    void Start() {
         //Debug.Log(isServer + " | " + isClient + " | " + isLocalPlayer);
-        players = new Player[2]; 
+        players = new Player[2];
 
-        for (int i = 0; i < players.Length; i++)
-        {
+        for(int i = 0;i < players.Length;i++) {
             players[i] = new Player();
             players[i].playerId = i;
         }
@@ -37,27 +32,23 @@ public class GameManager : MonoBehaviour
     }
 
     [RPC]
-    public void StartGame(int playerId, bool network)
-    {
+    public void StartGame( int playerId, bool network ) {
         NetworkManager networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         networkManager.enabled = false;
         localPlayerId = playerId;
 
-        if (Network.isServer)
-        {
+        if(Network.isServer) {
             this.NetRPC("StartGame", RPCMode.Others, playerId + 1, true);
-        };
+        }
 
         LoadDeck(localPlayerId);
 
-        if (network == false)
-        {
+        if(network == false) {
             LoadDeck(1);
         }
     }
 
-    public void LoadDeck(int playerIdx)
-    {
+    public void LoadDeck( int playerIdx ) {
         TextAsset textFile = (TextAsset)Resources.Load("default");
         JSONObject jsPlayer = JSONParser.parse(textFile.text);
 
@@ -68,28 +59,28 @@ public class GameManager : MonoBehaviour
 
 
 
-   /* public int FindPlayer(short playerId)
-    {
-        for (int i = 0; i < players.Length; i++)
-        {
-            if (players[i].playerId == playerId)
-                return i;
-        }
-        for (int i = 0; i < players.Length; i++)
-        {
-            if (players[i].playerId == -1)
-            {
-                players[i].playerId = (short)i;
-                return i;
-            }
-        }
+    /* public int FindPlayer(short playerId)
+     {
+         for (int i = 0; i < players.Length; i++)
+         {
+             if (players[i].playerId == playerId)
+                 return i;
+         }
+         for (int i = 0; i < players.Length; i++)
+         {
+             if (players[i].playerId == -1)
+             {
+                 players[i].playerId = (short)i;
+                 return i;
+             }
+         }
 
-        return -1;
-    }*/
+         return -1;
+     }*/
+
     [RPC]
-    public void AssignDeck(int playerId, string deck)
-    {
-        Debug.Log("AssignDeck()" + playerId +  " : " + deck);
+    public void AssignDeck( int playerId, string deck ) {
+        Debug.Log("AssignDeck()" + playerId + " : " + deck);
 
         players[playerId].deck = DeckBuilder.DeckFromJSON(JSONParser.parse(deck));
         players[playerId].BuildPlayPile();
@@ -97,28 +88,25 @@ public class GameManager : MonoBehaviour
         SendPlayer(playerId);
     }
 
-    public void SendPlayer(int playerIndex)
-    {
-        if (!Network.isServer)
-        {
+    public void SendPlayer( int playerIndex ) {
+        if(!Network.isServer) {
             Debug.LogError("Client trying to send player");
             return;
         }
-        this.NetRPC("RpcReceivePlayer", RPCMode.All, playerIndex, players[playerIndex].ToJSON().ToString());
+        this.NetRPC("ReceivePlayer", RPCMode.All, playerIndex, players[playerIndex].ToJSON().ToString());
     }
 
     [RPC]
-    public void RpcReceivePlayer(int playerIndex, string player)
-    {
+    public void ReceivePlayer( int playerIndex, string player ) {
         Debug.Log("Receive()" + playerIndex + " | " + player);
         players[playerIndex].FromJSON(JSONParser.parse(player));
     }
+
     [RPC]
-    public void DrawCard(int playerIndex)
-    {
+    public void DrawCard( int playerIndex ) {
         var player = players[playerIndex];
 
-        if (player.playPile.Count == 0)
+        if(player.playPile.Count == 0)
             return;
 
         var card = player.playPile[player.playPile.Count - 1];
@@ -127,10 +115,18 @@ public class GameManager : MonoBehaviour
 
         SendPlayer(playerIndex);
     }
+    /*
+    [RPC]
+    public void EndTurn(int playerIndex) {
+
+
+
+        SendPlayer(playerIndex);
+    }*/
+
 }
 
-public class Player
-{
+public class Player {
     public int playerId = -1;
     public string name;
     public List<LibraryCard> deck = new List<LibraryCard>();
@@ -138,17 +134,15 @@ public class Player
     public List<PlayCard> playHand = new List<PlayCard>();
     public List<PlayCard> discardPile = new List<PlayCard>();
     public List<PlayCard> field = new List<PlayCard>();
-    static int globalIdx=0;
+    static int globalIdx = 0;
 
-    public void BuildPlayPile()
-    {
+    public void BuildPlayPile() {
         playPile.Clear();
         playHand.Clear();
         discardPile.Clear();
         field.Clear();
 
-        for (int i = 0; i < deck.Count; i++)
-        {
+        for(int i = 0;i < deck.Count;i++) {
             globalIdx++;
             playPile.Add(new PlayCard(deck[i].cardID, globalIdx));
         }
@@ -157,8 +151,7 @@ public class Player
     }
 
 
-    public void FromJSON(JSONObject jsPlayer)
-    {
+    public void FromJSON( JSONObject jsPlayer ) {
         playerId = (int)jsPlayer["PlayerId"];
         name = (string)jsPlayer["Name"];
         deck = DeckBuilder.DeckFromJSON(jsPlayer["Deck"]);
@@ -169,8 +162,7 @@ public class Player
 
     }
 
-    public JSONObject ToJSON()
-    {
+    public JSONObject ToJSON() {
         JSONObject jsPlayer = JSONObject.obj;
         jsPlayer.AddField("Name", name);
         jsPlayer.AddField("PlayerId", playerId);
@@ -180,25 +172,21 @@ public class Player
         jsPlayer.AddField("DiscardPile", PileToJSON(discardPile));
         jsPlayer.AddField("Field", PileToJSON(field));
 
-        return jsPlayer; 
+        return jsPlayer;
     }
 
-    public static JSONObject PileToJSON(List<PlayCard> pile)
-    {
+    public static JSONObject PileToJSON( List<PlayCard> pile ) {
         JSONObject jsPile = JSONObject.arr;
-        for (int i = 0; i < pile.Count; i++)
-        {
+        for(int i = 0;i < pile.Count;i++) {
             jsPile.Add(pile[i].ToJSON());
         }
         return jsPile;
     }
 
-    public static List<PlayCard> PileFromJSON(JSONObject jsPile)
-    {
+    public static List<PlayCard> PileFromJSON( JSONObject jsPile ) {
         List<PlayCard> pile = new List<PlayCard>();
 
-        for (int i = 0; i < jsPile.Count; i++)
-        {
+        for(int i = 0;i < jsPile.Count;i++) {
             PlayCard card = new PlayCard();
             card.FromJSON(jsPile[i]);
 
