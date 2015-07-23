@@ -115,14 +115,13 @@ public class GameManager : MonoBehaviour {
 
         SendPlayer(playerIndex);
     }
-    /*
+
     [RPC]
     public void EndTurn(int playerIndex) {
 
-
-
+        localPlayerId = localPlayerId == 0 ? 1 : 0;
         SendPlayer(playerIndex);
-    }*/
+    }
 
 }
 

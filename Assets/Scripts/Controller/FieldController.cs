@@ -81,5 +81,9 @@ public class FieldController : MonoBehaviour {
         {
             GameManager.Get().NetRPC("DrawCard", RPCMode.Server, playerId);
         }
+        if (GUI.Button (new Rect(0,200,90,25), "End Turn"))
+        {
+            GameManager.Get().NetRPC("EndTurn", RPCMode.All, playerId);
+        }
     }
 }
