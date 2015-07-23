@@ -4,8 +4,9 @@ using System.Collections;
 public class PlayCardController : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+    {
+        //GameManager.Get().AssignTexture();
 	}
 	
 	// Update is called once per frame

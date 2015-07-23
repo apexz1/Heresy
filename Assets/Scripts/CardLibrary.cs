@@ -10,9 +10,9 @@ public class CardLibrary
 
     void Init()
     {
-        cardList.Add(new LibraryCard(900, "TestCard0", 0, 0, 0, 0, 0));
-        cardList.Add(new LibraryCard(901, "TestCard1", 0, 0, 0, 0, 0));
-        cardList.Add(new LibraryCard(902, "TestCard2", 0, 0, 0, 0, 0));
+        cardList.Add(new LibraryCard(900, null, "TestCard0", 0, 0, 0, 0, 0));
+        cardList.Add(new LibraryCard(901, null, "TestCard1", 0, 0, 0, 0, 0));
+        cardList.Add(new LibraryCard(902, null, "TestCard2", 0, 0, 0, 0, 0));
     }
 
     public static CardLibrary Get()

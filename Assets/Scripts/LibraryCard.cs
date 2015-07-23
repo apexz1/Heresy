@@ -5,6 +5,7 @@ using System.Collections;
 public class LibraryCard
 {
     public int cardID = 0;
+    public Texture2D texture;
     public string cardName = "";
     public int cult = 0;
     public int costs = 0;
@@ -16,11 +17,12 @@ public class LibraryCard
         this.cardID = -1;
     }
 
-     public LibraryCard(int cardID, string cardName, int cult, int costs,
+     public LibraryCard(int cardID, Texture2D texture, string cardName, int cult, int costs,
          int attack, int health, int effectID)
      {
 
          this.cardID = cardID;
+         this.texture = null;
          this.cardName = cardName;
 
          this.cult = cult;

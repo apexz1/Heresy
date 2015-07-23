@@ -13,7 +13,12 @@ public class PlayCard
         return CardLibrary.Get().GetCard(id).cardName;
     }
 
-    public PlayCard(int id = -1,int idx = 0)
+    public Texture2D GetTexture()
+    {
+        return CardLibrary.Get().GetCard(id).texture;
+    }
+
+    public PlayCard(int id = -1, int idx = 0)
     {
         this.id = id;
         this.globalIdx = idx;
