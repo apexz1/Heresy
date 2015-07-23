@@ -83,7 +83,7 @@ public class FieldController : MonoBehaviour {
         }
         if (GUI.Button (new Rect(0,200,90,25), "End Turn"))
         {
-            GameManager.Get().NetRPC("EndTurn", RPCMode.All, playerId);
+            GameManager.Get().NetRPC("EndTurn", RPCMode.Server, playerId);
         }
     }
 }
