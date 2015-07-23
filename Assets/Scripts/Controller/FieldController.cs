@@ -88,7 +88,10 @@ public class FieldController : MonoBehaviour {
         //Test
         if (GUI.Button (new Rect(0,200,90,25), "End Turn"))
         {
+            if (GameManager.Get().turn)
+            {
                 GameManager.Get().NetRPC("EndTurn", RPCMode.All, playerId);
+            }
         }
     }
 }

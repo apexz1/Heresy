@@ -16,7 +16,7 @@ Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.046 seconds
+- Completed reload, in  0.045 seconds
 desktop: 1920x1080 60Hz; virtual: 3600x1080 at -1680,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -24,13 +24,9 @@ desktop: 1920x1080 60Hz; virtual: 3600x1080 at -1680,0
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\System.dll (this message is harmless)
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 1f48 -> priority: 1 
-  Thread -> id: 1cec -> priority: 1 
-NoError
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
-
-Player connected from127.0.0.1:58025
+  Thread -> id: 1558 -> priority: 1 
+  Thread -> id: 1014 -> priority: 1 
+True
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
 
@@ -108,12 +104,40 @@ Receive()0 | {
 				900],
 		"PlayPile":[
 				{
-						"id":901,
-						"globalIdx":1,
+						"id":902,
+						"globalIdx":5,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":28,
 						"health":0},
 				{
 						"id":901,
-						"globalIdx":27,
+						"globalIdx":15,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":10,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":24,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":26,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":25,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":14,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":11,
 						"health":0},
 				{
 						"id":901,
@@ -125,83 +149,19 @@ Receive()0 | {
 						"health":0},
 				{
 						"id":900,
-						"globalIdx":22,
-						"health":0},
-				{
-						"id":900,
 						"globalIdx":6,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":18,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":5,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":30,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":25,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":28,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":13,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":8,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":2,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":11,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":26,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":20,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":12,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":10,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":15,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":21,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":24,
 						"health":0},
 				{
 						"id":902,
 						"globalIdx":29,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":27,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":20,
 						"health":0},
 				{
 						"id":901,
@@ -213,23 +173,63 @@ Receive()0 | {
 						"health":0},
 				{
 						"id":900,
+						"globalIdx":12,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":1,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":21,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":18,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":8,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":13,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":2,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":30,
+						"health":0},
+				{
+						"id":900,
 						"globalIdx":4,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":23,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":17,
 						"health":0},
 				{
 						"id":901,
 						"globalIdx":9,
 						"health":0},
 				{
-						"id":902,
-						"globalIdx":14,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":17,
+						"id":900,
+						"globalIdx":22,
 						"health":0}],
 		"PlayHand":null,
 		"DiscardPile":null,
 		"Field":null}
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+start
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
 
@@ -308,23 +308,59 @@ Receive()1 | {
 						"health":0},
 				{
 						"id":902,
-						"globalIdx":35,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":32,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":51,
+						"globalIdx":50,
 						"health":0},
 				{
 						"id":902,
 						"globalIdx":47,
 						"health":0},
 				{
+						"id":902,
+						"globalIdx":59,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":48,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":55,
+						"health":0},
+				{
 						"id":901,
 						"globalIdx":31,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":32,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":36,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":45,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":46,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":43,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":49,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":57,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":38,
 						"health":0},
 				{
 						"id":902,
@@ -336,55 +372,19 @@ Receive()1 | {
 						"health":0},
 				{
 						"id":901,
-						"globalIdx":43,
+						"globalIdx":51,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":58,
 						"health":0},
 				{
 						"id":902,
 						"globalIdx":53,
 						"health":0},
 				{
-						"id":900,
-						"globalIdx":36,
-						"health":0},
-				{
 						"id":902,
 						"globalIdx":44,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":57,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":40,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":59,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":41,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":46,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":39,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":52,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":38,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":54,
 						"health":0},
 				{
 						"id":900,
@@ -392,35 +392,35 @@ Receive()1 | {
 						"health":0},
 				{
 						"id":901,
-						"globalIdx":45,
+						"globalIdx":33,
 						"health":0},
 				{
 						"id":902,
-						"globalIdx":50,
+						"globalIdx":41,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":35,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":40,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":54,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":52,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":39,
 						"health":0},
 				{
 						"id":900,
 						"globalIdx":60,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":55,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":58,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":49,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":48,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":33,
 						"health":0}],
 		"PlayHand":null,
 		"DiscardPile":null,
@@ -464,12 +464,40 @@ Receive()0 | {
 				900],
 		"PlayPile":[
 				{
-						"id":901,
-						"globalIdx":1,
+						"id":902,
+						"globalIdx":5,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":28,
 						"health":0},
 				{
 						"id":901,
-						"globalIdx":27,
+						"globalIdx":15,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":10,
+						"health":0},
+				{
+						"id":900,
+						"globalIdx":24,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":26,
+						"health":0},
+				{
+						"id":901,
+						"globalIdx":25,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":14,
+						"health":0},
+				{
+						"id":902,
+						"globalIdx":11,
 						"health":0},
 				{
 						"id":901,
@@ -481,244 +509,19 @@ Receive()0 | {
 						"health":0},
 				{
 						"id":900,
-						"globalIdx":22,
-						"health":0},
-				{
-						"id":900,
 						"globalIdx":6,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":18,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":5,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":30,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":25,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":28,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":13,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":8,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":2,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":11,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":26,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":20,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":12,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":10,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":15,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":21,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":24,
 						"health":0},
 				{
 						"id":902,
 						"globalIdx":29,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":19,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":16,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":4,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":9,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":14,
-						"health":0}],
-		"PlayHand":[
-				{
-						"id":902,
-						"globalIdx":17,
-						"health":0}],
-		"DiscardPile":null,
-		"Field":null}
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
-
-Receive()0 | {
-		"Name":"",
-		"PlayerId":0,
-		"Deck":[
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900],
-		"PlayPile":[
-				{
-						"id":901,
-						"globalIdx":1,
 						"health":0},
 				{
 						"id":901,
 						"globalIdx":27,
 						"health":0},
 				{
-						"id":901,
-						"globalIdx":7,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":3,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":22,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":6,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":18,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":5,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":30,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":25,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":28,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":13,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":8,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":2,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":11,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":26,
-						"health":0},
-				{
 						"id":902,
 						"globalIdx":20,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":12,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":10,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":15,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":21,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":24,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":29,
 						"health":0},
 				{
 						"id":901,
@@ -730,84 +533,15 @@ Receive()0 | {
 						"health":0},
 				{
 						"id":900,
-						"globalIdx":4,
+						"globalIdx":12,
 						"health":0},
-				{
-						"id":901,
-						"globalIdx":9,
-						"health":0}],
-		"PlayHand":[
-				{
-						"id":902,
-						"globalIdx":17,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":14,
-						"health":0}],
-		"DiscardPile":null,
-		"Field":null}
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
-
-Receive()0 | {
-		"Name":"",
-		"PlayerId":0,
-		"Deck":[
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900],
-		"PlayPile":[
 				{
 						"id":901,
 						"globalIdx":1,
 						"health":0},
 				{
 						"id":901,
-						"globalIdx":27,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":7,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":3,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":22,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":6,
+						"globalIdx":21,
 						"health":0},
 				{
 						"id":900,
@@ -815,19 +549,7 @@ Receive()0 | {
 						"health":0},
 				{
 						"id":902,
-						"globalIdx":5,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":30,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":25,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":28,
+						"globalIdx":8,
 						"health":0},
 				{
 						"id":901,
@@ -835,237 +557,32 @@ Receive()0 | {
 						"health":0},
 				{
 						"id":902,
-						"globalIdx":8,
-						"health":0},
-				{
-						"id":902,
 						"globalIdx":2,
 						"health":0},
 				{
-						"id":902,
-						"globalIdx":11,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":26,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":20,
-						"health":0},
-				{
 						"id":900,
-						"globalIdx":12,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":10,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":15,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":21,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":24,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":29,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":19,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":16,
+						"globalIdx":30,
 						"health":0},
 				{
 						"id":900,
 						"globalIdx":4,
 						"health":0},
 				{
-						"id":901,
-						"globalIdx":9,
-						"health":0}],
-		"PlayHand":[
+						"id":902,
+						"globalIdx":23,
+						"health":0},
 				{
 						"id":902,
 						"globalIdx":17,
 						"health":0},
 				{
-						"id":902,
-						"globalIdx":14,
+						"id":901,
+						"globalIdx":9,
 						"health":0}],
-		"DiscardPile":null,
-		"Field":null}
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
-
-Receive()0 | {
-		"Name":"",
-		"PlayerId":0,
-		"Deck":[
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900,
-				901,
-				902,
-				901,
-				900,
-				902,
-				900],
-		"PlayPile":[
-				{
-						"id":901,
-						"globalIdx":1,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":27,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":7,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":3,
-						"health":0},
+		"PlayHand":[
 				{
 						"id":900,
 						"globalIdx":22,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":6,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":18,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":5,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":30,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":25,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":28,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":13,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":8,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":2,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":11,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":26,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":20,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":12,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":10,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":15,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":21,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":24,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":29,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":19,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":16,
-						"health":0},
-				{
-						"id":900,
-						"globalIdx":4,
-						"health":0}],
-		"PlayHand":[
-				{
-						"id":902,
-						"globalIdx":17,
-						"health":0},
-				{
-						"id":902,
-						"globalIdx":14,
-						"health":0},
-				{
-						"id":901,
-						"globalIdx":9,
 						"health":0}],
 		"DiscardPile":null,
 		"Field":null}
