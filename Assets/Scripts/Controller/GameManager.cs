@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public Player[] players;
     NetworkView networkView;
     public int localPlayerId = -1;
+    public bool turn = false;
 
     public static GameManager Get() {
         return GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -36,10 +37,13 @@ public class GameManager : MonoBehaviour {
         NetworkManager networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         networkManager.enabled = false;
         localPlayerId = playerId;
+        turn = false;
 
         if(Network.isServer) {
             this.NetRPC("StartGame", RPCMode.Others, playerId + 1, true);
+            turn = true;
         }
+        Debug.Log(turn);
 
         LoadDeck(localPlayerId);
 
@@ -117,12 +121,12 @@ public class GameManager : MonoBehaviour {
     }
 
     [RPC]
-    public void EndTurn(int playerIndex) {
-
-        localPlayerId = localPlayerId == 0 ? 1 : 0;
+    public void EndTurn(int playerIndex)
+    {
+        turn = !turn;
+        Debug.Log(turn);
         SendPlayer(playerIndex);
     }
-
 }
 
 public class Player {
