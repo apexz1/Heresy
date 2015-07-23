@@ -82,7 +82,10 @@ public class FieldController : MonoBehaviour {
         }
         if (GUI.Button (new Rect(60,0,60,25), "Draw"))
         {
+            if (GameManager.Get().turn)
+            {
                 GameManager.Get().NetRPC("DrawCard", RPCMode.Server, playerId);
+            }
         }
 
         //Test
