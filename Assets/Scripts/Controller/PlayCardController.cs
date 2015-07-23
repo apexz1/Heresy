@@ -25,7 +25,10 @@ public class PlayCardController : MonoBehaviour {
             if (parentObj.name == "Hand")
             {
                 {
-                    Debug.Log("card found in hand: " + transform.gameObject);
+                    if(GameManager.Get().turn)
+                    {
+                        Debug.Log("card found in hand: " + transform.gameObject);
+                    }
                 }
             }
         }
