@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using System.IO;
 using System.Collections.Generic;
 
 
 public class GameManager : MonoBehaviour {
 
     public Player[] players;
+    public List<Texture2D> materials = new List<Texture2D>();
+     
+
     NetworkView networkView;
     public int localPlayerId = -1;
     public bool turn = false;
@@ -30,6 +34,8 @@ public class GameManager : MonoBehaviour {
         }
 
         networkView = GetComponent<NetworkView>();
+
+        LoadMaterials("D:/ProtoTest/Images/");
     }
 
     [RPC]
@@ -126,6 +132,36 @@ public class GameManager : MonoBehaviour {
         turn = !turn;
         Debug.Log(turn);
         SendPlayer(playerIndex);
+    }
+
+    public Texture2D LoadImage( string filePath ) {
+
+        Texture2D tex = new Texture2D(2, 2);
+        byte[] fileData;
+
+        if(File.Exists(filePath)) {
+            fileData = File.ReadAllBytes(filePath);            
+            tex.LoadImage(fileData); //..this will auto-resize the texture dimensions.
+        }
+        Debug.Log(tex.ToString());
+        return tex;
+    }
+
+    public void LoadMaterials(string filePath) {
+
+        Renderer rend = GetComponent<Renderer>();
+        string[] fileArray = Directory.GetFiles(filePath);
+
+
+        for(int i = 0;i < fileArray.Length;i++) {
+            Texture2D tex = LoadImage(fileArray[i]);
+            Debug.Log(fileArray[i].ToString());
+            rend.material.mainTexture = tex;
+        }
+    }
+
+    public void ApplyMaterials( Texture2D tex ) {
+
     }
 }
 
