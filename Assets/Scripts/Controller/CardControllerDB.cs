@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CardController : MonoBehaviour {
+public class CardControllerDB : MonoBehaviour {
 
     public DeckBuilder deckManager;
 
@@ -11,11 +11,13 @@ public class CardController : MonoBehaviour {
 	}
 
     void OnMouseOver() {
-        
+
+        Debug.Log("card found");
+
         if(Input.GetButtonDown("Fire1")) {            
-            Debug.Log(transform.gameObject.name);
             //Debug.Log(cardLibrary.cardList[3].GetName());
             string name = transform.gameObject.name.Replace("(Clone)", "");
+            Debug.Log(name);
             //Debug.Log(name);
             deckManager.AddCard(name);
         }

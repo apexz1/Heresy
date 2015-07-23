@@ -6,13 +6,14 @@ public class FieldController : MonoBehaviour {
 
     public int playerId;
     public Dictionary<int, Transform> cardGfxs=new Dictionary<int,Transform>();
+    public Camera cam;
 
     public void Awake()
     {
         if (gameObject.name == "BottomField")
         {
             playerId = 0;
-        }   
+        }
         else
         {
             playerId = 1;
@@ -43,8 +44,9 @@ public class FieldController : MonoBehaviour {
             gfx = cardObject.transform;
             gfx.SetParent(transform.Find("PlayPile"), false);
 
-            gfx.localPosition = new Vector3(0, 0.05f * i, 0);
+            gfx.localPosition = new Vector3(0, 0.01f * i, 0);
             gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, Mathf.PI, 0);
+            cardObject.transform.gameObject.AddComponent<PlayCardController>();
             cardGfxs[card.globalIdx] = gfx;
         }
 
