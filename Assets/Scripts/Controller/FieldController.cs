@@ -40,13 +40,14 @@ public class FieldController : MonoBehaviour {
                 continue;
             }
 
-            var cardObject = Instantiate((GameObject)Resources.Load("Prefabs/" + card.GetName()));
+            var cardObject = Instantiate((GameObject)Resources.Load("Prefabs/TestCard"));
             gfx = cardObject.transform;
             gfx.SetParent(transform.Find("PlayPile"), false);
 
             MeshRenderer rend = gfx.GetChild(0).gameObject.GetComponent<MeshRenderer>();
             //Debug.Log("Card Texture: " + card.GetTexture().ToString());
             rend.material.mainTexture = card.GetTexture();
+            Debug.Log(card.id);
             gfx.localPosition = new Vector3(0, 0.01f * i, 0);
             gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, Mathf.PI, 0);
             cardObject.transform.gameObject.AddComponent<PlayCardController>();
