@@ -124,6 +124,15 @@ public class GameManager : MonoBehaviour {
 
         SendPlayer(playerIndex);
     }
+    /*public void PlayCard(int playerIndex, PlayCard card)
+    {
+        var player = players[playerIndex];
+
+        player.playHand.RemoveAt(player.playHand.Count - 1);
+        player.field.Add(card);
+
+        SendPlayer(playerIndex);
+    }*/
 
     [RPC]
     public void EndTurn(int playerIndex)
@@ -149,7 +158,6 @@ public class GameManager : MonoBehaviour {
     public void LoadTextures(string filePath) {
 
         string[] fileArray = Directory.GetFiles(filePath);
-
 
         for(int i = 0; i < fileArray.Length;i++) {
             Texture2D tex = LoadImage(fileArray[i]);

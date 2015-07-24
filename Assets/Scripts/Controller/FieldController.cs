@@ -40,7 +40,7 @@ public class FieldController : MonoBehaviour {
                 continue;
             }
 
-            var cardObject = Instantiate((GameObject)Resources.Load("Prefabs/TestCard"));
+            var cardObject = Instantiate((GameObject)Resources.Load("Prefabs/PlayCard"));
             gfx = cardObject.transform;
             gfx.SetParent(transform.Find("PlayPile"), false);
 
@@ -61,7 +61,9 @@ public class FieldController : MonoBehaviour {
 
             gfx.SetParent(transform.Find("Hand"), false);
             gfx.localPosition = new Vector3(i * 2.5f, 0, 0);
-            gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), Mathf.PI, 0);
+
+            if (isOwn())
+                gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), Mathf.PI, 0);
         }
     }
 
@@ -81,7 +83,7 @@ public class FieldController : MonoBehaviour {
         if (GUI.Button (new Rect(0,0,60,25), "Swap:" + playerId))
         {
             GameManager.Get().localPlayerId = GameManager.Get().localPlayerId == 0 ? 1:0;
-            GameManager.Get().turn = !GameManager.Get().turn;
+            //GameManager.Get().turn = !GameManager.Get().turn;
             Debug.Log(GameManager.Get().turn);
         }
         if (GUI.Button (new Rect(60,0,60,25), "Draw"))

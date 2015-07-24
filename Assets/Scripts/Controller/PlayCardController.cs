@@ -22,6 +22,7 @@ public class PlayCardController : MonoBehaviour {
         if (Input.GetButtonDown("Fire1"))
         {
             parentObj = gameObject.transform.parent.gameObject;
+            
 
             if (parentObj.name == "Hand")
             {
