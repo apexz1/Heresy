@@ -25,6 +25,11 @@ public class PlayCard
         this.globalIdx = idx;
         this.pos = 0;
     }
+
+    public void InitLibrary()
+    {
+        this.health = CardLibrary.Get().GetCard(id).health;
+    }
     public void FromJSON(JSONObject jsCard)
     {
         id = (int)jsCard["id"];

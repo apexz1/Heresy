@@ -353,7 +353,10 @@ public class Player {
 
         for(int i = 0;i < deck.Count;i++) {
             globalIdx++;
-            playPile.Add(new PlayCard(deck[i].cardID, globalIdx));
+
+            PlayCard playCard = new PlayCard(deck[i].cardID, globalIdx);
+            playCard.InitLibrary();
+            playPile.Add(playCard);
         }
 
         playPile.Shuffle();

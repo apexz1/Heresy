@@ -67,6 +67,7 @@ public class FieldController : MonoBehaviour {
 
             gfx.SetParent(transform.Find("Hand"), false);
             gfx.localPosition = new Vector3(i * 2.5f, 0, 0);
+            ShowStats(controller, card);
 
             if (isOwn())
                 gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
@@ -82,9 +83,9 @@ public class FieldController : MonoBehaviour {
             Transform fieldTransform = transform.Find("Field");
 
             gfx.SetParent(fieldTransform, false);
-
             Vector3 cardPos = fieldTransform.FindChild("" + card.pos).localPosition;
             gfx.localPosition = cardPos;
+            ShowStats(controller, card);
     
             if (controller.pile != PlayCardController.Pile.field)
             {
@@ -115,6 +116,27 @@ public class FieldController : MonoBehaviour {
             }
 
             controller.pile = PlayCardController.Pile.discard;
+        }
+    }
+
+    public void ShowStats(PlayCardController pcc, PlayCard playCard)
+    {
+        var libCard = CardLibrary.Get().GetCard(playCard.id);
+
+        if (libCard.health > 0)
+        {
+            var transHealth = pcc.transform.FindChild("Health");
+            var healthText = transHealth.GetComponent<TextMesh>();
+            healthText.text = "" + playCard.health;
+            transHealth.gameObject.SetActive(true);
+        }
+
+        if (libCard.attack > 0)
+        {
+            var transAttack = pcc.transform.FindChild("Attack");
+            var attackText = transAttack.GetComponent<TextMesh>();
+            attackText.text = "" + libCard.attack;
+            transAttack.gameObject.SetActive(true);
         }
     }
 
