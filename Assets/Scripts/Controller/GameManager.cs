@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour {
         if(network == false) {
             LoadDeck(1);
 
+            //Automated opponent opening
             DrawCard(1);
             DrawCard(1);
             DrawCard(1);
@@ -73,6 +74,21 @@ public class GameManager : MonoBehaviour {
             PlayFromHand(1, players[1].playHand[0].globalIdx, 2);
 
             MoveOnField(1, players[1].field[0].globalIdx, 5);
+
+            //Automated player opening
+            DrawCard(0);
+            DrawCard(0);
+            DrawCard(0);
+            DrawCard(0);
+            DrawCard(0);
+            DrawCard(0);
+            DrawCard(0);
+
+            PlayFromHand(0, players[0].playHand[0].globalIdx, 0);
+            PlayFromHand(0, players[0].playHand[0].globalIdx, 1);
+            PlayFromHand(0, players[0].playHand[0].globalIdx, 2);
+
+            MoveOnField(0, players[0].field[0].globalIdx, 5);
         }
     }
 
@@ -205,6 +221,48 @@ public class GameManager : MonoBehaviour {
 
         SendPlayer(playerIndex);
     }
+    [RPC]
+    public void ActionFoF(int playerIndex, int cardIndex, int oppCardIndex)
+    {
+        var player = players[playerIndex];
+        var opponent = players[(playerIndex+1)%2];
+        int fieldIndex = player.FindCardField(cardIndex);
+        int oppFieldIndex = opponent.FindCardField(oppCardIndex);
+
+        Debug.Log(fieldIndex);
+
+        if (fieldIndex == -1)
+        {
+            Debug.LogError("Card not found");
+            return;
+        }
+        if (oppFieldIndex == -1)
+        {
+            Debug.LogError("Target invalid");
+            return;
+        }
+
+        var card = player.field[fieldIndex];
+
+        var libCard = CardLibrary.Get().GetCard(card.id);
+        var oppCard = opponent.field[oppFieldIndex];
+
+        if(libCard.attack == 0)
+        {
+            Debug.Log("No attack value assigned");
+            return;
+        }
+
+        oppCard.health -= libCard.attack;
+
+        if (oppCard.health <= 0)
+        {
+            DiscardCard(opponent.playerId, oppCard.globalIdx);
+        }
+
+        SendPlayer(opponent.playerId);
+    }
+
     [RPC]
     public void MoveOnField(int playerIndex, int cardIndex, int slotIndex)
     {

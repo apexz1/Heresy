@@ -27,16 +27,20 @@ public class PlayCardController : MonoBehaviour {
 	
 	}
 
-    public FieldController GetFieldController()
+    public FieldController GetFieldControllerCard()
     {
         return GetComponentInParent<FieldController>();
+    }
+    public FieldController GetFieldControllerLocal()
+    {
+        return FieldController.GetFieldControler(GameManager.Get().localPlayerId);
     }
 
     void OnMouseOver()
     {
-        var fieldController = GetFieldController();
-        int playerId = GameManager.Get().localPlayerId;
         GameObject parentObj = gameObject.transform.parent.gameObject;
+        var fieldController = GetFieldControllerLocal();
+        int playerId = GameManager.Get().localPlayerId;
 
         if (Input.GetButtonDown("Fire1"))
         {
@@ -75,7 +79,7 @@ public class PlayCardController : MonoBehaviour {
 
             if (parentObj.name == "Field")
             {
-                if (fieldController.playerId == playerId)
+                //if (fieldController.playerId == playerId)
                 {
                     if (globalIdx == 0)
                         return;

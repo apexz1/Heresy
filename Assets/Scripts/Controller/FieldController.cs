@@ -23,6 +23,13 @@ public class FieldController : MonoBehaviour {
         cardSelected = -1;
     }
 
+    public static FieldController GetFieldControler(int playerID)
+    {
+        if (playerID == 0)
+            return GameObject.Find("BottomField").GetComponent<FieldController>();
+        return GameObject.Find("TopField").GetComponent<FieldController>();
+    }
+
     Transform GetGfx(int globalIndex)
     {
         Transform res=null;
@@ -105,7 +112,7 @@ public class FieldController : MonoBehaviour {
             if (controller.pile != PlayCardController.Pile.discard)
             {
                 Debug.Log("Card detroyed?");
-                Destroy(gfx.gameObject);
+                Destroy(gfx.gameObject,1.0f);
                 cardGfxs.Remove(card.globalIdx);
             }
 
@@ -181,7 +188,11 @@ public class FieldController : MonoBehaviour {
     {
         //var gfx = GetGfx(index);
         //var controller = gfx.GetComponent<PlayCardController>();
+        Debug.Log("OnFieldClicked() Log: " + index);
         var player = GameManager.Get().players[playerId];
+        var gfx = GetGfx(cardSelected);
+        if (gfx == null) { return; }
+        var controller = gfx.GetComponent<PlayCardController>();
 
         for (int i = 0; i < player.field.Count; i++)
         {
@@ -189,6 +200,16 @@ public class FieldController : MonoBehaviour {
             if(card.globalIdx == index)
             {
                 GameManager.Get().NetRPC("MoveOnField", RPCMode.Server, playerId, cardSelected, card.pos);
+            }
+        }
+
+        player = GameManager.Get().players[(playerId+1)%2];
+        for (int i = 0; i < player.field.Count; i++)
+        {
+            var card = player.field[i];
+            if(card.globalIdx == index)
+            {
+                GameManager.Get().NetRPC("ActionFoF", RPCMode.Server, playerId, cardSelected, index);
             }
         }
     }
