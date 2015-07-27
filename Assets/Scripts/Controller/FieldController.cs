@@ -50,7 +50,8 @@ public class FieldController : MonoBehaviour {
             Debug.Log(card.id);
             gfx.localPosition = new Vector3(0, 0.01f * i, 0);
             gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
-            cardObject.transform.gameObject.AddComponent<PlayCardController>();
+            var controller = cardObject.transform.gameObject.AddComponent<PlayCardController>();
+            controller.globalIdx = card.globalIdx;
             cardGfxs[card.globalIdx] = gfx;
         }
 
@@ -65,6 +66,11 @@ public class FieldController : MonoBehaviour {
             if (isOwn())
                 gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
         }
+    }
+
+    public void OnSlotClicked(int slot)
+    {
+        Debug.Log("slot clicked: " + slot);
     }
 
     public bool isOwn()

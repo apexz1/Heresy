@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class PlayCardController : MonoBehaviour {
 
     public Transform target;
     bool popup = false;
+    public int globalIdx;
+    public bool slot = false;
 	// Use this for initialization
 	void Start () 
     {
@@ -16,28 +19,34 @@ public class PlayCardController : MonoBehaviour {
 	
 	}
 
+    public FieldController GetFieldController()
+    {
+        return GetComponentInParent<FieldController>();
+    }
+
     void OnMouseOver()
     {
+        var fieldController = GetFieldController();
         int playerId = GameManager.Get().localPlayerId;
         GameObject parentObj;
 
         if (Input.GetButtonDown("Fire1"))
         {
             parentObj = gameObject.transform.parent.gameObject;
-            
+
+            if (slot)
+            {
+                int slotNumber = Int32.Parse(gameObject.name);
+                if (fieldController.playerId == playerId)
+                {
+                    fieldController.OnSlotClicked(slotNumber);
+                }
+            }
 
             if (parentObj.name == "Hand")
             {
                 {
-                    if (GameManager.Get().turnPlayer == playerId)
                     {
-                        /*for (int i = 0; i < GameManager.Get().players[playerId].playHand.Count; i++)
-                        {
-                            if (gameObject == GameManager.Get().players[playerId].playHand[i])
-                            {
-                                Debug.Log("card found in hand: " + GameManager.Get().players[playerId]);
-                            }
-                        }*/
                         Debug.Log("Card found");
                     }
                 }

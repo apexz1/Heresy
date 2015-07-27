@@ -6,6 +6,7 @@ public class PlayCard
     public int id;
     public int health;
     public int globalIdx;
+    public int pos;
     //public Transform cardGfx;
 
     public string GetName()
@@ -22,12 +23,14 @@ public class PlayCard
     {
         this.id = id;
         this.globalIdx = idx;
+        this.pos = 0;
     }
     public void FromJSON(JSONObject jsCard)
     {
         id = (int)jsCard["id"];
         globalIdx = (int)jsCard["globalIdx"];
         health = (int)jsCard["health"];
+        pos = (int)jsCard["position"];
 
     }
 
@@ -37,6 +40,7 @@ public class PlayCard
         jsCard.AddField("id", id);
         jsCard.AddField("globalIdx", globalIdx);
         jsCard.AddField("health", health);
+        jsCard.AddField("position", pos);
 
         return jsCard;
     }
