@@ -45,10 +45,10 @@ public class PlayCardController : MonoBehaviour {
 
             if (parentObj.name == "Hand")
             {
+                if (fieldController.playerId == playerId)
                 {
-                    {
-                        Debug.Log("Card found");
-                    }
+                    Debug.Log("Card found");
+                    fieldController.OnHandClicked(globalIdx);
                 }
             }
         }

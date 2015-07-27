@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class FieldController : MonoBehaviour {
 
     public int playerId;
+    public int handSelected;
     public Dictionary<int, Transform> cardGfxs=new Dictionary<int,Transform>();
     public Camera cam;
 
@@ -18,6 +19,8 @@ public class FieldController : MonoBehaviour {
         {
             playerId = 1;
         }
+
+        handSelected = -1;
     }
 
     Transform GetGfx(int globalIndex)
@@ -71,6 +74,23 @@ public class FieldController : MonoBehaviour {
     public void OnSlotClicked(int slot)
     {
         Debug.Log("slot clicked: " + slot);
+    }
+
+    public void OnHandClicked(int index)
+    {
+        Transform oldTransform = GetGfx(handSelected);
+        handSelected = index;
+        Transform newTransform = GetGfx(handSelected);
+
+        if (oldTransform != null)
+        {
+            oldTransform.FindChild("Selection").gameObject.SetActive(false);
+        }
+
+        if (newTransform != null)
+        {
+            newTransform.FindChild("Selection").gameObject.SetActive(true);
+        }
     }
 
     public bool isOwn()
