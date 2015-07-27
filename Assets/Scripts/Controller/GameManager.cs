@@ -14,11 +14,15 @@ public class GameManager : MonoBehaviour {
     public int localPlayerId = -1;
     public int turnPlayer = 0;
 
+    //unsynced vars; not in JSON
+    public string notification;
+
     public static GameManager Get() {
         return GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void OnPlayerConnected( NetworkPlayer player ) {
+        players[1].networkPlayer = player;
         Debug.Log("Player connected from" + player.ipAddress + ":" + player.port);
         StartGame(0, true);
     }
@@ -127,7 +131,7 @@ public class GameManager : MonoBehaviour {
     }
 
     [RPC]
-    public void PlayCard(int playerIndex, int cardIndex, int slotIndex)
+    public void PlayFromHand(int playerIndex, int cardIndex, int slotIndex)
     {
         var player = players[playerIndex];
         int handIndex = -1;
@@ -148,6 +152,17 @@ public class GameManager : MonoBehaviour {
         }
 
         var card = player.playHand[handIndex];
+
+        for (int i = 0; i < player.field.Count; i++)
+        {
+            if (player.field[i].pos == slotIndex)
+            {
+                Debug.LogWarning("Slot already in use");
+                SendNotification(playerIndex, "Slot already in use");
+                return;
+            }
+        }
+
         player.playHand.RemoveAt(handIndex);
         player.field.Add(card);
 
@@ -178,7 +193,7 @@ public class GameManager : MonoBehaviour {
             fileData = File.ReadAllBytes(filePath);            
             tex.LoadImage(fileData); //..this will auto-resize the texture dimensions.
         }
-        Debug.Log(tex.ToString());
+        //Debug.Log(tex.ToString());
         return tex;
     }
 
@@ -188,20 +203,20 @@ public class GameManager : MonoBehaviour {
 
         for(int i = 0; i < fileArray.Length;i++) {
             Texture2D tex = LoadImage(fileArray[i]);
-            Debug.Log(fileArray[i].ToString());
+            //Debug.Log(fileArray[i].ToString());
 
             string oldName = fileArray[i].ToString();
             string tmpName = oldName.Remove(0, oldName.Length - 7);
             string newName = tmpName.Remove(tmpName.Length - 4, 4);
             int texName;
             Int32.TryParse(newName, out texName);
-            Debug.Log(texName);
+            //Debug.Log(texName);
 
             for(int j = 0; j < CardLibrary.Get().cardList.Count; j++)
             {
                 if(CardLibrary.Get().cardList[j].cardID == texName)
                 {
-                    Debug.Log("name found");
+                    //Debug.Log("name found");
                     CardLibrary.Get().cardList[j].texture = tex;
                 }
             }
@@ -238,6 +253,23 @@ public class GameManager : MonoBehaviour {
         FromJSON(JSONParser.parse(manager));
     }
 
+    public void SendNotification(int playerIndex, string message)
+    {
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (playerIndex != players[i].playerId  && playerIndex != -1)
+            {
+                continue;
+            }
+            //Debug.Log(">>>>>>>>>>>>>" + playerIndex + " " + i + " " + players[i].networkPlayer);
+            this.NetRPC("ReceiveNotification", players[i].networkPlayer, message);
+        }
+    }
+    [RPC]
+    public void ReceiveNotification(string message)
+    {
+        notification = message;
+    }
 }
 
 public class Player {
@@ -248,6 +280,7 @@ public class Player {
     public List<PlayCard> playHand = new List<PlayCard>();
     public List<PlayCard> discardPile = new List<PlayCard>();
     public List<PlayCard> field = new List<PlayCard>();
+    public NetworkPlayer networkPlayer;
     static int globalIdx = 0;
 
     public void BuildPlayPile() {

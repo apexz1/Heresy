@@ -42,4 +42,23 @@ public static class NetExtension {
         }
     }
 
+    public static void NetRPC(this MonoBehaviour caller, string methodName, NetworkPlayer target, params object[] args)
+    {
+        var networkView = caller.GetComponent<NetworkView>();
+        //Debug.LogWarning("NetUtil::RPC - Method '" + target);
+        if (target == null || target.ToString()=="0")
+        { // Local rpc call
+            LocalInvoke(caller, methodName, args);
+        }
+        else if (Network.isClient || Network.isServer)
+        {
+            networkView.RPC(methodName, target, args);
+        }
+        else
+        {
+            Debug.LogWarning("NetUtil::RPC - Method '" + methodName + "' on object '" + caller + "' with target '" + target + "' failed !" +
+                " Ignoring method call!");
+        }
+    }
+
 }

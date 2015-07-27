@@ -50,7 +50,7 @@ public class FieldController : MonoBehaviour {
             MeshRenderer rend = gfx.GetChild(0).gameObject.GetComponent<MeshRenderer>();
             //Debug.Log("Card Texture: " + card.GetTexture().ToString());
             rend.material.mainTexture = card.GetTexture();
-            Debug.Log(card.id);
+            //Debug.Log(card.id);
             gfx.localPosition = new Vector3(0, 0.01f * i, 0);
             gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
             var controller = cardObject.transform.gameObject.AddComponent<PlayCardController>();
@@ -88,7 +88,7 @@ public class FieldController : MonoBehaviour {
     public void OnSlotClicked(int slot)
     {
         Debug.Log("slot clicked: " + slot);
-        GameManager.Get().NetRPC("PlayCard", RPCMode.Server, playerId, handSelected, slot);
+        GameManager.Get().NetRPC("PlayFromHand", RPCMode.Server, playerId, handSelected, slot);
     }
 
     public void OnHandClicked(int index)
@@ -143,6 +143,11 @@ public class FieldController : MonoBehaviour {
             {
                 GameManager.Get().NetRPC("EndTurn", RPCMode.Server, playerId);
             }
+        }
+
+        if (GameManager.Get().notification.Length > 0)
+        {
+            GUI.Label(new Rect(0, Screen.height-20, 1000, 25), GameManager.Get().notification);
         }
     }
 }
