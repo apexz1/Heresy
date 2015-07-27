@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour {
     {
         turn = !turn;
         Debug.Log(turn);
-        SendPlayer(playerIndex);
+        SendGameManager();
     }
 
     public Texture2D LoadImage( string filePath ) {
@@ -180,6 +180,37 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+    public void FromJSON(JSONObject jsPlayer)
+    {
+        turn = (bool)jsPlayer["Turn"];
+
+    }
+
+    public JSONObject ToJSON()
+    {
+        JSONObject jsPlayer = JSONObject.obj;
+        jsPlayer.AddField("Turn", turn);
+
+        return jsPlayer;
+    }
+    public void SendGameManager()
+    {
+        if (!Network.isServer)
+        {
+            Debug.LogError("Client trying to send game manager");
+            return;
+        }
+
+        this.NetRPC("ReceiveGameManager", RPCMode.All, ToJSON().ToString());
+    }
+
+    [RPC]
+    public void ReceiveGameManager(string manager)
+    {
+        Debug.Log("Receive()" + manager);
+        FromJSON(JSONParser.parse(manager));
+    }
+
 }
 
 public class Player {

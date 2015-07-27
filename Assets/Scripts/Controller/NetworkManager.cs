@@ -7,7 +7,8 @@ public class NetworkManager : MonoBehaviour {
     int port = 35271;
 	// Use this for initialization
 	void Start () {
-	
+        PlayerPrefs.GetString("ip", userInput);
+        Debug.Log(userInput);
 	}
 	
 	// Update is called once per frame
@@ -27,6 +28,8 @@ public class NetworkManager : MonoBehaviour {
 
         if (GUI.Button (new Rect(340,200,120,40), "Connect"))
         {
+            PlayerPrefs.SetString("ip", userInput);
+            PlayerPrefs.Save();
             var initConnection = Network.Connect(userInput, port);
             Debug.Log(initConnection);
         }
