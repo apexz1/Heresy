@@ -59,6 +59,20 @@ public class GameManager : MonoBehaviour {
 
         if(network == false) {
             LoadDeck(1);
+
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+
+            PlayFromHand(1, players[1].playHand[0].globalIdx, 0);
+            PlayFromHand(1, players[1].playHand[0].globalIdx, 1);
+            PlayFromHand(1, players[1].playHand[0].globalIdx, 2);
+
+            MoveOnField(1, players[1].field[0].globalIdx, 5);
         }
     }
 

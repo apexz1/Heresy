@@ -43,19 +43,11 @@ public class FieldController : MonoBehaviour {
                 continue;
             }
 
-            var cardObject = Instantiate((GameObject)Resources.Load("Prefabs/PlayCard"));
-            gfx = cardObject.transform;
-            gfx.SetParent(transform.Find("PlayPile"), false);
-
-            MeshRenderer rend = gfx.GetChild(0).gameObject.GetComponent<MeshRenderer>();
-            //Debug.Log("Card Texture: " + card.GetTexture().ToString());
-            rend.material.mainTexture = card.GetTexture();
-            //Debug.Log(card.id);
+            gfx=CreateCardGFX(card);
             gfx.localPosition = new Vector3(0, 0.01f * i, 0);
             gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
-            var controller = cardObject.transform.gameObject.AddComponent<PlayCardController>();
-            controller.globalIdx = card.globalIdx;
-            cardGfxs[card.globalIdx] = gfx;
+
+            var controller = gfx.GetComponent<PlayCardController>();
             controller.pile = PlayCardController.Pile.deck;
         }
 
@@ -63,6 +55,7 @@ public class FieldController : MonoBehaviour {
         {
             var card = player.playHand[i];
             var gfx = GetGfx(card.globalIdx);
+            if (gfx == null) gfx = CreateCardGFX(card);
             var controller = gfx.GetComponent<PlayCardController>();
 
             gfx.SetParent(transform.Find("Hand"), false);
@@ -79,6 +72,7 @@ public class FieldController : MonoBehaviour {
         {
             var card = player.field[i];
             var gfx = GetGfx(card.globalIdx);
+            if (gfx == null) gfx = CreateCardGFX(card);
             var controller = gfx.GetComponent<PlayCardController>();
             Transform fieldTransform = transform.Find("Field");
 
@@ -117,6 +111,22 @@ public class FieldController : MonoBehaviour {
 
             controller.pile = PlayCardController.Pile.discard;
         }
+    }
+
+    private Transform CreateCardGFX(PlayCard card)
+    {
+        var cardObject = Instantiate((GameObject)Resources.Load("Prefabs/PlayCard"));
+        var gfx = cardObject.transform;
+        gfx.SetParent(transform.Find("PlayPile"), false);
+
+        MeshRenderer rend = gfx.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+        //Debug.Log("Card Texture: " + card.GetTexture().ToString());
+        rend.material.mainTexture = card.GetTexture();
+        //Debug.Log(card.id);
+        var controller = cardObject.transform.gameObject.AddComponent<PlayCardController>();
+        controller.globalIdx = card.globalIdx;
+        cardGfxs[card.globalIdx] = gfx;
+        return gfx;
     }
 
     public void ShowStats(PlayCardController pcc, PlayCard playCard)
