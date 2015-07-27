@@ -129,27 +129,40 @@ public class GameManager : MonoBehaviour {
 
         SendPlayer(playerIndex);
     }
+    public void DiscardCard(int playerIndex, int cardIndex)
+    {
+        var player = players[playerIndex];
+        int handIndex = player.FindCardHand(cardIndex);
+        int fieldIndex = player.FindCardField(cardIndex);
+
+        Debug.Log("DiscardCard() Log: " + playerIndex + " " + cardIndex + " " + handIndex + " " + fieldIndex);
+
+        if (handIndex != -1)
+        {
+            var card = player.playHand[handIndex];
+            player.playHand.RemoveAt(handIndex);
+            player.discardPile.Add(card);
+        }
+        if (fieldIndex != -1)
+        {
+            var card = player.field[fieldIndex];
+            player.field.RemoveAt(fieldIndex);
+            player.discardPile.Add(card);
+        }
+
+        SendPlayer(playerIndex);
+    }
 
     [RPC]
     public void PlayFromHand(int playerIndex, int cardIndex, int slotIndex)
     {
         var player = players[playerIndex];
-        int handIndex = -1;
+        int handIndex = player.FindCardHand(cardIndex);
 
         if (slotIndex > 2)
         {
             SendNotification(playerIndex, "Cards can be placed in spawn slots only");
             return;
-        }
-            
-
-        for (int i = 0; i < player.playHand.Count; i++ )
-        {
-            if (player.playHand[i].globalIdx == cardIndex)
-            {
-                handIndex = i;
-                break;
-            }
         }
 
         if (handIndex == -1)
@@ -181,7 +194,7 @@ public class GameManager : MonoBehaviour {
     public void MoveOnField(int playerIndex, int cardIndex, int slotIndex)
     {
         var player = players[playerIndex];
-        int fieldIndex = -1;
+        int fieldIndex = player.FindCardField(cardIndex);
 
         Debug.Log("MoveOnField() Log: " + cardIndex + " " + slotIndex);
 
@@ -189,15 +202,6 @@ public class GameManager : MonoBehaviour {
         {
             SendNotification(playerIndex, "Cards can be moved to field slots only");
             return;
-        }
-
-        for (int i = 0; i < player.field.Count; i++)
-        {
-            if (player.field[i].globalIdx == cardIndex)
-            {
-                fieldIndex = i;
-                break;
-            }
         }
 
         Debug.Log(fieldIndex);
@@ -398,4 +402,21 @@ public class Player {
         }
         return pile;
     }
+
+    public static int FindCard(List<PlayCard> pile,int cardIndex)
+    {
+        for (int i = 0; i < pile.Count; i++)
+        {
+            if (pile[i].globalIdx == cardIndex)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    public int FindCardPlayPile(int cardIndex) { return FindCard(playPile, cardIndex); }
+    public int FindCardHand(int cardIndex) { return FindCard(playHand, cardIndex); }
+    public int FindCardField(int cardIndex) { return FindCard(field, cardIndex); }
+    public int FindCardDiscard(int cardIndex) { return FindCard(discardPile, cardIndex); }
 }

@@ -95,6 +95,27 @@ public class FieldController : MonoBehaviour {
 
             controller.pile = PlayCardController.Pile.field;
         }
+
+        for (int i = 0; i < player.discardPile.Count; i++)
+        {
+            var card = player.discardPile[i];
+            var gfx = GetGfx(card.globalIdx);
+
+            //Debug.Log(i+": "+(gfx != null) + " " + card.globalIdx);
+            if (gfx == null)
+                continue;
+
+            var controller = gfx.GetComponent<PlayCardController>();
+
+            if (controller.pile != PlayCardController.Pile.discard)
+            {
+                Debug.Log("Card detroyed?");
+                Destroy(gfx.gameObject);
+                cardGfxs.Remove(card.globalIdx);
+            }
+
+            controller.pile = PlayCardController.Pile.discard;
+        }
     }
 
     public void OnSlotClicked(int slot)
@@ -182,6 +203,14 @@ public class FieldController : MonoBehaviour {
             if (GameManager.Get().turnPlayer == playerId)
             {
                 GameManager.Get().NetRPC("DrawCard", RPCMode.Server, playerId);
+            }
+        }
+        if (GUI.Button(new Rect(120, 0, 60, 25), "Discard"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("DiscardCard", RPCMode.Server, playerId, cardSelected);
             }
         }
 
