@@ -180,7 +180,52 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void MoveOnField(int playerIndex, int cardIndex, int slotIndex)
     {
+        var player = players[playerIndex];
+        int fieldIndex = -1;
+
         Debug.Log("MoveOnField() Log: " + cardIndex + " " + slotIndex);
+
+        if (slotIndex <= 2)
+        {
+            SendNotification(playerIndex, "Cards can be moved to field slots only");
+            return;
+        }
+
+        for (int i = 0; i < player.field.Count; i++)
+        {
+            if (player.field[i].globalIdx == cardIndex)
+            {
+                fieldIndex = i;
+                break;
+            }
+        }
+
+        Debug.Log(fieldIndex);
+
+        if (fieldIndex == -1)
+        {
+            Debug.LogError("Card not found");
+            return;
+        }
+
+        var card = player.field[fieldIndex];
+
+        for (int i = 0; i < player.field.Count; i++)
+        {
+            if (player.field[i].pos == slotIndex)
+            {
+                if (card.pos <= 2)
+                {
+                    SendNotification(playerIndex, "Cards can not be swapped from spawn slots");
+                    return;
+                }
+
+                player.field[i].pos = card.pos;
+            }
+        }
+
+        card.pos = slotIndex;
+        SendPlayer(playerIndex);
     }
 
     [RPC]
