@@ -49,7 +49,7 @@ public class FieldController : MonoBehaviour {
             rend.material.mainTexture = card.GetTexture();
             Debug.Log(card.id);
             gfx.localPosition = new Vector3(0, 0.01f * i, 0);
-            gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, Mathf.PI, 0);
+            gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
             cardObject.transform.gameObject.AddComponent<PlayCardController>();
             cardGfxs[card.globalIdx] = gfx;
         }
@@ -63,7 +63,7 @@ public class FieldController : MonoBehaviour {
             gfx.localPosition = new Vector3(i * 2.5f, 0, 0);
 
             if (isOwn())
-                gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), Mathf.PI, 0);
+                gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
         }
     }
 

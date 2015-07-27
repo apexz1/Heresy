@@ -143,7 +143,7 @@ public class DeckBuilder : MonoBehaviour {
 
                 counter++;
 
-                card = (GameObject)Resources.Load("Prefabs/" + cardLibrary.cardList[counter].cardName);
+                card = (GameObject)Resources.Load("Prefabs/PlayCard");
                 spawnPos = new Vector3(x-(i * 1.9f),y-(j* 2.5f), 0);
                 GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
                 cardSpawn.transform.rotation = Quaternion.EulerAngles(Mathf.PI/2, 0, 0);

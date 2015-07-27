@@ -3,10 +3,12 @@ using System.Collections;
 
 public class PlayCardController : MonoBehaviour {
 
+    public Transform target;
+    bool popup = false;
 	// Use this for initialization
 	void Start () 
     {
-        //GameManager.Get().AssignTexture();
+        target = GameObject.Find("SceneCam").transform;
 	}
 	
 	// Update is called once per frame
@@ -29,10 +31,31 @@ public class PlayCardController : MonoBehaviour {
                 {
                     if(GameManager.Get().turn)
                     {
-                        Debug.Log("card found in hand: " + transform.gameObject);
+                        /*for (int i = 0; i < GameManager.Get().players[playerId].playHand.Count; i++)
+                        {
+                            if (gameObject == GameManager.Get().players[playerId].playHand[i])
+                            {
+                                Debug.Log("card found in hand: " + GameManager.Get().players[playerId]);
+                            }
+                        }*/
+                        Debug.Log("Card found");
                     }
                 }
             }
         }
+
+        if (gameObject.transform.parent.gameObject.name == "Hand")
+            PopUp();
+    }
+
+    void OnMouseExit()
+    {
+        gameObject.transform.GetChild(0).transform.position = gameObject.transform.position;
+    }
+
+    void PopUp()
+    {
+        //transform.GetChild(0).localRotation = Quaternion.Euler(-120,0,0);
+        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
     }
 }
