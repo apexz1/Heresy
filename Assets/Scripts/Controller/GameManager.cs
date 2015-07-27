@@ -243,9 +243,14 @@ public class GameManager : MonoBehaviour {
         }
 
         var card = player.field[fieldIndex];
-
         var libCard = CardLibrary.Get().GetCard(card.id);
         var oppCard = opponent.field[oppFieldIndex];
+
+        if (card.tap > 0)
+        {
+            SendNotification(playerIndex, "Card is tapped");
+            return;
+        }
 
         if(libCard.attack == 0)
         {
@@ -254,6 +259,7 @@ public class GameManager : MonoBehaviour {
         }
 
         oppCard.health -= libCard.attack;
+        card.tap = 1;
 
         if (oppCard.health <= 0)
         {
@@ -261,6 +267,7 @@ public class GameManager : MonoBehaviour {
         }
 
         SendPlayer(opponent.playerId);
+        SendPlayer(playerIndex);
     }
 
     [RPC]
@@ -287,6 +294,12 @@ public class GameManager : MonoBehaviour {
 
         var card = player.field[fieldIndex];
 
+        if (card.tap > 0)
+        {
+            SendNotification(playerIndex, "Card is tapped");
+            return;
+        }
+
         for (int i = 0; i < player.field.Count; i++)
         {
             if (player.field[i].pos == slotIndex)
@@ -301,6 +314,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        card.tap = 1;
         card.pos = slotIndex;
         SendPlayer(playerIndex);
     }
@@ -312,9 +326,24 @@ public class GameManager : MonoBehaviour {
         if (playerIndex != turnPlayer)
             return;
 
+        var oldPlayer = players[turnPlayer];
+
         turnPlayer++;
         turnPlayer %= 2;
+
+        var newPlayer = players[turnPlayer];
+
+        for (int i = 0; i < oldPlayer.field.Count; i++ )
+        {
+            var card = oldPlayer.field[i];
+            if (card.tap <= 0) { continue; }
+
+            card.tap--;
+        }
+
         Debug.Log(turnPlayer);
+        SendPlayer(oldPlayer.playerId);
+        SendPlayer(newPlayer.playerId);
         SendGameManager();
     }
 

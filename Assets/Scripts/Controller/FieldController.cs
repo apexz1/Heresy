@@ -95,6 +95,15 @@ public class FieldController : MonoBehaviour {
                 gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
             }
 
+            if (card.tap > 0)
+            {
+                gfx.localRotation = Quaternion.EulerAngles(0, (Mathf.PI / 2), 0);
+            }
+            else
+            {
+                gfx.localRotation = Quaternion.EulerAngles(0, 0, 0);
+            }
+
             controller.pile = PlayCardController.Pile.field;
         }
 

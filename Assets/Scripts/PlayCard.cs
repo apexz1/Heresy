@@ -7,6 +7,7 @@ public class PlayCard
     public int health;
     public int globalIdx;
     public int pos;
+    public int tap;
     //public Transform cardGfx;
 
     public string GetName()
@@ -36,6 +37,7 @@ public class PlayCard
         globalIdx = (int)jsCard["globalIdx"];
         health = (int)jsCard["health"];
         pos = (int)jsCard["position"];
+        tap = (int)jsCard["tapped"];
 
     }
 
@@ -46,6 +48,7 @@ public class PlayCard
         jsCard.AddField("globalIdx", globalIdx);
         jsCard.AddField("health", health);
         jsCard.AddField("position", pos);
+        jsCard.AddField("tapped", tap);
 
         return jsCard;
     }
