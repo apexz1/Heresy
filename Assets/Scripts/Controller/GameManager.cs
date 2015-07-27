@@ -46,7 +46,9 @@ public class GameManager : MonoBehaviour {
 
         if(Network.isServer) {
             this.NetRPC("StartGame", RPCMode.Others, playerId + 1, true);
+            SendGameManager();
         }
+
         Debug.Log(turnPlayer);
 
         LoadDeck(localPlayerId);
@@ -54,8 +56,6 @@ public class GameManager : MonoBehaviour {
         if(network == false) {
             LoadDeck(1);
         }
-
-        SendGameManager();
     }
 
     public void LoadDeck( int playerIdx ) {
