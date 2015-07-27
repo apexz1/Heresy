@@ -80,6 +80,8 @@ public class FieldController : MonoBehaviour {
 
             Vector3 cardPos = fieldTransform.FindChild("" + card.pos).localPosition;
             gfx.localPosition = cardPos;
+
+            gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
         }
     }
 
