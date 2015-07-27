@@ -56,32 +56,43 @@ public class FieldController : MonoBehaviour {
             var controller = cardObject.transform.gameObject.AddComponent<PlayCardController>();
             controller.globalIdx = card.globalIdx;
             cardGfxs[card.globalIdx] = gfx;
+            controller.pile = 0;
         }
 
         for (int i = 0; i < player.playHand.Count; i++)
         {
             var card = player.playHand[i];
             var gfx = GetGfx(card.globalIdx);
+            var controller = gfx.GetComponent<PlayCardController>();
 
             gfx.SetParent(transform.Find("Hand"), false);
             gfx.localPosition = new Vector3(i * 2.5f, 0, 0);
 
             if (isOwn())
                 gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
+
+            controller.pile = 1;
         }
 
         for(int i = 0; i < player.field.Count; i++)
         {
             var card = player.field[i];
             var gfx = GetGfx(card.globalIdx);
+            var controller = gfx.GetComponent<PlayCardController>();
             Transform fieldTransform = transform.Find("Field");
 
             gfx.SetParent(fieldTransform, false);
 
             Vector3 cardPos = fieldTransform.FindChild("" + card.pos).localPosition;
             gfx.localPosition = cardPos;
+    
+            if (controller.pile != 2)
+            {
+                gfx.FindChild("Selection").gameObject.SetActive(false);
+                gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
+            }
 
-            gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
+            controller.pile = 2;
         }
     }
 

@@ -8,6 +8,7 @@ public class PlayCardController : MonoBehaviour {
     bool popup = false;
     public int globalIdx;
     public bool slot = false;
+    public int pile;
 	// Use this for initialization
 	void Start () 
     {
