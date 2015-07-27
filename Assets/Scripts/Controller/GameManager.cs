@@ -136,6 +136,13 @@ public class GameManager : MonoBehaviour {
         var player = players[playerIndex];
         int handIndex = -1;
 
+        if (slotIndex > 2)
+        {
+            SendNotification(playerIndex, "Cards can be placed in spawn slots only");
+            return;
+        }
+            
+
         for (int i = 0; i < player.playHand.Count; i++ )
         {
             if (player.playHand[i].globalIdx == cardIndex)
@@ -169,6 +176,11 @@ public class GameManager : MonoBehaviour {
         card.pos = slotIndex;
 
         SendPlayer(playerIndex);
+    }
+    [RPC]
+    public void MoveOnField(int playerIndex, int cardIndex, int slotIndex)
+    {
+        Debug.Log("MoveOnField() Log: " + cardIndex + " " + slotIndex);
     }
 
     [RPC]

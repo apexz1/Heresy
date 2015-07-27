@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class FieldController : MonoBehaviour {
 
     public int playerId;
-    public int handSelected;
+    public int cardSelected;
     public Dictionary<int, Transform> cardGfxs=new Dictionary<int,Transform>();
     public Camera cam;
 
@@ -20,7 +20,7 @@ public class FieldController : MonoBehaviour {
             playerId = 1;
         }
 
-        handSelected = -1;
+        cardSelected = -1;
     }
 
     Transform GetGfx(int globalIndex)
@@ -56,7 +56,7 @@ public class FieldController : MonoBehaviour {
             var controller = cardObject.transform.gameObject.AddComponent<PlayCardController>();
             controller.globalIdx = card.globalIdx;
             cardGfxs[card.globalIdx] = gfx;
-            controller.pile = 0;
+            controller.pile = PlayCardController.Pile.deck;
         }
 
         for (int i = 0; i < player.playHand.Count; i++)
@@ -71,7 +71,7 @@ public class FieldController : MonoBehaviour {
             if (isOwn())
                 gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
 
-            controller.pile = 1;
+            controller.pile = PlayCardController.Pile.hand;
         }
 
         for(int i = 0; i < player.field.Count; i++)
@@ -86,27 +86,65 @@ public class FieldController : MonoBehaviour {
             Vector3 cardPos = fieldTransform.FindChild("" + card.pos).localPosition;
             gfx.localPosition = cardPos;
     
-            if (controller.pile != 2)
+            if (controller.pile != PlayCardController.Pile.field)
             {
                 gfx.FindChild("Selection").gameObject.SetActive(false);
+                cardSelected = -1;
                 gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
             }
 
-            controller.pile = 2;
+            controller.pile = PlayCardController.Pile.field;
         }
     }
 
     public void OnSlotClicked(int slot)
     {
         Debug.Log("slot clicked: " + slot);
-        GameManager.Get().NetRPC("PlayFromHand", RPCMode.Server, playerId, handSelected, slot);
+
+        var gfx = GetGfx(cardSelected);
+        if (gfx == null)
+        {
+            return;
+        }
+
+        var controller = gfx.GetComponent<PlayCardController>();
+
+        if (controller.pile == PlayCardController.Pile.hand)
+        {
+            GameManager.Get().NetRPC("PlayFromHand", RPCMode.Server, playerId, cardSelected, slot);
+        }
+        if (controller.pile == PlayCardController.Pile.field)
+        {
+            GameManager.Get().NetRPC("MoveOnField", RPCMode.Server, playerId, cardSelected, slot);
+        }
     }
 
     public void OnHandClicked(int index)
     {
-        Transform oldTransform = GetGfx(handSelected);
-        handSelected = index;
-        Transform newTransform = GetGfx(handSelected);
+        
+    }
+
+    public void OnFieldClicked(int index)
+    {
+        //var gfx = GetGfx(index);
+        //var controller = gfx.GetComponent<PlayCardController>();
+        var player = GameManager.Get().players[playerId];
+
+        for (int i = 0; i < player.field.Count; i++)
+        {
+            var card = player.field[i];
+            if(card.globalIdx == index)
+            {
+                GameManager.Get().NetRPC("MoveOnField", RPCMode.Server, playerId, cardSelected, card.pos);
+            }
+        }
+    }
+
+    public void SelectCard(int index)
+    {
+        Transform oldTransform = GetGfx(cardSelected);
+        cardSelected = index;
+        Transform newTransform = GetGfx(cardSelected);
 
         if (oldTransform != null)
         {

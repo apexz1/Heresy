@@ -8,7 +8,14 @@ public class PlayCardController : MonoBehaviour {
     bool popup = false;
     public int globalIdx;
     public bool slot = false;
-    public int pile;
+    public enum Pile
+    {
+        deck,
+        hand,
+        field,
+        discard
+    }
+    public Pile pile;
 	// Use this for initialization
 	void Start () 
     {
@@ -29,12 +36,25 @@ public class PlayCardController : MonoBehaviour {
     {
         var fieldController = GetFieldController();
         int playerId = GameManager.Get().localPlayerId;
-        GameObject parentObj;
+        GameObject parentObj = gameObject.transform.parent.gameObject;
 
         if (Input.GetButtonDown("Fire1"))
         {
-            parentObj = gameObject.transform.parent.gameObject;
+            if (parentObj.name == "Field" || parentObj.name == "Hand")
+            {
+                if (fieldController.playerId == playerId)
+                {
+                    if (globalIdx == 0)
+                        return;
 
+                    Debug.Log("Select clicked " + globalIdx);
+                    fieldController.SelectCard(globalIdx);
+                }
+            }
+        }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
             if (slot)
             {
                 int slotNumber = Int32.Parse(gameObject.name);
@@ -50,6 +70,18 @@ public class PlayCardController : MonoBehaviour {
                 {
                     Debug.Log("Card found");
                     fieldController.OnHandClicked(globalIdx);
+                }
+            }
+
+            if (parentObj.name == "Field")
+            {
+                if (fieldController.playerId == playerId)
+                {
+                    if (globalIdx == 0)
+                        return;
+
+                    Debug.Log("Field clicked " + globalIdx);
+                    fieldController.OnFieldClicked(globalIdx);
                 }
             }
         }
