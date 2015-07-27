@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour {
 
         SendPlayer(playerIndex);
     }
+    [RPC]
     public void DiscardCard(int playerIndex, int cardIndex)
     {
         var player = players[playerIndex];
