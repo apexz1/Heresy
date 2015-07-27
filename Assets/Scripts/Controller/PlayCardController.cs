@@ -29,7 +29,7 @@ public class PlayCardController : MonoBehaviour {
             if (parentObj.name == "Hand")
             {
                 {
-                    if(GameManager.Get().turn)
+                    if (GameManager.Get().turnPlayer == playerId)
                     {
                         /*for (int i = 0; i < GameManager.Get().players[playerId].playHand.Count; i++)
                         {

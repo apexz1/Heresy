@@ -84,11 +84,12 @@ public class FieldController : MonoBehaviour {
         {
             GameManager.Get().localPlayerId = GameManager.Get().localPlayerId == 0 ? 1:0;
             //GameManager.Get().turn = !GameManager.Get().turn;
-            Debug.Log(GameManager.Get().turn);
+            Debug.Log(GameManager.Get().turnPlayer);
         }
         if (GUI.Button (new Rect(60,0,60,25), "Draw"))
         {
-            if (GameManager.Get().turn)
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
             {
                 GameManager.Get().NetRPC("DrawCard", RPCMode.Server, playerId);
             }
@@ -97,7 +98,7 @@ public class FieldController : MonoBehaviour {
         //Test
         if (GUI.Button (new Rect(0,200,90,25), "End Turn"))
         {
-            if (GameManager.Get().turn)
+            if (GameManager.Get().turnPlayer == playerId)
             {
                 GameManager.Get().NetRPC("EndTurn", RPCMode.Server, playerId);
             }

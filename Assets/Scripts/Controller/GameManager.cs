@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
      
     NetworkView networkView;
     public int localPlayerId = -1;
-    public bool turn = false;
+    public int turnPlayer = 0;
 
     public static GameManager Get() {
         return GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -42,19 +42,20 @@ public class GameManager : MonoBehaviour {
         NetworkManager networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         networkManager.enabled = false;
         localPlayerId = playerId;
-        turn = false;
+        turnPlayer = 0;
 
         if(Network.isServer) {
             this.NetRPC("StartGame", RPCMode.Others, playerId + 1, true);
-            turn = true;
         }
-        Debug.Log(turn);
+        Debug.Log(turnPlayer);
 
         LoadDeck(localPlayerId);
 
         if(network == false) {
             LoadDeck(1);
         }
+
+        SendGameManager();
     }
 
     public void LoadDeck( int playerIdx ) {
@@ -137,8 +138,13 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void EndTurn(int playerIndex)
     {
-        turn = !turn;
-        Debug.Log(turn);
+        //check if incoming player's turn; comment for cheating
+        if (playerIndex != turnPlayer)
+            return;
+
+        turnPlayer++;
+        turnPlayer %= 2;
+        Debug.Log(turnPlayer);
         SendGameManager();
     }
 
@@ -182,14 +188,14 @@ public class GameManager : MonoBehaviour {
     }
     public void FromJSON(JSONObject jsPlayer)
     {
-        turn = (bool)jsPlayer["Turn"];
+        turnPlayer = (int)jsPlayer["TurnPlayer"];
 
     }
 
     public JSONObject ToJSON()
     {
         JSONObject jsPlayer = JSONObject.obj;
-        jsPlayer.AddField("Turn", turn);
+        jsPlayer.AddField("TurnPlayer", turnPlayer);
 
         return jsPlayer;
     }
