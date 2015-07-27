@@ -125,15 +125,34 @@ public class GameManager : MonoBehaviour {
 
         SendPlayer(playerIndex);
     }
-    /*public void PlayCard(int playerIndex, PlayCard card)
+    public void PlayCard(int playerIndex, int cardIndex, int slotIndex)
     {
         var player = players[playerIndex];
+        int handIndex = -1;
 
-        player.playHand.RemoveAt(player.playHand.Count - 1);
+        for (int i = 0; i < player.playHand.Count; i++ )
+        {
+            if (player.playHand[i].globalIdx == cardIndex)
+            {
+                handIndex = i;
+                break;
+            }
+        }
+
+        if (handIndex == -1)
+        {
+            Debug.LogError("Card not found");
+            return;
+        }
+
+        var card = player.playHand[handIndex];
+        player.playHand.RemoveAt(handIndex);
         player.field.Add(card);
 
+        card.pos = slotIndex;
+
         SendPlayer(playerIndex);
-    }*/
+    }
 
     [RPC]
     public void EndTurn(int playerIndex)

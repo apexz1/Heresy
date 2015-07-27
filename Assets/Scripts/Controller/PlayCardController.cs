@@ -57,11 +57,6 @@ public class PlayCardController : MonoBehaviour {
             PopUp();
     }
 
-    void OnMouseExit()
-    {
-        gameObject.transform.GetChild(0).transform.position = gameObject.transform.position;
-    }
-
     void PopUp()
     {
         //transform.GetChild(0).localRotation = Quaternion.Euler(-120,0,0);

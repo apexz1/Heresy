@@ -69,11 +69,24 @@ public class FieldController : MonoBehaviour {
             if (isOwn())
                 gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
         }
+
+        for(int i = 0; i < player.field.Count; i++)
+        {
+            var card = player.field[i];
+            var gfx = GetGfx(card.globalIdx);
+            Transform fieldTransform = transform.Find("Field");
+
+            gfx.SetParent(fieldTransform, false);
+
+            Vector3 cardPos = fieldTransform.FindChild("" + card.pos).localPosition;
+            gfx.localPosition = cardPos;
+        }
     }
 
     public void OnSlotClicked(int slot)
     {
         Debug.Log("slot clicked: " + slot);
+        GameManager.Get().NetRPC("PlayCard", RPCMode.Server, playerId, handSelected, slot);
     }
 
     public void OnHandClicked(int index)
