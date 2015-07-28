@@ -89,6 +89,12 @@ public class DeckBuilder : MonoBehaviour {
         Debug.Log(deck.Count);
         if(deck.Count == maxDeckCount)
             return;
+        if (index > CardLibrary.Get().cardList.Count)
+        {
+            Debug.LogError("Finish Cardlist, yo");
+            return;
+        }
+
 
         Debug.Log("AddCard() Log: if statement passed, proceeding to add card");
         card = cardLibrary.cardList[index];
