@@ -66,7 +66,10 @@ public class FieldController : MonoBehaviour {
             var controller = gfx.GetComponent<PlayCardController>();
 
             gfx.SetParent(transform.Find("Hand"), false);
-            gfx.localPosition = new Vector3(i * 2.5f, 0, 0);
+
+            if (playerId == 0) { gfx.localPosition = new Vector3(i * 1.5f, 0, 0); }
+            if (playerId == 1) { gfx.localPosition = new Vector3(i * -1.5f, 0, 0); }
+            
             ShowStats(controller, card);
 
             if (isOwn())

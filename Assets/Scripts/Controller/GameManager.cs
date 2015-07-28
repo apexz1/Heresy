@@ -60,22 +60,10 @@ public class GameManager : MonoBehaviour {
         if(network == false) {
             LoadDeck(1);
 
-            //Automated opponent opening
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-
-            PlayFromHand(1, players[1].playHand[0].globalIdx, 0);
-            PlayFromHand(1, players[1].playHand[0].globalIdx, 1);
-            PlayFromHand(1, players[1].playHand[0].globalIdx, 2);
-
-            MoveOnField(1, players[1].field[0].globalIdx, 5);
-
             //Automated player opening
+            DrawCard(0);
+            DrawCard(0);
+            DrawCard(0);
             DrawCard(0);
             DrawCard(0);
             DrawCard(0);
@@ -89,6 +77,24 @@ public class GameManager : MonoBehaviour {
             PlayFromHand(0, players[0].playHand[0].globalIdx, 2);
 
             MoveOnField(0, players[0].field[0].globalIdx, 5);
+
+            //Automated opponent opening
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+            DrawCard(1);
+
+            PlayFromHand(1, players[1].playHand[0].globalIdx, 0);
+            PlayFromHand(1, players[1].playHand[0].globalIdx, 1);
+            PlayFromHand(1, players[1].playHand[0].globalIdx, 2);
+
+            MoveOnField(1, players[1].field[0].globalIdx, 5);
         }
     }
 
@@ -245,6 +251,7 @@ public class GameManager : MonoBehaviour {
         var card = player.field[fieldIndex];
         var libCard = CardLibrary.Get().GetCard(card.id);
         var oppCard = opponent.field[oppFieldIndex];
+        var oppLibCard = CardLibrary.Get().GetCard(oppCard.id);
 
         if (card.tap > 0)
         {
@@ -259,6 +266,8 @@ public class GameManager : MonoBehaviour {
         }
 
         oppCard.health -= libCard.attack;
+        card.health -= oppLibCard.attack;
+
         card.tap = 1;
 
         if (oppCard.health <= 0)
