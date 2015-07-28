@@ -174,7 +174,10 @@ public class GameManager : MonoBehaviour {
 
         var card = player.playPile[player.playPile.Count - 1];
         player.playPile.RemoveAt(player.playPile.Count - 1);
-        player.playHand.Add(card);
+
+        if(player.playHand.Count < 10) {
+            player.playHand.Add(card);
+        }
 
         SendPlayer(playerIndex);
     }
@@ -234,8 +237,8 @@ public class GameManager : MonoBehaviour {
         }
 
         player.playHand.RemoveAt(handIndex);
-        player.field.Add(card);
-
+        //player.playHandCount--;
+        player.field.Add(card);        
         card.pos = slotIndex;
 
         SendPlayer(playerIndex);
@@ -496,7 +499,6 @@ public class Player {
         playHand = PileFromJSON(jsPlayer["PlayHand"]);
         discardPile = PileFromJSON(jsPlayer["DiscardPile"]);
         field = PileFromJSON(jsPlayer["Field"]);
-
     }
 
     public JSONObject ToJSON() {
@@ -509,7 +511,6 @@ public class Player {
         jsPlayer.AddField("PlayHand", PileToJSON(playHand));
         jsPlayer.AddField("DiscardPile", PileToJSON(discardPile));
         jsPlayer.AddField("Field", PileToJSON(field));
-
         return jsPlayer;
     }
 
