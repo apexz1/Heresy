@@ -22,6 +22,7 @@ public class NetworkManager : MonoBehaviour {
         {
             var initServer = Network.InitializeServer(2, port, true);
             Debug.Log(initServer);
+            //GameObject.Find("Table").SetActive(false);
         }
 
         userInput = GUI.TextField(new Rect(200, 250, 100, 25), userInput);
@@ -32,6 +33,7 @@ public class NetworkManager : MonoBehaviour {
             PlayerPrefs.Save();
             var initConnection = Network.Connect(userInput, port);
             Debug.Log(initConnection);
+            //GameObject.Find("Table").SetActive(false);
         }
 
         if (GUI.Button (new Rect(480,200,120,40), "Start Game"))
@@ -39,6 +41,9 @@ public class NetworkManager : MonoBehaviour {
             GameManager gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             var initServer = Network.InitializeServer(2, port, true);
             gameManager.StartGame(0, false);
+            //GameObject o = GameObject.FindGameObjectWithTag("Table");
+            //Debug.Log(o.name);
+            //o.gameObject.SetActive(true);
         }
     }
 

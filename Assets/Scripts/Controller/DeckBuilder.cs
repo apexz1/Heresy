@@ -35,6 +35,7 @@ public class DeckBuilder : MonoBehaviour {
     }
 
     public Button listPrefab;
+    GameManager gameManager;
 
 
     void Start()
@@ -42,7 +43,14 @@ public class DeckBuilder : MonoBehaviour {
         //Don't know what the fuck I'm doing here, but works. #coding101
         libCount = cardLibrary.cardList.Count;
         deckLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy";
+        gameManager = GameManager.Get();
         Directory.CreateDirectory(deckLocation);
+
+        gameManager.LoadTextures("D:/ProtoTest/Images/");
+        for (int i = 0; i < CardLibrary.Get().cardList.Count; i++)
+        {
+            Debug.Log("Texture loaded: " + CardLibrary.Get().cardList[i].texture);
+        }
 
         SpawnCard();
         Debug.Log(deck.Count);
@@ -73,6 +81,13 @@ public class DeckBuilder : MonoBehaviour {
                 cardSpawn.transform.rotation = Quaternion.EulerAngles(Mathf.PI/2, 0, 0);
                 cardSpawn.transform.gameObject.AddComponent<CardControllerDB>();
                 cards.Add(cardSpawn);
+
+                var rend = cardSpawn.transform.FindChild("GFX").GetComponent<MeshRenderer>();
+
+                for (int k = 0; k < cards.Count; k++)
+                {
+                    rend.material.mainTexture = CardLibrary.Get().cardList[k].texture;
+                }
 
                 if (counter >= (cardLibrary.cardList.Count - 1))
                 {

@@ -391,7 +391,7 @@ public class GameManager : MonoBehaviour {
 
         for(int i = 0; i < fileArray.Length;i++) {
             Texture2D tex = LoadImage(fileArray[i]);
-            //Debug.Log(fileArray[i].ToString());
+            Debug.Log(fileArray[i].ToString());
 
             string oldName = fileArray[i].ToString();
             string tmpName = oldName.Remove(0, oldName.Length - 7);
