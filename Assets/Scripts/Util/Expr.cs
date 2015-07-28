@@ -547,6 +547,7 @@ namespace Expr
 				case UnaryMinus:
 					return 10;
 			}
+
 			return 0;
 		}
 	}
