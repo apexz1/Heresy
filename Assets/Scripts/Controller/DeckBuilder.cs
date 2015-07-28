@@ -34,6 +34,8 @@ public class DeckBuilder : MonoBehaviour {
     }
 
     public Button listPrefab;
+
+
     void Start()
     {
         //Don't know what the fuck I'm doing here, but works. #coding101
@@ -46,14 +48,47 @@ public class DeckBuilder : MonoBehaviour {
         Debug.Log(Application.dataPath);
     }
 
-    public void AddCard(string name) {
+    public void SpawnCard()
+    {
+        Vector3 spawnPos;
+        float x = 6f;
+        float y = 3.5f;
+        int counter = -1;
+
+        GameObject card;
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 22; j++)
+            {
+
+                counter++;
+
+                card = (GameObject)Resources.Load("Prefabs/CardDB");
+                spawnPos = new Vector3(x - (i * 2.4f), y - (j * 3.5f), 0);
+                GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
+                cardSpawn.transform.rotation = Quaternion.EulerAngles(Mathf.PI/2, 0, 0);
+                cardSpawn.transform.gameObject.AddComponent<CardControllerDB>();
+
+
+                if (counter >= (cardLibrary.cardList.Count - 1))
+                {
+                    counter = -1;
+                }
+            }
+        }
+    }
+
+    public void AddCard(int id) {
 
         LibraryCard card;
 
+        Debug.Log(deck.Count);
         if(deck.Count == maxDeckCount)
             return;
 
-        card = cardLibrary.GetCard(name);
+        Debug.Log("AddCard() Log: if statement passed, proceeding to add card");
+        card = cardLibrary.GetCard(id);
         deck.Add(card);
         AddCardUI(card.cardID);
 
@@ -63,6 +98,7 @@ public class DeckBuilder : MonoBehaviour {
 
     public void AddCardUI(int id)
     {
+        Debug.Log("AddCardUI() Log: Function entered " + id);
         Vector2 spawnPos = new Vector2(0, 0);
         Button listCard = Instantiate(listPrefab, spawnPos, Quaternion.identity) as Button;
 
@@ -127,34 +163,6 @@ public class DeckBuilder : MonoBehaviour {
         foreach (GameObject o in objects)
         {
             Destroy(o.gameObject);
-        }
-    }
-
-    public void SpawnCard() {
-        Vector3 spawnPos;
-        float x = 6f;
-        float y = 3.5f;
-        int counter = -1;
-
-        GameObject card;
-
-        for(int i = 0; i < 5;i++){
-            for(int j = 0;j < 17;j++) {
-
-                counter++;
-
-                card = (GameObject)Resources.Load("Prefabs/PlayCard");
-                spawnPos = new Vector3(x-(i * 1.9f),y-(j* 2.5f), 0);
-                GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
-                cardSpawn.transform.rotation = Quaternion.EulerAngles(Mathf.PI/2, 0, 0);
-                cardSpawn.transform.gameObject.AddComponent<CardControllerDB>();
-
-
-                if (counter >= (cardLibrary.cardList.Count - 1))
-                {
-                    counter = -1;
-                }
-            }
         }
     }
 

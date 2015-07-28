@@ -48,6 +48,11 @@ public class GameManager : MonoBehaviour {
         localPlayerId = playerId;
         turnPlayer = 0;
 
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].playerHealth = 20;
+        }
+
         if(Network.isServer) {
             this.NetRPC("StartGame", RPCMode.Others, playerId + 1, true);
             SendGameManager();
@@ -144,6 +149,14 @@ public class GameManager : MonoBehaviour {
             return;
         }
         this.NetRPC("ReceivePlayer", RPCMode.All, playerIndex, players[playerIndex].ToJSON().ToString());
+    }
+
+    [RPC]
+    public void DamagePlayer(int playerIndex, int amount)
+    {
+        var player = players[playerIndex];
+        player.playerHealth -= amount;
+        SendPlayer(playerIndex);
     }
 
     [RPC]
@@ -447,6 +460,7 @@ public class GameManager : MonoBehaviour {
 public class Player {
     public int playerId = -1;
     public string name;
+    public int playerHealth;
     public List<LibraryCard> deck = new List<LibraryCard>();
     public List<PlayCard> playPile = new List<PlayCard>();
     public List<PlayCard> playHand = new List<PlayCard>();
@@ -476,6 +490,7 @@ public class Player {
     public void FromJSON( JSONObject jsPlayer ) {
         playerId = (int)jsPlayer["PlayerId"];
         name = (string)jsPlayer["Name"];
+        playerHealth = (int)jsPlayer["PlayerHealth"];
         deck = DeckBuilder.DeckFromJSON(jsPlayer["Deck"]);
         playPile = PileFromJSON(jsPlayer["PlayPile"]);
         playHand = PileFromJSON(jsPlayer["PlayHand"]);
@@ -488,6 +503,7 @@ public class Player {
         JSONObject jsPlayer = JSONObject.obj;
         jsPlayer.AddField("Name", name);
         jsPlayer.AddField("PlayerId", playerId);
+        jsPlayer.AddField("PlayerHealth", playerHealth);
         jsPlayer.AddField("Deck", DeckBuilder.DeckToJSON(deck));
         jsPlayer.AddField("PlayPile", PileToJSON(playPile));
         jsPlayer.AddField("PlayHand", PileToJSON(playHand));

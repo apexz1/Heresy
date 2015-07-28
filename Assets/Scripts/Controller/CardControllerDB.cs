@@ -12,14 +12,22 @@ public class CardControllerDB : MonoBehaviour {
 
     void OnMouseOver() {
 
-        Debug.Log("card found");
-
-        if(Input.GetButtonDown("Fire1")) {            
-            //Debug.Log(cardLibrary.cardList[3].GetName());
+        if(Input.GetButtonDown("Fire1")) {
+            int cardIndex = -1;
             string name = transform.gameObject.name.Replace("(Clone)", "");
             Debug.Log(name);
-            //Debug.Log(name);
-            deckManager.AddCard(name);
+
+            for (int i = 0; i < CardLibrary.Get().cardList.Count; i++)
+            {
+                if (name == CardLibrary.Get().cardList[i].cardName)
+                {
+                    cardIndex = CardLibrary.Get().cardList[i].cardID;
+                }
+            }
+
+            Debug.Log(cardIndex);
+            if (cardIndex == -1) { return; }
+            deckManager.AddCard(cardIndex);
         }
     }
 }

@@ -90,12 +90,14 @@ public class FieldController : MonoBehaviour {
             Vector3 cardPos = fieldTransform.FindChild("" + card.pos).localPosition;
             gfx.localPosition = cardPos;
             ShowStats(controller, card);
+            ShowPlayerHealth(playerId);
     
             if (controller.pile != PlayCardController.Pile.field)
             {
                 gfx.FindChild("Selection").gameObject.SetActive(false);
                 cardSelected = -1;
-                gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
+                if (playerId == 0) { gfx.FindChild("GFX").localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), -(Mathf.PI / 2), 0); }
+                if (playerId == 1) { gfx.FindChild("GFX").localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), (Mathf.PI / 2), 0); }
             }
 
             if (card.tap > 0)
@@ -167,6 +169,15 @@ public class FieldController : MonoBehaviour {
             attackText.text = "" + libCard.attack;
             transAttack.gameObject.SetActive(true);
         }
+    }
+
+    public void ShowPlayerHealth(int playerIndex)
+    {
+        var player = GameManager.Get().players[playerIndex];
+
+        var transPlayerHP = gameObject.transform.FindChild("PlayerHealth");
+        var playerHpText = transPlayerHP.GetComponent<TextMesh>();
+        playerHpText.text = "" + player.playerHealth;
     }
 
     public void OnSlotClicked(int slot)
@@ -276,6 +287,14 @@ public class FieldController : MonoBehaviour {
             if (GameManager.Get().turnPlayer == playerId)
             {
                 GameManager.Get().NetRPC("DiscardCard", RPCMode.Server, playerId, cardSelected);
+            }
+        }
+        if (GUI.Button(new Rect(180, 0, 60, 25), "Damage Player"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("DamagePlayer", RPCMode.Server, playerId, 5);
             }
         }
 
