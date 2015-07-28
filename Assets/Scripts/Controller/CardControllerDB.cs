@@ -14,14 +14,15 @@ public class CardControllerDB : MonoBehaviour {
 
         if(Input.GetButtonDown("Fire1")) {
             int cardIndex = -1;
-            string name = transform.gameObject.name.Replace("(Clone)", "");
+            //string name = transform.gameObject.name.Replace("(Clone)", "");
             Debug.Log(name);
 
-            for (int i = 0; i < CardLibrary.Get().cardList.Count; i++)
+            for (int i = 0; i < deckManager.cards.Count; i++)
             {
-                if (name == CardLibrary.Get().cardList[i].cardName)
+                if (name == deckManager.cards[i].name)
                 {
-                    cardIndex = CardLibrary.Get().cardList[i].cardID;
+                    cardIndex = i;
+                    break;
                 }
             }
 

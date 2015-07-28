@@ -11,6 +11,7 @@ using System.Text;
 public class DeckBuilder : MonoBehaviour {
 
     public List<LibraryCard> deck = new List<LibraryCard>();
+    public List<GameObject> cards = new List<GameObject>();
     public List<Button> uiCards = new List<Button>();
    
     int libCount;
@@ -54,6 +55,7 @@ public class DeckBuilder : MonoBehaviour {
         float x = 6f;
         float y = 3.5f;
         int counter = -1;
+        int nameCounter = -1;
 
         GameObject card;
 
@@ -61,15 +63,16 @@ public class DeckBuilder : MonoBehaviour {
         {
             for (int j = 0; j < 22; j++)
             {
-
+                nameCounter++;
                 counter++;
 
                 card = (GameObject)Resources.Load("Prefabs/CardDB");
                 spawnPos = new Vector3(x - (i * 2.4f), y - (j * 3.5f), 0);
                 GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
+                cardSpawn.name = "card" + nameCounter.ToString();
                 cardSpawn.transform.rotation = Quaternion.EulerAngles(Mathf.PI/2, 0, 0);
                 cardSpawn.transform.gameObject.AddComponent<CardControllerDB>();
-
+                cards.Add(cardSpawn);
 
                 if (counter >= (cardLibrary.cardList.Count - 1))
                 {
@@ -79,7 +82,7 @@ public class DeckBuilder : MonoBehaviour {
         }
     }
 
-    public void AddCard(int id) {
+    public void AddCard(int index) {
 
         LibraryCard card;
 
@@ -88,7 +91,8 @@ public class DeckBuilder : MonoBehaviour {
             return;
 
         Debug.Log("AddCard() Log: if statement passed, proceeding to add card");
-        card = cardLibrary.GetCard(id);
+        card = cardLibrary.cardList[index];
+        Debug.Log(card);
         deck.Add(card);
         AddCardUI(card.cardID);
 
