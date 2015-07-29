@@ -4,22 +4,19 @@ using System.Collections;
 
 public class PlayCardController : MonoBehaviour {
 
-    public Transform target;
+    //public Transform target;
     bool popup = false;
-    public int globalIdx;
+    public int cardIndex;
     public bool slot = false;
-    public enum Pile
-    {
-        deck,
-        hand,
-        field,
-        discard
-    }
-    public Pile pile;
+    public bool turned = false;
+    public PlayCard.Pile pile;
+    public PlayCard card;
 	// Use this for initialization
-	void Start () 
+	void Awake () 
     {
-        target = GameObject.Find("SceneCam").transform;
+        cardIndex = -1;
+        //target = GameObject.Find("SceneCam").transform;
+        this.pile = PlayCard.Pile.invalid;
 	}
 	
 	// Update is called once per frame
@@ -27,32 +24,27 @@ public class PlayCardController : MonoBehaviour {
 	
 	}
 
-    public FieldController GetFieldControllerCard()
+    public FieldController GetFieldController()
     {
-        return GetComponentInParent<FieldController>();
-    }
-    public FieldController GetFieldControllerLocal()
-    {
-        return FieldController.GetFieldControler(GameManager.Get().localPlayerId);
+        return FieldController.GetFieldControler();
     }
 
     void OnMouseOver()
     {
+        if (cardIndex < 0) { return; }
         GameObject parentObj = gameObject.transform.parent.gameObject;
-        var fieldController = GetFieldControllerLocal();
+        var fieldController = GetFieldController();
+        var card = GameManager.Get().playCards[cardIndex];
         int playerId = GameManager.Get().localPlayerId;
 
         if (Input.GetButtonDown("Fire1"))
         {
             if (parentObj.name == "Field" || parentObj.name == "Hand")
             {
-                if (fieldController.playerId == playerId)
+                if (card.owner == playerId)
                 {
-                    if (globalIdx == 0)
-                        return;
-
-                    Debug.Log("Select clicked " + globalIdx);
-                    fieldController.SelectCard(globalIdx);
+                    Debug.Log("Select clicked " + cardIndex);
+                    fieldController.SelectCard(cardIndex);
                 }
             }
         }
@@ -62,7 +54,7 @@ public class PlayCardController : MonoBehaviour {
             if (slot)
             {
                 int slotNumber = Int32.Parse(gameObject.name);
-                if (fieldController.playerId == playerId)
+                if (card.owner == playerId)
                 {
                     fieldController.OnSlotClicked(slotNumber);
                 }
@@ -70,10 +62,10 @@ public class PlayCardController : MonoBehaviour {
 
             if (parentObj.name == "Hand")
             {
-                if (fieldController.playerId == playerId)
+                if (card.owner == playerId)
                 {
                     Debug.Log("Card found");
-                    fieldController.OnHandClicked(globalIdx);
+                    fieldController.OnHandClicked(cardIndex);
                 }
             }
 
@@ -81,11 +73,8 @@ public class PlayCardController : MonoBehaviour {
             {
                 //if (fieldController.playerId == playerId)
                 {
-                    if (globalIdx == 0)
-                        return;
-
-                    Debug.Log("Field clicked " + globalIdx);
-                    fieldController.OnFieldClicked(globalIdx);
+                    Debug.Log("Field clicked " + cardIndex);
+                    fieldController.OnFieldCardClicked(cardIndex);
                 }
             }
         }
@@ -94,9 +83,28 @@ public class PlayCardController : MonoBehaviour {
             PopUp();
     }
 
+    void OnMouseExit()
+    {
+        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+    }
+
     void PopUp()
     {
         //transform.GetChild(0).localRotation = Quaternion.Euler(-120,0,0);
         transform.position = new Vector3(transform.position.x, 1, transform.position.z);
     }
+
+    public void TurnCard(bool turn)
+    {
+        if (turn)
+        {
+            transform.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI, 0, 0);
+            turned = true;
+        }
+        else
+        {
+            transform.GetChild(0).localRotation = Quaternion.EulerAngles(0, 0, 0);
+            turned = false;
+        }
+    }       
 }

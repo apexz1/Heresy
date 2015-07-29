@@ -8,14 +8,17 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
-    public Player[] players;
-     
+    //unsynced vars; not in JSON
     NetworkView networkView;
     public int localPlayerId = -1;
-    public int turnPlayer = 0;
-
-    //unsynced vars; not in JSON
     public string notification;
+
+    //synced vars
+    public Player[] players;
+    public int turnPlayer = 0;
+    public List<PlayCard> playCards = new List<PlayCard>();
+
+
 
     public static GameManager Get() {
         return GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour {
 
         networkView = GetComponent<NetworkView>();
 
-        LoadTextures("D:/ProtoTest/Images/");
+        LoadTextures.LoadFromFile("D:/ProtoTest/Images/");
     }
 
     [RPC]
@@ -77,11 +80,11 @@ public class GameManager : MonoBehaviour {
             DrawCard(0);
             DrawCard(0);
 
-            PlayFromHand(0, players[0].playHand[0].globalIdx, 0);
-            PlayFromHand(0, players[0].playHand[0].globalIdx, 1);
-            PlayFromHand(0, players[0].playHand[0].globalIdx, 2);
+            PlayFromHand(0, 0, 0);
+            PlayFromHand(0, 1, 1);
+            PlayFromHand(0, 2, 2);
 
-            MoveOnField(0, players[0].field[0].globalIdx, 5);
+            //MoveOnField(0, players[0].field[0].globalIdx, 5);
 
             //Automated opponent opening
             DrawCard(1);
@@ -95,11 +98,11 @@ public class GameManager : MonoBehaviour {
             DrawCard(1);
             DrawCard(1);
 
-            PlayFromHand(1, players[1].playHand[0].globalIdx, 0);
-            PlayFromHand(1, players[1].playHand[0].globalIdx, 1);
-            PlayFromHand(1, players[1].playHand[0].globalIdx, 2);
+            PlayFromHand(1, 10, 0);
+            PlayFromHand(1, 11, 1);
+            PlayFromHand(1, 12, 2);
 
-            MoveOnField(1, players[1].field[0].globalIdx, 5);
+            //MoveOnField(1, players[1].field[0].globalIdx, 5);
         }
     }
 
@@ -140,23 +143,23 @@ public class GameManager : MonoBehaviour {
         players[playerId].deck = DeckBuilder.DeckFromJSON(JSONParser.parse(deck));
         players[playerId].BuildPlayPile();
 
-        SendPlayer(playerId);
+        SendGameManager();
     }
 
-    public void SendPlayer( int playerIndex ) {
+    /*public void SendPlayer( int playerIndex ) {
         if(!Network.isServer) {
             Debug.LogError("Client trying to send player");
             return;
         }
         this.NetRPC("ReceivePlayer", RPCMode.All, playerIndex, players[playerIndex].ToJSON().ToString());
-    }
+    }*/
 
     [RPC]
     public void DamagePlayer(int playerIndex, int amount)
     {
         var player = players[playerIndex];
         player.playerHealth -= amount;
-        SendPlayer(playerIndex);
+        SendGameManager();
     }
 
     [RPC]
@@ -168,156 +171,135 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void DrawCard( int playerIndex ) {
         var player = players[playerIndex];
+        PlayCard drawCard = null;
 
-        if(player.playPile.Count == 0)
-            return;
+        if (CountCards(playerIndex, PlayCard.Pile.hand) > 10) { return; }
 
-        var card = player.playPile[player.playPile.Count - 1];
-        player.playPile.RemoveAt(player.playPile.Count - 1);
-
-        if(player.playHand.Count < 10) {
-            player.playHand.Add(card);
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            var card = playCards[i];
+            if (card.owner != playerIndex) { continue; }
+            if (card.pile != PlayCard.Pile.deck) { continue; }
+            drawCard = card;
         }
 
-        SendPlayer(playerIndex);
+        if (drawCard == null) { return; }
+
+        drawCard.pile = PlayCard.Pile.hand;
+        drawCard.pos = CountCards(playerIndex, drawCard.pile)-1;
+
+        SendGameManager();
+    }
+
+    public int CountCards (int playerIndex, PlayCard.Pile pile)
+    {
+        int counter = 0; 
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            var card = playCards[i];
+            if (card.owner != playerIndex) continue;
+            if (card.pile != pile) continue;
+            counter++;
+        }
+
+        return counter;
+    }
+    public int CardAtSlot(int slotIndex)
+    {
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            var card = playCards[i];
+            if (card.pile != PlayCard.Pile.field) continue;
+            if (card.pos != slotIndex) continue;
+
+            return i;
+        }
+
+        return -1;
     }
     [RPC]
     public void DiscardCard(int playerIndex, int cardIndex)
     {
         var player = players[playerIndex];
-        int handIndex = player.FindCardHand(cardIndex);
-        int fieldIndex = player.FindCardField(cardIndex);
-
-        Debug.Log("DiscardCard() Log: " + playerIndex + " " + cardIndex + " " + handIndex + " " + fieldIndex);
-
-        if (handIndex != -1)
-        {
-            var card = player.playHand[handIndex];
-            player.playHand.RemoveAt(handIndex);
-            player.discardPile.Add(card);
-        }
-        if (fieldIndex != -1)
-        {
-            var card = player.field[fieldIndex];
-            player.field.RemoveAt(fieldIndex);
-            player.discardPile.Add(card);
-        }
-
-        SendPlayer(playerIndex);
+        Debug.Log("DiscardCard() Log: " + playerIndex + " " + cardIndex);
+        playCards[cardIndex].pile = PlayCard.Pile.discard;
+        SendGameManager();
     }
 
     [RPC]
     public void PlayFromHand(int playerIndex, int cardIndex, int slotIndex)
     {
         var player = players[playerIndex];
-        int handIndex = player.FindCardHand(cardIndex);
 
-        if (slotIndex > 2)
+        if ((slotIndex > 2 && playerIndex == 1) || (slotIndex < 18 && playerIndex == 0))
         {
             SendNotification(playerIndex, "Cards can be placed in spawn slots only");
             return;
         }
 
-        if (handIndex == -1)
+        if (CardAtSlot(slotIndex) != -1)
         {
-            Debug.LogError("Card not found");
+            SendNotification(playerIndex, "Slot already in use");
             return;
         }
 
-        var card = player.playHand[handIndex];
+        var card = playCards[cardIndex];
 
-        for (int i = 0; i < player.field.Count; i++)
-        {
-            if (player.field[i].pos == slotIndex)
-            {
-                Debug.LogWarning("Slot already in use");
-                SendNotification(playerIndex, "Slot already in use");
-                return;
-            }
-        }
-
-        player.playHand.RemoveAt(handIndex);
-        //player.playHandCount--;
-        player.field.Add(card);        
+        card.pile = PlayCard.Pile.field;        
         card.pos = slotIndex;
 
-        SendPlayer(playerIndex);
+        SendGameManager();
     }
     [RPC]
-    public void ActionFoF(int playerIndex, int cardIndex, int oppCardIndex)
+    public void ActionFoF(int playerIndex, int ownCardIndex, int oppCardIndex)
     {
         var player = players[playerIndex];
         var opponent = players[(playerIndex+1)%2];
-        int fieldIndex = player.FindCardField(cardIndex);
-        int oppFieldIndex = opponent.FindCardField(oppCardIndex);
 
-        Debug.Log(fieldIndex);
+        var ownCard = playCards[ownCardIndex];
+        var ownLibCard = CardLibrary.Get().GetCard(ownCard.libId);
+        var oppCard = playCards[oppCardIndex];
+        var oppLibCard = CardLibrary.Get().GetCard(oppCard.libId);
 
-        if (fieldIndex == -1)
-        {
-            Debug.LogError("Card not found");
-            return;
-        }
-        if (oppFieldIndex == -1)
-        {
-            Debug.LogError("Target invalid");
-            return;
-        }
-
-        var card = player.field[fieldIndex];
-        var libCard = CardLibrary.Get().GetCard(card.id);
-        var oppCard = opponent.field[oppFieldIndex];
-        var oppLibCard = CardLibrary.Get().GetCard(oppCard.id);
-
-        if (card.tap > 0)
+        if (ownCard.tap > 0)
         {
             SendNotification(playerIndex, "Card is tapped");
             return;
         }
 
-        if(libCard.attack == 0)
+        if (ownLibCard.attack == 0)
         {
             Debug.Log("No attack value assigned");
             return;
         }
 
-        oppCard.health -= libCard.attack;
-        card.health -= oppLibCard.attack;
+        oppCard.health -= ownLibCard.attack;
+        ownCard.health -= oppLibCard.attack;
 
-        card.tap = 1;
+        ownCard.tap = 1;
 
         if (oppCard.health <= 0)
         {
             DiscardCard(opponent.playerId, oppCard.globalIdx);
         }
 
-        SendPlayer(opponent.playerId);
-        SendPlayer(playerIndex);
+        SendGameManager();
     }
 
     [RPC]
     public void MoveOnField(int playerIndex, int cardIndex, int slotIndex)
     {
         var player = players[playerIndex];
-        int fieldIndex = player.FindCardField(cardIndex);
 
         Debug.Log("MoveOnField() Log: " + cardIndex + " " + slotIndex);
 
-        if (slotIndex <= 2)
+        if (slotIndex <= 2 && slotIndex >= 18)
         {
             SendNotification(playerIndex, "Cards can be moved to field slots only");
             return;
         }
 
-        Debug.Log(fieldIndex);
-
-        if (fieldIndex == -1)
-        {
-            Debug.LogError("Card not found");
-            return;
-        }
-
-        var card = player.field[fieldIndex];
+        var card = playCards[cardIndex];
 
         if (card.tap > 0)
         {
@@ -325,23 +307,30 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        for (int i = 0; i < player.field.Count; i++)
+        //Uncomment for no swapping
+        /*if (CardAtSlot(slotIndex) != -1)
         {
-            if (player.field[i].pos == slotIndex)
-            {
-                if (card.pos <= 2)
-                {
-                    SendNotification(playerIndex, "Cards can not be swapped from spawn slots");
-                    return;
-                }
+            SendNotification(playerIndex, "Slot already in use");
+            return;
+        }*/
 
-                player.field[i].pos = card.pos;
+        int swapIndex = CardAtSlot(slotIndex);
+        if (swapIndex != -1)
+        {
+            var swapCard = playCards[swapIndex];
+
+            if (swapCard.pos <= 2 && swapCard.pos >= 18)
+            {
+                SendNotification(playerIndex, "Cards can not be swapped from spawn slots");
+                return;
             }
+
+            swapCard.pos = card.pos;
         }
 
-        card.tap = 1;
         card.pos = slotIndex;
-        SendPlayer(playerIndex);
+        card.tap = 1;
+        SendGameManager();
     }
 
     [RPC]
@@ -358,68 +347,30 @@ public class GameManager : MonoBehaviour {
 
         var newPlayer = players[turnPlayer];
 
-        for (int i = 0; i < oldPlayer.field.Count; i++ )
+        for (int i = 0; i < playCards.Count; i++ )
         {
-            var card = oldPlayer.field[i];
+            var card = playCards[i];
             if (card.tap <= 0) { continue; }
+            if (card.owner != oldPlayer.playerId) { continue; }
 
             card.tap--;
         }
 
         Debug.Log(turnPlayer);
-        SendPlayer(oldPlayer.playerId);
-        SendPlayer(newPlayer.playerId);
         SendGameManager();
     }
 
-    public Texture2D LoadImage( string filePath ) {
-
-        Texture2D tex = new Texture2D(2, 2);
-        byte[] fileData;
-
-        if(File.Exists(filePath)) {
-            fileData = File.ReadAllBytes(filePath);            
-            tex.LoadImage(fileData); //..this will auto-resize the texture dimensions.
-        }
-        //Debug.Log(tex.ToString());
-        return tex;
-    }
-
-    public void LoadTextures(string filePath) {
-
-        string[] fileArray = Directory.GetFiles(filePath);
-
-        for(int i = 0; i < fileArray.Length;i++) {
-            Texture2D tex = LoadImage(fileArray[i]);
-            Debug.Log(fileArray[i].ToString());
-
-            string oldName = fileArray[i].ToString();
-            string tmpName = oldName.Remove(0, oldName.Length - 7);
-            string newName = tmpName.Remove(tmpName.Length - 4, 4);
-            int texName;
-            Int32.TryParse(newName, out texName);
-            //Debug.Log(texName);
-
-            for(int j = 0; j < CardLibrary.Get().cardList.Count; j++)
-            {
-                if(CardLibrary.Get().cardList[j].cardID == texName)
-                {
-                    //Debug.Log("name found");
-                    CardLibrary.Get().cardList[j].texture = tex;
-                }
-            }
-        }
-    }
     public void FromJSON(JSONObject jsPlayer)
     {
         turnPlayer = (int)jsPlayer["TurnPlayer"];
-
+        playCards = Player.PileFromJSON(jsPlayer["PlayCards"]);
     }
 
     public JSONObject ToJSON()
     {
         JSONObject jsPlayer = JSONObject.obj;
         jsPlayer.AddField("TurnPlayer", turnPlayer);
+        jsPlayer.AddField("PlayCards", Player.PileToJSON(playCards));
 
         return jsPlayer;
     }
@@ -431,14 +382,17 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        this.NetRPC("ReceiveGameManager", RPCMode.All, ToJSON().ToString());
+        this.NetRPC("ReceiveGameManager", RPCMode.All, System.Text.UTF8Encoding.UTF8.GetBytes(ToJSON().ToString()));
+        this.NetRPC("ReceivePlayer", RPCMode.All, 0, players[0].ToJSON().ToString());
+        this.NetRPC("ReceivePlayer", RPCMode.All, 1, players[1].ToJSON().ToString());
+        
     }
 
     [RPC]
-    public void ReceiveGameManager(string manager)
+    public void ReceiveGameManager(byte[] manager)
     {
-        Debug.Log("Receive()" + manager);
-        FromJSON(JSONParser.parse(manager));
+        Debug.Log("Receive()" + System.Text.UTF8Encoding.UTF8.GetString(manager));
+        FromJSON(JSONParser.parse(System.Text.UTF8Encoding.UTF8.GetString(manager)));
     }
 
     public void SendNotification(int playerIndex, string message)
@@ -458,6 +412,19 @@ public class GameManager : MonoBehaviour {
     {
         notification = message;
     }
+
+    public int FindCard(int cardIndex)
+    {
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            if (playCards[i].globalIdx == cardIndex)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
 }
 
 public class Player {
@@ -465,28 +432,35 @@ public class Player {
     public string name;
     public int playerHealth;
     public List<LibraryCard> deck = new List<LibraryCard>();
-    public List<PlayCard> playPile = new List<PlayCard>();
+    /*public List<PlayCard> playPile = new List<PlayCard>();
     public List<PlayCard> playHand = new List<PlayCard>();
     public List<PlayCard> discardPile = new List<PlayCard>();
-    public List<PlayCard> field = new List<PlayCard>();
+    public List<PlayCard> field = new List<PlayCard>();*/
     public NetworkPlayer networkPlayer;
-    static int globalIdx = 0;
+    //static int globalIdx = 0;
 
     public void BuildPlayPile() {
-        playPile.Clear();
-        playHand.Clear();
-        discardPile.Clear();
-        field.Clear();
-
+        
+        List<PlayCard> playPile = new List<PlayCard>();
         for(int i = 0;i < deck.Count;i++) {
-            globalIdx++;
+            //globalIdx++;
 
-            PlayCard playCard = new PlayCard(deck[i].cardID, globalIdx);
+            PlayCard playCard = new PlayCard(deck[i].cardID);
             playCard.InitLibrary();
             playPile.Add(playCard);
         }
 
         playPile.Shuffle();
+
+        for (int i = 0; i < playPile.Count; i++)
+        {
+            playPile[i].pos = i;
+            playPile[i].globalIdx = GameManager.Get().playCards.Count + i;
+            playPile[i].pile = PlayCard.Pile.deck;
+            playPile[i].owner = playerId;
+        }
+
+        GameManager.Get().playCards.AddRange(playPile);
     }
 
 
@@ -495,10 +469,10 @@ public class Player {
         name = (string)jsPlayer["Name"];
         playerHealth = (int)jsPlayer["PlayerHealth"];
         deck = DeckBuilder.DeckFromJSON(jsPlayer["Deck"]);
-        playPile = PileFromJSON(jsPlayer["PlayPile"]);
+        /*playPile = PileFromJSON(jsPlayer["PlayPile"]);
         playHand = PileFromJSON(jsPlayer["PlayHand"]);
         discardPile = PileFromJSON(jsPlayer["DiscardPile"]);
-        field = PileFromJSON(jsPlayer["Field"]);
+        field = PileFromJSON(jsPlayer["Field"]);*/
     }
 
     public JSONObject ToJSON() {
@@ -507,10 +481,10 @@ public class Player {
         jsPlayer.AddField("PlayerId", playerId);
         jsPlayer.AddField("PlayerHealth", playerHealth);
         jsPlayer.AddField("Deck", DeckBuilder.DeckToJSON(deck));
-        jsPlayer.AddField("PlayPile", PileToJSON(playPile));
+        /*jsPlayer.AddField("PlayPile", PileToJSON(playPile));
         jsPlayer.AddField("PlayHand", PileToJSON(playHand));
         jsPlayer.AddField("DiscardPile", PileToJSON(discardPile));
-        jsPlayer.AddField("Field", PileToJSON(field));
+        jsPlayer.AddField("Field", PileToJSON(field));*/
         return jsPlayer;
     }
 
@@ -533,21 +507,8 @@ public class Player {
         }
         return pile;
     }
-
-    public static int FindCard(List<PlayCard> pile,int cardIndex)
-    {
-        for (int i = 0; i < pile.Count; i++)
-        {
-            if (pile[i].globalIdx == cardIndex)
-            {
-                return i;
-            }
-        }
-
-        return -1;
-    }
-    public int FindCardPlayPile(int cardIndex) { return FindCard(playPile, cardIndex); }
+    /*public int FindCardPlayPile(int cardIndex) { return FindCard(playPile, cardIndex); }
     public int FindCardHand(int cardIndex) { return FindCard(playHand, cardIndex); }
     public int FindCardField(int cardIndex) { return FindCard(field, cardIndex); }
-    public int FindCardDiscard(int cardIndex) { return FindCard(discardPile, cardIndex); }
+    public int FindCardDiscard(int cardIndex) { return FindCard(discardPile, cardIndex); }*/
 }

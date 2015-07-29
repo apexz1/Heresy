@@ -2,12 +2,12 @@ Mono path[0] = 'D:/ProtoTest/build_01_Data/Managed'
 Mono path[1] = 'D:/ProtoTest/build_01_Data/Mono'
 Mono config path = 'D:/ProtoTest/build_01_Data/Mono/etc'
 PlayerConnection initialized from D:/ProtoTest/build_01_Data (debug = 0)
-PlayerConnection initialized network socket : 0.0.0.0 55144
-Multi-casting "[IP] 172.21.66.5 [Port] 55144 [Flags] 3 [Guid] 721933153 [EditorId] 3255613213 [Version] 1048832 [Id] WindowsPlayer(BLN-A-1550) [Debug] 1" to [225.0.0.222:54997]...
-Waiting for connection from host on [172.21.66.5:55144]...
+PlayerConnection initialized network socket : 0.0.0.0 55249
+Multi-casting "[IP] 172.21.66.5 [Port] 55249 [Flags] 3 [Guid] 992908659 [EditorId] 935451715 [Version] 1048832 [Id] WindowsPlayer(BLN-A-1550) [Debug] 1" to [225.0.0.222:54997]...
+Waiting for connection from host on [172.21.66.5:55249]...
 PlayerConnection accepted from [172.21.66.5] handle:0x1ec
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56153
-PlayerConnection already initialized - listening to [172.21.66.5:55144]
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56659
+PlayerConnection already initialized - listening to [172.21.66.5:55249]
 Initialize engine version: 5.1.1f1 (2046fc06d4d8)
 GfxDevice: creating device client; threaded=1
 Direct3D:
@@ -26,7 +26,7 @@ Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.060 seconds
+- Completed reload, in  0.065 seconds
 desktop: 1920x1080 60Hz; virtual: 3600x1080 at -1680,0
 <RI> Initializing input.
 <RI> Input initialized.
@@ -40,102 +40,123 @@ NetworkManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\NetworkManager
  
 (Filename: D:/ProtoTest/Assets/Scripts/Controller/NetworkManager.cs Line: 11)
 
+D:/ProtoTest/Images/900.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
+D:/ProtoTest/Images/901.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
+D:/ProtoTest/Images/902.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
+D:/ProtoTest/Images/903.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
+D:/ProtoTest/Images/904.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
+D:/ProtoTest/Images/905.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
+D:/ProtoTest/Images/906.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
+D:/ProtoTest/Images/907.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
+D:/ProtoTest/Images/908.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
+D:/ProtoTest/Images/909.png
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadTextures(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:394)
+GameManager:Start() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:41)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 394)
+
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 197c -> priority: 1 
-  Thread -> id: 1534 -> priority: 1 
+  Thread -> id: 40c -> priority: 1 
+  Thread -> id: 850 -> priority: 1 
 NoError
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-NetworkManager:OnGUI() (at D:\ProtoTest\Assets\Scripts\Controller\NetworkManager.cs:24)
+NetworkManager:OnGUI() (at D:\ProtoTest\Assets\Scripts\Controller\NetworkManager.cs:35)
  
-(Filename: D:/ProtoTest/Assets/Scripts/Controller/NetworkManager.cs Line: 24)
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/NetworkManager.cs Line: 35)
 
-Player connected from127.0.0.1:60465
+0
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-GameManager:OnPlayerConnected(NetworkPlayer) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:26)
+GameManager:StartGame(Int32, Boolean) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:61)
  
-(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 26)
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 61)
+
+start
+UnityEngine.Debug:Internal_Log(Int32, String, Object)
+UnityEngine.Debug:Log(Object)
+GameManager:LoadDeck(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:110)
+GameManager:StartGame(Int32, Boolean) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:63)
+ 
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 110)
 
 Receive(){
 		"TurnPlayer":0}
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-GameManager:ReceiveGameManager(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:421)
-UnityEngine.NetworkView:Internal_RPC(NetworkView, String, RPCMode, Object[])
-UnityEngine.NetworkView:RPC(String, RPCMode, Object[]) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\NetworkingBindings.gen.cs:410)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:32)
-GameManager:SendGameManager() (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:415)
-GameManager:StartGame(Int32, Boolean) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:53)
-GameManager:OnPlayerConnected(NetworkPlayer) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:27)
+GameManager:ReceiveGameManager(String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:440)
  
-(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 421)
-
-0
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-GameManager:StartGame(Int32, Boolean) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:56)
-GameManager:OnPlayerConnected(NetworkPlayer) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:27)
- 
-(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 56)
-
-start
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-GameManager:LoadDeck(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:105)
-GameManager:StartGame(Int32, Boolean) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:58)
-GameManager:OnPlayerConnected(NetworkPlayer) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:27)
- 
-(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 105)
-
-AssignDeck()0 : [
-		900,
-		901,
-		902,
-		903,
-		904,
-		905,
-		906,
-		907,
-		908,
-		909,
-		900,
-		901,
-		902,
-		903,
-		904,
-		905,
-		906,
-		907,
-		908,
-		909,
-		900,
-		901,
-		902,
-		903,
-		904,
-		905,
-		906,
-		907,
-		908,
-		909]
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-GameManager:AssignDeck(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:133)
-System.Reflection.MonoMethod:InternalInvoke(Object, Object[], Exception&)
-System.Reflection.MonoMethod:Invoke(Object, BindingFlags, Binder, Object[], CultureInfo) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222)
-System.Reflection.MethodBase:Invoke(Object, Object[]) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115)
-NetExtension:LocalInvoke(MonoBehaviour, String, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:14)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:28)
-GameManager:LoadDeck(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:107)
-GameManager:StartGame(Int32, Boolean) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:58)
-GameManager:OnPlayerConnected(NetworkPlayer) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:27)
- 
-(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs Line: 222)
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 440)
 
 Receive()0 | {
 		"Name":"",
 		"PlayerId":0,
+		"PlayerHealth":20,
 		"Deck":[
 				900,
 				901,
@@ -169,63 +190,9 @@ Receive()0 | {
 				909],
 		"PlayPile":[
 				{
-						"id":907,
-						"globalIdx":28,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":19,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":10,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":24,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":2,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
 						"id":904,
 						"globalIdx":15,
 						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":25,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":13,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":7,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":6,
-						"health":0,
 						"position":0,
 						"tapped":0},
 				{
@@ -235,75 +202,21 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":903,
-						"globalIdx":14,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":26,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":29,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":17,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":16,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":900,
-						"globalIdx":1,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":907,
-						"globalIdx":18,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":4,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":27,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
 						"id":907,
 						"globalIdx":8,
 						"health":2,
 						"position":0,
 						"tapped":0},
 				{
-						"id":904,
-						"globalIdx":5,
+						"id":906,
+						"globalIdx":7,
 						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":19,
+						"health":6,
 						"position":0,
 						"tapped":0},
 				{
@@ -313,20 +226,20 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":901,
-						"globalIdx":12,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":22,
-						"health":4,
+						"id":904,
+						"globalIdx":25,
+						"health":1,
 						"position":0,
 						"tapped":0},
 				{
 						"id":900,
 						"globalIdx":11,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":900,
+						"globalIdx":21,
 						"health":0,
 						"position":0,
 						"tapped":0},
@@ -337,9 +250,117 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":900,
-						"globalIdx":21,
+						"id":904,
+						"globalIdx":5,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":2,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":24,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":14,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":17,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":12,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":29,
+						"health":6,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":23,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":13,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":907,
+						"globalIdx":28,
+						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":4,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":905,
+						"globalIdx":26,
 						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":27,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":907,
+						"globalIdx":18,
+						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":900,
+						"globalIdx":1,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":905,
+						"globalIdx":16,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":22,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":905,
+						"globalIdx":6,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":909,
+						"globalIdx":10,
+						"health":99,
 						"position":0,
 						"tapped":0},
 				{
@@ -353,63 +374,14 @@ Receive()0 | {
 		"Field":null}
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:151)
-UnityEngine.NetworkView:Internal_RPC(NetworkView, String, RPCMode, Object[])
-UnityEngine.NetworkView:RPC(String, RPCMode, Object[]) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\NetworkingBindings.gen.cs:410)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:32)
-GameManager:SendPlayer(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:146)
-GameManager:AssignDeck(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:138)
-System.Reflection.MonoMethod:InternalInvoke(Object, Object[], Exception&)
-System.Reflection.MonoMethod:Invoke(Object, BindingFlags, Binder, Object[], CultureInfo) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222)
-System.Reflection.MethodBase:Invoke(Object, Object[]) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115)
-NetExtension:LocalInvoke(MonoBehaviour, String, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:14)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:28)
-GameManager:LoadDeck(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:107)
-GameManager:StartGame(Int32, Boolean) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:58)
-GameManager:OnPlayerConnected(NetworkPlayer) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:27)
+GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:164)
  
-(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs Line: 222)
-
-AssignDeck()1 : [
-		900,
-		901,
-		902,
-		903,
-		904,
-		905,
-		906,
-		907,
-		908,
-		909,
-		900,
-		901,
-		902,
-		903,
-		904,
-		905,
-		906,
-		907,
-		908,
-		909,
-		900,
-		901,
-		902,
-		903,
-		904,
-		905,
-		906,
-		907,
-		908,
-		909]
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-GameManager:AssignDeck(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:133)
- 
-(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 133)
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 164)
 
 Receive()1 | {
 		"Name":"",
 		"PlayerId":1,
+		"PlayerHealth":20,
 		"Deck":[
 				900,
 				901,
@@ -444,43 +416,25 @@ Receive()1 | {
 		"PlayPile":[
 				{
 						"id":909,
-						"globalIdx":60,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
 						"globalIdx":50,
 						"health":99,
 						"position":0,
 						"tapped":0},
 				{
-						"id":907,
-						"globalIdx":58,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":40,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
 						"id":900,
-						"globalIdx":51,
+						"globalIdx":31,
 						"health":0,
 						"position":0,
 						"tapped":0},
 				{
 						"id":906,
-						"globalIdx":57,
+						"globalIdx":37,
 						"health":1,
 						"position":0,
 						"tapped":0},
 				{
 						"id":900,
-						"globalIdx":41,
+						"globalIdx":51,
 						"health":0,
 						"position":0,
 						"tapped":0},
@@ -491,27 +445,33 @@ Receive()1 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":908,
-						"globalIdx":49,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":43,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":55,
+						"id":906,
+						"globalIdx":47,
 						"health":1,
 						"position":0,
 						"tapped":0},
 				{
 						"id":907,
-						"globalIdx":38,
+						"globalIdx":58,
 						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":34,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":900,
+						"globalIdx":41,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":54,
+						"health":12,
 						"position":0,
 						"tapped":0},
 				{
@@ -521,15 +481,51 @@ Receive()1 | {
 						"position":0,
 						"tapped":0},
 				{
+						"id":904,
+						"globalIdx":45,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
 						"id":908,
 						"globalIdx":59,
 						"health":6,
 						"position":0,
 						"tapped":0},
 				{
-						"id":908,
-						"globalIdx":39,
-						"health":6,
+						"id":905,
+						"globalIdx":36,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":53,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":907,
+						"globalIdx":38,
+						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":904,
+						"globalIdx":55,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":43,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":57,
+						"health":1,
 						"position":0,
 						"tapped":0},
 				{
@@ -545,15 +541,9 @@ Receive()1 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":905,
-						"globalIdx":56,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":46,
-						"health":0,
+						"id":908,
+						"globalIdx":39,
+						"health":6,
 						"position":0,
 						"tapped":0},
 				{
@@ -563,45 +553,21 @@ Receive()1 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":903,
-						"globalIdx":54,
-						"health":12,
+						"id":909,
+						"globalIdx":40,
+						"health":99,
 						"position":0,
 						"tapped":0},
 				{
-						"id":903,
-						"globalIdx":34,
-						"health":12,
+						"id":909,
+						"globalIdx":60,
+						"health":99,
 						"position":0,
 						"tapped":0},
 				{
-						"id":900,
-						"globalIdx":31,
+						"id":905,
+						"globalIdx":56,
 						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":45,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":35,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":47,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":53,
-						"health":7,
 						"position":0,
 						"tapped":0},
 				{
@@ -611,15 +577,21 @@ Receive()1 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":906,
-						"globalIdx":37,
+						"id":905,
+						"globalIdx":46,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":904,
+						"globalIdx":35,
 						"health":1,
 						"position":0,
 						"tapped":0},
 				{
-						"id":905,
-						"globalIdx":36,
-						"health":0,
+						"id":908,
+						"globalIdx":49,
+						"health":6,
 						"position":0,
 						"tapped":0}],
 		"PlayHand":null,
@@ -627,18 +599,14 @@ Receive()1 | {
 		"Field":null}
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:151)
-UnityEngine.NetworkView:Internal_RPC(NetworkView, String, RPCMode, Object[])
-UnityEngine.NetworkView:RPC(String, RPCMode, Object[]) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\NetworkingBindings.gen.cs:410)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:32)
-GameManager:SendPlayer(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:146)
-GameManager:AssignDeck(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:138)
+GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:164)
  
-(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 151)
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 164)
 
 Receive()0 | {
 		"Name":"",
 		"PlayerId":0,
+		"PlayerHealth":20,
 		"Deck":[
 				900,
 				901,
@@ -672,63 +640,9 @@ Receive()0 | {
 				909],
 		"PlayPile":[
 				{
-						"id":907,
-						"globalIdx":28,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":19,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":10,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":24,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":2,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
 						"id":904,
 						"globalIdx":15,
 						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":25,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":13,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":7,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":6,
-						"health":0,
 						"position":0,
 						"tapped":0},
 				{
@@ -738,75 +652,21 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":903,
-						"globalIdx":14,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":26,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":29,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":17,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":16,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":900,
-						"globalIdx":1,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":907,
-						"globalIdx":18,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":4,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":27,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
 						"id":907,
 						"globalIdx":8,
 						"health":2,
 						"position":0,
 						"tapped":0},
 				{
-						"id":904,
-						"globalIdx":5,
+						"id":906,
+						"globalIdx":7,
 						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":19,
+						"health":6,
 						"position":0,
 						"tapped":0},
 				{
@@ -816,20 +676,20 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":901,
-						"globalIdx":12,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":22,
-						"health":4,
+						"id":904,
+						"globalIdx":25,
+						"health":1,
 						"position":0,
 						"tapped":0},
 				{
 						"id":900,
 						"globalIdx":11,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":900,
+						"globalIdx":21,
 						"health":0,
 						"position":0,
 						"tapped":0},
@@ -840,9 +700,117 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":900,
-						"globalIdx":21,
+						"id":904,
+						"globalIdx":5,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":2,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":24,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":14,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":17,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":12,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":29,
+						"health":6,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":23,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":13,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":907,
+						"globalIdx":28,
+						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":4,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":905,
+						"globalIdx":26,
 						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":27,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":907,
+						"globalIdx":18,
+						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":900,
+						"globalIdx":1,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":905,
+						"globalIdx":16,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":22,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":905,
+						"globalIdx":6,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":909,
+						"globalIdx":10,
+						"health":99,
 						"position":0,
 						"tapped":0}],
 		"PlayHand":[
@@ -856,24 +824,14 @@ Receive()0 | {
 		"Field":null}
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:151)
-UnityEngine.NetworkView:Internal_RPC(NetworkView, String, RPCMode, Object[])
-UnityEngine.NetworkView:RPC(String, RPCMode, Object[]) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\NetworkingBindings.gen.cs:410)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:32)
-GameManager:SendPlayer(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:146)
-GameManager:DrawCard(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:166)
-System.Reflection.MonoMethod:InternalInvoke(Object, Object[], Exception&)
-System.Reflection.MonoMethod:Invoke(Object, BindingFlags, Binder, Object[], CultureInfo) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222)
-System.Reflection.MethodBase:Invoke(Object, Object[]) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115)
-NetExtension:LocalInvoke(MonoBehaviour, String, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:14)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:28)
-FieldController:OnGUI() (at D:\ProtoTest\Assets\Scripts\Controller\FieldController.cs:270)
+GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:164)
  
-(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs Line: 222)
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 164)
 
 Receive()0 | {
 		"Name":"",
 		"PlayerId":0,
+		"PlayerHealth":20,
 		"Deck":[
 				900,
 				901,
@@ -907,63 +865,9 @@ Receive()0 | {
 				909],
 		"PlayPile":[
 				{
-						"id":907,
-						"globalIdx":28,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":19,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":10,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":24,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":2,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
 						"id":904,
 						"globalIdx":15,
 						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":25,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":13,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":7,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":6,
-						"health":0,
 						"position":0,
 						"tapped":0},
 				{
@@ -973,8 +877,116 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
+						"id":907,
+						"globalIdx":8,
+						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":7,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":19,
+						"health":6,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":9,
+						"health":6,
+						"position":0,
+						"tapped":0},
+				{
+						"id":904,
+						"globalIdx":25,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":900,
+						"globalIdx":11,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":900,
+						"globalIdx":21,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":909,
+						"globalIdx":20,
+						"health":99,
+						"position":0,
+						"tapped":0},
+				{
+						"id":904,
+						"globalIdx":5,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":2,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":24,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
 						"id":903,
 						"globalIdx":14,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":17,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":12,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":29,
+						"health":6,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":23,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":13,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":907,
+						"globalIdx":28,
+						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":4,
 						"health":12,
 						"position":0,
 						"tapped":0},
@@ -985,27 +997,9 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":908,
-						"globalIdx":29,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
 						"id":906,
-						"globalIdx":17,
+						"globalIdx":27,
 						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":16,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":900,
-						"globalIdx":1,
-						"health":0,
 						"position":0,
 						"tapped":0},
 				{
@@ -1015,45 +1009,15 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":902,
-						"globalIdx":23,
-						"health":7,
+						"id":900,
+						"globalIdx":1,
+						"health":0,
 						"position":0,
 						"tapped":0},
 				{
-						"id":903,
-						"globalIdx":4,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":27,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":907,
-						"globalIdx":8,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":5,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":9,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":12,
-						"health":4,
+						"id":905,
+						"globalIdx":16,
+						"health":0,
 						"position":0,
 						"tapped":0},
 				{
@@ -1063,15 +1027,9 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":900,
-						"globalIdx":11,
+						"id":905,
+						"globalIdx":6,
 						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":20,
-						"health":99,
 						"position":0,
 						"tapped":0}],
 		"PlayHand":[
@@ -1082,33 +1040,23 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":900,
-						"globalIdx":21,
-						"health":0,
+						"id":909,
+						"globalIdx":10,
+						"health":99,
 						"position":0,
 						"tapped":0}],
 		"DiscardPile":null,
 		"Field":null}
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:151)
-UnityEngine.NetworkView:Internal_RPC(NetworkView, String, RPCMode, Object[])
-UnityEngine.NetworkView:RPC(String, RPCMode, Object[]) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\NetworkingBindings.gen.cs:410)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:32)
-GameManager:SendPlayer(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:146)
-GameManager:DrawCard(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:166)
-System.Reflection.MonoMethod:InternalInvoke(Object, Object[], Exception&)
-System.Reflection.MonoMethod:Invoke(Object, BindingFlags, Binder, Object[], CultureInfo) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222)
-System.Reflection.MethodBase:Invoke(Object, Object[]) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115)
-NetExtension:LocalInvoke(MonoBehaviour, String, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:14)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:28)
-FieldController:OnGUI() (at D:\ProtoTest\Assets\Scripts\Controller\FieldController.cs:270)
+GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:164)
  
-(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs Line: 222)
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 164)
 
 Receive()0 | {
 		"Name":"",
 		"PlayerId":0,
+		"PlayerHealth":20,
 		"Deck":[
 				900,
 				901,
@@ -1142,63 +1090,9 @@ Receive()0 | {
 				909],
 		"PlayPile":[
 				{
-						"id":907,
-						"globalIdx":28,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":19,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":10,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":24,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":2,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
 						"id":904,
 						"globalIdx":15,
 						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":25,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":13,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":7,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":6,
-						"health":0,
 						"position":0,
 						"tapped":0},
 				{
@@ -1208,75 +1102,21 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":903,
-						"globalIdx":14,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":26,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":29,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":17,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":16,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":900,
-						"globalIdx":1,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":907,
-						"globalIdx":18,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":4,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":27,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
 						"id":907,
 						"globalIdx":8,
 						"health":2,
 						"position":0,
 						"tapped":0},
 				{
-						"id":904,
-						"globalIdx":5,
+						"id":906,
+						"globalIdx":7,
 						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":19,
+						"health":6,
 						"position":0,
 						"tapped":0},
 				{
@@ -1286,28 +1126,15 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":901,
-						"globalIdx":12,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":22,
-						"health":4,
+						"id":904,
+						"globalIdx":25,
+						"health":1,
 						"position":0,
 						"tapped":0},
 				{
 						"id":900,
 						"globalIdx":11,
 						"health":0,
-						"position":0,
-						"tapped":0}],
-		"PlayHand":[
-				{
-						"id":909,
-						"globalIdx":30,
-						"health":99,
 						"position":0,
 						"tapped":0},
 				{
@@ -1321,29 +1148,140 @@ Receive()0 | {
 						"globalIdx":20,
 						"health":99,
 						"position":0,
+						"tapped":0},
+				{
+						"id":904,
+						"globalIdx":5,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":2,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":24,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":14,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":17,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":12,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":29,
+						"health":6,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":23,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":13,
+						"health":7,
+						"position":0,
+						"tapped":0},
+				{
+						"id":907,
+						"globalIdx":28,
+						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":4,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":905,
+						"globalIdx":26,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":27,
+						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":907,
+						"globalIdx":18,
+						"health":2,
+						"position":0,
+						"tapped":0},
+				{
+						"id":900,
+						"globalIdx":1,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":905,
+						"globalIdx":16,
+						"health":0,
+						"position":0,
+						"tapped":0},
+				{
+						"id":901,
+						"globalIdx":22,
+						"health":4,
+						"position":0,
+						"tapped":0}],
+		"PlayHand":[
+				{
+						"id":909,
+						"globalIdx":30,
+						"health":99,
+						"position":0,
+						"tapped":0},
+				{
+						"id":909,
+						"globalIdx":10,
+						"health":99,
+						"position":0,
+						"tapped":0},
+				{
+						"id":905,
+						"globalIdx":6,
+						"health":0,
+						"position":0,
 						"tapped":0}],
 		"DiscardPile":null,
 		"Field":null}
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:151)
-UnityEngine.NetworkView:Internal_RPC(NetworkView, String, RPCMode, Object[])
-UnityEngine.NetworkView:RPC(String, RPCMode, Object[]) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\NetworkingBindings.gen.cs:410)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:32)
-GameManager:SendPlayer(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:146)
-GameManager:DrawCard(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:166)
-System.Reflection.MonoMethod:InternalInvoke(Object, Object[], Exception&)
-System.Reflection.MonoMethod:Invoke(Object, BindingFlags, Binder, Object[], CultureInfo) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222)
-System.Reflection.MethodBase:Invoke(Object, Object[]) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115)
-NetExtension:LocalInvoke(MonoBehaviour, String, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:14)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:28)
-FieldController:OnGUI() (at D:\ProtoTest\Assets\Scripts\Controller\FieldController.cs:270)
+GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:164)
  
-(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs Line: 222)
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 164)
 
 Receive()0 | {
 		"Name":"",
 		"PlayerId":0,
+		"PlayerHealth":20,
 		"Deck":[
 				900,
 				901,
@@ -1377,63 +1315,9 @@ Receive()0 | {
 				909],
 		"PlayPile":[
 				{
-						"id":907,
-						"globalIdx":28,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":19,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":10,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":24,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":2,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
 						"id":904,
 						"globalIdx":15,
 						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":25,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":13,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":7,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":6,
-						"health":0,
 						"position":0,
 						"tapped":0},
 				{
@@ -1443,75 +1327,21 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":903,
-						"globalIdx":14,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":26,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":29,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":17,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":16,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":900,
-						"globalIdx":1,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":907,
-						"globalIdx":18,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":4,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":27,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
 						"id":907,
 						"globalIdx":8,
 						"health":2,
 						"position":0,
 						"tapped":0},
 				{
-						"id":904,
-						"globalIdx":5,
+						"id":906,
+						"globalIdx":7,
 						"health":1,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":19,
+						"health":6,
 						"position":0,
 						"tapped":0},
 				{
@@ -1521,22 +1351,15 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":901,
-						"globalIdx":12,
-						"health":4,
+						"id":904,
+						"globalIdx":25,
+						"health":1,
 						"position":0,
 						"tapped":0},
 				{
-						"id":901,
-						"globalIdx":22,
-						"health":4,
-						"position":0,
-						"tapped":0}],
-		"PlayHand":[
-				{
-						"id":909,
-						"globalIdx":30,
-						"health":99,
+						"id":900,
+						"globalIdx":11,
+						"health":0,
 						"position":0,
 						"tapped":0},
 				{
@@ -1552,87 +1375,9 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":900,
-						"globalIdx":11,
-						"health":0,
-						"position":0,
-						"tapped":0}],
-		"DiscardPile":null,
-		"Field":null}
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:151)
-UnityEngine.NetworkView:Internal_RPC(NetworkView, String, RPCMode, Object[])
-UnityEngine.NetworkView:RPC(String, RPCMode, Object[]) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\NetworkingBindings.gen.cs:410)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:32)
-GameManager:SendPlayer(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:146)
-GameManager:DrawCard(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:166)
-System.Reflection.MonoMethod:InternalInvoke(Object, Object[], Exception&)
-System.Reflection.MonoMethod:Invoke(Object, BindingFlags, Binder, Object[], CultureInfo) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222)
-System.Reflection.MethodBase:Invoke(Object, Object[]) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115)
-NetExtension:LocalInvoke(MonoBehaviour, String, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:14)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:28)
-FieldController:OnGUI() (at D:\ProtoTest\Assets\Scripts\Controller\FieldController.cs:270)
- 
-(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs Line: 222)
-
-Receive()0 | {
-		"Name":"",
-		"PlayerId":0,
-		"Deck":[
-				900,
-				901,
-				902,
-				903,
-				904,
-				905,
-				906,
-				907,
-				908,
-				909,
-				900,
-				901,
-				902,
-				903,
-				904,
-				905,
-				906,
-				907,
-				908,
-				909,
-				900,
-				901,
-				902,
-				903,
-				904,
-				905,
-				906,
-				907,
-				908,
-				909],
-		"PlayPile":[
-				{
-						"id":907,
-						"globalIdx":28,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":19,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":10,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":24,
-						"health":12,
+						"id":904,
+						"globalIdx":5,
+						"health":1,
 						"position":0,
 						"tapped":0},
 				{
@@ -1642,15 +1387,39 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":904,
-						"globalIdx":15,
+						"id":903,
+						"globalIdx":24,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":903,
+						"globalIdx":14,
+						"health":12,
+						"position":0,
+						"tapped":0},
+				{
+						"id":906,
+						"globalIdx":17,
 						"health":1,
 						"position":0,
 						"tapped":0},
 				{
-						"id":904,
-						"globalIdx":25,
-						"health":1,
+						"id":901,
+						"globalIdx":12,
+						"health":4,
+						"position":0,
+						"tapped":0},
+				{
+						"id":908,
+						"globalIdx":29,
+						"health":6,
+						"position":0,
+						"tapped":0},
+				{
+						"id":902,
+						"globalIdx":23,
+						"health":7,
 						"position":0,
 						"tapped":0},
 				{
@@ -1660,26 +1429,14 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":906,
-						"globalIdx":7,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":6,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":3,
-						"health":7,
+						"id":907,
+						"globalIdx":28,
+						"health":2,
 						"position":0,
 						"tapped":0},
 				{
 						"id":903,
-						"globalIdx":14,
+						"globalIdx":4,
 						"health":12,
 						"position":0,
 						"tapped":0},
@@ -1690,27 +1447,9 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":908,
-						"globalIdx":29,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
 						"id":906,
-						"globalIdx":17,
+						"globalIdx":27,
 						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":16,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":900,
-						"globalIdx":1,
-						"health":0,
 						"position":0,
 						"tapped":0},
 				{
@@ -1720,45 +1459,15 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":902,
-						"globalIdx":23,
-						"health":7,
+						"id":900,
+						"globalIdx":1,
+						"health":0,
 						"position":0,
 						"tapped":0},
 				{
-						"id":903,
-						"globalIdx":4,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":27,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":907,
-						"globalIdx":8,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":5,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":9,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":12,
-						"health":4,
+						"id":905,
+						"globalIdx":16,
+						"health":0,
 						"position":0,
 						"tapped":0}],
 		"PlayHand":[
@@ -1769,20 +1478,14 @@ Receive()0 | {
 						"position":0,
 						"tapped":0},
 				{
-						"id":900,
-						"globalIdx":21,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
 						"id":909,
-						"globalIdx":20,
+						"globalIdx":10,
 						"health":99,
 						"position":0,
 						"tapped":0},
 				{
-						"id":900,
-						"globalIdx":11,
+						"id":905,
+						"globalIdx":6,
 						"health":0,
 						"position":0,
 						"tapped":0},
@@ -1796,254 +1499,8 @@ Receive()0 | {
 		"Field":null}
 UnityEngine.Debug:Internal_Log(Int32, String, Object)
 UnityEngine.Debug:Log(Object)
-GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:151)
-UnityEngine.NetworkView:Internal_RPC(NetworkView, String, RPCMode, Object[])
-UnityEngine.NetworkView:RPC(String, RPCMode, Object[]) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\NetworkingBindings.gen.cs:410)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:32)
-GameManager:SendPlayer(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:146)
-GameManager:DrawCard(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:166)
-System.Reflection.MonoMethod:InternalInvoke(Object, Object[], Exception&)
-System.Reflection.MonoMethod:Invoke(Object, BindingFlags, Binder, Object[], CultureInfo) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222)
-System.Reflection.MethodBase:Invoke(Object, Object[]) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115)
-NetExtension:LocalInvoke(MonoBehaviour, String, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:14)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:28)
-FieldController:OnGUI() (at D:\ProtoTest\Assets\Scripts\Controller\FieldController.cs:270)
+GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:164)
  
-(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs Line: 222)
-
-Receive()0 | {
-		"Name":"",
-		"PlayerId":0,
-		"Deck":[
-				900,
-				901,
-				902,
-				903,
-				904,
-				905,
-				906,
-				907,
-				908,
-				909,
-				900,
-				901,
-				902,
-				903,
-				904,
-				905,
-				906,
-				907,
-				908,
-				909,
-				900,
-				901,
-				902,
-				903,
-				904,
-				905,
-				906,
-				907,
-				908,
-				909],
-		"PlayPile":[
-				{
-						"id":907,
-						"globalIdx":28,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":19,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":10,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":24,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":2,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":15,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":25,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":13,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":7,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":6,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":3,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":14,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":26,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":29,
-						"health":6,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":17,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":905,
-						"globalIdx":16,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":900,
-						"globalIdx":1,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":907,
-						"globalIdx":18,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":902,
-						"globalIdx":23,
-						"health":7,
-						"position":0,
-						"tapped":0},
-				{
-						"id":903,
-						"globalIdx":4,
-						"health":12,
-						"position":0,
-						"tapped":0},
-				{
-						"id":906,
-						"globalIdx":27,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":907,
-						"globalIdx":8,
-						"health":2,
-						"position":0,
-						"tapped":0},
-				{
-						"id":904,
-						"globalIdx":5,
-						"health":1,
-						"position":0,
-						"tapped":0},
-				{
-						"id":908,
-						"globalIdx":9,
-						"health":6,
-						"position":0,
-						"tapped":0}],
-		"PlayHand":[
-				{
-						"id":909,
-						"globalIdx":30,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":900,
-						"globalIdx":21,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":909,
-						"globalIdx":20,
-						"health":99,
-						"position":0,
-						"tapped":0},
-				{
-						"id":900,
-						"globalIdx":11,
-						"health":0,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":22,
-						"health":4,
-						"position":0,
-						"tapped":0},
-				{
-						"id":901,
-						"globalIdx":12,
-						"health":4,
-						"position":0,
-						"tapped":0}],
-		"DiscardPile":null,
-		"Field":null}
-UnityEngine.Debug:Internal_Log(Int32, String, Object)
-UnityEngine.Debug:Log(Object)
-GameManager:ReceivePlayer(Int32, String) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:151)
-UnityEngine.NetworkView:Internal_RPC(NetworkView, String, RPCMode, Object[])
-UnityEngine.NetworkView:RPC(String, RPCMode, Object[]) (at C:\buildslave\unity\build\artifacts\generated\common\runtime\NetworkingBindings.gen.cs:410)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:32)
-GameManager:SendPlayer(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:146)
-GameManager:DrawCard(Int32) (at D:\ProtoTest\Assets\Scripts\Controller\GameManager.cs:166)
-System.Reflection.MonoMethod:InternalInvoke(Object, Object[], Exception&)
-System.Reflection.MonoMethod:Invoke(Object, BindingFlags, Binder, Object[], CultureInfo) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs:222)
-System.Reflection.MethodBase:Invoke(Object, Object[]) (at /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MethodBase.cs:115)
-NetExtension:LocalInvoke(MonoBehaviour, String, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:14)
-NetExtension:NetRPC(MonoBehaviour, String, RPCMode, Object[]) (at D:\ProtoTest\Assets\Scripts\Util\NetExtension.cs:28)
-FieldController:OnGUI() (at D:\ProtoTest\Assets\Scripts\Controller\FieldController.cs:270)
- 
-(Filename: /Users/builduser/buildslave/mono-runtime-and-classlibs/build/mcs/class/corlib/System.Reflection/MonoMethod.cs Line: 222)
+(Filename: D:/ProtoTest/Assets/Scripts/Controller/GameManager.cs Line: 164)
 
 Waiting for finish

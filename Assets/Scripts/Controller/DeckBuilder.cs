@@ -46,7 +46,7 @@ public class DeckBuilder : MonoBehaviour {
         gameManager = GameManager.Get();
         Directory.CreateDirectory(deckLocation);
 
-        gameManager.LoadTextures("D:/ProtoTest/Images/");
+        LoadTextures.LoadFromFile("D:/ProtoTest/Images/");
         for (int i = 0; i < CardLibrary.Get().cardList.Count; i++)
         {
             Debug.Log("Texture loaded: " + CardLibrary.Get().cardList[i].texture);
@@ -78,7 +78,9 @@ public class DeckBuilder : MonoBehaviour {
                 spawnPos = new Vector3(x - (i * 2.4f), y - (j * 3.5f), 0);
                 GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
                 cardSpawn.name = "card" + nameCounter.ToString();
-                cardSpawn.transform.rotation = Quaternion.EulerAngles(Mathf.PI/2, 0, 0);
+                //Fix card position somehow...
+                cardSpawn.transform.rotation = Quaternion.EulerAngles(Mathf.PI/2, Mathf.PI, 0);
+                //cardSpawn.transform.localScale = new Vector3(1, 1, 1);
                 cardSpawn.transform.gameObject.AddComponent<CardControllerDB>();
                 cards.Add(cardSpawn);
 
