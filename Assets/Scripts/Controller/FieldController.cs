@@ -32,6 +32,9 @@ public class FieldController : MonoBehaviour {
     {
         //var player = GameManager.Get().players[playerId];
         var playCards = GameManager.Get().playCards;
+
+        ShowPlayerHealth(0);
+        ShowPlayerHealth(1);
         
         for (int i = 0; i < playCards.Count; i++)
         {
@@ -87,7 +90,21 @@ public class FieldController : MonoBehaviour {
             }
 
             //Iteration through field
+            if (card.pile == PlayCard.Pile.field)
+            {
+                if (cardCtrl.pile != PlayCard.Pile.field)
+                {
+                    gfx.SetParent(GameObject.Find("PlayField").transform.Find("Field"), false);
+                    gfx.localPosition = new Vector3(0, 0, 0);
+                    cardCtrl.TurnCard(false);
 
+                    Vector3 cardPos = GameObject.Find("PlayField").transform.Find("Field").FindChild("" + card.pos).localPosition;
+                    gfx.localPosition = cardPos;
+                    ShowStats(cardCtrl, card);
+                    //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
+                }
+                cardCtrl.pile = PlayCard.Pile.field;
+            }
         }
 
             /*for (int i = 0; i < player.playPile.Count; i++)
@@ -221,9 +238,11 @@ public class FieldController : MonoBehaviour {
 
     public void ShowPlayerHealth(int playerIndex)
     {
+        if (playerIndex<0||playerIndex >= GameManager.Get().players.Length) { return; }
+
         var player = GameManager.Get().players[playerIndex];
 
-        var transPlayerHP = gameObject.transform.FindChild("PlayerHealth");
+        var transPlayerHP = fields[playerIndex].transform.FindChild("PlayerHealth");
         var playerHpText = transPlayerHP.GetComponent<TextMesh>();
         playerHpText.text = "" + player.playerHealth;
     }

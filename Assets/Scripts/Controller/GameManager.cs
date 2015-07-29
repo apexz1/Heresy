@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour {
 
         for (int i = 0; i < players.Length; i++)
         {
-            players[i].playerHealth = 20;
+            players[i].playerHealth = 20+i;
         }
 
         if(Network.isServer) {
@@ -80,9 +80,9 @@ public class GameManager : MonoBehaviour {
             DrawCard(0);
             DrawCard(0);
 
-            PlayFromHand(0, 0, 0);
-            PlayFromHand(0, 1, 1);
-            PlayFromHand(0, 2, 2);
+            PlayFromHand(0, 0, 18);
+            PlayFromHand(0, 1, 19);
+            PlayFromHand(0, 2, 20);
 
             //MoveOnField(0, players[0].field[0].globalIdx, 5);
 
