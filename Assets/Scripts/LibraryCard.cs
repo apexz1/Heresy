@@ -11,7 +11,8 @@ public class LibraryCard
     public int costs = 0;
     public int attack = 0;
     public int health = 0;
-    public int effectID = 0; 
+    public int moveRange = 0;
+    public int effectID = 0;
 
      public LibraryCard() {
         this.cardID = -1;
@@ -30,6 +31,7 @@ public class LibraryCard
          this.attack = attack;
          this.health = health;
          this.effectID = effectID;
+         this.moveRange = 1;
      }
 
     public LibraryCard(int id, string name)

@@ -334,6 +334,13 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
+        int distance = CalcDistance(card.pos, slotIndex);
+        if (distance > card.GetLibCard().moveRange)
+        {
+            SendNotification(playerIndex, "Slot out of range");
+            return;
+        }
+
         //Uncomment for no swapping
         /*if (CardAtSlot(slotIndex) != -1)
         {
@@ -440,17 +447,21 @@ public class GameManager : MonoBehaviour {
         notification = message;
     }
 
-    public int FindCard(int cardIndex)
+    public int CalcDistance(int slotA, int slotB)
     {
-        for (int i = 0; i < playCards.Count; i++)
-        {
-            if (playCards[i].globalIdx == cardIndex)
-            {
-                return i;
-            }
-        }
+        if (slotA == slotB) { return 0; }
+        Vector2 a = GetSlotPos(slotA);
+        Vector2 b = GetSlotPos(slotB);
 
-        return -1;
+        return (int)(a - b).magnitude;
+    }
+
+    public Vector2 GetSlotPos(int slot)
+    {
+        int x = slot / 3;
+        int y = slot % 3;
+
+        return new Vector2(x, y);
     }
 }
 

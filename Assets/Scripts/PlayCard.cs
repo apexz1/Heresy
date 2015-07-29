@@ -31,6 +31,11 @@ public class PlayCard
         return CardLibrary.Get().GetCard(libId).texture;
     }
 
+    public LibraryCard GetLibCard()
+    {
+        return CardLibrary.Get().GetCard(libId);
+    }
+
     public PlayCard(int id = -1, int idx = 0)
     {
         this.libId = id;
