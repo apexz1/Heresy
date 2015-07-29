@@ -98,9 +98,9 @@ public class GameManager : MonoBehaviour {
             DrawCard(1);
             DrawCard(1);
 
-            PlayFromHand(1, 10, 0);
-            PlayFromHand(1, 11, 1);
-            PlayFromHand(1, 12, 2);
+            PlayFromHand(1, 31, 0);
+            PlayFromHand(1, 32, 1);
+            PlayFromHand(1, 33, 2);
 
             //MoveOnField(1, players[1].field[0].globalIdx, 5);
         }
@@ -281,6 +281,10 @@ public class GameManager : MonoBehaviour {
         if (oppCard.health <= 0)
         {
             DiscardCard(opponent.playerId, oppCard.globalIdx);
+        }
+        if (ownCard.health <= 0)
+        {
+            DiscardCard(player.playerId, ownCard.globalIdx);
         }
 
         SendGameManager();

@@ -9,12 +9,14 @@ public class PlayCardController : MonoBehaviour {
     public int cardIndex;
     public bool slot = false;
     public bool turned = false;
+    public int pos;
     public PlayCard.Pile pile;
     public PlayCard card;
 	// Use this for initialization
 	void Awake () 
     {
         cardIndex = -1;
+        pos = -1;
         //target = GameObject.Find("SceneCam").transform;
         this.pile = PlayCard.Pile.invalid;
 	}
@@ -31,17 +33,18 @@ public class PlayCardController : MonoBehaviour {
 
     void OnMouseOver()
     {
-        if (cardIndex < 0) { return; }
+        //if (cardIndex < 0) { return; }
         GameObject parentObj = gameObject.transform.parent.gameObject;
         var fieldController = GetFieldController();
-        var card = GameManager.Get().playCards[cardIndex];
+        var card = cardIndex >= 0 ? GameManager.Get().playCards[cardIndex] : null;
         int playerId = GameManager.Get().localPlayerId;
 
         if (Input.GetButtonDown("Fire1"))
         {
+            //Debug.Log("f1:" + parentObj.name+" "+card.owner);
             if (parentObj.name == "Field" || parentObj.name == "Hand")
             {
-                if (card.owner == playerId)
+                if (card!=null && card.owner == playerId)
                 {
                     Debug.Log("Select clicked " + cardIndex);
                     fieldController.SelectCard(cardIndex);
@@ -54,24 +57,24 @@ public class PlayCardController : MonoBehaviour {
             if (slot)
             {
                 int slotNumber = Int32.Parse(gameObject.name);
-                if (card.owner == playerId)
+                //if (card.owner == playerId)
                 {
                     fieldController.OnSlotClicked(slotNumber);
                 }
             }
 
-            if (parentObj.name == "Hand")
+            /*if (parentObj.name == "Hand")
             {
-                if (card.owner == playerId)
+                if (card != null && card.owner == playerId)
                 {
                     Debug.Log("Card found");
                     fieldController.OnHandClicked(cardIndex);
                 }
-            }
+            }*/
 
             if (parentObj.name == "Field")
             {
-                //if (fieldController.playerId == playerId)
+                if (card != null)
                 {
                     Debug.Log("Field clicked " + cardIndex);
                     fieldController.OnFieldCardClicked(cardIndex);

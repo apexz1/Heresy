@@ -14,6 +14,7 @@ public class FieldController : MonoBehaviour {
         fields = new Transform[2];
         fields[0] = GameObject.Find("BottomField").transform;
         fields[1] = GameObject.Find("TopField").transform;
+        cardSelected = -1;
     }
 
     public static FieldController GetFieldControler()
@@ -43,7 +44,17 @@ public class FieldController : MonoBehaviour {
 
             if (card.pile == PlayCard.Pile.discard)
             {
+                if (gfx == null)
+                    continue;
 
+                var controller = gfx.GetComponent<PlayCardController>();
+
+                if (controller.pile != PlayCard.Pile.discard)
+                {
+                    Debug.Log("Card detroyed?");
+                    Destroy(gfx.gameObject);
+                    cardGfxs.Remove(card.globalIdx);
+                }
             }
 
             if (gfx == null) { gfx = CreateCardGFX(card); }
@@ -97,12 +108,27 @@ public class FieldController : MonoBehaviour {
                     gfx.SetParent(GameObject.Find("PlayField").transform.Find("Field"), false);
                     gfx.localPosition = new Vector3(0, 0, 0);
                     cardCtrl.TurnCard(false);
+                    //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
+                }
+
+                if(cardCtrl.pos!=card.pos)
+                {
+                    cardCtrl.pos = card.pos;
 
                     Vector3 cardPos = GameObject.Find("PlayField").transform.Find("Field").FindChild("" + card.pos).localPosition;
                     gfx.localPosition = cardPos;
-                    ShowStats(cardCtrl, card);
-                    //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
                 }
+
+                if (card.tap > 0)
+                {
+                    gfx.localRotation = Quaternion.EulerAngles(0, (Mathf.PI / 2), 0);
+                }
+                else
+                {
+                    gfx.localRotation = Quaternion.EulerAngles(0, 0, 0);
+                }
+
+                ShowStats(cardCtrl, card);
                 cardCtrl.pile = PlayCard.Pile.field;
             }
         }
