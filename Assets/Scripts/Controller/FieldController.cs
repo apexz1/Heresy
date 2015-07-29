@@ -318,6 +318,11 @@ public class FieldController : MonoBehaviour {
         }
     }
 
+    public void OnPlayerClicked(int attackedPlayer)
+    {
+        GameManager.Get().NetRPC("ActionFoP", RPCMode.Server, GameManager.Get().localPlayerId, cardSelected, attackedPlayer);
+    }
+
     public void SelectCard(int index)
     {
         Transform oldTransform = GetGfx(cardSelected);

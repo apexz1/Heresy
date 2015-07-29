@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour {
 
         for (int i = 0; i < players.Length; i++)
         {
-            players[i].playerHealth = 20+i;
+            players[i].playerHealth = 20;
         }
 
         if(Network.isServer) {
@@ -287,6 +287,29 @@ public class GameManager : MonoBehaviour {
             DiscardCard(player.playerId, ownCard.globalIdx);
         }
 
+        SendGameManager();
+    }
+
+    [RPC]
+    public void ActionFoP(int playerIndex, int cardIndex, int attackedPlayer)
+    {
+        var opponent = players[attackedPlayer];
+        var ownCard = playCards[cardIndex];
+        var ownLibCard = CardLibrary.Get().GetCard(ownCard.libId);
+
+        if (ownCard.tap > 0)
+        {
+            SendNotification(playerIndex, "Card is tapped");
+            return;
+        }
+
+        if (ownLibCard.attack == 0)
+        {
+            Debug.Log("No attack value assigned");
+            return;
+        }
+
+        opponent.playerHealth -= ownLibCard.attack;
         SendGameManager();
     }
 
