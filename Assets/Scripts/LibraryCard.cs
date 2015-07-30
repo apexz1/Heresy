@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class LibraryCard
@@ -14,6 +15,8 @@ public class LibraryCard
     public int moveRange = 0;
     public int atkRange = 0;
     public int effectID = 0;
+
+    public List<LibraryFX> fxList = new List<LibraryFX>();
 
      public LibraryCard() {
         this.cardID = -1;
@@ -40,6 +43,13 @@ public class LibraryCard
     {
         this.cardID = id;
         this.cardName = name;
+    }
+
+    public LibraryFX AddFX()
+    {
+        var fx = new LibraryFX();
+        fxList.Add(fx);
+        return fx;
     }
 }
 

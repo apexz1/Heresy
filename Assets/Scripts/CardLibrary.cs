@@ -20,6 +20,9 @@ public class CardLibrary
         cardList.Add(new LibraryCard(907, null, "TestCard7", 0, 0, 2, 2, 0));
         cardList.Add(new LibraryCard(908, null, "TestCard8", 0, 0, 1, 6, 0));
         cardList.Add(new LibraryCard(909, null, "TestCard9", 0, 0, 99, 99, 0));
+        
+        
+        GetCard(900).AddFX().setAction(LibraryFX.ActionType.draw, 1);
     }
 
     public static CardLibrary Get()
