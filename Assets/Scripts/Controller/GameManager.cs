@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour {
     public Player[] players;
     public int turnPlayer = 0;
     public List<PlayCard> playCards = new List<PlayCard>();
+    public PlayFX currentFx = new PlayFX();
 
 
 
@@ -246,7 +247,40 @@ public class GameManager : MonoBehaviour {
 
         SortHand(playerIndex);
 
-            SendGameManager();
+        StartCardFx(playerIndex, cardIndex);
+        SendGameManager();
+    }
+
+    public void StartCardFx(int playerIndex, int cardIndex)
+    {
+        var card = playCards[cardIndex];
+        var libCard = card.GetLibCard();
+        if (libCard.fxList.Count <= 0) { return; }
+
+        currentFx = new PlayFX();
+        currentFx.fxIdx = 0;
+        currentFx.libId = card.libId;
+        currentFx.playerIdx = playerIndex;
+
+        var libFx = currentFx.GetLibFx();
+        currentFx.actionCount = libFx.actionCount;
+
+        if (libFx.selectorPile == PlayCard.Pile.none) { currentFx.selectorDone = true; }
+        ExeCardFx();
+    }
+    public void ExeCardFx()
+    {
+        if (currentFx.libId == 0) { return; }
+        if (!currentFx.selectorDone) { return; }
+
+        var libFx = currentFx.GetLibFx();
+
+        if (libFx.actionType == LibraryFX.ActionType.draw)
+        {
+            DrawCard(currentFx.playerIdx, currentFx.actionCount);
+        }
+
+        currentFx = new PlayFX();
     }
 
     private void SortHand(int playerIndex)
@@ -430,6 +464,7 @@ public class GameManager : MonoBehaviour {
     {
         turnPlayer = (int)jsPlayer["TurnPlayer"];
         playCards = Player.PileFromJSON(jsPlayer["PlayCards"]);
+        currentFx.FromJSON(jsPlayer["CurrentFx"]);
     }
 
     public JSONObject ToJSON()
@@ -437,6 +472,7 @@ public class GameManager : MonoBehaviour {
         JSONObject jsPlayer = JSONObject.obj;
         jsPlayer.AddField("TurnPlayer", turnPlayer);
         jsPlayer.AddField("PlayCards", Player.PileToJSON(playCards));
+        jsPlayer.AddField("CurrentFx", currentFx.ToJSON());
 
         return jsPlayer;
     }

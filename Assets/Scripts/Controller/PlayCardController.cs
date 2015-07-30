@@ -28,7 +28,7 @@ public class PlayCardController : MonoBehaviour {
         cardIndex = -1;
         pos = -1;
         //target = GameObject.Find("SceneCam").transform;
-        this.pile = PlayCard.Pile.invalid;
+        this.pile = PlayCard.Pile.none;
 	}
 	
 	// Update is called once per frame

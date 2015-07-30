@@ -13,7 +13,7 @@ public class PlayCard
     public Pile pile;
     public enum Pile
     {
-        invalid=-1,
+        none=-1,
         deck=0,
         hand,
         field,
@@ -41,7 +41,7 @@ public class PlayCard
         this.libId = id;
         this.globalIdx = idx;
         this.pos = 0;
-        this.pile = Pile.invalid;
+        this.pile = Pile.none;
     }
 
     public void InitLibrary()

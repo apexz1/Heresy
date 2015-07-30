@@ -113,7 +113,7 @@ public class FieldController : MonoBehaviour {
                     gfx.SetParent(GameObject.Find("PlayField").transform.Find("Field"), true);
                     //gfx.localPosition = new Vector3(0, 0, 0);
                     cardCtrl.TurnCard(false);
-                    
+                    gfx.localRotation = Quaternion.EulerAngles(0, 0, 0);
                     gfx.transform.FindChild("owner" + card.owner).gameObject.SetActive(true);
                 }
 
