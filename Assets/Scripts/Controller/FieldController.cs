@@ -268,8 +268,31 @@ public class FieldController : MonoBehaviour {
         }
     }
 
+    public void StartSelectorFx()
+    {
+        int playerId = GameManager.Get().localPlayerId;
+        var currentFx = GameManager.Get().currentFx;
+        if (currentFx.libId <= 0) { return; }
+        if (currentFx.selectorDone) { return; }
+
+        var libFx = currentFx.GetLibFx();
+        if (libFx.selectorPile == PlayCard.Pile.none) { return; }
+
+        bool ownFx = currentFx.playerIdx == GameManager.Get().localPlayerId;
+
+        if (libFx.selectorWho != ownFx) { return; }
+
+        if (GUI.Button(new Rect(0,25,60,25), "Confirm"))
+        {
+            GameManager.Get().NetRPC("SelectorFxDone", RPCMode.Server, playerId, cardSelected);
+        }
+        GUI.Label(new Rect(0, Screen.height - 50, 1000, 25), libFx.description);
+    }
+
     public void OnGUI()
     {
+        StartSelectorFx();
+
         int playerId = GameManager.Get().localPlayerId;
 
         //Cheat Stuff

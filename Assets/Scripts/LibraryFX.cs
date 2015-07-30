@@ -14,6 +14,7 @@ public class LibraryFX {
     public PlayCard.Pile selectorPile;
     public SelectorTap selectorTap;
     public bool selectorOwn;
+    public bool selectorWho;
     public int selectorCount;
 
     //---Condition Variables---
@@ -36,20 +37,28 @@ public class LibraryFX {
     public ActionType actionType;
     public int actionCount;
 
+
+    public string description;
+
     public LibraryFX()
     {
         this.selectorPile = PlayCard.Pile.none;
     }
 
-    public LibraryFX setSelector(PlayCard.Pile pile, SelectorTap tap, bool own, bool count)
+    public LibraryFX setSelector(PlayCard.Pile pile, SelectorTap tap, bool own, bool who, int count = 0)
+    {
+        selectorPile = pile;
+        selectorTap = tap;
+        selectorOwn = own;
+        selectorWho = who;
+        selectorCount = count;
+        return this;
+    }
+    public LibraryFX setCondition(PlayCard.Pile pile, SelectorTap tap, bool own, int count)
     {
         return this;
     }
-    public LibraryFX setCondition(PlayCard.Pile pile, SelectorTap tap, bool own, bool count)
-    {
-        return this;
-    }
-    public LibraryFX setAction(ActionType type, int count)
+    public LibraryFX setAction(ActionType type, int count = 0)
     {
         actionType = type;
         actionCount = count;

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayFX {
 
@@ -7,7 +8,9 @@ public class PlayFX {
     public int fxIdx;
     public int playerIdx;
     public int actionCount;
+    public int selectorCount;
     public bool selectorDone;
+    public List<int> selectedCards=new List<int>();
 
     public LibraryFX GetLibFx()
     {

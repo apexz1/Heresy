@@ -265,6 +265,7 @@ public class GameManager : MonoBehaviour {
 
         var libFx = currentFx.GetLibFx();
         currentFx.actionCount = libFx.actionCount;
+        currentFx.selectorCount = libFx.selectorCount;
 
         if (libFx.selectorPile == PlayCard.Pile.none) { currentFx.selectorDone = true; }
         ExeCardFx();
@@ -281,8 +282,34 @@ public class GameManager : MonoBehaviour {
         {
             DrawCard(currentFx.playerIdx, currentFx.actionCount);
         }
+        if (libFx.actionType == LibraryFX.ActionType.discard)
+        {
+            for(int i=0;i<currentFx.selectedCards.Count;i++)
+            {
+                int cardIndex=currentFx.selectedCards[i];
+                var card = playCards[cardIndex];
+                DiscardCard(card.owner,cardIndex);
+            }
+        }
 
         currentFx = new PlayFX();
+    }
+
+    [RPC]
+    public void SelectorFxDone(int playIndex, int cardIndex)
+    {
+        if (currentFx.libId == 0) { return; }
+        if (currentFx.selectorDone) { return; }
+        var libFx = currentFx.GetLibFx();
+
+        currentFx.selectedCards.Add(cardIndex);
+
+        if(currentFx.selectedCards.Count>=currentFx.selectorCount)
+        {
+            currentFx.selectorDone = true;
+            ExeCardFx();
+            return;
+        }
     }
 
     private void SortHand(int playerIndex)

@@ -23,6 +23,10 @@ public class CardLibrary
         
         
         GetCard(900).AddFX().setAction(LibraryFX.ActionType.draw, 1);
+        GetCard(901).AddFX()
+            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true, 1)
+            .setAction(LibraryFX.ActionType.discard).description = "Select card to discard";
+
     }
 
     public static CardLibrary Get()
