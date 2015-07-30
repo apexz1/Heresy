@@ -52,8 +52,7 @@ public class GameManager : MonoBehaviour {
         turnPlayer = 0;
 
         LoadDeck(localPlayerId);
-        DrawCard(localPlayerId, 7);
-        if (network == false) { LoadDeck(1); DrawCard(1, 7); };
+        if (network == false) { LoadDeck(1); };
 
         if(Network.isServer) {
             this.NetRPC("StartGame", RPCMode.Others, playerId + 1, true);
@@ -124,6 +123,8 @@ public class GameManager : MonoBehaviour {
 
         players[playerId].deck = DeckBuilder.DeckFromJSON(JSONParser.parse(deck));
         players[playerId].BuildPlayPile();
+
+        DrawCard(playerId, 7);
 
         SendGameManager();
     }
