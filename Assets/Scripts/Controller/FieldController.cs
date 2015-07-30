@@ -83,6 +83,8 @@ public class FieldController : MonoBehaviour {
                     //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
                     cardCtrl.TurnCard(false);
 
+                    gfx.localRotation = Quaternion.EulerAngles(0, 0, Mathf.PI/32);
+
                     if (card.owner != GameManager.Get().localPlayerId)
                     { 
                         gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI, 0, 0);
@@ -92,8 +94,8 @@ public class FieldController : MonoBehaviour {
                     ShowStats(cardCtrl, card);
                 }
 
-                if (card.owner == 0) { gfx.localPosition = new Vector3(card.pos * 1.5f, 0, 0); }
-                if (card.owner == 1) { gfx.localPosition = new Vector3(card.pos * -1.5f, 0, 0); }
+                if (card.owner == 0) { gfx.localPosition = new Vector3(card.pos * 1.5f, 0.2f, 0); }
+                if (card.owner == 1) { gfx.localPosition = new Vector3(card.pos * -1.5f, 0.2f, 0); }
 
                 if (card.owner != GameManager.Get().localPlayerId)
                 {
@@ -134,98 +136,6 @@ public class FieldController : MonoBehaviour {
                 cardCtrl.pile = PlayCard.Pile.field;
             }
         }
-
-            /*for (int i = 0; i < player.playPile.Count; i++)
-            {
-                var card = player.playPile[i];
-                var gfx = GetGfx(card.globalIdx);
-                if (gfx != null)
-                {
-                    continue;
-                }
-
-                gfx = CreateCardGFX(card);
-                gfx.localPosition = new Vector3(0, 0.01f * i, 0);
-                //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
-
-                var controller = gfx.GetComponent<PlayCardController>();
-                controller.pile = PlayCard.Pile.deck;
-            }
-
-        for (int i = 0; i < player.playHand.Count; i++)
-        {
-            var card = player.playHand[i];
-            var gfx = GetGfx(card.globalIdx);
-            if (gfx == null) gfx = CreateCardGFX(card);
-            var controller = gfx.GetComponent<PlayCardController>();
-
-            gfx.SetParent(transform.Find("Hand"), false);
-
-            if (playerId == 0) { gfx.localPosition = new Vector3(i * 1.5f, 0, 0); }
-            if (playerId == 1) { gfx.localPosition = new Vector3(i * -1.5f, 0, 0); }
-            
-            ShowStats(controller, card);
-
-            //if (isOwn())
-                //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(-(Mathf.PI / 2), 0, 0);
-
-            controller.pile = PlayCard.Pile.hand;
-        }
-
-        for(int i = 0; i < player.field.Count; i++)
-        {
-            var card = player.field[i];
-            var gfx = GetGfx(card.globalIdx);
-            if (gfx == null) gfx = CreateCardGFX(card);
-            var controller = gfx.GetComponent<PlayCardController>();
-            Transform fieldTransform = transform.Find("Field");
-
-            gfx.SetParent(fieldTransform, false);
-            Vector3 cardPos = fieldTransform.FindChild("" + card.pos).localPosition;
-            gfx.localPosition = cardPos;
-            ShowStats(controller, card);
-            ShowPlayerHealth(playerId);
-    
-            if (controller.pile != PlayCard.Pile.field)
-            {
-                gfx.FindChild("Selection").gameObject.SetActive(false);
-                cardSelected = -1;
-                //if (playerId == 0) { gfx.localRotation = Quaternion.EulerAngles(0, -(Mathf.PI / 2), 0); }
-                //if (playerId == 1) { gfx.localRotation = Quaternion.EulerAngles(0, (Mathf.PI / 2), 0); }
-            }
-
-            if (card.tap > 0)
-            {
-                //gfx.localRotation = Quaternion.EulerAngles(0, (Mathf.PI / 2), 0);
-            }
-            else
-            {
-                //gfx.localRotation = Quaternion.EulerAngles(0, 0, 0);
-            }
-
-            controller.pile = PlayCard.Pile.field;
-        }
-
-        for (int i = 0; i < player.discardPile.Count; i++)
-        {
-            var card = player.discardPile[i];
-            var gfx = GetGfx(card.globalIdx);
-
-            //Debug.Log(i+": "+(gfx != null) + " " + card.globalIdx);
-            if (gfx == null)
-                continue;
-
-            var controller = gfx.GetComponent<PlayCardController>();
-
-            if (controller.pile != PlayCard.Pile.discard)
-            {
-                Debug.Log("Card detroyed?");
-                Destroy(gfx.gameObject,1.0f);
-                cardGfxs.Remove(card.globalIdx);
-            }
-
-            controller.pile = PlayCard.Pile.discard;
-        }*/
     } 
 
     private Transform CreateCardGFX(PlayCard card)
@@ -273,6 +183,22 @@ public class FieldController : MonoBehaviour {
         var transPlayerHP = fields[playerIndex].transform.FindChild("PlayerHealth");
         var playerHpText = transPlayerHP.GetComponent<TextMesh>();
         playerHpText.text = "" + player.playerHealth;
+    }
+
+    public void ShowCardPreview (bool side, PlayCard card)
+    {
+        GameObject child = Camera.main.transform.FindChild("ZoomCard" + (side ? "L" : "R")).gameObject;
+        
+        MeshRenderer rend = child.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+        rend.material.mainTexture = card.GetTexture();
+
+        child.SetActive(true);
+    }
+
+    public void HideCardPreview()
+    {
+        Camera.main.transform.FindChild("ZoomCardL").gameObject.SetActive(false);
+        Camera.main.transform.FindChild("ZoomCardR").gameObject.SetActive(false);
     }
 
     public void OnSlotClicked(int slot)

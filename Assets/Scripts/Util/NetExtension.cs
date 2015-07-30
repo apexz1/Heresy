@@ -60,5 +60,4 @@ public static class NetExtension {
                 " Ignoring method call!");
         }
     }
-
 }

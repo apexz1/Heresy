@@ -107,13 +107,16 @@ public class PlayCardController : MonoBehaviour {
 
     void OnMouseExit()
     {
-        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+        //if (!IsMoveAnimating()) { transform.position = new Vector3(transform.position.x, 0, transform.position.z); }
+        GetFieldController().HideCardPreview();
     }
 
     void PopUp()
     {
         //transform.GetChild(0).localRotation = Quaternion.Euler(-120,0,0);
-        transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, 1, transform.position.z);
+
+        GetFieldController().ShowCardPreview(transform.position.x > 0, card);
     }
 
     public void StartMoveAnimation(Vector3 to, float duration)
