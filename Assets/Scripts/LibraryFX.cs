@@ -36,6 +36,11 @@ public class LibraryFX {
     public ActionType actionType;
     public int actionCount;
 
+    public LibraryFX()
+    {
+        this.selectorPile = PlayCard.Pile.none;
+    }
+
     public LibraryFX setSelector(PlayCard.Pile pile, SelectorTap tap, bool own, bool count)
     {
         return this;

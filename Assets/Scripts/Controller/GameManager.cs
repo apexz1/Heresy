@@ -255,6 +255,7 @@ public class GameManager : MonoBehaviour {
     {
         var card = playCards[cardIndex];
         var libCard = card.GetLibCard();
+        Debug.Log("StartCardFX()" + libCard.fxList.Count);
         if (libCard.fxList.Count <= 0) { return; }
 
         currentFx = new PlayFX();
@@ -270,6 +271,7 @@ public class GameManager : MonoBehaviour {
     }
     public void ExeCardFx()
     {
+        Debug.Log("destgds tb" + currentFx.libId + "||" + currentFx.selectorDone);
         if (currentFx.libId == 0) { return; }
         if (!currentFx.selectorDone) { return; }
 
