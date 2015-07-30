@@ -27,7 +27,6 @@ public class PlayerObjectController : MonoBehaviour {
         if (Input.GetButtonDown("Fire2"))
         {
             GetFieldController().OnPlayerClicked(playerId);
-            Debug.Log("Right mouse button yo");
         }
     }
 }

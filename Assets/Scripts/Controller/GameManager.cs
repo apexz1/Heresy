@@ -273,6 +273,13 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
+        int distance = CalcDistance(ownCard.pos, oppCard.pos);
+        if (distance > ownCard.GetLibCard().atkRange)
+        {
+            SendNotification(playerIndex, "Target out of range");
+            return;
+        }
+
         oppCard.health -= ownLibCard.attack;
         ownCard.health -= oppLibCard.attack;
 
@@ -305,7 +312,19 @@ public class GameManager : MonoBehaviour {
 
         if (ownLibCard.attack == 0)
         {
-            Debug.Log("No attack value assigned");
+            SendNotification(playerIndex, "No attack value assigned");
+            return;
+        }
+        if (playerIndex == attackedPlayer)
+        {
+            SendNotification(playerIndex, "Can't attack own PlayerObject");
+            return;
+        }
+
+        int distance = CalcDistance(ownCard.pos, attackedPlayer == 0 ? 16 : 4);
+        if (distance > ownCard.GetLibCard().atkRange)
+        {
+            SendNotification(playerIndex, "Target out of range");
             return;
         }
 
@@ -359,6 +378,7 @@ public class GameManager : MonoBehaviour {
                 return;
             }
 
+            swapCard.tap = 1;
             swapCard.pos = card.pos;
         }
 
