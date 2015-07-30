@@ -223,6 +223,7 @@ public class GameManager : MonoBehaviour {
         var player = players[playerIndex];
         Debug.Log("DiscardCard() Log: " + playerIndex + " " + cardIndex);
         playCards[cardIndex].pile = PlayCard.Pile.discard;
+        SortHand(playerIndex);
         SendGameManager();
     }
 
@@ -248,7 +249,22 @@ public class GameManager : MonoBehaviour {
         card.pile = PlayCard.Pile.field;        
         card.pos = slotIndex;
 
-        SendGameManager();
+        SortHand(playerIndex);
+
+            SendGameManager();
+    }
+
+    private void SortHand(int playerIndex)
+    {
+        int counter = 0;
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            var handCard = playCards[i];
+            if (handCard.pile != PlayCard.Pile.hand) { continue; }
+            if (handCard.owner != playerIndex) { continue; }
+            handCard.pos = counter;
+            counter++;
+        }
     }
     [RPC]
     public void ActionFoF(int playerIndex, int ownCardIndex, int oppCardIndex)

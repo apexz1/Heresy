@@ -80,23 +80,26 @@ public class FieldController : MonoBehaviour {
                 if (cardCtrl.pile != PlayCard.Pile.hand)
                 {
                     gfx.SetParent(fields[card.owner].Find("Hand"), false);
-                    gfx.localPosition = new Vector3(0, 0.01f * i, 0);
                     //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
-
-                    if (card.owner == 0) { gfx.localPosition = new Vector3(card.pos * 1.5f, 0, 0); }
-                    if (card.owner == 1) { gfx.localPosition = new Vector3(card.pos * -1.5f, 0, 0); }
-
                     cardCtrl.TurnCard(false);
 
                     if (card.owner != GameManager.Get().localPlayerId)
                     { 
                         gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI, 0, 0);
-                        gfx.localPosition = gfx.localPosition * 0.5f;
                         cardCtrl.TurnCard(true);
                     }
 
                     ShowStats(cardCtrl, card);
                 }
+
+                if (card.owner == 0) { gfx.localPosition = new Vector3(card.pos * 1.5f, 0, 0); }
+                if (card.owner == 1) { gfx.localPosition = new Vector3(card.pos * -1.5f, 0, 0); }
+
+                if (card.owner != GameManager.Get().localPlayerId)
+                {
+                    gfx.localPosition = gfx.localPosition * 0.5f;
+                }
+
                 cardCtrl.pile = PlayCard.Pile.hand;
             }
 
@@ -108,7 +111,8 @@ public class FieldController : MonoBehaviour {
                     gfx.SetParent(GameObject.Find("PlayField").transform.Find("Field"), false);
                     gfx.localPosition = new Vector3(0, 0, 0);
                     cardCtrl.TurnCard(false);
-                    //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
+                    
+                    gfx.transform.FindChild("owner" + card.owner).gameObject.SetActive(true);
                 }
 
                 if(cardCtrl.pos!=card.pos)
