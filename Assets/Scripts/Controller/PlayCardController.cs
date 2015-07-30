@@ -10,6 +10,16 @@ public class PlayCardController : MonoBehaviour {
     public bool slot = false;
     public bool turned = false;
     public int pos;
+
+    public Vector3 moveFrom;
+    public Vector3 moveTo;
+    public float moveStart = 0;
+    public float moveDuration = 0;
+    public float tapStart = 0;
+    const float tapDuration = 0.4f;
+    public bool tapTap = false;
+    
+
     public PlayCard.Pile pile;
     public PlayCard card;
 	// Use this for initialization
@@ -22,8 +32,17 @@ public class PlayCardController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+    {
+	    if (moveStart > 0)
+        {
+            UpdateMoveAnimation();
+        }
+
+        if (tapStart > 0)
+        {
+            UpdateTapAnimation();
+        }
 	}
 
     public FieldController GetFieldController()
@@ -97,6 +116,58 @@ public class PlayCardController : MonoBehaviour {
         transform.position = new Vector3(transform.position.x, 1, transform.position.z);
     }
 
+    public void StartMoveAnimation(Vector3 to, float duration)
+    {
+        moveFrom = transform.localPosition;
+        moveTo = to;
+        moveDuration = duration;
+        moveStart = Time.time;
+    }
+
+    public void UpdateMoveAnimation()
+    {
+        if (Time.time > moveStart + moveDuration)
+        {
+            transform.localPosition = moveTo;
+            moveStart = 0;
+            return;
+        }
+
+        float moveProgress = (Time.time - moveStart) / moveDuration;
+        transform.localPosition = Vector3.Lerp(moveFrom, moveTo, moveProgress);
+    }
+    public bool IsMoveAnimating()
+    {
+        return (Time.time <= moveStart + moveDuration);
+    }
+
+    public void StartTapAnimation(bool tap)
+    {
+        if (tap == tapTap) { return; }
+
+        tapTap = tap;
+        tapStart = Time.time;
+    }
+
+    public void UpdateTapAnimation()
+    {
+        Quaternion tapTo = tapTap ? Quaternion.EulerAngles(0, (Mathf.PI / 2), 0) : Quaternion.EulerAngles(0, 0, 0);
+        Quaternion tapFrom = !tapTap ? Quaternion.EulerAngles(0, (Mathf.PI / 2), 0) : Quaternion.EulerAngles(0, 0, 0);
+
+        if (Time.time > tapStart + tapDuration)
+        {
+            transform.localRotation = tapTo;
+            tapStart = 0;
+            return;
+        }
+
+        float tapProgress = (Time.time - tapStart) / tapDuration;
+        transform.localRotation = Quaternion.Slerp(tapFrom, tapTo, tapProgress);
+    }
+    public bool IsTapAnimating()
+    {
+        return (Time.time <= tapStart + tapDuration);
+    }
     public void TurnCard(bool turn)
     {
         if (turn)

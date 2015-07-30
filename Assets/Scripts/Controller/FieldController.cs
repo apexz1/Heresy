@@ -108,8 +108,8 @@ public class FieldController : MonoBehaviour {
             {
                 if (cardCtrl.pile != PlayCard.Pile.field)
                 {
-                    gfx.SetParent(GameObject.Find("PlayField").transform.Find("Field"), false);
-                    gfx.localPosition = new Vector3(0, 0, 0);
+                    gfx.SetParent(GameObject.Find("PlayField").transform.Find("Field"), true);
+                    //gfx.localPosition = new Vector3(0, 0, 0);
                     cardCtrl.TurnCard(false);
                     
                     gfx.transform.FindChild("owner" + card.owner).gameObject.SetActive(true);
@@ -117,19 +117,17 @@ public class FieldController : MonoBehaviour {
 
                 if(cardCtrl.pos!=card.pos)
                 {
-                    cardCtrl.pos = card.pos;
-
                     Vector3 cardPos = GameObject.Find("PlayField").transform.Find("Field").FindChild("" + card.pos).localPosition;
-                    gfx.localPosition = cardPos;
+                    //gfx.localPosition = cardPos;
+
+                    cardCtrl.StartMoveAnimation(cardPos, cardCtrl.pos == -1 ? 1.0f : 0.2f);
+                    cardCtrl.pos = card.pos;
                 }
 
-                if (card.tap > 0)
+                if (!cardCtrl.IsMoveAnimating() && !cardCtrl.IsTapAnimating())
                 {
-                    gfx.localRotation = Quaternion.EulerAngles(0, (Mathf.PI / 2), 0);
-                }
-                else
-                {
-                    gfx.localRotation = Quaternion.EulerAngles(0, 0, 0);
+                        cardCtrl.StartTapAnimation(card.tap > 0);
+                        //gfx.localRotation = Quaternion.EulerAngles(0, (Mathf.PI / 2), 0);
                 }
 
                 ShowStats(cardCtrl, card);
@@ -360,7 +358,7 @@ public class FieldController : MonoBehaviour {
             //to server for final
             if (GameManager.Get().turnPlayer == playerId)
             {
-                GameManager.Get().NetRPC("DrawCard", RPCMode.Server, playerId);
+                GameManager.Get().NetRPC("DrawCard", RPCMode.Server, playerId, 1);
             }
         }
         if (GUI.Button(new Rect(120, 0, 60, 25), "Discard"))

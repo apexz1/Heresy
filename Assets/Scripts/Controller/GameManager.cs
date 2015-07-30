@@ -51,57 +51,39 @@ public class GameManager : MonoBehaviour {
         localPlayerId = playerId;
         turnPlayer = 0;
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].playerHealth = 20;
-        }
+        LoadDeck(localPlayerId);
+        DrawCard(localPlayerId, 7);
+        if (network == false) { LoadDeck(1); DrawCard(1, 7); };
 
         if(Network.isServer) {
             this.NetRPC("StartGame", RPCMode.Others, playerId + 1, true);
+
+            for (int i = 0; i < players.Length; i++)
+            {
+                players[i].playerHealth = 20;
+                players[i].spawns = 2;
+            }
+            
             SendGameManager();
         }
-
         Debug.Log(turnPlayer);
 
-        LoadDeck(localPlayerId);
 
         if(network == false) {
-            LoadDeck(1);
-
             //Automated player opening
-            DrawCard(0);
-            DrawCard(0);
-            DrawCard(0);
-            DrawCard(0);
-            DrawCard(0);
-            DrawCard(0);
-            DrawCard(0);
-            DrawCard(0);
-            DrawCard(0);
-            DrawCard(0);
-
             PlayFromHand(0, 0, 18);
             PlayFromHand(0, 1, 19);
             PlayFromHand(0, 2, 20);
 
+            players[0].spawns = 100;
             //MoveOnField(0, players[0].field[0].globalIdx, 5);
 
             //Automated opponent opening
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-            DrawCard(1);
-
             PlayFromHand(1, 31, 0);
             PlayFromHand(1, 32, 1);
             PlayFromHand(1, 33, 2);
 
+            players[1].spawns = 100;
             //MoveOnField(1, players[1].field[0].globalIdx, 5);
         }
     }
@@ -169,24 +151,29 @@ public class GameManager : MonoBehaviour {
     }
 
     [RPC]
-    public void DrawCard( int playerIndex ) {
+    public void DrawCard( int playerIndex, int amount = 1 ) {
         var player = players[playerIndex];
         PlayCard drawCard = null;
 
-        if (CountCards(playerIndex, PlayCard.Pile.hand) > 10) { return; }
-
-        for (int i = 0; i < playCards.Count; i++)
+        while (amount > 0)
         {
-            var card = playCards[i];
-            if (card.owner != playerIndex) { continue; }
-            if (card.pile != PlayCard.Pile.deck) { continue; }
-            drawCard = card;
+            if (CountCards(playerIndex, PlayCard.Pile.hand) > 10) { break; }
+
+            for (int i = 0; i < playCards.Count; i++)
+            {
+                var card = playCards[i];
+                if (card.owner != playerIndex) { continue; }
+                if (card.pile != PlayCard.Pile.deck) { continue; }
+                drawCard = card;
+            }
+
+            if (drawCard == null) { break; }
+
+            drawCard.pile = PlayCard.Pile.hand;
+            drawCard.pos = CountCards(playerIndex, drawCard.pile) - 1;
+
+            amount--;
         }
-
-        if (drawCard == null) { return; }
-
-        drawCard.pile = PlayCard.Pile.hand;
-        drawCard.pos = CountCards(playerIndex, drawCard.pile)-1;
 
         SendGameManager();
     }
@@ -244,10 +231,17 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
+        if (player.spawns <= 0)
+        {
+            SendNotification(playerIndex, "All spawns used");
+            return;
+        }
+
         var card = playCards[cardIndex];
 
         card.pile = PlayCard.Pile.field;        
         card.pos = slotIndex;
+        player.spawns -= 1;
 
         SortHand(playerIndex);
 
@@ -426,6 +420,7 @@ public class GameManager : MonoBehaviour {
             card.tap--;
         }
 
+        newPlayer.spawns = 2;
         Debug.Log(turnPlayer);
         SendGameManager();
     }
@@ -505,6 +500,7 @@ public class Player {
     public int playerId = -1;
     public string name;
     public int playerHealth;
+    public int spawns;
     public List<LibraryCard> deck = new List<LibraryCard>();
     /*public List<PlayCard> playPile = new List<PlayCard>();
     public List<PlayCard> playHand = new List<PlayCard>();
@@ -542,7 +538,9 @@ public class Player {
         playerId = (int)jsPlayer["PlayerId"];
         name = (string)jsPlayer["Name"];
         playerHealth = (int)jsPlayer["PlayerHealth"];
+        spawns = (int)jsPlayer["Spawns"];
         deck = DeckBuilder.DeckFromJSON(jsPlayer["Deck"]);
+
         /*playPile = PileFromJSON(jsPlayer["PlayPile"]);
         playHand = PileFromJSON(jsPlayer["PlayHand"]);
         discardPile = PileFromJSON(jsPlayer["DiscardPile"]);
@@ -554,7 +552,9 @@ public class Player {
         jsPlayer.AddField("Name", name);
         jsPlayer.AddField("PlayerId", playerId);
         jsPlayer.AddField("PlayerHealth", playerHealth);
+        jsPlayer.AddField("Spawns", spawns);
         jsPlayer.AddField("Deck", DeckBuilder.DeckToJSON(deck));
+
         /*jsPlayer.AddField("PlayPile", PileToJSON(playPile));
         jsPlayer.AddField("PlayHand", PileToJSON(playHand));
         jsPlayer.AddField("DiscardPile", PileToJSON(discardPile));
