@@ -334,6 +334,8 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void ActionFoF(int playerIndex, int ownCardIndex, int oppCardIndex)
     {
+        if (effectInProgess) { return; }
+
         var player = players[playerIndex];
         var opponent = players[(playerIndex+1)%2];
 
@@ -383,6 +385,8 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void ActionFoP(int playerIndex, int cardIndex, int attackedPlayer)
     {
+        if (effectInProgess) { return; }
+
         Debug.Log(cardIndex);
         if (cardIndex <= 0)
         {
@@ -433,6 +437,8 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void MoveOnField(int playerIndex, int cardIndex, int slotIndex)
     {
+        if (effectInProgess) { return; }
+
         var player = players[playerIndex];
         var controller = FieldController.GetFieldController();
 
@@ -505,6 +511,10 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void EndTurn(int playerIndex)
     {
+        if (effectInProgess) { return; }
+
+        var controller = FieldController.GetFieldController();
+
         //check if incoming player's turn; comment for cheating
         if (playerIndex != turnPlayer)
             return;
@@ -527,6 +537,13 @@ public class GameManager : MonoBehaviour {
 
         newPlayer.spawns = 2;
         DrawCard(newPlayer.playerId, 1);
+
+        /*for (int i = 0; i < playCards.Count; i++ )
+        {
+            if (playCards[i].pile == PlayCard.Pile.field && playCards[i].owner == localPlayerId) { controller.SelectCard(playCards[i].globalIdx); }           
+        }
+         * */
+
         Debug.Log(turnPlayer);
         SendGameManager();
     }
