@@ -356,9 +356,9 @@ public class GameManager : MonoBehaviour {
         }
 
         oppCard.health -= ownLibCard.attack;
-        ownCard.health -= oppLibCard.attack;
+        if (oppLibCard.atkRange >= ownLibCard.atkRange) { ownCard.health -= oppLibCard.attack; }
 
-        ownCard.tap = 1;
+        if (ownCard.actions <= 0) { ownCard.tap = 1; }
 
         if (oppCard.health <= 0)
         {
@@ -375,9 +375,17 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void ActionFoP(int playerIndex, int cardIndex, int attackedPlayer)
     {
+        Debug.Log(cardIndex);
+        if (cardIndex <= 0)
+        {
+            SendNotification(playerIndex, "No card selected");
+            return;
+        }
+
         var opponent = players[attackedPlayer];
         var ownCard = playCards[cardIndex];
         var ownLibCard = CardLibrary.Get().GetCard(ownCard.libId);
+        var controller = FieldController.GetFieldController();
 
         if (ownCard.tap > 0)
         {
@@ -404,10 +412,11 @@ public class GameManager : MonoBehaviour {
         }
 
         opponent.playerHealth -= ownLibCard.attack;
+        ownCard.tap++;
 
         if (opponent.playerHealth <= 0)
         {
-            GameOver(opponent.playerId);
+            controller.GameOver();
         }
 
         SendGameManager();
@@ -417,7 +426,7 @@ public class GameManager : MonoBehaviour {
     public void MoveOnField(int playerIndex, int cardIndex, int slotIndex)
     {
         var player = players[playerIndex];
-        var controller = FieldController.GetFieldControler();
+        var controller = FieldController.GetFieldController();
 
         Debug.Log("MoveOnField() Log: " + cardIndex + " " + slotIndex);
 
@@ -465,12 +474,17 @@ public class GameManager : MonoBehaviour {
                 return;
             }
 
-            swapCard.tap = 1;
+            if (card.actions <= 0) {swapCard.tap = 1;}
             swapCard.pos = card.pos;
         }
 
+
+        Debug.Log("card action points: " + card.actions);
+        card.actions--;
+        Debug.Log("card action points: " + card.actions);
+
         card.pos = slotIndex;
-        card.tap = 1;
+        if (card.actions <= 0) { card.tap = 1; }
         controller.SelectCard(card.globalIdx);
 
         SendGameManager();
@@ -575,11 +589,6 @@ public class GameManager : MonoBehaviour {
         int y = slot % 3;
 
         return new Vector2(x, y);
-    }
-
-    public void GameOver(int playerIndex)
-    {
-        Application.LoadLevel("main");
     }
 }
 

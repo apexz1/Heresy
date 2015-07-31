@@ -47,7 +47,7 @@ public class PlayCardController : MonoBehaviour {
 
     public FieldController GetFieldController()
     {
-        return FieldController.GetFieldControler();
+        return FieldController.GetFieldController();
     }
 
     void OnMouseOver()

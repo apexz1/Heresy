@@ -9,7 +9,7 @@ public class PlayerObjectController : MonoBehaviour {
 
     public FieldController GetFieldController()
     {
-        return FieldController.GetFieldControler();
+        return FieldController.GetFieldController();
     }
 
 	// Use this for initialization
@@ -24,6 +24,8 @@ public class PlayerObjectController : MonoBehaviour {
 
     void OnMouseOver()
     {
+        //Debug.Log(FieldController.GetFieldController());
+        //Debug.Log(playerId);
         if (Input.GetButtonDown("Fire2"))
         {
             GetFieldController().OnPlayerClicked(playerId);

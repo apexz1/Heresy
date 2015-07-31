@@ -18,7 +18,7 @@ public class FieldController : MonoBehaviour {
         cardSelected = -1;
     }
 
-    public static FieldController GetFieldControler()
+    public static FieldController GetFieldController()
     {
         return GameObject.Find("PlayField").GetComponent<FieldController>();
     }
@@ -325,6 +325,11 @@ public class FieldController : MonoBehaviour {
             GameManager.Get().NetRPC("SelectorFxDone", RPCMode.Server, playerId, cardSelected);
         }
         GUI.Label(new Rect(0, Screen.height - 50, 1000, 25), libFx.description);
+    }
+
+    public void GameOver()
+    {
+        Application.LoadLevel("main");
     }
 
     public void OnGUI()

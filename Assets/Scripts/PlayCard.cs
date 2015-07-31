@@ -8,6 +8,7 @@ public class PlayCard
     public int health;
     public int globalIdx;
     public int pos;
+    public int actions;
     public int tap;
     public int owner;
     public Pile pile;
@@ -47,6 +48,7 @@ public class PlayCard
     public void InitLibrary()
     {
         this.health = CardLibrary.Get().GetCard(libId).health;
+        this.actions = CardLibrary.Get().GetCard(libId).moveRange;
     }
     public void FromJSON(JSONObject jsCard)
     {
@@ -55,9 +57,9 @@ public class PlayCard
         health = (int)jsCard["health"];
         pos = (int)jsCard["position"];
         tap = (int)jsCard["tapped"];
+        actions = (int)jsCard["actions"];
         owner = (int)jsCard["owner"];
         pile = (Pile)(int)jsCard["pile"];
-
     }
 
     public JSONObject ToJSON()
@@ -68,6 +70,7 @@ public class PlayCard
         jsCard.AddField("health", health);
         jsCard.AddField("position", pos);
         jsCard.AddField("tapped", tap);
+        jsCard.AddField("actions", actions);
         jsCard.AddField("owner", owner);
         jsCard.AddField("pile", (int)pile);
 
