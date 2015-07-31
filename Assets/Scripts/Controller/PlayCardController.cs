@@ -101,14 +101,14 @@ public class PlayCardController : MonoBehaviour {
             }
         }
 
-        if (gameObject.transform.parent.gameObject.name == "Hand")
+        if (pile == PlayCard.Pile.hand || pile == PlayCard.Pile.field)
+        {
             PopUp();
+        }      
     }
 
     void OnMouseExit()
     {
-        //if (!IsMoveAnimating()) { transform.position = new Vector3(transform.position.x, 0, transform.position.z); }
-
         if (slot) { return; }
         GetFieldController().HideCardPreview();
         transform.FindChild("hoverGlow").gameObject.SetActive(false);
@@ -116,9 +116,6 @@ public class PlayCardController : MonoBehaviour {
 
     void PopUp()
     {
-        //transform.GetChild(0).localRotation = Quaternion.Euler(-120,0,0);
-        //transform.position = new Vector3(transform.position.x, 1, transform.position.z);
-
         if (slot) { return; }
         GetFieldController().ShowCardPreview(transform.position.x > 0, card);
         transform.FindChild("hoverGlow").gameObject.SetActive(true);

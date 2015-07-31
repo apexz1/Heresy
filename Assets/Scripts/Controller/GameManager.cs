@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour {
         networkManager.enabled = false;
         localPlayerId = playerId;
         turnPlayer = 0;
+        //GameObject.Find("curtain").SetActive(false);
 
         LoadDeck(localPlayerId);
         if (network == false) { LoadDeck(1); };
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour {
                 players[i].playerHealth = 20;
                 players[i].spawns = 2;
             }
-            
+
             SendGameManager();
         }
         Debug.Log(turnPlayer);
@@ -485,6 +486,7 @@ public class GameManager : MonoBehaviour {
         }
 
         newPlayer.spawns = 2;
+        DrawCard(newPlayer.playerId, 1);
         Debug.Log(turnPlayer);
         SendGameManager();
     }

@@ -187,6 +187,8 @@ public class FieldController : MonoBehaviour {
 
     public void ShowCardPreview (bool side, PlayCard card)
     {
+        if (card.owner != GameManager.Get().localPlayerId && card.pile == PlayCard.Pile.hand) { return; }
+
         GameObject child = Camera.main.transform.FindChild("ZoomCard" + (side ? "L" : "R")).gameObject;
         
         MeshRenderer rend = child.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
