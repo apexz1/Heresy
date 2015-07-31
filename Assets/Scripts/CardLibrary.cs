@@ -30,6 +30,11 @@ public class CardLibrary
         GetCard(902).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.discard, 1);
+        
+        /*GetCard(902).AddFX()
+            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, false, false)
+            .setAction(LibraryFX.ActionType.discard, 1);
+         * */
 
     }
 

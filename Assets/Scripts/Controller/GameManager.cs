@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
     public List<PlayCard> playCards = new List<PlayCard>();
     public PlayFX currentFx = new PlayFX();
 
+    public bool effectInProgess;
 
 
     public static GameManager Get() {
@@ -222,6 +223,8 @@ public class GameManager : MonoBehaviour {
     {
         var player = players[playerIndex];
 
+        if (effectInProgess) { return; }
+
         if ((slotIndex > 2 && playerIndex == 1) || (slotIndex < 18 && playerIndex == 0))
         {
             SendNotification(playerIndex, "Cards can be placed in spawn slots only");
@@ -268,6 +271,8 @@ public class GameManager : MonoBehaviour {
         currentFx.actionCount = libFx.actionCount;
         currentFx.selectorCount = libFx.selectorCount;
 
+        effectInProgess = true;
+
         if (libFx.selectorPile == PlayCard.Pile.none) { currentFx.selectorDone = true; }
         ExeCardFx();
     }
@@ -294,6 +299,7 @@ public class GameManager : MonoBehaviour {
         }
 
         currentFx = new PlayFX();
+        effectInProgess = false;
     }
 
     [RPC]
