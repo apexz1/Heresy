@@ -461,7 +461,7 @@ public class GameManager : MonoBehaviour {
             }
             if (swapCard.tap > 0)
             {
-                SendNotification(playerIndex, "Cannot swap tapped cards");
+                SendNotification(playerIndex, "Cannot swap if either target is tapped");
                 return;
             }
 

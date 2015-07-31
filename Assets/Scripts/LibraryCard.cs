@@ -22,10 +22,8 @@ public class LibraryCard
         this.cardID = -1;
     }
 
-     public LibraryCard(int cardID, Texture2D texture, string cardName, int cult, int costs,
-         int attack, int health, int effectID)
+     public LibraryCard(int cardID, Texture2D texture, string cardName, int attack, int atkRange, int health, int moveRange, int costs, int cult, int effectID)
      {
-
          this.cardID = cardID;
          this.texture = null;
          this.cardName = cardName;
@@ -35,8 +33,8 @@ public class LibraryCard
          this.attack = attack;
          this.health = health;
          this.effectID = effectID;
-         this.moveRange = 1;
-         this.atkRange = 1;
+         this.moveRange = moveRange;
+         this.atkRange = atkRange;
      }
 
     public LibraryCard(int id, string name)
