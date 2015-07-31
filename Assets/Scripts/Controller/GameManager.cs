@@ -356,6 +356,8 @@ public class GameManager : MonoBehaviour {
         }
 
         oppCard.health -= ownLibCard.attack;
+        ownCard.actions--;
+
         if (oppLibCard.atkRange >= ownLibCard.atkRange) { ownCard.health -= oppLibCard.attack; }
 
         if (ownCard.actions <= 0) { ownCard.tap = 1; }
@@ -484,8 +486,12 @@ public class GameManager : MonoBehaviour {
         Debug.Log("card action points: " + card.actions);
 
         card.pos = slotIndex;
-        if (card.actions <= 0) { card.tap = 1; }
-        controller.SelectCard(card.globalIdx);
+        if (card.actions <= 0) 
+        {
+            controller.SelectCard(card.globalIdx);
+            card.tap = 1;
+        }
+        
 
         SendGameManager();
     }

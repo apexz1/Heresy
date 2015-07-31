@@ -54,6 +54,8 @@ public class FieldController : MonoBehaviour {
                 {
                     Debug.Log("Card detroyed?");
                     Destroy(gfx.gameObject);
+                    GameObject.Find("SceneCam").transform.FindChild("ZoomCardR").gameObject.SetActive(false);
+                    GameObject.Find("SceneCam").transform.FindChild("ZoomCardL").gameObject.SetActive(false);
                     cardGfxs.Remove(card.globalIdx);
                 }
             }
@@ -260,14 +262,16 @@ public class FieldController : MonoBehaviour {
         bool sameCard = false;
         Debug.Log("index " + index);
         Debug.Log("selected " + cardSelected);
+        
         if (cardSelected == index)
         {
             sameCard = true;
             Debug.Log("same card");
         }
-
         cardSelected = index;
         Transform newTransform = GetGfx(cardSelected);
+
+        var card = GameManager.Get().playCards[index];
 
         if (oldTransform != null)
         {
@@ -276,8 +280,6 @@ public class FieldController : MonoBehaviour {
 
         if (newTransform != null)
         {
-            //DeselectCard(newTransform);
-            //attackedPlayer == 0 ? 16 : 4
             if (sameCard)
             {
                 isActive = isActive == false ? true : false;
@@ -295,16 +297,6 @@ public class FieldController : MonoBehaviour {
         }
     }
 
-    public void DeselectCard(Transform trans)
-    {
-        if (isActive)
-        {
-            Debug.Log("Check succesful");
-            trans.FindChild("Selection").gameObject.SetActive(false);
-            cardSelected = -1;
-            isActive = false;
-        }
-    }
 
     public void StartSelectorFx()
     {
