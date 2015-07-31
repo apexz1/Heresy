@@ -8,6 +8,7 @@ public class FieldController : MonoBehaviour {
     public Dictionary<int, Transform> cardGfxs=new Dictionary<int,Transform>();
     public Transform[] fields;
     public Camera cam;
+    public bool isActive = false;
 
     public void Awake()
     {
@@ -256,6 +257,15 @@ public class FieldController : MonoBehaviour {
     public void SelectCard(int index)
     {
         Transform oldTransform = GetGfx(cardSelected);
+        bool sameCard = false;
+        Debug.Log("index " + index);
+        Debug.Log("selected " + cardSelected);
+        if (cardSelected == index)
+        {
+            sameCard = true;
+            Debug.Log("same card");
+        }
+
         cardSelected = index;
         Transform newTransform = GetGfx(cardSelected);
 
@@ -266,7 +276,33 @@ public class FieldController : MonoBehaviour {
 
         if (newTransform != null)
         {
-            newTransform.FindChild("Selection").gameObject.SetActive(true);
+            //DeselectCard(newTransform);
+            //attackedPlayer == 0 ? 16 : 4
+            if (sameCard)
+            {
+                isActive = isActive == false ? true : false;
+                newTransform.FindChild("Selection").gameObject.SetActive(isActive);
+                if (!isActive)
+                {
+                    cardSelected = -1;
+                }
+            }
+            else
+            {
+                newTransform.FindChild("Selection").gameObject.SetActive(true);
+                isActive = true;
+            }
+        }
+    }
+
+    public void DeselectCard(Transform trans)
+    {
+        if (isActive)
+        {
+            Debug.Log("Check succesful");
+            trans.FindChild("Selection").gameObject.SetActive(false);
+            cardSelected = -1;
+            isActive = false;
         }
     }
 

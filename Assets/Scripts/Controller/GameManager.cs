@@ -404,6 +404,12 @@ public class GameManager : MonoBehaviour {
         }
 
         opponent.playerHealth -= ownLibCard.attack;
+
+        if (opponent.playerHealth <= 0)
+        {
+            GameOver(opponent.playerId);
+        }
+
         SendGameManager();
     }
 
@@ -411,6 +417,7 @@ public class GameManager : MonoBehaviour {
     public void MoveOnField(int playerIndex, int cardIndex, int slotIndex)
     {
         var player = players[playerIndex];
+        var controller = FieldController.GetFieldControler();
 
         Debug.Log("MoveOnField() Log: " + cardIndex + " " + slotIndex);
 
@@ -452,6 +459,11 @@ public class GameManager : MonoBehaviour {
                 SendNotification(playerIndex, "Cards can not be swapped from spawn slots");
                 return;
             }
+            if (swapCard.tap > 0)
+            {
+                SendNotification(playerIndex, "Cannot swap tapped cards");
+                return;
+            }
 
             swapCard.tap = 1;
             swapCard.pos = card.pos;
@@ -459,6 +471,8 @@ public class GameManager : MonoBehaviour {
 
         card.pos = slotIndex;
         card.tap = 1;
+        controller.SelectCard(card.globalIdx);
+
         SendGameManager();
     }
 
@@ -561,6 +575,11 @@ public class GameManager : MonoBehaviour {
         int y = slot % 3;
 
         return new Vector2(x, y);
+    }
+
+    public void GameOver(int playerIndex)
+    {
+        Application.LoadLevel("main");
     }
 }
 

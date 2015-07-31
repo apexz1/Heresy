@@ -56,6 +56,7 @@ public class PlayCardController : MonoBehaviour {
         GameObject parentObj = gameObject.transform.parent.gameObject;
         var fieldController = GetFieldController();
         var card = cardIndex >= 0 ? GameManager.Get().playCards[cardIndex] : null;
+        var currentFx = GameManager.Get().currentFx;
         int playerId = GameManager.Get().localPlayerId;
 
         if (Input.GetButtonDown("Fire1"))
@@ -66,6 +67,10 @@ public class PlayCardController : MonoBehaviour {
                 if (card!=null && card.owner == playerId)
                 {
                     Debug.Log("Select clicked " + cardIndex);
+                    fieldController.SelectCard(cardIndex);
+                }
+                if (!currentFx.selectorDone && currentFx.selectorCount > 0)
+                {
                     fieldController.SelectCard(cardIndex);
                 }
             }
