@@ -22,9 +22,11 @@ public class CardLibrary
         cardList.Add(new LibraryCard(909, null, "TestCard9", 2, 2, 3, 1, 0, 0, 0));
         
         GetCard(900).AddFX().setAction(LibraryFX.ActionType.draw, 1);
-        GetCard(901).AddFX()
+        /*
+         * GetCard(901).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true, 1)
             .setAction(LibraryFX.ActionType.discard).description = "Select card to discard";
+         */
 
     }
 
