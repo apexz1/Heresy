@@ -23,11 +23,13 @@ public class CardLibrary
         
         //Card Effect 900
         GetCard(900).AddFX().setAction(LibraryFX.ActionType.draw, 1);
-        /*
-         * GetCard(901).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true, 1)
-            .setAction(LibraryFX.ActionType.discard).description = "Select card to discard";
-         */
+        
+        //Card Effect 901
+        /*GetCard(901).AddFX()
+            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true, 10)
+            .setAction(LibraryFX.ActionType.damagePlayer).description = "Damage player";
+         * */
+        
 
         //Card Effect 902
         GetCard(902).AddFX()

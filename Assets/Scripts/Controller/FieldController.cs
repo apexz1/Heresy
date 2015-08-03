@@ -78,6 +78,16 @@ public class FieldController : MonoBehaviour {
                     cardCtrl.TurnCard(true);
                     //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
                 }
+
+                if (cardCtrl.pos != card.pos)
+                {
+                    Vector3 cardPos = fields[card.owner].Find("Hand").transform.position;
+                    //gfx.localPosition = cardPos;
+
+                    cardCtrl.StartMoveAnimation(cardPos, cardCtrl.pos == -1 ? 1.0f : 0.2f);
+                    cardCtrl.pos = card.pos;
+                }
+
                 cardCtrl.pile = PlayCard.Pile.deck;
             }
 

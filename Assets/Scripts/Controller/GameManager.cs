@@ -304,6 +304,11 @@ public class GameManager : MonoBehaviour {
             }
         }
 
+        if (libFx.actionType == LibraryFX.ActionType.damagePlayer)
+        {
+            DamagePlayer(currentFx.playerIdx, currentFx.actionCount);
+        }
+
         currentFx = new PlayFX();
         effectInProgess = false;
         effectCounter++;
