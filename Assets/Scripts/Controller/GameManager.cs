@@ -459,7 +459,8 @@ public class GameManager : MonoBehaviour {
         }
 
         int distance = CalcDistance(card.pos, slotIndex);
-        if (distance > card.GetLibCard().moveRange)
+        Debug.Log("card actions: " + card.actions);
+        if (distance > card.actions)
         {
             SendNotification(playerIndex, "Slot out of range");
             return;
@@ -493,10 +494,7 @@ public class GameManager : MonoBehaviour {
         }
 
 
-        Debug.Log("card action points: " + card.actions);
-        card.actions--;
-        Debug.Log("card action points: " + card.actions);
-
+        card.actions -= distance;
         card.pos = slotIndex;
         if (card.actions <= 0) 
         {

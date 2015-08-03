@@ -10,16 +10,16 @@ public class CardLibrary
 
     void Init()
     {
-        cardList.Add(new LibraryCard(900, null, "TestCard0", 99, 1, 99, 8, 0, 0, 0));
-        cardList.Add(new LibraryCard(901, null, "TestCard1", 2, 1, 6, 8, 0, 0, 0));
-        cardList.Add(new LibraryCard(902, null, "TestCard2", 3, 2, 3, 8, 0, 0, 0));
-        cardList.Add(new LibraryCard(903, null, "TestCard3", 4, 1, 4, 8, 0, 0, 0));
-        cardList.Add(new LibraryCard(904, null, "TestCard4", 4, 2, 6, 8, 0, 0, 0));
-        cardList.Add(new LibraryCard(905, null, "TestCard5", 4, 1, 4, 8, 0, 0, 0));
-        cardList.Add(new LibraryCard(906, null, "TestCard6", 5, 1, 3, 8, 0, 0, 0));
-        cardList.Add(new LibraryCard(907, null, "TestCard7", 2, 2, 4, 8, 0, 0, 0));
-        cardList.Add(new LibraryCard(908, null, "TestCard8", 3, 1, 7, 8, 0, 0, 0));
-        cardList.Add(new LibraryCard(909, null, "TestCard9", 2, 2, 3, 8, 0, 0, 0));
+        cardList.Add(new LibraryCard(900, null, "TestCard0", 99, 1, 99, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(901, null, "TestCard1", 2, 1, 6, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(902, null, "TestCard2", 3, 2, 3, 1, 0, 0, 0));
+        cardList.Add(new LibraryCard(903, null, "TestCard3", 4, 1, 4, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(904, null, "TestCard4", 4, 2, 6, 1, 0, 0, 0));
+        cardList.Add(new LibraryCard(905, null, "TestCard5", 4, 1, 4, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(906, null, "TestCard6", 5, 1, 3, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(907, null, "TestCard7", 2, 2, 4, 1, 0, 0, 0));
+        cardList.Add(new LibraryCard(908, null, "TestCard8", 3, 1, 7, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(909, null, "TestCard9", 2, 2, 3, 1, 0, 0, 0));
         
         GetCard(900).AddFX().setAction(LibraryFX.ActionType.draw, 1);
         /*

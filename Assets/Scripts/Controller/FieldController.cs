@@ -29,6 +29,10 @@ public class FieldController : MonoBehaviour {
         cardGfxs.TryGetValue(globalIndex, out res);
         return res;
     }
+    public void Update()
+    {
+        //---
+    }
 
     public void FixedUpdate()
     {
