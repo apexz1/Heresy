@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     //synced vars
     public Player[] players;
     public int turnPlayer = 0;
+    public int effectCounter = 0;
     public List<PlayCard> playCards = new List<PlayCard>();
     public PlayFX currentFx = new PlayFX();
 
@@ -43,7 +44,8 @@ public class GameManager : MonoBehaviour {
 
         networkView = GetComponent<NetworkView>();
 
-        LoadTextures.LoadFromFile("D:/ProtoTest/Images/");
+        LoadTextures.LoadFromFile(0, "D:/ProtoTest/Images/");
+        LoadTextures.LoadFromFile(1, "D:/ProtoTest/Images/preview/");
     }
 
     [RPC]
@@ -54,8 +56,8 @@ public class GameManager : MonoBehaviour {
         turnPlayer = 0;
         //GameObject.Find("curtain").SetActive(false);
 
-        LoadDeck(localPlayerId);
-        if (network == false) { LoadDeck(1); };
+        LoadDeck(localPlayerId, "default");
+        if (network == false) { LoadDeck(1, "default"); };
 
         if(Network.isServer) {
             this.NetRPC("StartGame", RPCMode.Others, playerId + 1, true);
@@ -90,8 +92,8 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void LoadDeck( int playerIdx ) {
-        TextAsset textFile = (TextAsset)Resources.Load("default");
+    public void LoadDeck( int playerIdx, string deck ) {
+        TextAsset textFile = (TextAsset)Resources.Load(deck);
         JSONObject jsPlayer = JSONParser.parse(textFile.text);
 
         Debug.Log("start");
@@ -259,21 +261,24 @@ public class GameManager : MonoBehaviour {
     {
         var card = playCards[cardIndex];
         var libCard = card.GetLibCard();
+        var libFx = new LibraryFX();
         Debug.Log("StartCardFX()" + libCard.fxList.Count);
         if (libCard.fxList.Count <= 0) { return; }
 
+        Debug.Log("Start effectCounter " + effectCounter);
         currentFx = new PlayFX();
-        currentFx.fxIdx = 0;
+        currentFx.fxIdx = effectCounter;
         currentFx.libId = card.libId;
         currentFx.playerIdx = playerIndex;
 
-        var libFx = currentFx.GetLibFx();
+        libFx = currentFx.GetLibFx();
         currentFx.actionCount = libFx.actionCount;
         currentFx.selectorCount = libFx.selectorCount;
 
         effectInProgess = true;
 
         if (libFx.selectorPile == PlayCard.Pile.none) { currentFx.selectorDone = true; }
+        Debug.Log("currentFx" + currentFx.GetLibFx().description);
         ExeCardFx();
     }
     public void ExeCardFx()
@@ -288,6 +293,7 @@ public class GameManager : MonoBehaviour {
         {
             DrawCard(currentFx.playerIdx, currentFx.actionCount);
         }
+
         if (libFx.actionType == LibraryFX.ActionType.discard)
         {
             for(int i=0;i<currentFx.selectedCards.Count;i++)
@@ -300,6 +306,8 @@ public class GameManager : MonoBehaviour {
 
         currentFx = new PlayFX();
         effectInProgess = false;
+        effectCounter++;
+        Debug.Log("End effectCounter " + effectCounter);
     }
 
     [RPC]

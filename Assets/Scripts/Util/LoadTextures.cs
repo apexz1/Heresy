@@ -20,7 +20,7 @@ public class LoadTextures {
         return tex;
     }
 
-    public static void LoadFromFile(string filePath)
+    public static void LoadFromFile(int texId, string filePath)
     {
 
         string[] fileArray = Directory.GetFiles(filePath);
@@ -35,14 +35,27 @@ public class LoadTextures {
             string newName = tmpName.Remove(tmpName.Length - 4, 4);
             int texName;
             Int32.TryParse(newName, out texName);
-            //Debug.Log(texName);
+            Debug.Log("texture loaded: " + texName);
 
             for (int j = 0; j < CardLibrary.Get().cardList.Count; j++)
             {
                 if (CardLibrary.Get().cardList[j].cardID == texName)
                 {
                     //Debug.Log("name found");
-                    CardLibrary.Get().cardList[j].texture = tex;
+                    if (texId == 0)
+                    {
+                        CardLibrary.Get().cardList[j].texture = tex;
+                    }
+                    if (texId == 1)
+                    {
+                        CardLibrary.Get().cardList[j].texture_p = tex;
+                    }
+                    /*
+                    else
+                    {
+                        GameManager.Get().SendNotification(GameManager.Get().localPlayerId, "Unable to load textures, texture load index invalid");
+                    }
+                     * */
                 }
             }
         }

@@ -21,21 +21,21 @@ public class CardLibrary
         cardList.Add(new LibraryCard(908, null, "TestCard8", 3, 1, 7, 2, 0, 0, 0));
         cardList.Add(new LibraryCard(909, null, "TestCard9", 2, 2, 3, 1, 0, 0, 0));
         
+        //Card Effect 900
         GetCard(900).AddFX().setAction(LibraryFX.ActionType.draw, 1);
         /*
          * GetCard(901).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true, 1)
             .setAction(LibraryFX.ActionType.discard).description = "Select card to discard";
          */
+
+        //Card Effect 902
         GetCard(902).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.discard, 1);
-        
-        /*GetCard(902).AddFX()
+            .setAction(LibraryFX.ActionType.discard, 1).description = "Select card to discard";
+        GetCard(902).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, false, false)
-            .setAction(LibraryFX.ActionType.discard, 1);
-         * */
-
+            .setAction(LibraryFX.ActionType.discard, 1).description = "Select card to discard(opponent)";
     }
 
     public static CardLibrary Get()

@@ -56,7 +56,7 @@ public class FieldController : MonoBehaviour {
 
                 if (controller.pile != PlayCard.Pile.discard)
                 {
-                    Debug.Log("Card detroyed?");
+                    //Debug.Log("Card detroyed?");
                     Destroy(gfx.gameObject);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardR").gameObject.SetActive(false);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardL").gameObject.SetActive(false);
@@ -199,7 +199,7 @@ public class FieldController : MonoBehaviour {
         GameObject child = Camera.main.transform.FindChild("ZoomCard" + (side ? "L" : "R")).gameObject;
         
         MeshRenderer rend = child.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
-        rend.material.mainTexture = card.GetTexture();
+        rend.material.mainTexture = card.GetTexturePreview();
 
         child.SetActive(true);
     }
@@ -306,6 +306,7 @@ public class FieldController : MonoBehaviour {
     {
         int playerId = GameManager.Get().localPlayerId;
         var currentFx = GameManager.Get().currentFx;
+        var card = GetGfx(cardSelected);
         if (currentFx.libId <= 0) { return; }
         if (currentFx.selectorDone) { return; }
 
@@ -313,8 +314,6 @@ public class FieldController : MonoBehaviour {
         if (libFx.selectorPile == PlayCard.Pile.none) { return; }
 
         bool ownFx = currentFx.playerIdx == GameManager.Get().localPlayerId;
-
-        if (libFx.selectorWho != ownFx) { return; }
 
         if (GUI.Button(new Rect(0,25,60,25), "Confirm"))
         {

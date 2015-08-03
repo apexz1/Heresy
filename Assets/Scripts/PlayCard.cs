@@ -31,6 +31,10 @@ public class PlayCard
     {
         return CardLibrary.Get().GetCard(libId).texture;
     }
+    public Texture2D GetTexturePreview()
+    {
+        return CardLibrary.Get().GetCard(libId).texture_p;
+    }
 
     public LibraryCard GetLibCard()
     {

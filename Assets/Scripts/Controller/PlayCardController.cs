@@ -56,13 +56,13 @@ public class PlayCardController : MonoBehaviour {
         GameObject parentObj = gameObject.transform.parent.gameObject;
         var fieldController = GetFieldController();
         var card = cardIndex >= 0 ? GameManager.Get().playCards[cardIndex] : null;
-        var currentFx = GameManager.Get().currentFx;
+        var currentFx = GameManager.Get().currentFx;      
         int playerId = GameManager.Get().localPlayerId;
 
         if (Input.GetButtonDown("Fire1"))
         {
             //Debug.Log("f1:" + parentObj.name+" "+card.owner);
-            if (parentObj.name == "Field" || parentObj.name == "Hand")
+            if (pile == PlayCard.Pile.hand || pile == PlayCard.Pile.field)
             {
                 if (card!=null && card.owner == playerId)
                 {

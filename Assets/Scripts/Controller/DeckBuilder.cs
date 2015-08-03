@@ -46,7 +46,7 @@ public class DeckBuilder : MonoBehaviour {
         gameManager = GameManager.Get();
         Directory.CreateDirectory(deckLocation);
 
-        LoadTextures.LoadFromFile("D:/ProtoTest/Images/");
+        LoadTextures.LoadFromFile(1, "D:/ProtoTest/Images/");
         for (int i = 0; i < CardLibrary.Get().cardList.Count; i++)
         {
             Debug.Log("Texture loaded: " + CardLibrary.Get().cardList[i].texture);

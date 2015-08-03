@@ -7,6 +7,7 @@ public class LibraryCard
 {
     public int cardID = 0;
     public Texture2D texture;
+    public Texture2D texture_p;
     public string cardName = "";
     public int cult = 0;
     public int costs = 0;
