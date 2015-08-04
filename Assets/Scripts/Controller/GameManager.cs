@@ -478,7 +478,8 @@ public class GameManager : MonoBehaviour {
         }
 
         opponent.playerHealth -= ownCard.attack;
-        ownCard.tap++;
+
+        if (ownCard.actions <= 0) { ownCard.tap = 1; }
 
         if (opponent.playerHealth <= 0)
         {
@@ -705,9 +706,9 @@ public class GameManager : MonoBehaviour {
         for (int i = 0; i < playCards.Count; i++ )
         {
             var card = playCards[i];
+            card.actions = card.GetLibCard().moveRange;
             if (card.tap <= 0) { continue; }
             if (card.owner != oldPlayer.playerId) { continue; }
-            card.actions = card.GetLibCard().moveRange;
             card.tap--;
         }
 
