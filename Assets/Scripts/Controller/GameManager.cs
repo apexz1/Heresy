@@ -478,6 +478,7 @@ public class GameManager : MonoBehaviour {
         }
 
         opponent.playerHealth -= ownCard.attack;
+        ownCard.actions--;
 
         if (ownCard.actions <= 0) { ownCard.tap = 1; }
 
