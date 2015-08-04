@@ -26,6 +26,10 @@ public class PlayerObjectController : MonoBehaviour {
     {
         //Debug.Log(FieldController.GetFieldController());
         //Debug.Log(playerId);
+        if (Input.GetButtonDown("Fire1"))
+        {
+            //ShowTempleSkillMenu
+        }
         if (Input.GetButtonDown("Fire2"))
         {
             GetFieldController().OnPlayerClicked(playerId);

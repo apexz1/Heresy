@@ -365,6 +365,7 @@ public class FieldController : MonoBehaviour {
         GUI.Label(new Rect(0, Screen.height - 50, 1000, 25), libFx.description);
     }
 
+    
     public void GameOver()
     {
         Application.LoadLevel("main");
