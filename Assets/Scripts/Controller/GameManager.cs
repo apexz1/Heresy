@@ -572,7 +572,7 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        if (playCards[cardIndex].owner != localPlayerId)
+        if (playCards[cardIndex].owner != player.playerId)
         {
             SendNotification(playerIndex, "Can sacrifice own cards only");
             return;
@@ -588,7 +588,7 @@ public class GameManager : MonoBehaviour {
 
         for (int i = 0; i < playCards.Count; i++)
         {
-            if (playCards[i].pile == PlayCard.Pile.hand && playCards[i].owner == localPlayerId)
+            if (playCards[i].pile == PlayCard.Pile.hand && playCards[i].owner == player.playerId)
             {
                 maxCosts += playCards[i].GetLibCard().costs;
             }
