@@ -572,6 +572,20 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
+        if (playCards[cardIndex].owner != localPlayerId)
+        {
+            SendNotification(playerIndex, "Can sacrifice own cards only");
+            return;
+        }
+
+        Debug.Log(playCards[cardIndex].pile + ", " + playCards[cardIndex].owner + ", " + localPlayerId);
+
+        if (playCards[cardIndex].pile != PlayCard.Pile.field)
+        {
+            SendNotification(playerIndex, "Can sacrifice cards in play only");
+            return;
+        }
+
         for (int i = 0; i < playCards.Count; i++)
         {
             if (playCards[i].pile == PlayCard.Pile.hand && playCards[i].owner == localPlayerId)
@@ -584,7 +598,7 @@ public class GameManager : MonoBehaviour {
 
         if (player.sac >= maxCosts)
         {
-            SendNotification(playerIndex, "Can't sacrifice more cards, no cards with costs found in hand");
+            SendNotification(playerIndex, "Can't sacrifice more cards, no cards with sufficient cost found in hand");
             return;
         }
 
