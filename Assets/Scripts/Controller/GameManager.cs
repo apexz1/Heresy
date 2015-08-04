@@ -417,7 +417,7 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        oppCard.health -= ownLibCard.attack;
+        oppCard.health -= ownCard.attack;
         ownCard.actions--;
 
         if (oppLibCard.atkRange >= ownLibCard.atkRange) { ownCard.health -= oppLibCard.attack; }
@@ -477,7 +477,7 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        opponent.playerHealth -= ownLibCard.attack;
+        opponent.playerHealth -= ownCard.attack;
         ownCard.tap++;
 
         if (opponent.playerHealth <= 0)
@@ -612,6 +612,76 @@ public class GameManager : MonoBehaviour {
         playCards[cardIndex].pile = PlayCard.Pile.discard;
         player.sac++;
         Debug.Log(player.sac);
+        SendGameManager();
+    }
+
+    [RPC]
+    public void BuffCard(int playerIndex, int cardIndex, int stat, int amount)
+    {
+        var player = players[playerIndex];
+        var card = playCards[cardIndex];
+
+        if (cardIndex == null) { return; }
+
+        switch (stat)
+        {
+            case 0:
+                card.health += amount;
+                break;
+
+            case 1:
+                card.attack += amount;
+                break;
+
+            case 2:
+                card.actions += amount;
+                break;
+
+            default:
+                Debug.LogError("Error accessing specified card stat; please code the game correctly, retard");
+                break;
+        }
+
+        Debug.Log(card.attack);
+        SendGameManager();
+    }
+    [RPC]
+    public void BuffCardMulti(int playerIndex, int cardIndex, int stat, int amount, int targets = 0)
+    {
+
+        Debug.Log(targets);
+        switch (targets)
+        {
+            case 0:
+                BuffCard(playerIndex, cardIndex, stat, amount);
+                break;
+
+            case 1:
+                for (int i = 0; i < playCards.Count; i++)
+                {
+                    if (playCards[i].owner == localPlayerId && playCards[i].pile == PlayCard.Pile.field)
+                    {
+                        BuffCard(playerIndex, playCards[i].globalIdx, stat, amount);
+                    }
+                }
+                break;
+
+            case 2:
+                for (int i = 0; i < playCards.Count; i++)
+                {
+                    if (playCards[i].pile == PlayCard.Pile.field)
+                    {
+                        BuffCard(playerIndex, playCards[i].globalIdx, stat, amount);
+                    }
+                }
+                break;
+
+            default:
+                Debug.LogError("Error accessing specified card stat; please code the game correctly, retard");
+                break;
+        }
+
+        SendGameManager();
     }
 
     [RPC]

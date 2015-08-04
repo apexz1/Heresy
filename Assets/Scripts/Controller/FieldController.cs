@@ -187,8 +187,22 @@ public class FieldController : MonoBehaviour {
         {
             var transAttack = pcc.transform.FindChild("Attack");
             var attackText = transAttack.GetComponent<TextMesh>();
-            attackText.text = "" + libCard.attack;
+            attackText.text = "" + playCard.attack;
             transAttack.gameObject.SetActive(!pcc.turned);
+        }
+        if (libCard.moveRange > 1)
+        {
+            var transActions = pcc.transform.FindChild("Action");
+            var actionsText = transActions.GetComponent<TextMesh>();
+            actionsText.text = "" + playCard.actions;
+            transActions.gameObject.SetActive(!pcc.turned);
+        }
+        if (libCard.atkRange > 1)
+        {
+            var transRange = pcc.transform.FindChild("Action");
+            var rangeText = transRange.GetComponent<TextMesh>();
+            rangeText.text = "" + libCard.atkRange;
+            transRange.gameObject.SetActive(!pcc.turned);
         }
     }
 
@@ -416,6 +430,31 @@ public class FieldController : MonoBehaviour {
                 GameManager.Get().NetRPC("SacCard", RPCMode.Server, playerId, cardSelected);
             }
         }
+        if (GUI.Button(new Rect(300, 0, 60, 25), "Buff Card"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("BuffCard", RPCMode.Server, playerId, cardSelected, 1, 1);
+            }
+        }
+        if (GUI.Button(new Rect(300, 25, 60, 25), "Buff All Cards own"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("BuffCardMulti", RPCMode.Server, playerId, cardSelected, 1, 1, 1);
+            }
+        }
+        if (GUI.Button(new Rect(300, 50, 60, 25), "Buff All Cards"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("BuffCardMulti", RPCMode.Server, playerId, cardSelected, 1, 1, 2);
+            }
+        }
+
 
         //Test
         if (GUI.Button (new Rect(0,200,90,25), "End Turn"))

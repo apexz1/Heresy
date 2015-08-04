@@ -6,9 +6,10 @@ public class PlayCard
 {
     public int libId;
     public int health;
+    public int attack;
+    public int actions;
     public int globalIdx;
     public int pos;
-    public int actions;
     public int tap;
     public int owner;
     public Pile pile;
@@ -52,6 +53,7 @@ public class PlayCard
     public void InitLibrary()
     {
         this.health = CardLibrary.Get().GetCard(libId).health;
+        this.attack = CardLibrary.Get().GetCard(libId).attack;
         this.actions = CardLibrary.Get().GetCard(libId).moveRange;
     }
     public void FromJSON(JSONObject jsCard)
@@ -59,9 +61,10 @@ public class PlayCard
         libId = (int)jsCard["id"];
         globalIdx = (int)jsCard["globalIdx"];
         health = (int)jsCard["health"];
+        attack = (int)jsCard["attack"];
+        actions = (int)jsCard["actions"];
         pos = (int)jsCard["position"];
         tap = (int)jsCard["tapped"];
-        actions = (int)jsCard["actions"];
         owner = (int)jsCard["owner"];
         pile = (Pile)(int)jsCard["pile"];
     }
@@ -72,9 +75,10 @@ public class PlayCard
         jsCard.AddField("id", libId);
         jsCard.AddField("globalIdx", globalIdx);
         jsCard.AddField("health", health);
+        jsCard.AddField("attack", attack);
+        jsCard.AddField("actions", actions);
         jsCard.AddField("position", pos);
         jsCard.AddField("tapped", tap);
-        jsCard.AddField("actions", actions);
         jsCard.AddField("owner", owner);
         jsCard.AddField("pile", (int)pile);
 
