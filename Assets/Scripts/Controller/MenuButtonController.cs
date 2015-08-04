@@ -3,11 +3,12 @@ using UnityEngine.UI;
 using System.Collections;
 
 
-public class MenuButtonController : MonoBehaviour {
+public class MenuButtonController : MonoBehaviour
+{
 
     public void LoadGame() {
         Debug.Log("game loaded");
-        Application.LoadLevel("first");
+        Application.LoadLevel("main");
     }
     public void LoadDeckbuilder() {
         Debug.Log("Deckbuilder loaded");
@@ -30,8 +31,7 @@ public class MenuButtonController : MonoBehaviour {
         Application.Quit();
     }
 
-    public void Save()
-    {
+    public void Save() {
         InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
         string deckName = inputField.text;
@@ -40,8 +40,7 @@ public class MenuButtonController : MonoBehaviour {
         Debug.Log(deckName + "saved " + DeckBuilder.Get().deck.Count + " entries");
     }
 
-    public void Load()
-    {
+    public void Load() {
         InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
         string deckName = inputField.text;
@@ -50,8 +49,7 @@ public class MenuButtonController : MonoBehaviour {
 
         DeckBuilder.Get().LoadDeck(deckName);
     }
-    public void Delete()
-    {
+    public void Delete() {
         InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
 
         string deckName = inputField.text;
@@ -60,8 +58,7 @@ public class MenuButtonController : MonoBehaviour {
         Debug.Log(deckName + "deleted");
     }
 
-    public void Clear() 
-    {
+    public void Clear() {
         //Debug.Log("old:" + deckManager.deck.Count);
 
         DeckBuilder.Get();
@@ -72,8 +69,7 @@ public class MenuButtonController : MonoBehaviour {
         Debug.Log("cleared");
     }
 
-    public void Remove()
-    {
+    public void Remove() {
         Debug.Log(gameObject.name);
         DeckBuilder.Get().RemoveCard(this.GetComponent<Button>());
 
