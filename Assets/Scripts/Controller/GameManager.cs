@@ -677,7 +677,7 @@ public class GameManager : MonoBehaviour {
                 break;
 
             default:
-                Debug.LogError("Error accessing specified card stat; please code the game correctly, retard");
+                Debug.LogError("Error accessing specified card stat");
                 break;
         }
 
