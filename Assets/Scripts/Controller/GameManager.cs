@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour {
     public int turnPlayer = 0;
     public int effectCounter = 0;
     public List<PlayCard> playCards = new List<PlayCard>();
+    public List<PlayCard> sacList = new List<PlayCard>();
     public PlayFX currentFx = new PlayFX();
 
     public bool effectInProgess;
@@ -66,6 +67,7 @@ public class GameManager : MonoBehaviour {
             {
                 players[i].playerHealth = 20;
                 players[i].spawns = 2;
+                players[i].sac = 0;
             }
 
             SendGameManager();
@@ -223,13 +225,32 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void PlayFromHand(int playerIndex, int cardIndex, int slotIndex)
     {
+        bool check = false;
         var player = players[playerIndex];
+        var card = playCards[cardIndex];
 
         if (effectInProgess) { return; }
 
-        if ((slotIndex > 2 && playerIndex == 1) || (slotIndex < 18 && playerIndex == 0))
+        if (((slotIndex > 2 && playerIndex == 1) || (slotIndex < 18 && playerIndex == 0)) && card.GetLibCard().costs <= 0)
         {
             SendNotification(playerIndex, "Cards can be placed in spawn slots only");
+            return;
+        }
+
+        for (int i = 0; i < sacList.Count; i++)
+        {
+            Debug.Log(sacList[i].pos + ", " + slotIndex);
+
+            if (CheckSacSlots(sacList[i].pos, slotIndex))
+            {
+                check = true;
+                Debug.Log("check: " + check);
+            }
+        }
+
+        if (card.GetLibCard().costs > 0 && check == false)
+        {
+            SendNotification(playerIndex, "Can only spawn at sacrificial grounds");
             return;
         }
 
@@ -245,20 +266,40 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        var card = playCards[cardIndex];
+        if (card.GetLibCard().costs > player.sac)
+        {
+            SendNotification(playerIndex, "Not enough cards sacrificed");
+            return;
+        }
 
         card.pile = PlayCard.Pile.field;        
         card.pos = slotIndex;
         player.spawns -= 1;
-
+        player.sac -= card.GetLibCard().costs;
         SortHand(playerIndex);
+
+        if (card.GetLibCard().costs > 0)
+        {
+            FieldController.GetFieldController().HideSacFields();
+        }
+        sacList = new List<PlayCard>();
 
         StartCardFx(playerIndex, cardIndex);
         SendGameManager();
     }
 
+    public bool CheckSacSlots(int sacPos, int spawnSlot)
+    {
+        return (sacPos == spawnSlot);
+    }
+
     public void StartCardFx(int playerIndex, int cardIndex)
     {
+        if (effectCounter >= 2) {
+            Debug.Log("test");
+            return;
+        }
+
         var card = playCards[cardIndex];
         var libCard = card.GetLibCard();
         var libFx = new LibraryFX();
@@ -520,6 +561,46 @@ public class GameManager : MonoBehaviour {
     }
 
     [RPC]
+    public void SacCard(int playerIndex, int cardIndex)
+    {
+        var player = players[playerIndex];
+        int maxCosts = 0;
+
+        if (player.spawns <= 0)
+        {
+            SendNotification(playerIndex, "Can't sacrifice card, no spawns left");
+            return;
+        }
+
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            if (playCards[i].pile == PlayCard.Pile.hand && playCards[i].owner == localPlayerId)
+            {
+                maxCosts += playCards[i].GetLibCard().costs;
+            }
+        }
+
+        Debug.Log("Sac check: " + maxCosts + ", " + player.sac);
+
+        if (player.sac >= maxCosts)
+        {
+            SendNotification(playerIndex, "Can't sacrifice more cards, no cards with costs found in hand");
+            return;
+        }
+
+        if (playCards[cardIndex].tap > 0)
+        {
+            SendNotification(playerIndex, "Can't sacrifice tapped cards");
+            return;
+        }
+
+        sacList.Add(playCards[cardIndex]);
+        playCards[cardIndex].pile = PlayCard.Pile.discard;
+        player.sac++;
+        Debug.Log(player.sac);
+    }
+
+    [RPC]
     public void EndTurn(int playerIndex)
     {
         if (effectInProgess) { return; }
@@ -542,12 +623,13 @@ public class GameManager : MonoBehaviour {
             var card = playCards[i];
             if (card.tap <= 0) { continue; }
             if (card.owner != oldPlayer.playerId) { continue; }
-
+            card.actions = card.GetLibCard().moveRange;
             card.tap--;
         }
 
         newPlayer.spawns = 2;
         DrawCard(newPlayer.playerId, 1);
+        FieldController.GetFieldController().HideSacFieldsAll();
 
         /*for (int i = 0; i < playCards.Count; i++ )
         {
@@ -563,6 +645,7 @@ public class GameManager : MonoBehaviour {
     {
         turnPlayer = (int)jsPlayer["TurnPlayer"];
         playCards = Player.PileFromJSON(jsPlayer["PlayCards"]);
+        sacList = Player.PileFromJSON(jsPlayer["SacrificeList"]);
         currentFx.FromJSON(jsPlayer["CurrentFx"]);
     }
 
@@ -571,6 +654,7 @@ public class GameManager : MonoBehaviour {
         JSONObject jsPlayer = JSONObject.obj;
         jsPlayer.AddField("TurnPlayer", turnPlayer);
         jsPlayer.AddField("PlayCards", Player.PileToJSON(playCards));
+        jsPlayer.AddField("SacrificeList", Player.PileToJSON(sacList));
         jsPlayer.AddField("CurrentFx", currentFx.ToJSON());
 
         return jsPlayer;
@@ -637,6 +721,7 @@ public class Player {
     public string name;
     public int playerHealth;
     public int spawns;
+    public int sac;
     public List<LibraryCard> deck = new List<LibraryCard>();
     /*public List<PlayCard> playPile = new List<PlayCard>();
     public List<PlayCard> playHand = new List<PlayCard>();
@@ -675,6 +760,7 @@ public class Player {
         name = (string)jsPlayer["Name"];
         playerHealth = (int)jsPlayer["PlayerHealth"];
         spawns = (int)jsPlayer["Spawns"];
+        sac = (int)jsPlayer["Sacrifice"];
         deck = DeckBuilder.DeckFromJSON(jsPlayer["Deck"]);
 
         /*playPile = PileFromJSON(jsPlayer["PlayPile"]);
@@ -689,6 +775,7 @@ public class Player {
         jsPlayer.AddField("PlayerId", playerId);
         jsPlayer.AddField("PlayerHealth", playerHealth);
         jsPlayer.AddField("Spawns", spawns);
+        jsPlayer.AddField("Sacrifice", sac);
         jsPlayer.AddField("Deck", DeckBuilder.DeckToJSON(deck));
 
         /*jsPlayer.AddField("PlayPile", PileToJSON(playPile));

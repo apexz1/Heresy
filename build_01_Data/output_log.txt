@@ -2,12 +2,12 @@ Mono path[0] = 'D:/ProtoTest/build_01_Data/Managed'
 Mono path[1] = 'D:/ProtoTest/build_01_Data/Mono'
 Mono config path = 'D:/ProtoTest/build_01_Data/Mono/etc'
 PlayerConnection initialized from D:/ProtoTest/build_01_Data (debug = 0)
-PlayerConnection initialized network socket : 0.0.0.0 55276
-Multi-casting "[IP] 172.21.66.5 [Port] 55276 [Flags] 3 [Guid] 18332902 [EditorId] 1850530592 [Version] 1048832 [Id] WindowsPlayer(BLN-A-1550) [Debug] 1" to [225.0.0.222:54997]...
-Waiting for connection from host on [172.21.66.5:55276]...
+PlayerConnection initialized network socket : 0.0.0.0 55494
+Multi-casting "[IP] 172.21.66.5 [Port] 55494 [Flags] 3 [Guid] 533096870 [EditorId] 239752837 [Version] 1048832 [Id] WindowsPlayer(BLN-A-1550) [Debug] 1" to [225.0.0.222:54997]...
+Waiting for connection from host on [172.21.66.5:55494]...
 PlayerConnection accepted from [172.21.66.5] handle:0x1ec
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56902
-PlayerConnection already initialized - listening to [172.21.66.5:55276]
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,defer=y,address=0.0.0.0:56870
+PlayerConnection already initialized - listening to [172.21.66.5:55494]
 Initialize engine version: 5.1.2f1 (afd2369b692a)
 GfxDevice: creating device client; threaded=1
 Direct3D:
@@ -26,7 +26,7 @@ Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\ProtoTest\build_01_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.059 seconds
+- Completed reload, in  0.096 seconds
 desktop: 1920x1080 60Hz; virtual: 3600x1080 at -1680,0
 <RI> Initializing input.
 <RI> Input initialized.

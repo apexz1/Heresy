@@ -10,7 +10,7 @@ public class CardLibrary
 
     void Init()
     {
-        cardList.Add(new LibraryCard(900, null, "TestCard0", 99, 1, 99, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(900, null, "TestCard0", 99, 1, 99, 2, 2, 0, 0));
         cardList.Add(new LibraryCard(901, null, "TestCard1", 2, 1, 6, 2, 0, 0, 0));
         cardList.Add(new LibraryCard(902, null, "TestCard2", 3, 2, 3, 1, 0, 0, 0));
         cardList.Add(new LibraryCard(903, null, "TestCard3", 4, 1, 4, 2, 0, 0, 0));
@@ -22,7 +22,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(909, null, "TestCard9", 2, 2, 3, 1, 0, 0, 0));
         
         //Card Effect 900
-        GetCard(900).AddFX().setAction(LibraryFX.ActionType.draw, 1);
+        //GetCard(900).AddFX().setAction(LibraryFX.ActionType.draw, 1);
         
         //Card Effect 901
         /*GetCard(901).AddFX()
@@ -32,12 +32,13 @@ public class CardLibrary
         
 
         //Card Effect 902
-        GetCard(902).AddFX()
+        /*GetCard(902).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.discard, 1).description = "Select card to discard";
         GetCard(902).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, false, false)
             .setAction(LibraryFX.ActionType.discard, 1).description = "Select card to discard(opponent)";
+         * */
     }
 
     public static CardLibrary Get()

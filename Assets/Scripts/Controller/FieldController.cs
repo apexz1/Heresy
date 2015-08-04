@@ -79,14 +79,14 @@ public class FieldController : MonoBehaviour {
                     //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
                 }
 
-                if (cardCtrl.pos != card.pos)
+                /*if (cardCtrl.pos != card.pos)
                 {
                     Vector3 cardPos = fields[card.owner].Find("Hand").transform.position;
                     //gfx.localPosition = cardPos;
 
                     cardCtrl.StartMoveAnimation(cardPos, cardCtrl.pos == -1 ? 1.0f : 0.2f);
                     cardCtrl.pos = card.pos;
-                }
+                }*/
 
                 cardCtrl.pile = PlayCard.Pile.deck;
             }
@@ -150,6 +150,7 @@ public class FieldController : MonoBehaviour {
                 }
 
                 ShowStats(cardCtrl, card);
+                ShowSacFields();
                 cardCtrl.pile = PlayCard.Pile.field;
             }
         }
@@ -218,6 +219,38 @@ public class FieldController : MonoBehaviour {
     {
         Camera.main.transform.FindChild("ZoomCardL").gameObject.SetActive(false);
         Camera.main.transform.FindChild("ZoomCardR").gameObject.SetActive(false);
+    }
+
+    public void ShowSacFields()
+    {
+        var gameManager = GameManager.Get();
+        var sacList = gameManager.sacList;
+
+        for (int i = 0; i < sacList.Count; i++)
+        {
+            int slotIndex = sacList[i].pos;
+            GameObject.Find(slotIndex.ToString()).transform.FindChild("SacField").gameObject.SetActive(true);
+        }
+    }
+    public void HideSacFields()
+    {
+        Debug.Log("Sacrificial Fields hidden?");
+        var gameManager = GameManager.Get();
+        var sacList = gameManager.sacList;
+
+        for (int i = 0; i < sacList.Count; i++)
+        {
+            int slotIndex = sacList[i].pos;
+            Debug.Log(GameObject.Find(slotIndex.ToString()).transform.FindChild("SacField"));
+            GameObject.Find(slotIndex.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
+        }
+    }
+    public void HideSacFieldsAll()
+    {
+        for (int i = 0; i < 21; i++)
+        {
+            GameObject.Find(i.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
+        }
     }
 
     public void OnSlotClicked(int slot)
@@ -372,6 +405,14 @@ public class FieldController : MonoBehaviour {
             if (GameManager.Get().turnPlayer == playerId)
             {
                 GameManager.Get().NetRPC("DamagePlayer", RPCMode.Server, playerId, 5);
+            }
+        }
+        if (GUI.Button(new Rect(240, 0, 60, 25), "Sacrifice"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("SacCard", RPCMode.Server, playerId, cardSelected);
             }
         }
 
