@@ -21,7 +21,7 @@ public class OptionsMenu : MonoBehaviour
         resolutions = Screen.resolutions;
         Vector3 pos;
         Button resButton = Instantiate(showResButton) as Button;
-        Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, true);
+        //Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, false);
 
         resButton.transform.SetParent(GetResListTransform().transform, false);
         resButton.transform.localPosition = new Vector3(0, 0, 0);
