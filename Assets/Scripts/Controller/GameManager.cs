@@ -181,11 +181,12 @@ public class GameManager : MonoBehaviour {
             if (drawCard == null) { break; }
 
             drawCard.pile = PlayCard.Pile.hand;
-            drawCard.pos = CountCards(playerIndex, drawCard.pile) - 1;
+            //drawCard.pos = CountCards(playerIndex, drawCard.pile) - 1;
 
             amount--;
         }
 
+        SortHand(playerIndex);
         SendGameManager();
     }
 
