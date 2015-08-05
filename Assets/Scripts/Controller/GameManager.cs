@@ -44,11 +44,9 @@ public class GameManager : MonoBehaviour {
         }
 
         networkView = GetComponent<NetworkView>();
-
-        LoadTextures.LoadFromFile(0, "D:/ProtoTest/Images/");
-        LoadTextures.LoadFromFile(1, "D:/ProtoTest/Images/preview/");
-
-        //GameObject.Find("SceneCam").transform.GetChild("curtain").transform;
+        Debug.Log(Application.dataPath);
+        LoadTextures.LoadFromFile(0, Application.dataPath + "/Images/");
+        LoadTextures.LoadFromFile(1, Application.dataPath + "/Images/preview/");
     }
 
     [RPC]
@@ -57,7 +55,7 @@ public class GameManager : MonoBehaviour {
         networkManager.enabled = false;
         localPlayerId = playerId;
         turnPlayer = 0;
-        //GameObject.Find("curtain").SetActive(false);
+        GameObject.Find("SceneCam").transform.FindChild("curtain").gameObject.SetActive(false);
 
         LoadDeck(localPlayerId, "default");
         if (network == false) { LoadDeck(1, "default"); };
