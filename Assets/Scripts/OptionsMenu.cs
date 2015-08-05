@@ -2,19 +2,18 @@
 using UnityEngine.UI;
 using System.Collections;
 
-[System.Serializable]
 public class OptionsMenu : MonoBehaviour
 {
-    [System.NonSerialized]
     public Resolution[] resolutions;
-    [System.NonSerialized]
     public string curRes = "";
-
     public bool showRes = false;
     public bool fullscreen = true;
 
+    [SerializeField]
     public Button resolutionsButton;
+    [SerializeField]
     public Button showResButton;
+    [SerializeField]
     public Toggle toggleCtrl;
 
     void Start() {
