@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class PlayFX {
 
+    public int cardId;
     public int libId;
     public int fxIdx;
     public int playerIdx;
@@ -17,8 +18,19 @@ public class PlayFX {
         return CardLibrary.Get().GetCard(libId).fxList[fxIdx];
     }
 
+    public bool NextFx()
+    {
+        if (fxIdx >= CardLibrary.Get().GetCard(libId).fxList.Count-1)
+        {
+            return false;
+        }
+        fxIdx++;
+        return true;
+    }
+
     public void FromJSON(JSONObject jsCard)
     {
+        cardId = (int)jsCard["cardId"];
         libId = (int)jsCard["id"];
         fxIdx = (int)jsCard["fxIdx"];
         playerIdx = (int)jsCard["playerIdx"];
@@ -29,6 +41,7 @@ public class PlayFX {
     public JSONObject ToJSON()
     {
         JSONObject jsCard = JSONObject.obj;
+        jsCard.AddField("cardId", cardId);
         jsCard.AddField("id", libId);
         jsCard.AddField("fxIdx", fxIdx);
         jsCard.AddField("playerIdx", playerIdx);

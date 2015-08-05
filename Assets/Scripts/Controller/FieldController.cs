@@ -41,12 +41,14 @@ public class FieldController : MonoBehaviour {
 
         ShowPlayerHealth(0);
         ShowPlayerHealth(1);
-        
+
+       // Debug.Log("FieldController " + playCards.Count + " ");
         for (int i = 0; i < playCards.Count; i++)
         {
             var card = playCards[i];
             var gfx = GetGfx(card.globalIdx);
 
+            //Debug.Log(card.pile);
             if (card.pile == PlayCard.Pile.discard)
             {
                 if (gfx == null)
@@ -60,6 +62,10 @@ public class FieldController : MonoBehaviour {
                     Destroy(gfx.gameObject);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardR").gameObject.SetActive(false);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardL").gameObject.SetActive(false);
+                    if (controller.pile == PlayCard.Pile.field)
+                    {
+                        GameObject.Find(card.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
+                    }
                     cardGfxs.Remove(card.globalIdx);
                 }
             }
@@ -67,7 +73,7 @@ public class FieldController : MonoBehaviour {
             if (gfx == null) { gfx = CreateCardGFX(card); }
             var cardCtrl = gfx.GetComponent<PlayCardController>();
             cardCtrl.card = card;
-        
+
             //Iteration through deck
             if (card.pile == PlayCard.Pile.deck)
             {
@@ -149,8 +155,14 @@ public class FieldController : MonoBehaviour {
                         //gfx.localRotation = Quaternion.EulerAngles(0, (Mathf.PI / 2), 0);
                 }
 
+                if (card.saced == true)
+                {
+                    gfx.gameObject.SetActive(false);
+                    GameObject.Find(cardCtrl.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(true);
+                }
+
                 ShowStats(cardCtrl, card);
-                ShowSacFields();
+                //ShowSacFields();
                 cardCtrl.pile = PlayCard.Pile.field;
             }
         }
@@ -235,7 +247,7 @@ public class FieldController : MonoBehaviour {
         Camera.main.transform.FindChild("ZoomCardR").gameObject.SetActive(false);
     }
 
-    public void ShowSacFields()
+    /*public void ShowSacFields()
     {
         var gameManager = GameManager.Get();
         var sacList = gameManager.sacList;
@@ -265,7 +277,7 @@ public class FieldController : MonoBehaviour {
         {
             GameObject.Find(i.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
         }
-    }
+    }*/
 
     public void OnSlotClicked(int slot)
     {

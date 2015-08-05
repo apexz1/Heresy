@@ -79,7 +79,7 @@ public class DeckBuilder : MonoBehaviour {
                 GameObject cardSpawn = (GameObject)Instantiate(card, spawnPos, Quaternion.identity);
                 cardSpawn.name = "card" + nameCounter.ToString();
                 //Fix card position somehow...
-                cardSpawn.transform.rotation = Quaternion.EulerAngles(0, 0, 0);
+                cardSpawn.transform.rotation = Quaternion.EulerAngles(-Mathf.PI/2, 0, 0);
                 //cardSpawn.transform.localScale = new Vector3(1, 1, 1);
                 cardSpawn.transform.gameObject.AddComponent<CardControllerDB>();
                 cards.Add(cardSpawn);

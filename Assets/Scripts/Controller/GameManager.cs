@@ -18,11 +18,11 @@ public class GameManager : MonoBehaviour {
     public int turnPlayer = 0;
     public int effectCounter = 0;
     public List<PlayCard> playCards = new List<PlayCard>();
-    public List<PlayCard> sacList = new List<PlayCard>();
+    //public List<PlayCard> sacList = new List<PlayCard>();
     public PlayFX currentFx = new PlayFX();
+    public string deckChoice = "default";
 
     public bool effectInProgess;
-
 
     public static GameManager Get() {
         return GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -47,6 +47,8 @@ public class GameManager : MonoBehaviour {
 
         LoadTextures.LoadFromFile(0, "D:/ProtoTest/Images/");
         LoadTextures.LoadFromFile(1, "D:/ProtoTest/Images/preview/");
+
+        //GameObject.Find("SceneCam").transform.GetChild("curtain").transform;
     }
 
     [RPC]
@@ -66,9 +68,12 @@ public class GameManager : MonoBehaviour {
             for (int i = 0; i < players.Length; i++)
             {
                 players[i].playerHealth = 20;
-                players[i].spawns = 2;
+                //players[i].spawns = 2;
                 players[i].sac = 0;
             }
+
+            players[0].spawns = 1;
+            players[1].spawns = 2;
 
             SendGameManager();
         }
@@ -102,8 +107,6 @@ public class GameManager : MonoBehaviour {
 
         this.NetRPC("AssignDeck", RPCMode.Server, playerIdx, jsPlayer["Deck"].ToString());
     }
-
-
 
     /* public int FindPlayer(short playerId)
      {
@@ -228,6 +231,7 @@ public class GameManager : MonoBehaviour {
         bool check = false;
         var player = players[playerIndex];
         var card = playCards[cardIndex];
+        int cardAtSlot = CardAtSlot(slotIndex);
 
         if (effectInProgess) { return; }
 
@@ -237,7 +241,7 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        for (int i = 0; i < sacList.Count; i++)
+        /*for (int i = 0; i < sacList.Count; i++)
         {
             Debug.Log(sacList[i].pos + ", " + slotIndex);
 
@@ -246,17 +250,24 @@ public class GameManager : MonoBehaviour {
                 check = true;
                 Debug.Log("check: " + check);
             }
+        }*/
+
+        if (cardAtSlot != -1)
+        {
+            if (playCards[cardAtSlot].saced)
+            {
+                check = true;
+            }
+            else
+            {
+                SendNotification(playerIndex, "Slot already in use");
+                return;
+            }
         }
 
         if (card.GetLibCard().costs > 0 && check == false)
         {
             SendNotification(playerIndex, "Can only spawn at sacrificial grounds");
-            return;
-        }
-
-        if (CardAtSlot(slotIndex) != -1)
-        {
-            SendNotification(playerIndex, "Slot already in use");
             return;
         }
 
@@ -274,15 +285,25 @@ public class GameManager : MonoBehaviour {
 
         card.pile = PlayCard.Pile.field;        
         card.pos = slotIndex;
+
+        if (card.GetLibCard().costs > 0)
+        {
+            card.tap = 1;
+        }
+
         player.spawns -= 1;
         player.sac -= card.GetLibCard().costs;
         SortHand(playerIndex);
 
-        if (card.GetLibCard().costs > 0)
+        for (int i = 0; i < playCards.Count; i++)
         {
-            FieldController.GetFieldController().HideSacFields();
+            if (playCards[i].saced)
+            {
+                playCards[i].pile = PlayCard.Pile.discard;
+            }
+
+            playCards[i].saced = false;
         }
-        sacList = new List<PlayCard>();
 
         StartCardFx(playerIndex, cardIndex);
         SendGameManager();
@@ -293,7 +314,7 @@ public class GameManager : MonoBehaviour {
         return (sacPos == spawnSlot);
     }
 
-    public void StartCardFx(int playerIndex, int cardIndex)
+    public void StartCardFx(int playerIndex, int cardIndex, int fxIndex = 0)
     {
         if (effectCounter >= 2) {
             Debug.Log("test");
@@ -303,13 +324,15 @@ public class GameManager : MonoBehaviour {
         var card = playCards[cardIndex];
         var libCard = card.GetLibCard();
         var libFx = new LibraryFX();
-        Debug.Log("StartCardFX()" + libCard.fxList.Count);
+        Debug.Log("StartCardFX()" + libCard.fxList.Count + " " + fxIndex);
         if (libCard.fxList.Count <= 0) { return; }
 
         Debug.Log("Start effectCounter " + effectCounter);
         currentFx = new PlayFX();
+        currentFx.cardId = cardIndex;
         currentFx.fxIdx = effectCounter;
         currentFx.libId = card.libId;
+        currentFx.fxIdx = fxIndex;
         currentFx.playerIdx = playerIndex;
 
         libFx = currentFx.GetLibFx();
@@ -350,6 +373,11 @@ public class GameManager : MonoBehaviour {
             DamagePlayer(currentFx.playerIdx, currentFx.actionCount);
         }
 
+        if (currentFx.NextFx())
+        {
+            StartCardFx(currentFx.playerIdx, currentFx.cardId, currentFx.fxIdx);
+            return;
+        }
         currentFx = new PlayFX();
         effectInProgess = false;
         effectCounter++;
@@ -417,10 +445,11 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        oppCard.health -= ownCard.attack;
+        
+        oppCard.health -= oppCard.tap > 0 ? (ownCard.attack+1) : ownCard.attack;
         ownCard.actions--;
 
-        if (oppLibCard.atkRange >= ownLibCard.atkRange) { ownCard.health -= oppLibCard.attack; }
+        if ((oppLibCard.atkRange >= ownLibCard.atkRange) || (distance == 1)) { ownCard.health -= oppLibCard.attack; }
 
         if (ownCard.actions <= 0) { ownCard.tap = 1; }
 
@@ -610,8 +639,9 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        sacList.Add(playCards[cardIndex]);
-        playCards[cardIndex].pile = PlayCard.Pile.discard;
+        //sacList.Add(playCards[cardIndex]);
+        //playCards[cardIndex].pile = PlayCard.Pile.discard;
+        playCards[cardIndex].saced = true;
         player.sac++;
         Debug.Log(player.sac);
         SendGameManager();
@@ -709,13 +739,18 @@ public class GameManager : MonoBehaviour {
             var card = playCards[i];
             card.actions = card.GetLibCard().moveRange;
             if (card.tap <= 0) { continue; }
-            if (card.owner != oldPlayer.playerId) { continue; }
+            if (card.owner != newPlayer.playerId) { continue; }
             card.tap--;
         }
 
         newPlayer.spawns = 2;
         DrawCard(newPlayer.playerId, 1);
-        FieldController.GetFieldController().HideSacFieldsAll();
+
+       /* if (oldPlayer.sac > 0)
+        {
+            FieldController.GetFieldController().HideSacFieldsAll();
+        }*/
+
 
         /*for (int i = 0; i < playCards.Count; i++ )
         {
@@ -731,7 +766,7 @@ public class GameManager : MonoBehaviour {
     {
         turnPlayer = (int)jsPlayer["TurnPlayer"];
         playCards = Player.PileFromJSON(jsPlayer["PlayCards"]);
-        sacList = Player.PileFromJSON(jsPlayer["SacrificeList"]);
+        //sacList = Player.PileFromJSON(jsPlayer["SacrificeList"]);
         currentFx.FromJSON(jsPlayer["CurrentFx"]);
     }
 
@@ -740,7 +775,7 @@ public class GameManager : MonoBehaviour {
         JSONObject jsPlayer = JSONObject.obj;
         jsPlayer.AddField("TurnPlayer", turnPlayer);
         jsPlayer.AddField("PlayCards", Player.PileToJSON(playCards));
-        jsPlayer.AddField("SacrificeList", Player.PileToJSON(sacList));
+        //jsPlayer.AddField("SacrificeList", Player.PileToJSON(sacList));
         jsPlayer.AddField("CurrentFx", currentFx.ToJSON());
 
         return jsPlayer;

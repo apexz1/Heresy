@@ -12,6 +12,7 @@ public class PlayCard
     public int pos;
     public int tap;
     public int owner;
+    public bool saced = false;
     public Pile pile;
     public enum Pile
     {
@@ -63,6 +64,7 @@ public class PlayCard
         health = (int)jsCard["health"];
         attack = (int)jsCard["attack"];
         actions = (int)jsCard["actions"];
+        saced = (bool)jsCard["saced"];
         pos = (int)jsCard["position"];
         tap = (int)jsCard["tapped"];
         owner = (int)jsCard["owner"];
@@ -77,6 +79,7 @@ public class PlayCard
         jsCard.AddField("health", health);
         jsCard.AddField("attack", attack);
         jsCard.AddField("actions", actions);
+        jsCard.AddField("saced", saced);
         jsCard.AddField("position", pos);
         jsCard.AddField("tapped", tap);
         jsCard.AddField("owner", owner);
