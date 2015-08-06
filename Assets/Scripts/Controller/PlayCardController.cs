@@ -87,15 +87,26 @@ public class PlayCardController : MonoBehaviour {
             if (GameManager.Get().effectInProgess)
             {
                 var libFx = currentFx.GetLibFx();
-                int who = libFx.selectorWho ? 0 : 1;
 
                 if (pile == libFx.selectorPile)
                 {
-                    if (card != null && card.owner == playerId)
+                    if (libFx.selectorOwn)
                     {
-                        Debug.Log("Effect select " + cardIndex);
-                        fieldController.SelectCard(cardIndex);
-                        fxSelect = true;
+                        if (card != null && card.owner == playerId)
+                        {
+                            Debug.Log("Effect select " + cardIndex);
+                            fieldController.SelectCard(cardIndex);
+                            fxSelect = true;
+                        }
+                    }
+                    if (!libFx.selectorOwn)
+                    {
+                        if (card != null && !(card.owner == playerId))
+                        {
+                            Debug.Log("Effect select " + cardIndex);
+                            fieldController.SelectCard(cardIndex);
+                            fxSelect = true;
+                        }
                     }
                 }
             }

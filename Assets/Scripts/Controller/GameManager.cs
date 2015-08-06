@@ -88,14 +88,14 @@ public class GameManager : MonoBehaviour {
 
         if(network == false) {
             //Automated player opening
-            PlayFromHand(0, 0, 18);
+            //PlayFromHand(0, 0, 18);
 
             players[0].spawns = 100;
             //MoveOnField(0, players[0].field[0].globalIdx, 5);
 
             //Automated opponent opening
-            PlayFromHand(1, 31, 0);
-            PlayFromHand(1, 32, 1);
+            //PlayFromHand(1, 31, 0);
+            //PlayFromHand(1, 32, 1);
 
             players[1].spawns = 100;
             //MoveOnField(1, players[1].field[0].globalIdx, 5);
