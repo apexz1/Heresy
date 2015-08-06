@@ -10,6 +10,7 @@ public class PlayCardController : MonoBehaviour {
     public bool slot = false;
     public bool turned = false;
     public int pos;
+    public bool fxSelect = false;
 
     public Vector3 moveFrom;
     public Vector3 moveTo;
@@ -22,6 +23,11 @@ public class PlayCardController : MonoBehaviour {
 
     public PlayCard.Pile pile;
     public PlayCard card;
+
+
+    //PlayFX currentFx;
+    //LibraryFX libFx;
+
 	// Use this for initialization
 	void Awake () 
     {
@@ -55,29 +61,49 @@ public class PlayCardController : MonoBehaviour {
         //if (cardIndex < 0) { return; }
         GameObject parentObj = gameObject.transform.parent.gameObject;
         var fieldController = GetFieldController();
-        var card = cardIndex >= 0 ? GameManager.Get().playCards[cardIndex] : null;
-        var currentFx = GameManager.Get().currentFx;      
+        var card = cardIndex >= 0 ? GameManager.Get().playCards[cardIndex] : null;   
         int playerId = GameManager.Get().localPlayerId;
+        var currentFx = GameManager.Get().currentFx; 
 
         if (Input.GetButtonDown("Fire1"))
         {
-            //Debug.Log("f1:" + parentObj.name+" "+card.owner);
-            if (pile == PlayCard.Pile.hand || pile == PlayCard.Pile.field)
+            if (!GameManager.Get().effectInProgess)
             {
-                if (card!=null && card.owner == playerId)
+                //Debug.Log("f1:" + parentObj.name+" "+card.owner);
+                if (pile == PlayCard.Pile.hand || pile == PlayCard.Pile.field)
                 {
-                    Debug.Log("Select clicked " + cardIndex);
-                    fieldController.SelectCard(cardIndex);
+                    if (card != null && card.owner == playerId)
+                    {
+                        Debug.Log("Select clicked " + cardIndex);
+                        fieldController.SelectCard(cardIndex);
+                    }
+                    if (!currentFx.selectorDone && currentFx.selectorCount > 0)
+                    {
+                        fieldController.SelectCard(cardIndex);
+                    }
                 }
-                if (!currentFx.selectorDone && currentFx.selectorCount > 0)
+            }
+
+            if (GameManager.Get().effectInProgess)
+            {
+                var libFx = currentFx.GetLibFx();
+                int who = libFx.selectorWho ? 0 : 1;
+
+                if (pile == libFx.selectorPile)
                 {
-                    fieldController.SelectCard(cardIndex);
+                    if (card != null && card.owner == playerId)
+                    {
+                        Debug.Log("Effect select " + cardIndex);
+                        fieldController.SelectCard(cardIndex);
+                        fxSelect = true;
+                    }
                 }
             }
         }
 
         if (Input.GetButtonDown("Fire2"))
         {
+
             if (slot)
             {
                 int slotNumber = Int32.Parse(gameObject.name);

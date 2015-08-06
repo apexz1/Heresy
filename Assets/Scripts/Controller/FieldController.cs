@@ -164,6 +164,7 @@ public class FieldController : MonoBehaviour {
                 ShowStats(cardCtrl, card);
                 //ShowSacFields();
                 cardCtrl.pile = PlayCard.Pile.field;
+                if (GameManager.Get().gameOver == true) { GameOver(); }
             }
         }
     } 
@@ -314,6 +315,9 @@ public class FieldController : MonoBehaviour {
         //var player = GameManager.Get().players[playerId];
         var card = GameManager.Get().playCards[cardIndex];
 
+        Debug.Log(cardSelected);
+        if (cardSelected == -1) { return; }
+
         if (card.owner == GameManager.Get().localPlayerId)
         {
             GameManager.Get().NetRPC("MoveOnField", RPCMode.Server, GameManager.Get().localPlayerId, cardSelected, card.pos);
@@ -341,6 +345,7 @@ public class FieldController : MonoBehaviour {
             sameCard = true;
             Debug.Log("same card");
         }
+
         cardSelected = index;
         Transform newTransform = GetGfx(cardSelected);
 
@@ -384,9 +389,15 @@ public class FieldController : MonoBehaviour {
 
         bool ownFx = currentFx.playerIdx == GameManager.Get().localPlayerId;
 
+        //All Hail SmartGit Log
+        if (libFx.selectorWho != ownFx) { return; }
+
         if (GUI.Button(new Rect(0,25,60,25), "Confirm"))
         {
-            GameManager.Get().NetRPC("SelectorFxDone", RPCMode.Server, playerId, cardSelected);
+            if (cardSelected != -1)
+            {
+                GameManager.Get().NetRPC("SelectorFxDone", RPCMode.Server, playerId, cardSelected);
+            }
         }
         GUI.Label(new Rect(0, Screen.height - 50, 1000, 25), libFx.description);
     }
@@ -447,7 +458,7 @@ public class FieldController : MonoBehaviour {
             //to server for final
             if (GameManager.Get().turnPlayer == playerId)
             {
-                GameManager.Get().NetRPC("BuffCard", RPCMode.Server, playerId, cardSelected, 1, 1);
+                GameManager.Get().NetRPC("BuffCard", RPCMode.Server, playerId, cardSelected, 2, 1);
             }
         }
         if (GUI.Button(new Rect(300, 25, 60, 25), "Buff All Cards own"))

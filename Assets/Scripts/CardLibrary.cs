@@ -23,7 +23,6 @@ public class CardLibrary
         
         //Card Effect 900
         GetCard(901).AddFX().setAction(LibraryFX.ActionType.draw, 1);
-        GetCard(901).AddFX().setAction(LibraryFX.ActionType.draw, 1);
         //Card Effect 901
         /*GetCard(901).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true, 10)
@@ -33,11 +32,12 @@ public class CardLibrary
 
         //Card Effect 902
         GetCard(902).AddFX()
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, true)
+            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1).description = "Select card to discard";
-        GetCard(902).AddFX()
+        /*GetCard(902).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, false, false)
             .setAction(LibraryFX.ActionType.discard, 1).description = "Select card to discard(opponent)";
+         */
         
     }
 
