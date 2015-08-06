@@ -10,12 +10,12 @@ public class LibraryCard
     public Texture2D texture_p;
     public string cardName = "";
     public int cult = 0;
+    public int race = 0;
     public int costs = 0;
     public int attack = 0;
     public int health = 0;
     public int moveRange = 0;
     public int atkRange = 0;
-    public int effectID = 0;
 
     public List<LibraryFX> fxList = new List<LibraryFX>();
 
@@ -23,17 +23,17 @@ public class LibraryCard
         this.cardID = -1;
     }
 
-     public LibraryCard(int cardID, Texture2D texture, string cardName, int attack, int atkRange, int health, int moveRange, int costs, int cult, int effectID)
+     public LibraryCard( int cardID, string cardName, int attack, int atkRange, int health, int moveRange, int costs, int cult, int race)
      {
          this.cardID = cardID;
          this.texture = null;
          this.cardName = cardName;
 
          this.cult = cult;
+         this.race = race;
          this.costs = costs;
          this.attack = attack;
          this.health = health;
-         this.effectID = effectID;
          this.moveRange = moveRange;
          this.atkRange = atkRange;
      }

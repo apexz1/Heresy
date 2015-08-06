@@ -313,6 +313,7 @@ public class GameManager : MonoBehaviour {
         }
 
         //effectCounter = 0;
+        //StartCardFxCon(playerIndex, cardIndex);
         StartCardFx(playerIndex, cardIndex);
         SendGameManager();
     }
@@ -321,6 +322,31 @@ public class GameManager : MonoBehaviour {
     {
         return (sacPos == spawnSlot);
     }
+    /*public void StartCardFxCon(int playerIndex, int cardIndex)
+    {
+        var card = playCards[cardIndex];
+        var libCard = card.GetLibCard();
+        var libFx = new LibraryFX();
+
+        if (libFx.conditionCount <= 0) { return; }
+        if (libFx.conditionMore)
+        {
+
+        }
+        if (!libFx.conditionMore)
+        {
+            int value = 0;
+
+            for (int i = 0; i < playCards.Count; i++)
+            {
+                if (playCards[i].pile == libFx.selectorPile)
+                {
+                    value++;
+                }
+            }
+        }
+
+    }*/
 
     public void StartCardFx(int playerIndex, int cardIndex, int fxIndex = 0)
     {
@@ -427,6 +453,7 @@ public class GameManager : MonoBehaviour {
     {
         if (effectInProgess) { return; }
 
+        int damage = 0;
         var player = players[playerIndex];
         var opponent = players[(playerIndex+1)%2];
 
@@ -454,8 +481,18 @@ public class GameManager : MonoBehaviour {
             return;
         }
 
-        
-        oppCard.health -= oppCard.tap > 0 ? (ownCard.attack+1) : ownCard.attack;
+        //basic damage dealt to cards
+        damage += oppCard.tap > 0 ? (ownCard.attack + 1) : ownCard.attack;
+
+        //WINGED ABILITY DAMAGE MODIFIER
+            damage += (oppLibCard.race == 3 && ownLibCard.atkRange == 1) ? (-1) : 0;
+
+        //TOUGH ABILITY DAMAGE MODIFIER
+            damage += (oppLibCard.race == 4 && ownLibCard.atkRange > 1) ? (-1) : 0;
+
+
+        //oppCard.health -= oppCard.tap > 0 ? (ownCard.attack+1) : ownCard.attack;
+        oppCard.health -= damage;
         ownCard.actions--;
 
         if ((oppLibCard.atkRange >= ownLibCard.atkRange) || (distance == 1)) { ownCard.health -= oppLibCard.attack; }

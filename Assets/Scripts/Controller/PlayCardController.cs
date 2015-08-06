@@ -165,6 +165,8 @@ public class PlayCardController : MonoBehaviour {
 
     public void StartMoveAnimation(Vector3 to, float duration)
     {
+        Debug.Log("MoveAnimation(): " + transform.localPosition);
+
         moveFrom = transform.localPosition;
         moveTo = to;
         moveDuration = duration;

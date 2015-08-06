@@ -10,27 +10,28 @@ public class CardLibrary
 
     void Init()
     {
-        cardList.Add(new LibraryCard(900, null, "TestCard0", 99, 1, 99, 2, 2, 0, 0));
-        cardList.Add(new LibraryCard(901, null, "TestCard1", 2, 1, 6, 2, 0, 0, 0));
-        cardList.Add(new LibraryCard(902, null, "TestCard2", 3, 2, 3, 1, 0, 0, 0));
-        cardList.Add(new LibraryCard(903, null, "TestCard3", 4, 1, 4, 2, 0, 0, 0));
-        cardList.Add(new LibraryCard(904, null, "TestCard4", 4, 2, 6, 1, 0, 0, 0));
-        cardList.Add(new LibraryCard(905, null, "TestCard5", 4, 1, 4, 2, 0, 0, 0));
-        cardList.Add(new LibraryCard(906, null, "TestCard6", 5, 1, 3, 2, 0, 0, 0));
-        cardList.Add(new LibraryCard(907, null, "TestCard7", 2, 2, 4, 1, 0, 0, 0));
-        cardList.Add(new LibraryCard(908, null, "TestCard8", 3, 1, 7, 2, 0, 0, 0));
-        cardList.Add(new LibraryCard(909, null, "TestCard9", 2, 2, 3, 1, 0, 0, 0));
+
+        //Add(cardId, texture(always null), cardname, atk, atkRange, health, actions, costs, cult, race)
+        cardList.Add(new LibraryCard(900, "TestCard0", 99, 1, 99, 2, 2, 0, 0));
+        cardList.Add(new LibraryCard(901, "TestCard1", 2, 1, 6, 2, 0, 0, 4));
+        cardList.Add(new LibraryCard(902, "TestCard2", 3, 2, 3, 1, 0, 0, 3));
+        cardList.Add(new LibraryCard(903, "TestCard3", 4, 1, 4, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(904, "TestCard4", 4, 2, 6, 1, 0, 0, 0));
+        cardList.Add(new LibraryCard(905, "TestCard5", 4, 1, 4, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(906, "TestCard6", 5, 1, 3, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(907, "TestCard7", 2, 2, 4, 1, 0, 0, 0));
+        cardList.Add(new LibraryCard(908, "TestCard8", 3, 1, 7, 2, 0, 0, 0));
+        cardList.Add(new LibraryCard(909, "TestCard9", 2, 2, 3, 1, 0, 0, 0));
         
         //setSelector(pile, selectorType, true=ownCard, true=effectOwner)
 
         //Card Effect 900
-        GetCard(901).AddFX().setAction(LibraryFX.ActionType.draw, 1);
+        //GetCard(901).AddFX().setCondition(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, false, 1).setAction(LibraryFX.ActionType.draw, 1);
         //Card Effect 901
         /*GetCard(901).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true, 10)
             .setAction(LibraryFX.ActionType.damagePlayer).description = "Damage player";
          * */
-        
 
         //Card Effect 902
         GetCard(902).AddFX()

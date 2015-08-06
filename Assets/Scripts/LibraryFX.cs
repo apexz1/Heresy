@@ -54,8 +54,12 @@ public class LibraryFX {
         selectorCount = count;
         return this;
     }
-    public LibraryFX setCondition(PlayCard.Pile pile, SelectorTap tap, bool own, int count)
+    public LibraryFX setCondition(PlayCard.Pile pile, SelectorTap tap, bool own, bool more, int count)
     {
+        selectorPile = pile;
+        selectorTap = tap;
+        selectorOwn = own;
+        selectorCount = count;
         return this;
     }
     public LibraryFX setAction(ActionType type, int count = 0)

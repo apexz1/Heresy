@@ -85,15 +85,6 @@ public class FieldController : MonoBehaviour {
                     //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
                 }
 
-                /*if (cardCtrl.pos != card.pos)
-                {
-                    Vector3 cardPos = fields[card.owner].Find("Hand").transform.position;
-                    //gfx.localPosition = cardPos;
-
-                    cardCtrl.StartMoveAnimation(cardPos, cardCtrl.pos == -1 ? 1.0f : 0.2f);
-                    cardCtrl.pos = card.pos;
-                }*/
-
                 cardCtrl.pile = PlayCard.Pile.deck;
             }
 
@@ -102,7 +93,7 @@ public class FieldController : MonoBehaviour {
             {
                 if (cardCtrl.pile != PlayCard.Pile.hand)
                 {
-                    gfx.SetParent(fields[card.owner].Find("Hand"), false);
+                    gfx.SetParent(fields[card.owner].Find("Hand"), true);
                     //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
                     cardCtrl.TurnCard(false);
 
@@ -116,6 +107,14 @@ public class FieldController : MonoBehaviour {
 
                     ShowStats(cardCtrl, card);
                 }
+
+                /*if (cardCtrl.pos != card.pos)
+                {
+                    Vector3 cardPos = fields[card.owner].Find("Hand").localPosition;
+
+                    cardCtrl.StartMoveAnimation(cardPos, cardCtrl.pos == -1 ? 1.0f : 0.2f);
+                    cardCtrl.pos = card.pos;
+                }*/
 
                 if (card.owner == 0) { gfx.localPosition = new Vector3(card.pos * 1.5f, 0.2f, 0); }
                 if (card.owner == 1) { gfx.localPosition = new Vector3(card.pos * -1.5f, 0.2f, 0); }
