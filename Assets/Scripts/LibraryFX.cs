@@ -18,8 +18,16 @@ public class LibraryFX {
     public int selectorCount;
 
     //---Condition Variables---
-    public bool conditionOwn;
-    public bool conditionMore;
+    public enum ConditionType
+    {
+        none,
+        ctrlOwn, //Control X amount of cards
+        ctrlOpp,
+        ctrlMoreOwn, //Control X amount of cards more
+        ctrlMoreOpp,
+    }
+
+    public ConditionType conditionType;
     public int conditionCount;
 
     //---Action Variables---
@@ -54,12 +62,10 @@ public class LibraryFX {
         selectorCount = count;
         return this;
     }
-    public LibraryFX setCondition(PlayCard.Pile pile, SelectorTap tap, bool own, bool more, int count)
+    public LibraryFX setCondition(ConditionType type, int count)
     {
-        selectorPile = pile;
-        selectorTap = tap;
-        selectorOwn = own;
-        selectorCount = count;
+        conditionType = type;
+        conditionCount = count;
         return this;
     }
     public LibraryFX setAction(ActionType type, int count = 0)

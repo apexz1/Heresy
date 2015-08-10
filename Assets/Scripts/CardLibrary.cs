@@ -35,8 +35,13 @@ public class CardLibrary
 
         //Card Effect 902
         GetCard(902).AddFX()
+            .setCondition(LibraryFX.ConditionType.ctrlOwn, 2)
+            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, true)
+            .setAction(LibraryFX.ActionType.discard);
+        /*GetCard(902).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.discard, 1).description = "Select card to discard";
+         * */
         /*GetCard(902).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, false, false)
             .setAction(LibraryFX.ActionType.discard, 1).description = "Select card to discard(opponent)";

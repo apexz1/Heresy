@@ -22,7 +22,6 @@ public class FieldController : MonoBehaviour {
     {
         return GameObject.Find("PlayField").GetComponent<FieldController>();
     }
-
     Transform GetGfx(int globalIndex)
     {
         Transform res=null;

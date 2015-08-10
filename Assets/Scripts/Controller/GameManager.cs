@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour {
         localPlayerId = playerId;
         turnPlayer = 0;
         GameObject.Find("SceneCam").transform.FindChild("curtain").gameObject.SetActive(false);
+        GameObject.Find("GameUI").transform.FindChild("Main").gameObject.SetActive(true);
 
         Debug.Log("Deck to load: " + deckChoice);
         LoadDeck(localPlayerId, deckChoice);
@@ -322,6 +323,7 @@ public class GameManager : MonoBehaviour {
     {
         return (sacPos == spawnSlot);
     }
+
     /*public void StartCardFxCon(int playerIndex, int cardIndex)
     {
         var card = playCards[cardIndex];
@@ -376,7 +378,19 @@ public class GameManager : MonoBehaviour {
 
         effectInProgess = true;
 
-        if (libFx.selectorPile == PlayCard.Pile.none) { currentFx.selectorDone = true; }
+        //Condition
+        if (libFx.conditionType != LibraryFX.ConditionType.none)
+        {
+            if (libFx.conditionType == LibraryFX.ConditionType.ctrlOwn)
+            {
+                currentFx.actionCount = currentFx.selectorCount = (CountCards(playerIndex, PlayCard.Pile.field) / libFx.conditionCount);
+            }
+
+            if (currentFx.selectorCount > 1) { currentFx.selectorCount = 1; }
+            Debug.Log("sdgdssh " + currentFx.selectorCount);
+        }
+        //Selector 
+        if (libFx.selectorPile == PlayCard.Pile.none || currentFx.selectorCount <= 0) { currentFx.selectorDone = true; }
         Debug.Log("currentFx" + currentFx.GetLibFx().description);
         ExeCardFx();
     }
@@ -615,13 +629,20 @@ public class GameManager : MonoBehaviour {
                 SendNotification(playerIndex, "Cards can not be swapped from spawn slots");
                 return;
             }
+
+            if (swapCard.actions < distance)
+            {
+                SendNotification(playerIndex, "Card does not have enough actions left");
+                return;
+            }
             if (swapCard.tap > 0)
             {
                 SendNotification(playerIndex, "Cannot swap if either target is tapped");
                 return;
             }
 
-            if (card.actions <= 0) {swapCard.tap++;}
+            swapCard.actions -= distance;
+            if (swapCard.actions <= 0) { swapCard.tap++; }
             swapCard.pos = card.pos;
         }
 
