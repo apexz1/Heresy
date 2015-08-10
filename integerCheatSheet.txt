@@ -1,0 +1,19 @@
+Race & Cult integers
+
+Greed, 0
+Envy, 1
+Wrath, 2
+Pride, 3 
+Gluttony, 4
+Lust, 5
+Sloth, 6
+
+-----------------------
+
+Pitkin, Stealthy, 0
+Graveborn, Undead, 1
+Ripjaw, Brutal, 2
+Skyfolk, Winged, 3
+Dreadbulge, Tough, 4
+Hexfin, Veiled, 5
+Blightbark, Protective, 6

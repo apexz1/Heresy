@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Text;
 
 [System.Serializable]
-//DeckManager, probably have to build the fucking inventory again and modify
 public class DeckBuilder : MonoBehaviour {
 
     public List<LibraryCard> deck = new List<LibraryCard>();
@@ -37,10 +36,9 @@ public class DeckBuilder : MonoBehaviour {
     public Button listPrefab;
     GameManager gameManager;
 
-
+    //Don't know what the fuck I'm doing anymore, but works. #coding101
     void Start()
     {
-        //Don't know what the fuck I'm doing here, but works. #coding101
         libCount = cardLibrary.cardList.Count;
         deckLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy";
         gameManager = GameManager.Get();
