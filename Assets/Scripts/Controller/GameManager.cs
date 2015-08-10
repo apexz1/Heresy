@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     NetworkView networkView;
     public int localPlayerId = -1;
     public string notification;
+    public float notifTime;
 
     //synced vars
     public Player[] players;
@@ -315,7 +316,7 @@ public class GameManager : MonoBehaviour {
 
         //effectCounter = 0;
         //StartCardFxCon(playerIndex, cardIndex);
-        StartCardFx(playerIndex, cardIndex);
+        StartCardFx(playerIndex, card.libId);
         SendGameManager();
     }
 
@@ -350,7 +351,7 @@ public class GameManager : MonoBehaviour {
 
     }*/
 
-    public void StartCardFx(int playerIndex, int cardIndex, int fxIndex = 0)
+    public void StartCardFx(int playerIndex, int libCardIndex, int fxIndex = 0, int adjacentPos = -1)
     {
         Debug.Log("StartCardFx entered");
         /*if (effectCounter >= 2) {
@@ -358,23 +359,27 @@ public class GameManager : MonoBehaviour {
             return;
         }*/
 
-        var card = playCards[cardIndex];
-        var libCard = card.GetLibCard();
-        var libFx = new LibraryFX();
+        //var card = playCards[cardIndex];
+         var libCard = CardLibrary.Get().GetCard(libCardIndex);
+        //var libFx = new LibraryFX();
+
+        //if (libCard == null) { return; }
+
         Debug.Log("StartCardFX()" + libCard.fxList.Count + " " + fxIndex);
         if (libCard.fxList.Count <= 0) { return; }
 
         Debug.Log("Start effectCounter " + effectCounter);
         currentFx = new PlayFX();
-        currentFx.cardId = cardIndex;
+        //currentFx.cardId = libCardIndex;
         currentFx.fxIdx = effectCounter;
-        currentFx.libId = card.libId;
+        currentFx.libId = libCardIndex;
         currentFx.fxIdx = fxIndex;
         currentFx.playerIdx = playerIndex;
 
-        libFx = currentFx.GetLibFx();
+        var libFx = currentFx.GetLibFx();
         currentFx.actionCount = libFx.actionCount;
         currentFx.selectorCount = libFx.selectorCount;
+        if (libFx.adjacentPos) { currentFx.adjacentPos = adjacentPos; }
 
         effectInProgess = true;
 
@@ -391,6 +396,8 @@ public class GameManager : MonoBehaviour {
         }
         //Selector 
         if (libFx.selectorPile == PlayCard.Pile.none || currentFx.selectorCount <= 0) { currentFx.selectorDone = true; }
+
+        if (!CheckSelectorAll(playerIndex)) { currentFx.selectorDone = true; Debug.Log("Skip Selector"); }
         Debug.Log("currentFx" + currentFx.GetLibFx().description);
         ExeCardFx();
     }
@@ -424,7 +431,7 @@ public class GameManager : MonoBehaviour {
 
         if (currentFx.NextFx())
         {
-            StartCardFx(currentFx.playerIdx, currentFx.cardId, currentFx.fxIdx);
+            StartCardFx(currentFx.playerIdx, currentFx.libId, currentFx.fxIdx);
             return;
         }
         currentFx = new PlayFX();
@@ -434,11 +441,13 @@ public class GameManager : MonoBehaviour {
     }
 
     [RPC]
-    public void SelectorFxDone(int playIndex, int cardIndex)
+    public void SelectorFxDone(int playerIndex, int cardIndex)
     {
         if (currentFx.libId == 0) { return; }
         if (currentFx.selectorDone) { return; }
         var libFx = currentFx.GetLibFx();
+
+        if (!CheckSelectorForCard(playerIndex, cardIndex, true)) { return; }
 
         currentFx.selectedCards.Add(cardIndex);
 
@@ -450,7 +459,43 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void SortHand(int playerIndex)
+    private bool CheckSelectorForCard( int playerIndex, int cardIndex, bool notif )
+    {
+        var card = playCards[cardIndex];
+        var libFx = currentFx.GetLibFx();
+
+        if (libFx == null)
+            return false;
+
+        if (currentFx.adjacentPos >= 0)
+        {
+            if (CalcDistance(card.pos, currentFx.adjacentPos) > 1)
+            {
+                if (notif) SendNotification(playerIndex, "Can select adjacent card only " +  " " + card.pos + " " + currentFx.adjacentPos);
+                return false;
+            }
+        }
+
+        if (card.pile != libFx.selectorPile)
+        {
+            if (notif) SendNotification(playerIndex, ".pile wrong");
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool CheckSelectorAll(int playerIndex)
+    {
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            if (CheckSelectorForCard(playerIndex, playCards[i].globalIdx, false)) { return true; }
+        }
+
+        return false;
+    }
+
+    private void SortHand( int playerIndex )
     {
         int counter = 0;
         for (int i = 0; i < playCards.Count; i++)
@@ -499,10 +544,9 @@ public class GameManager : MonoBehaviour {
         damage += oppCard.tap > 0 ? (ownCard.attack + 1) : ownCard.attack;
 
         //WINGED ABILITY DAMAGE MODIFIER
-            damage += (oppLibCard.race == 3 && ownLibCard.atkRange == 1) ? (-1) : 0;
-
+            damage += (oppLibCard.race == LibraryCard.Race.winged && ownLibCard.atkRange == 1) ? (-1) : 0;
         //TOUGH ABILITY DAMAGE MODIFIER
-            damage += (oppLibCard.race == 4 && ownLibCard.atkRange > 1) ? (-1) : 0;
+            damage += (oppLibCard.race == LibraryCard.Race.tough && ownLibCard.atkRange > 1) ? (-1) : 0;
 
 
         //oppCard.health -= oppCard.tap > 0 ? (ownCard.attack+1) : ownCard.attack;
@@ -515,6 +559,11 @@ public class GameManager : MonoBehaviour {
 
         if (oppCard.health <= 0)
         {
+            if (ownCard.GetLibCard().race == LibraryCard.Race.brutal)
+            {
+                StartCardFx(playerIndex, 100, oppCard.pos);
+            }
+
             DiscardCard(opponent.playerId, oppCard.globalIdx);
         }
         if (ownCard.health <= 0)
@@ -841,6 +890,8 @@ public class GameManager : MonoBehaviour {
         playCards = Player.PileFromJSON(jsPlayer["PlayCards"]);
         //sacList = Player.PileFromJSON(jsPlayer["SacrificeList"]);
         currentFx.FromJSON(jsPlayer["CurrentFx"]);
+        players[0].FromJSON(jsPlayer["Player0"]);
+        players[1].FromJSON(jsPlayer["Player1"]);
     }
 
     public JSONObject ToJSON()
@@ -850,7 +901,8 @@ public class GameManager : MonoBehaviour {
         jsPlayer.AddField("PlayCards", Player.PileToJSON(playCards));
         //jsPlayer.AddField("SacrificeList", Player.PileToJSON(sacList));
         jsPlayer.AddField("CurrentFx", currentFx.ToJSON());
-
+        jsPlayer.AddField("Player0", players[0].ToJSON());
+        jsPlayer.AddField("Player1", players[1].ToJSON());
         return jsPlayer;
     }
     public void SendGameManager()
@@ -862,8 +914,8 @@ public class GameManager : MonoBehaviour {
         }
 
         this.NetRPC("ReceiveGameManager", RPCMode.All, System.Text.UTF8Encoding.UTF8.GetBytes(ToJSON().ToString()));
-        this.NetRPC("ReceivePlayer", RPCMode.All, 0, players[0].ToJSON().ToString());
-        this.NetRPC("ReceivePlayer", RPCMode.All, 1, players[1].ToJSON().ToString());
+        //this.NetRPC("ReceivePlayer", RPCMode.All, 0, players[0].ToJSON().ToString());
+        //this.NetRPC("ReceivePlayer", RPCMode.All, 1, players[1].ToJSON().ToString());
         
     }
 
@@ -876,6 +928,7 @@ public class GameManager : MonoBehaviour {
 
     public void SendNotification(int playerIndex, string message)
     {
+        Debug.Log("SendNotification " + playerIndex + " " + message);
         for (int i = 0; i < players.Length; i++)
         {
             if (playerIndex != players[i].playerId  && playerIndex != -1)
@@ -889,6 +942,7 @@ public class GameManager : MonoBehaviour {
     [RPC]
     public void ReceiveNotification(string message)
     {
+        notifTime = Time.time;
         notification = message;
     }
 

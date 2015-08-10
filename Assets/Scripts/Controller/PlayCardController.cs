@@ -169,7 +169,7 @@ public class PlayCardController : MonoBehaviour {
 
     public void StartMoveAnimation(Vector3 to, float duration)
     {
-        Debug.Log("MoveAnimation(): " + transform.localPosition);
+        Debug.Log("MoveAnimation(): " + transform.localPosition + " " + to);
 
         moveFrom = transform.localPosition;
         moveTo = to;

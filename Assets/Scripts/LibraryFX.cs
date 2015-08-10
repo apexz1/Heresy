@@ -16,6 +16,7 @@ public class LibraryFX {
     public bool selectorOwn;
     public bool selectorWho;
     public int selectorCount;
+    public bool adjacentPos;
 
     //---Condition Variables---
     public enum ConditionType
@@ -53,13 +54,14 @@ public class LibraryFX {
         this.selectorPile = PlayCard.Pile.none;
     }
 
-    public LibraryFX setSelector(PlayCard.Pile pile, SelectorTap tap, bool own, bool who, int count = 0)
+    public LibraryFX setSelector(PlayCard.Pile pile, SelectorTap tap, bool own, bool who, int count = 1, bool pos = false)
     {
         selectorPile = pile;
         selectorTap = tap;
         selectorOwn = own;
         selectorWho = who;
         selectorCount = count;
+        adjacentPos = pos;
         return this;
     }
     public LibraryFX setCondition(ConditionType type, int count)

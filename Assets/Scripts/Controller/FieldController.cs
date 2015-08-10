@@ -107,20 +107,26 @@ public class FieldController : MonoBehaviour {
                     ShowStats(cardCtrl, card);
                 }
 
-                /*if (cardCtrl.pos != card.pos)
+                if (!cardCtrl.IsMoveAnimating())
                 {
-                    Vector3 cardPos = fields[card.owner].Find("Hand").localPosition;
+                    Vector3 to = new Vector3();
+                    if (card.owner == 0) { to = new Vector3(card.pos * 1.5f, 0.2f, 0); }
+                    if (card.owner == 1) { to = new Vector3(card.pos * -1.5f, 0.2f, 0); }
 
-                    cardCtrl.StartMoveAnimation(cardPos, cardCtrl.pos == -1 ? 1.0f : 0.2f);
-                    cardCtrl.pos = card.pos;
-                }*/
+                    if (card.owner != GameManager.Get().localPlayerId)
+                    {
+                        to = to * 0.5f;
+                    }
 
-                if (card.owner == 0) { gfx.localPosition = new Vector3(card.pos * 1.5f, 0.2f, 0); }
-                if (card.owner == 1) { gfx.localPosition = new Vector3(card.pos * -1.5f, 0.2f, 0); }
+                    if (cardCtrl.pos != card.pos)
+                    {
+                        //Vector3 from = fields[card.owner].Find("PlayPile").localPosition;
 
-                if (card.owner != GameManager.Get().localPlayerId)
-                {
-                    gfx.localPosition = gfx.localPosition * 0.5f;
+                        //gfx.localPosition = from;
+
+                        cardCtrl.StartMoveAnimation(to, cardCtrl.pos == -1 ? 1.0f : 0.1f);
+                        cardCtrl.pos = card.pos;
+                    }
                 }
 
                 cardCtrl.pile = PlayCard.Pile.hand;
@@ -486,7 +492,7 @@ public class FieldController : MonoBehaviour {
             }
         }
 
-        if (GameManager.Get().notification.Length > 0)
+        if (GameManager.Get().notification.Length > 0 && Time.time - GameManager.Get().notifTime < 5.0f)
         {
             GUI.Label(new Rect(0, Screen.height-20, 1000, 25), GameManager.Get().notification);
         }

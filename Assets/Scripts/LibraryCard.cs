@@ -9,13 +9,35 @@ public class LibraryCard
     public Texture2D texture;
     public Texture2D texture_p;
     public string cardName = "";
-    public int cult = 0;
-    public int race = 0;
+    public Cult cult;
+    public Race race;
     public int costs = 0;
     public int attack = 0;
     public int health = 0;
     public int moveRange = 0;
     public int atkRange = 0;
+
+    public enum Race
+    {
+        stealthy, 
+        undead,
+        brutal,
+        winged,
+        tough,
+        veiled,
+        protective
+    }
+
+    public enum Cult
+    {
+        greed,
+        envy,
+        wrath,
+        pride,
+        gluttony,
+        lust,
+        sloth,
+    }
 
     public List<LibraryFX> fxList = new List<LibraryFX>();
 
@@ -23,7 +45,7 @@ public class LibraryCard
         this.cardID = -1;
     }
 
-     public LibraryCard( int cardID, string cardName, int attack, int atkRange, int health, int moveRange, int costs, int cult, int race)
+     public LibraryCard( int cardID, string cardName, int attack, int atkRange, int health, int moveRange, int costs, Cult cult, Race race)
      {
          this.cardID = cardID;
          this.texture = null;
