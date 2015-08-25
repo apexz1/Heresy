@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     public int brutalOD = 0;
     //public bool monument = true;
 
+    public static int Neverfall_God_of_Pride = 0;
+
     public static GameManager Get()
     {
         return GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -108,9 +110,6 @@ public class GameManager : MonoBehaviour
         networkManager.enabled = false;
         localPlayerId = playerId;
         turnPlayer = 0;
-        GameObject.Find("SceneCam").transform.FindChild("curtain").gameObject.SetActive(false);
-        GameObject.Find("GameUI").transform.FindChild("Main").gameObject.SetActive(true);
-        GameObject.Find("GameUI").transform.FindChild("PreGame").gameObject.SetActive(false);
 
         Debug.Log("Deck to load: " + deckChoice);
         LoadDeck(localPlayerId, deckChoice);
@@ -144,6 +143,10 @@ public class GameManager : MonoBehaviour
         }
 
         running = true;
+
+        GameObject.Find("SceneCam").transform.FindChild("curtain").gameObject.SetActive(false);
+        GameObject.Find("GameUI").transform.FindChild("Main").gameObject.SetActive(true);
+        GameObject.Find("GameUI").transform.FindChild("PreGame").gameObject.SetActive(false);
     }
 
     public void LoadDeck( int playerIdx, string deck )
@@ -314,6 +317,11 @@ public class GameManager : MonoBehaviour
         playCards[cardIndex].pile = PlayCard.Pile.discard;
         playCards[cardIndex].pos = -1;
 
+        if (playCards[cardIndex].GetLibCard().cardID == 971)
+        {
+            Neverfall_God_of_Pride = 0;
+        }
+
         SortHand(playerIndex);
         SendGameManager();
     }
@@ -468,7 +476,7 @@ public class GameManager : MonoBehaviour
             {
                 if ((playCards[i].pile == PlayCard.Pile.field && playCards[i].owner != card.owner) && playCards[i].GetLibCard().costs <= 0)
                 {
-                    if (CountCards((card.owner +1) %2, PlayCard.Pile.hand) < 10)
+                    if (CountCards((card.owner + 1) % 2, PlayCard.Pile.hand) < 10)
                     {
                         playCards[i].pile = PlayCard.Pile.hand;
                     }
@@ -497,7 +505,13 @@ public class GameManager : MonoBehaviour
             players[card.owner].spawns++;
         }
         #endregion
-
+        #region God Entry FX
+        //Neverfall, God of Pride
+        if (card.libId == 971)
+        {
+            Neverfall_God_of_Pride = 1;
+        }
+        #endregion
         StartCardFx(playerIndex, card.libId);
         SendGameManager();
     }
@@ -641,6 +655,13 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        bool monumentfx = false;
+
+        if (currentFx.libId >= 701 && currentFx.libId <= 706)
+        {
+            monumentfx = true;
+        }
+
         if (!currentFx.selectorDone)
         {
             SendGameManager();
@@ -656,6 +677,11 @@ public class GameManager : MonoBehaviour
 
         if (libFx.actionType == LibraryFX.ActionType.draw)
         {
+            if (monumentfx == true)
+            {
+                currentFx.actionCount += Neverfall_God_of_Pride;
+            }
+
             DrawCard(currentFx.playerIdx, currentFx.actionCount);
         }
 
@@ -672,6 +698,12 @@ public class GameManager : MonoBehaviour
                 }
 
                 DiscardCard(card.owner, cardIndex);
+            }
+
+            if (monumentfx == true)
+            {
+                monumentfx = false;
+                StartCardFx(currentFx.playerIdx, 500);
             }
         }
 
@@ -698,6 +730,11 @@ public class GameManager : MonoBehaviour
 
         if (libFx.actionType == LibraryFX.ActionType.buffAction)
         {
+            if (monumentfx == true)
+            {
+                currentFx.actionCount += Neverfall_God_of_Pride;
+            }
+
             for (int i = 0; i < currentFx.selectedCards.Count; i++)
             {
                 int cardIndex = currentFx.selectedCards[i];
@@ -709,6 +746,11 @@ public class GameManager : MonoBehaviour
 
         if (libFx.actionType == LibraryFX.ActionType.buffAttack)
         {
+            if (monumentfx == true)
+            {
+                currentFx.actionCount += Neverfall_God_of_Pride;
+            }
+
             for (int i = 0; i < currentFx.selectedCards.Count; i++)
             {
                 int cardIndex = currentFx.selectedCards[i];
@@ -722,8 +764,28 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (libFx.actionType == LibraryFX.ActionType.cultBuff)
+        {
+            for (int i = 0; i < playCards.Count; i++)
+            {
+                Debug.Log(currentFx.libId);
+                Debug.Log(currentFx.globalIdx);
+                Debug.Log("Selfbuff stuff: " + playCards[i].GetLibCard().cult + " " + playCards[currentFx.globalIdx].GetLibCard().cult);
+                if (playCards[i].pile == PlayCard.Pile.field && playCards[i].GetLibCard().cult == CardLibrary.Get().GetCard(currentFx.libId).cult)
+                {
+                    playCards[i].attack += 2;
+                }
+            }
+        }
+
+
         if (libFx.actionType == LibraryFX.ActionType.damageCard)
         {
+            if (monumentfx == true)
+            {
+                currentFx.actionCount += Neverfall_God_of_Pride;
+            }
+
             if (currentFx.libId == 100)
             {
                 currentFx.actionCount = brutalOD;
@@ -765,6 +827,7 @@ public class GameManager : MonoBehaviour
 
         if (libFx.actionType == LibraryFX.ActionType.damageSelf)
         {
+
             if (currentFx.libId == 707)
             {
                 Debug.Log("monument test: " + CountCultMember() + " " + currentFx.actionCount);
@@ -776,6 +839,11 @@ public class GameManager : MonoBehaviour
                 }
 
                 Debug.Log("monument test actioncount: " + currentFx.actionCount);
+            }
+            else if (monumentfx == true)
+            {
+                currentFx.actionCount += Neverfall_God_of_Pride;
+                DamagePlayer(currentFx.playerIdx, -Neverfall_God_of_Pride);
             }
 
             DamagePlayer(currentFx.playerIdx, currentFx.actionCount);
@@ -1584,7 +1652,86 @@ public class GameManager : MonoBehaviour
                 //Skyfolk Leader - Archbishop Belle-Dhin
                 if (playCards[i].libId == 964)
                 {
+                    StartCardFx(playerIndex, 300);
+                    Debug.Log("belledhin fx: " + playCards[i].owner + " " + newPlayer.playerId);
+                    if (playCards[i].owner == newPlayer.playerId)
+                    {
+                        StartCardFx(newPlayer.playerId, 364);
+                    }
+                }
+                //Hexfin Leader - First Mistress Salina
+                if (playCards[i].libId == 965)
+                {
+                    StartCardFx(playerIndex, 301);
+                    Debug.Log("salina fx: " + playCards[i].owner + " " + newPlayer.playerId);
+                    if (playCards[i].owner == newPlayer.playerId)
+                    {
+                        Debug.Log("effect trigger check ");
+                        StartCardFx(newPlayer.playerId, 365);
+                    }
+                }
+                //Ripjaw Leader - Ragelord Zarkhul
+                if (playCards[i].libId == 966)
+                {
+                    StartCardFx(playerIndex, 302);
+                    Debug.Log("zarkhul fx: " + playCards[i].owner + " " + newPlayer.playerId);
+                    if (playCards[i].owner == newPlayer.playerId)
+                    {
+                        StartCardFx(newPlayer.playerId, 366);
+                    }
+                }
+                //Graveborn Leader - High Inquisitor Waljakov
+                if (playCards[i].libId == 967)
+                {
+                    StartCardFx(playerIndex, 303);
+                    Debug.Log("pole fx: " + playCards[i].owner + " " + newPlayer.playerId);
+                    if (playCards[i].owner == newPlayer.playerId)
+                    {
+                        StartCardFx(newPlayer.playerId, 367);
+                    }
+                }
+                //Dreadbulge Leader - Great Devourer Gilgamosh
+                if (playCards[i].libId == 968)
+                {
+                    StartCardFx(playerIndex, 304);
+                    Debug.Log("gilga fx: " + playCards[i].owner + " " + newPlayer.playerId);
+                    if (playCards[i].owner == newPlayer.playerId)
+                    {
+                        StartCardFx(newPlayer.playerId, 368);
+                    }
+                }
+                //Blightbark Leader - Yawnbringer Keenu
+                if (playCards[i].libId == 969)
+                {
+                    StartCardFx(playerIndex, 305);
+                    Debug.Log("keenu fx: " + playCards[i].owner + " " + newPlayer.playerId);
+                    if (playCards[i].owner == newPlayer.playerId)
+                    {
+                        StartCardFx(newPlayer.playerId, 369);
+                    }
+                }
+                //Pitkin Leader - Master Miser Mikoin
+                if (playCards[i].libId == 970)
+                {
+                    StartCardFx(playerIndex, 306);
+                    Debug.Log("mikoin fx: " + playCards[i].owner + " " + newPlayer.playerId);
+                    if (playCards[i].owner == newPlayer.playerId)
+                    {
+                        StartCardFx(newPlayer.playerId, 370);
+                    }
+                }
+                #endregion
+                #region GODS START FX
+                //Neverfall, God of Pride
+                if (playCards[i].libId == 971)
+                {
+                    Debug.Log("neverfall, god of pride debug log: ");
+                    if (playCards[i].owner == newPlayer.playerId)
 
+                        if (CountCards(newPlayer.playerId, PlayCard.Pile.field) > CountCards(oldPlayer.playerId, PlayCard.Pile.field))
+                        {
+                            gameOver = newPlayer.playerId;
+                        }
                 }
                 #endregion
             }

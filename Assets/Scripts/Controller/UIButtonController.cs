@@ -31,7 +31,8 @@ public class UIButtonController : MonoBehaviour
             if (FieldController.GetFieldController().cardSelected != -1)
             {
                 GameManager.Get().NetRPC("SelectorFxDone", RPCMode.Server, playerId, FieldController.GetFieldController().cardSelected);
-                //FieldController.GetFieldController().SelectCard(FieldController.GetFieldController().cardSelected);
+                //if (GameManager.Get().effectInProgess && GameManager.Get().currentFx.GetLibFx().selectorOwn == false)
+                FieldController.GetFieldController().SelectCard(FieldController.GetFieldController().cardSelected);
                 FieldController.GetFieldController().confirm = false;
             }
         }
