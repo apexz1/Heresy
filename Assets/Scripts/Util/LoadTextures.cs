@@ -3,9 +3,10 @@ using System;
 using System.IO;
 using System.Collections;
 
-public class LoadTextures {
+public class LoadTextures
+{
 
-    public static Texture2D LoadImage(string filePath)
+    public static Texture2D LoadImage( string filePath )
     {
 
         Texture2D tex = new Texture2D(2, 2);
@@ -20,35 +21,61 @@ public class LoadTextures {
         return tex;
     }
 
-    public static void LoadFromFile(int texId, string filePath)
+    public static void LoadFromFile(int texId)
     {
+        string skin = "";
+        //string[] fileArray = Directory.GetFiles(filePath);
+        var array = Resources.LoadAll("Images/", typeof(Texture2D));
 
-        string[] fileArray = Directory.GetFiles(filePath);
+        Debug.Log(OptionsMenu.isDarkFantasy + " " + OptionsMenu.isWonderland);
 
-        for (int i = 0; i < fileArray.Length; i++)
+        if (OptionsMenu.isDarkFantasy)
         {
-            Texture2D tex = LoadImage(fileArray[i]);
-            //Debug.Log(fileArray[i].ToString());
+            skin = "cards_DF/";
+            Debug.Log(skin);
+        }
+        else if (OptionsMenu.isWonderland)
+        {
+            skin = "cards_WL/";
+            Debug.Log(skin);
+        }
+        else
+        {
+            Debug.LogError("NO SKIN ASSIGNED;");
+            Debug.Log(skin);
+        }
 
-            string oldName = fileArray[i].ToString();
-            string tmpName = oldName.Remove(0, oldName.Length - 7);
-            string newName = tmpName.Remove(tmpName.Length - 4, 4);
-            int texName;
-            Int32.TryParse(newName, out texName);
-            Debug.Log("texture loaded: " + texName);
+        Debug.Log(skin);
 
+        if (texId == 0)
+        {
+            array = Resources.LoadAll("Images/" + skin + "inPlay", typeof(Texture2D));
+        }
+        if (texId == 1)
+        {
+            array = Resources.LoadAll("Images/" + skin + "preview", typeof(Texture2D));
+        }
+        var imgArray = new Texture2D[array.Length];
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            imgArray[i] = array[i] as Texture2D;
+        }
+
+        for (int i = 0; i < imgArray.Length; i++)
+        {
+            Debug.Log("texname " + imgArray[i].name);
             for (int j = 0; j < CardLibrary.Get().cardList.Count; j++)
             {
-                if (CardLibrary.Get().cardList[j].cardID == texName)
+                if (CardLibrary.Get().cardList[j].cardID == Int32.Parse(imgArray[i].name))
                 {
-                    //Debug.Log("name found");
                     if (texId == 0)
                     {
-                        CardLibrary.Get().cardList[j].texture = tex;
+                        CardLibrary.Get().cardList[j].texture = imgArray[i];
                     }
                     if (texId == 1)
                     {
-                        CardLibrary.Get().cardList[j].texture_p = tex;
+                        CardLibrary.Get().cardList[j].texture_p = imgArray[i];
                     }
                     /*
                     else

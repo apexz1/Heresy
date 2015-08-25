@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class FieldController : MonoBehaviour {
+public class FieldController : MonoBehaviour
+{
 
     public int cardSelected;
-    public Dictionary<int, Transform> cardGfxs=new Dictionary<int,Transform>();
+    public Dictionary<int, Transform> cardGfxs = new Dictionary<int, Transform>();
     public Transform[] fields;
     public Camera cam;
     public bool isActive = false;
+    public bool confirm = false;
+    public int gameVersion = -1;
 
     public void Awake()
     {
@@ -22,15 +26,18 @@ public class FieldController : MonoBehaviour {
     {
         return GameObject.Find("PlayField").GetComponent<FieldController>();
     }
-    Transform GetGfx(int globalIndex)
+    Transform GetGfx( int globalIndex )
     {
-        Transform res=null;
+        Transform res = null;
         cardGfxs.TryGetValue(globalIndex, out res);
         return res;
     }
     public void Update()
     {
-        //---
+        if (GameManager.Get().gameOver != -1)
+        {
+            GameOver(GameManager.Get().gameOver);
+        }
     }
 
     public void FixedUpdate()
@@ -38,10 +45,23 @@ public class FieldController : MonoBehaviour {
         //var player = GameManager.Get().players[playerId];
         var playCards = GameManager.Get().playCards;
 
+        //RESET GAME
+        if (gameVersion!=GameManager.Get().gameVersion)
+        {
+            gameVersion = GameManager.Get().gameVersion;
+
+            for (int i = 0; i < cardGfxs.Count; i++)
+            {
+                var gfx = cardGfxs[i];
+                Destroy(gfx.gameObject);
+            }
+            cardGfxs.Clear();           
+        }
+
         ShowPlayerHealth(0);
         ShowPlayerHealth(1);
 
-       // Debug.Log("FieldController " + playCards.Count + " ");
+        // Debug.Log("FieldController " + playCards.Count + " ");
         for (int i = 0; i < playCards.Count; i++)
         {
             var card = playCards[i];
@@ -61,10 +81,13 @@ public class FieldController : MonoBehaviour {
                     Destroy(gfx.gameObject);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardR").gameObject.SetActive(false);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardL").gameObject.SetActive(false);
+                    controller.pile = PlayCard.Pile.discard;
+
                     if (controller.pile == PlayCard.Pile.field)
                     {
                         GameObject.Find(card.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
                     }
+
                     cardGfxs.Remove(card.globalIdx);
                 }
             }
@@ -76,11 +99,17 @@ public class FieldController : MonoBehaviour {
             //Iteration through deck
             if (card.pile == PlayCard.Pile.deck)
             {
-                if(cardCtrl.pile != PlayCard.Pile.deck)
+                if (cardCtrl.pile != PlayCard.Pile.deck)
                 {
                     gfx.SetParent(fields[card.owner].Find("PlayPile"), false);
                     gfx.localPosition = new Vector3(0, 0.01f * i, 0);
                     cardCtrl.TurnCard(true);
+
+                    if (card.owner != GameManager.Get().localPlayerId)
+                    {
+                        gfx.localPosition = new Vector3(0, 0.01f * (i - 30), 0);
+                        cardCtrl.TurnCard(true);
+                    }
                     //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
                 }
 
@@ -95,11 +124,12 @@ public class FieldController : MonoBehaviour {
                     gfx.SetParent(fields[card.owner].Find("Hand"), true);
                     //gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI / 2, 0, 0);
                     cardCtrl.TurnCard(false);
+                    cardCtrl.pos = -1;
 
-                    gfx.localRotation = Quaternion.EulerAngles(0, 0, Mathf.PI/32);
+                    gfx.localRotation = Quaternion.EulerAngles(0, 0, Mathf.PI / 32);
 
                     if (card.owner != GameManager.Get().localPlayerId)
-                    { 
+                    {
                         gfx.GetChild(0).localRotation = Quaternion.EulerAngles(Mathf.PI, 0, 0);
                         cardCtrl.TurnCard(true);
                     }
@@ -118,6 +148,8 @@ public class FieldController : MonoBehaviour {
                         to = to * 0.5f;
                     }
 
+                    //Debug.Log(cardCtrl.pos + " " + card.pos);
+
                     if (cardCtrl.pos != card.pos)
                     {
                         //Vector3 from = fields[card.owner].Find("PlayPile").localPosition;
@@ -130,6 +162,7 @@ public class FieldController : MonoBehaviour {
                 }
 
                 cardCtrl.pile = PlayCard.Pile.hand;
+                gfx.transform.FindChild("owner" + card.owner).gameObject.SetActive(false);
             }
 
             //Iteration through field
@@ -140,11 +173,12 @@ public class FieldController : MonoBehaviour {
                     gfx.SetParent(GameObject.Find("PlayField").transform.Find("Field"), true);
                     //gfx.localPosition = new Vector3(0, 0, 0);
                     cardCtrl.TurnCard(false);
+                    cardCtrl.pos = -1;
                     gfx.localRotation = Quaternion.EulerAngles(0, 0, 0);
                     gfx.transform.FindChild("owner" + card.owner).gameObject.SetActive(true);
                 }
 
-                if(cardCtrl.pos!=card.pos)
+                if (cardCtrl.pos != card.pos)
                 {
                     Vector3 cardPos = GameObject.Find("PlayField").transform.Find("Field").FindChild("" + card.pos).localPosition;
                     //gfx.localPosition = cardPos;
@@ -153,27 +187,48 @@ public class FieldController : MonoBehaviour {
                     cardCtrl.pos = card.pos;
                 }
 
+                //if (card.tap > 0) Debug.Log("card tapped " + cardCtrl.IsMoveAnimating() + " " + cardCtrl.IsTapAnimating() + Time.time + " " + cardCtrl.moveStart + " " + cardCtrl.moveDuration);
+                //fDebug.Log(cardCtrl.IsMoveAnimating() + " " + cardCtrl.IsTapAnimating());
                 if (!cardCtrl.IsMoveAnimating() && !cardCtrl.IsTapAnimating())
                 {
-                        cardCtrl.StartTapAnimation(card.tap > 0);
-                        //gfx.localRotation = Quaternion.EulerAngles(0, (Mathf.PI / 2), 0);
+                    //if (card.tap > 0) Debug.Log("card tapped");
+
+                    cardCtrl.StartTapAnimation(card.tap > 0);
+                    /*
+                    if (GameManager.Get().playCards[card.globalIdx].tap > 0)
+                    {
+                        gfx.localRotation = Quaternion.EulerAngles(0, (Mathf.PI / 2), 0);
+                    }
+                    if (GameManager.Get().playCards[card.globalIdx].tap <= 0)
+                    {
+                        gfx.localRotation = Quaternion.EulerAngles(0, 0, 0);
+                    }
+                    /**/
                 }
+
 
                 if (card.saced == true)
                 {
                     gfx.gameObject.SetActive(false);
-                    GameObject.Find(cardCtrl.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(true);
+                    //GameObject.Find(cardCtrl.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(true);
                 }
 
                 ShowStats(cardCtrl, card);
                 //ShowSacFields();
                 cardCtrl.pile = PlayCard.Pile.field;
-                if (GameManager.Get().gameOver == true) { GameOver(); }
+                GameObject.Find(cardCtrl.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(card.saced);
+
+            }
+
+            //Debug.Log(GameObject.Find("GameUI").transform.FindChild("Main").transform.FindChild("Confirm").gameObject);
+            if (GameManager.Get().running)
+            {
+                GameObject.Find("GameUI").transform.FindChild("Main").transform.FindChild("Confirm").gameObject.SetActive(confirm);
             }
         }
-    } 
+    }
 
-    private Transform CreateCardGFX(PlayCard card)
+    private Transform CreateCardGFX( PlayCard card )
     {
         var cardObject = Instantiate((GameObject)Resources.Load("Prefabs/PlayCard"));
         var gfx = cardObject.transform;
@@ -188,7 +243,7 @@ public class FieldController : MonoBehaviour {
         return gfx;
     }
 
-    public void ShowStats(PlayCardController pcc, PlayCard playCard)
+    public void ShowStats( PlayCardController pcc, PlayCard playCard )
     {
         var libCard = CardLibrary.Get().GetCard(playCard.libId);
 
@@ -223,23 +278,24 @@ public class FieldController : MonoBehaviour {
         }
     }
 
-    public void ShowPlayerHealth(int playerIndex)
+    public void ShowPlayerHealth( int playerIndex )
     {
-        if (playerIndex<0||playerIndex >= GameManager.Get().players.Length) { return; }
+        if (playerIndex < 0 || playerIndex >= GameManager.Get().players.Length) { return; }
 
         var player = GameManager.Get().players[playerIndex];
 
         var transPlayerHP = fields[playerIndex].transform.FindChild("PlayerHealth");
-        var playerHpText = transPlayerHP.GetComponent<TextMesh>();
+        transPlayerHP = GameObject.Find("GameUI").transform.FindChild("Main").transform.FindChild("health_" + playerIndex);
+        var playerHpText = transPlayerHP.GetComponent<Text>();
         playerHpText.text = "" + player.playerHealth;
     }
 
-    public void ShowCardPreview (bool side, PlayCard card)
+    public void ShowCardPreview( bool side, PlayCard card )
     {
         if (card.owner != GameManager.Get().localPlayerId && card.pile == PlayCard.Pile.hand) { return; }
 
         GameObject child = Camera.main.transform.FindChild("ZoomCard" + (side ? "L" : "R")).gameObject;
-        
+
         MeshRenderer rend = child.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
         rend.material.mainTexture = card.GetTexturePreview();
 
@@ -250,6 +306,22 @@ public class FieldController : MonoBehaviour {
     {
         Camera.main.transform.FindChild("ZoomCardL").gameObject.SetActive(false);
         Camera.main.transform.FindChild("ZoomCardR").gameObject.SetActive(false);
+    }
+    public void FadeBanner()
+    {
+        var image = GameObject.Find("banner_" + GameManager.Get().localPlayerId).GetComponent<Image>();
+        Color c = new Color();
+
+        if (GameManager.Get().players[GameManager.Get().localPlayerId].monument == false)
+        {
+            c = Color.grey;
+        }
+        else
+        {
+            c = Color.white;
+        }
+
+        image.color = c;
     }
 
     /*public void ShowSacFields()
@@ -284,7 +356,7 @@ public class FieldController : MonoBehaviour {
         }
     }*/
 
-    public void OnSlotClicked(int slot)
+    public void OnSlotClicked( int slot )
     {
         Debug.Log("slot clicked: " + slot);
 
@@ -306,12 +378,12 @@ public class FieldController : MonoBehaviour {
         }
     }
 
-    public void OnHandClicked(int index)
+    public void OnHandClicked( int index )
     {
-        
+
     }
 
-    public void OnFieldCardClicked(int cardIndex)
+    public void OnFieldCardClicked( int cardIndex )
     {
         //var gfx = GetGfx(index);
         //var controller = gfx.GetComponent<PlayCardController>();
@@ -332,18 +404,18 @@ public class FieldController : MonoBehaviour {
         }
     }
 
-    public void OnPlayerClicked(int attackedPlayer)
+    public void OnPlayerClicked( int attackedPlayer )
     {
         GameManager.Get().NetRPC("ActionFoP", RPCMode.Server, GameManager.Get().localPlayerId, cardSelected, attackedPlayer);
     }
 
-    public void SelectCard(int index)
+    public void SelectCard( int index )
     {
         Transform oldTransform = GetGfx(cardSelected);
         bool sameCard = false;
         Debug.Log("index " + index);
         Debug.Log("selected " + cardSelected);
-        
+
         if (cardSelected == index)
         {
             sameCard = true;
@@ -351,9 +423,14 @@ public class FieldController : MonoBehaviour {
         }
 
         cardSelected = index;
+
         Transform newTransform = GetGfx(cardSelected);
 
         var card = GameManager.Get().playCards[index];
+        var g = GameManager.Get();
+
+        //if (g.effectInProgess && ((card.GetLibCard().race == LibraryCard.Race.veiled && (/*card.GetLibCard().cardID != 901 &&*/ g.currentFx.libId != 901)) && card.pile == PlayCard.Pile.field)) { cardSelected = -1; return; }
+        //if (g.effectInProgess && (g.currentFx.GetLibFx().selectorPile == PlayCard.Pile.hand && (g.CountCards(g.currentFx.GetLibFx().selectorWho == true ? 0 : 1, PlayCard.Pile.hand) > 0))) {return;}
 
         if (oldTransform != null)
         {
@@ -382,34 +459,96 @@ public class FieldController : MonoBehaviour {
 
     public void StartSelectorFx()
     {
+
+        confirm = false;
+
         int playerId = GameManager.Get().localPlayerId;
         var currentFx = GameManager.Get().currentFx;
-        var card = GetGfx(cardSelected);
+
+        var gfx = GetGfx(cardSelected);
         if (currentFx.libId <= 0) { return; }
         if (currentFx.selectorDone) { return; }
 
         var libFx = currentFx.GetLibFx();
-        if (libFx.selectorPile == PlayCard.Pile.none) { return; }
-
         bool ownFx = currentFx.playerIdx == GameManager.Get().localPlayerId;
 
+        GUI.Label(new Rect(0, Screen.height - 50, 1000, 25), libFx.description);
+
+        if (cardSelected == -1) { return; }
+
+        var card = GameManager.Get().playCards[cardSelected];
+
+        Debug.Log("confirm?" + confirm);
+        Debug.Log((libFx.selectorPile == PlayCard.Pile.none) + " " + (!GameManager.Get().effectInProgess) + " " + (libFx.selectorWho != ownFx));
+        if (libFx.selectorPile == PlayCard.Pile.none) { return; }
+
+        if (card.pile != PlayCard.Pile.hand && card.pile != PlayCard.Pile.field) { return; }
+
+        if (!GameManager.Get().effectInProgess) { return; }
         //All Hail SmartGit Log
         if (libFx.selectorWho != ownFx) { return; }
 
-        if (GUI.Button(new Rect(0,25,60,25), "Confirm"))
+        //if (!GameManager.Get().SelectorProtective( GameManager.Get().localPlayerId, currentFx.libId, cardSelected)) { return; }
+
+        if (libFx.selectorTap != LibraryFX.SelectorTap.none)
+        {
+            Debug.Log("selectorTap detected");
+            if (libFx.selectorTap == LibraryFX.SelectorTap.ready)
+            {
+                if (!(GameManager.Get().playCards[cardSelected].tap <= 0))
+                {
+                    Debug.Log("Card is not ready");
+                    return;
+                }
+            }
+
+            if (libFx.selectorTap == LibraryFX.SelectorTap.tapped)
+            {
+                if (!(GameManager.Get().playCards[cardSelected].tap > 0))
+                {
+                    Debug.Log("Card is ready");
+                    return;
+                }
+            }
+        }
+
+        //up to 20 for all hard code checks, maybe seperate
+
+        if (currentFx.libId == 901 && cardSelected == currentFx.libId) { Debug.LogWarning("Cant target self"); return; }
+
+        //DOESNT WORK; WORK IN PROGRESS
+        /*
+        for (int i = 0; i < currentFx.selectedCards.Count; i++)
+        {
+            Debug.Log("adgdjsorktgapztkubhjuptfrdj " + currentFx.libId + " " + currentFx.selectedCards[i]);
+            if (currentFx.libId == currentFx.selectedCards[i])
+            {
+                Debug.Log("Can't target itself");
+                return;
+            }
+        }
+        /**/
+
+        confirm = true;
+
+        /*
+        if (GUI.Button(new Rect(0, 25, 60, 25), "Confirm"))
         {
             if (cardSelected != -1)
             {
                 GameManager.Get().NetRPC("SelectorFxDone", RPCMode.Server, playerId, cardSelected);
             }
         }
-        GUI.Label(new Rect(0, Screen.height - 50, 1000, 25), libFx.description);
+        /**/
     }
 
-    
-    public void GameOver()
+
+    public void GameOver(int player)
     {
-        Application.LoadLevel("main");
+        //Debug.Log("player " + ((player+1)%2+1) + " won");
+        GameObject.Find("SceneCam").transform.FindChild("gameOver").gameObject.SetActive(true);
+        GameObject.Find("GameUI").transform.FindChild("Main").gameObject.SetActive(false);
+        GameObject.Find("GameUI").transform.FindChild("PreGame").gameObject.SetActive(false);
     }
 
     public void OnGUI()
@@ -419,13 +558,14 @@ public class FieldController : MonoBehaviour {
         int playerId = GameManager.Get().localPlayerId;
 
         //Cheat Stuff
-        if (GUI.Button (new Rect(0,0,60,25), "Swap:" + playerId))
+
+        if (GUI.Button(new Rect(0, 0, 60, 25), "Swap:" + playerId))
         {
-            GameManager.Get().localPlayerId = GameManager.Get().localPlayerId == 0 ? 1:0;
+            GameManager.Get().localPlayerId = GameManager.Get().localPlayerId == 0 ? 1 : 0;
             //GameManager.Get().turn = !GameManager.Get().turn;
             Debug.Log(GameManager.Get().turnPlayer);
         }
-        if (GUI.Button (new Rect(60,0,60,25), "Draw"))
+        if (GUI.Button(new Rect(60, 0, 60, 25), "Draw"))
         {
             //to server for final
             if (GameManager.Get().turnPlayer == playerId)
@@ -439,6 +579,14 @@ public class FieldController : MonoBehaviour {
             if (GameManager.Get().turnPlayer == playerId)
             {
                 GameManager.Get().NetRPC("DiscardCard", RPCMode.Server, playerId, cardSelected);
+            }
+        }
+        if (GUI.Button(new Rect(120, 25, 60, 25), "All"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("DiscardCardAll", RPCMode.Server, playerId);
             }
         }
         if (GUI.Button(new Rect(180, 0, 60, 25), "Damage Player"))
@@ -455,6 +603,30 @@ public class FieldController : MonoBehaviour {
             if (GameManager.Get().turnPlayer == playerId)
             {
                 GameManager.Get().NetRPC("SacCard", RPCMode.Server, playerId, cardSelected);
+            }
+        }
+        if (GUI.Button(new Rect(360, 0, 60, 25), "Tap"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("TapCard", RPCMode.Server, playerId, cardSelected);
+            }
+        }
+        if (GUI.Button(new Rect(420, 0, 60, 25), "Save"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("SaveGame", RPCMode.Server);
+            }
+        }
+        if (GUI.Button(new Rect(420, 25, 60, 25), "Load"))
+        {
+            //to server for final
+            if (GameManager.Get().turnPlayer == playerId)
+            {
+                GameManager.Get().NetRPC("LoadGame", RPCMode.Server);
             }
         }
         if (GUI.Button(new Rect(300, 0, 60, 25), "Buff Card"))
@@ -484,17 +656,20 @@ public class FieldController : MonoBehaviour {
 
 
         //Test
-        if (GUI.Button (new Rect(0,200,90,25), "End Turn"))
+        if (GUI.Button(new Rect(0, 200, 90, 25), "End Turn"))
         {
             if (GameManager.Get().turnPlayer == playerId)
             {
+                if (cardSelected != -1) { SelectCard(cardSelected); }
                 GameManager.Get().NetRPC("EndTurn", RPCMode.Server, playerId);
             }
         }
+        /**/
 
-        if (GameManager.Get().notification.Length > 0 && Time.time - GameManager.Get().notifTime < 5.0f)
+
+        if (GameManager.Get().notification.Length > 0 && Time.time - GameManager.Get().notifTime < 3.5f)
         {
-            GUI.Label(new Rect(0, Screen.height-20, 1000, 25), GameManager.Get().notification);
+            GUI.Label(new Rect(0, Screen.height - 20, 1000, 25), GameManager.Get().notification);
         }
     }
 }

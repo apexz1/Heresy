@@ -172,8 +172,8 @@ public class SaveGameLocation
     /// <returns>The preferred save game directory</returns>
     public static string getSaveGameDirectory()
     {
-        bool isVistaOrLater = isAtLeastWindowsVersion(6, 0);
-        if (isVistaOrLater)
+        //bool isVistaOrLater = isAtLeastWindowsVersion(6, 0);
+        /*if (isVistaOrLater)
         {
             try
             {
@@ -187,14 +187,14 @@ public class SaveGameLocation
             {
                 // Something went wrong querying the folder, fall back to other means
             }
-        }
+        }*/
 
         try
         {
             string myDocumentsFolder = getSpecialFolder(CSIDL_PERSONAL);
             if (!string.IsNullOrEmpty(myDocumentsFolder))
             {
-                string myGamesPath = Path.Combine(myDocumentsFolder, "My Games");
+                string myGamesPath = myDocumentsFolder;
                 if (!Directory.Exists(myGamesPath))
                 {
                     Directory.CreateDirectory(myGamesPath);

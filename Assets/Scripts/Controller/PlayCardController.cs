@@ -68,6 +68,7 @@ public class PlayCardController : MonoBehaviour {
 
         if (Input.GetButtonDown("Fire1"))
         {
+            Debug.Log("Effect in progess: " + GameManager.Get().effectInProgess);
             if (!GameManager.Get().effectInProgess)
             {
                 if (playerId != turnPlayer)
@@ -197,7 +198,7 @@ public class PlayCardController : MonoBehaviour {
     public void StartTapAnimation(bool tap)
     {
         if (tap == tapTap) { return; }
-
+        //Debug.Log("tap animation");
         tapTap = tap;
         tapStart = Time.time;
     }
@@ -206,6 +207,12 @@ public class PlayCardController : MonoBehaviour {
     {
         Quaternion tapTo = tapTap ? Quaternion.EulerAngles(0, (Mathf.PI / 2), 0) : Quaternion.EulerAngles(0, 0, 0);
         Quaternion tapFrom = !tapTap ? Quaternion.EulerAngles(0, (Mathf.PI / 2), 0) : Quaternion.EulerAngles(0, 0, 0);
+
+        /*if (pos == 0)
+        {
+            tapTo = tapTo = tapTap ? Quaternion.EulerAngles(0, 0, 0) : Quaternion.EulerAngles(0, (Mathf.PI / 2), 0);
+        }
+        /**/
 
         if (Time.time > tapStart + tapDuration)
         {

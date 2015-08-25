@@ -15,7 +15,7 @@ public class CardControllerDB : MonoBehaviour {
         if(Input.GetButtonDown("Fire1")) {
             int cardIndex = -1;
             //string name = transform.gameObject.name.Replace("(Clone)", "");
-            Debug.Log(name);
+            //Debug.Log(name);
 
             for (int i = 0; i < deckManager.cards.Count; i++)
             {
@@ -26,7 +26,7 @@ public class CardControllerDB : MonoBehaviour {
                 }
             }
 
-            Debug.Log(cardIndex);
+            //Debug.Log(cardIndex);
             if (cardIndex == -1) { return; }
             deckManager.AddCard(cardIndex);
         }

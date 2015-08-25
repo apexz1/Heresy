@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LibraryFX {
+public class LibraryFX
+{
 
     //---Selector Variables---
     public enum SelectorTap
@@ -26,6 +27,7 @@ public class LibraryFX {
         ctrlOpp,
         ctrlMoreOwn, //Control X amount of cards more
         ctrlMoreOpp,
+        kills,
     }
 
     public ConditionType conditionType;
@@ -38,7 +40,11 @@ public class LibraryFX {
         draw,
         discard,
         damageCard,
-        damagePlayer,
+        damageSelf,
+        damageOpp,
+        selfDestruct,
+        buffAction,
+        buffAttack,
         tap,
         ready,
     }
@@ -49,29 +55,26 @@ public class LibraryFX {
 
     public string description;
 
-    public LibraryFX()
-    {
+    public LibraryFX() {
         this.selectorPile = PlayCard.Pile.none;
     }
 
-    public LibraryFX setSelector(PlayCard.Pile pile, SelectorTap tap, bool own, bool who, int count = 1, bool pos = false)
-    {
+    public LibraryFX setSelector( PlayCard.Pile pile, SelectorTap tap, bool own, bool who, int count = 1, bool pos = false ) {
         selectorPile = pile;
         selectorTap = tap;
         selectorOwn = own;
         selectorWho = who;
         selectorCount = count;
         adjacentPos = pos;
+
         return this;
     }
-    public LibraryFX setCondition(ConditionType type, int count)
-    {
+    public LibraryFX setCondition( ConditionType type, int count ) {
         conditionType = type;
         conditionCount = count;
         return this;
     }
-    public LibraryFX setAction(ActionType type, int count = 0)
-    {
+    public LibraryFX setAction( ActionType type, int count = 0 ) {
         actionType = type;
         actionCount = count;
 

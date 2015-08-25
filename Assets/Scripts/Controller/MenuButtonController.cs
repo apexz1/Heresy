@@ -5,74 +5,47 @@ using System.Collections;
 
 public class MenuButtonController : MonoBehaviour
 {
+    void Update()
+    {
+        if (Input.GetButtonDown("tutorial")) { LoadTutorial(); }
+        if (Input.GetButtonDown("play")) { LoadGame(); }
+        if (Input.GetButtonDown("deckbuilder")) { LoadDeckbuilder(); }
+        if (Input.GetButtonDown("options")) { LoadOptions(); }
+        if (Input.GetButtonDown("gallery")) { LoadGallery(); }
+        if (Input.GetButtonDown("credits")) { LoadCredits(); }
+        if (Input.GetButtonDown("back")) { LoadMenu(); }
+    }
 
-    public void LoadGame() {
-        Debug.Log("game loaded");
+    public void LoadTutorial()
+    {
+        Application.LoadLevel("tutorial");
+    }
+    public void LoadGame()
+    {
         Application.LoadLevel("main");
     }
-    public void LoadDeckbuilder() {
-        Debug.Log("Deckbuilder loaded");
+    public void LoadDeckbuilder()
+    {
         Application.LoadLevel("deckbuilder");
     }
-    public void LoadMenu() {
-        Debug.Log("menu loaded");
+    public void LoadMenu()
+    {
         Application.LoadLevel("menu");
     }
-    public void LoadOptions() {
-        Debug.Log("options loaded");
+    public void LoadOptions()
+    {
         Application.LoadLevel("options");
     }
-    public void LoadCredits() {
-        Debug.Log("credits loaded");
+    public void LoadGallery()
+    {
+        Application.LoadLevel("gallery");
+    }
+    public void LoadCredits()
+    {
         Application.LoadLevel("credits");
     }
-    public void QuitGame() {
-        Debug.Log("game quit");
+    public void QuitGame()
+    {
         Application.Quit();
-    }
-
-    public void Save() {
-        InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
-
-        string deckName = inputField.text;
-
-        DeckBuilder.Get().SaveDeck(deckName);
-        Debug.Log(deckName + "saved " + DeckBuilder.Get().deck.Count + " entries");
-    }
-
-    public void Load() {
-        InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
-
-        string deckName = inputField.text;
-        //inputField.text.Remove(0,inputField.text.Length);
-        //inputField.textComponent.text = "";
-
-        DeckBuilder.Get().LoadDeck(deckName);
-    }
-    public void Delete() {
-        InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
-
-        string deckName = inputField.text;
-
-        DeckBuilder.Get().DeleteDeck(deckName);
-        Debug.Log(deckName + "deleted");
-    }
-
-    public void Clear() {
-        //Debug.Log("old:" + deckManager.deck.Count);
-
-        DeckBuilder.Get();
-        InputField inputField = GameObject.Find("deckName").GetComponent<InputField>();
-
-        DeckBuilder.Get().ClearDeck();
-        //Debug.Log("new " + deckManager.deck.Count);
-        Debug.Log("cleared");
-    }
-
-    public void Remove() {
-        Debug.Log(gameObject.name);
-        DeckBuilder.Get().RemoveCard(this.GetComponent<Button>());
-
-        //Destroy(gameObject.transform.parent.gameObject);
     }
 }

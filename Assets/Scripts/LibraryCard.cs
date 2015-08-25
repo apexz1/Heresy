@@ -25,18 +25,27 @@ public class LibraryCard
         winged,
         tough,
         veiled,
-        protective
+        protective,
+        skyC, //winged/tough
+        hexC, //veiled/undead
+        ripC, //brutal/protective
+        graC, //undead/brutal
+        dreC, //tough/stealthy
+        bliC, //protective/winged
+        pitC, //stealthy/veiled
+        none,
     }
 
     public enum Cult
     {
-        greed,
-        envy,
-        wrath,
-        pride,
-        gluttony,
-        lust,
-        sloth,
+        greed = 0,
+        envy = 1,
+        wrath = 2,
+        pride = 3,
+        gluttony = 4,
+        lust = 5,
+        sloth = 6,
+        none,
     }
 
     public List<LibraryFX> fxList = new List<LibraryFX>();
@@ -71,6 +80,38 @@ public class LibraryCard
         var fx = new LibraryFX();
         fxList.Add(fx);
         return fx;
+    }
+
+    public static string CultToString(LibraryCard.Cult cEnum)
+    {
+        string cult = null;
+
+        switch ((int)cEnum)
+        {
+            case 0:
+                cult = "greed";
+                break;
+            case 1:
+                cult = "envy";
+                break;
+            case 2:
+                cult = "wrath";
+                break;
+            case 3:
+                cult = "pride";
+                break;
+            case 4:
+                cult = "gluttony";
+                break;
+            case 5:
+                cult = "lust";
+                break;
+            case 6:
+                cult = "sloth";
+                break;
+        }
+
+        return cult;
     }
 }
 
