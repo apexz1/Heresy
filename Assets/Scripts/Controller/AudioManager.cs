@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : MonoBehaviour
+{
 
     private static AudioManager _instance;
+    public static float volumeControl = 1.0f;
 
     public static AudioManager instance
     {
         get
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 _instance = GameObject.FindObjectOfType<AudioManager>();
 
@@ -21,9 +24,14 @@ public class AudioManager : MonoBehaviour {
         }
     }
 
-    void Awake() 
+    void Update()
     {
-        if(_instance == null)
+        GetComponent<AudioSource>().volume = volumeControl;
+    }
+
+    void Awake()
+    {
+        if (_instance == null)
         {
             //If I am the first instance, make me the Singleton
             _instance = this;
@@ -33,7 +41,7 @@ public class AudioManager : MonoBehaviour {
         {
             //If a Singleton already exists and you find
             //another reference in scene, destroy it!
-            if(this != _instance)
+            if (this != _instance)
                 Destroy(this.gameObject);
         }
     }

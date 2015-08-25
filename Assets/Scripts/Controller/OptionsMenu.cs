@@ -8,7 +8,6 @@ public class OptionsMenu : MonoBehaviour
     private string curRes = "";
     [System.NonSerialized]
     public bool fullscreen = true;
-    public bool toggleChecked = false;
 
     public static bool isDarkFantasy = false;
     public static bool isWonderland = false;
@@ -20,12 +19,13 @@ public class OptionsMenu : MonoBehaviour
     public Toggle toggleDarkFant;
     [SerializeField]
     public Toggle toggleWonder;
+    public Slider slider;
+    public Text volumeText;
 
     void Update()
     {
         if (Input.GetButtonDown("back")) { BackToMenu(); }
-        /* if (toggleWonder.isOn == false && toggleDarkFant.isOn == false){ toggleChecked = true; }
-        else { toggleChecked = false; }*/
+        volumeText.text = "" + (AudioManager.volumeControl * 100) + "%";
 
 
         isWonderland = toggleWonder.isOn;
@@ -36,6 +36,7 @@ public class OptionsMenu : MonoBehaviour
 
 
         PlayerPrefs.SetInt("skin", skin);
+        PlayerPrefs.SetFloat("volume", AudioManager.volumeControl);
         PlayerPrefs.Save();
     }
 
@@ -49,7 +50,7 @@ public class OptionsMenu : MonoBehaviour
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            pos = new Vector3(0, -(35f * (i + 1)), 0);
+            pos = new Vector3(0, -(50f * (i + 1)), 0);
             Button button = Instantiate(resolutionsButton) as Button;
             button.transform.localPosition = pos;
 
@@ -62,10 +63,19 @@ public class OptionsMenu : MonoBehaviour
             button.gameObject.SetActive(true);
         }
 
+        slider.value = (AudioManager.volumeControl * 100);
+        Debug.Log(slider.value);
+
         toggleWonder.isOn = isWonderland;
         toggleDarkFant.isOn = isDarkFantasy;
 
         Debug.Log("" + isDarkFantasy + " " + isWonderland);
+    }
+
+    public void ChangeVolume()
+    {
+        AudioManager.volumeControl = (slider.value / 100);
+        Debug.Log(AudioManager.volumeControl + ", " + slider.value);
     }
 
     #region Resolution

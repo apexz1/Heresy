@@ -15,6 +15,8 @@ public class MenuButtonController : MonoBehaviour
         if (Input.GetButtonDown("credits")) { LoadCredits(); }
         if (Input.GetButtonDown("back")) { LoadMenu(); }
 
+        AudioManager.volumeControl = PlayerPrefs.GetFloat("volume", 0);
+
         int skin = PlayerPrefs.GetInt("skin", 0);
 
         if (skin == 0)

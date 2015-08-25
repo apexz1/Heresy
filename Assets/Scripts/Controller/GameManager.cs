@@ -222,9 +222,20 @@ public class GameManager : MonoBehaviour
     public void DamagePlayer( int playerIndex, int amount )
     {
         var player = players[playerIndex];
+
         Debug.Log("amount " + amount);
         player.playerHealth -= amount;
         Debug.Log("playerHealth: " + player.playerHealth);
+
+        //Bitterface, God of Envy PlayerHealth/Attack-Sync FX
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            if (playCards[i].libId == 974)
+            {
+                playCards[i].attack = players[playCards[i].owner].playerHealth;
+            }
+        }
+
         SendGameManager();
     }
 
@@ -400,6 +411,21 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        bool skinflint = false;
+
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            if (playCards[i].pile == PlayCard.Pile.field && playCards[i].libId == 977)
+            {
+                skinflint = true;
+            }
+        }
+
+        if (skinflint)
+        {
+            players[playerIndex].sac++;
+        }
+
         if (card.GetLibCard().costs > player.sac)
         {
             SendNotification(playerIndex, "Not enough cards sacrificed");
@@ -510,6 +536,11 @@ public class GameManager : MonoBehaviour
         if (card.libId == 971)
         {
             Neverfall_God_of_Pride = 1;
+        }
+        //Bitterface, God of Envy
+        if (card.libId == 974)
+        {
+            card.attack = players[card.owner].playerHealth;
         }
         #endregion
         StartCardFx(playerIndex, card.libId);
@@ -1100,8 +1131,24 @@ public class GameManager : MonoBehaviour
 
 
         //oppCard.health -= oppCard.tap > 0 ? (ownCard.attack+1) : ownCard.attack;
-        oppCard.health -= damage;
+        if (oppCard.libId != 974)
+        {
+            oppCard.health -= damage;
+        }
+        else if (oppCard.libId == 974)
+        {
+            DamagePlayer(players[oppCard.owner].playerId, damage);
+            //players[oppCard.owner].playerHealth -= damage;
+        }
+
         ownCard.actions--;
+
+        //EXPIREMENTAL; COULD BUG RETALIATE DAMAGE
+        damage = oppCard.attack;
+        //WINGED ABILITY DAMAGE MODIFIER
+        damage += ((ownLibCard.race == LibraryCard.Race.winged || ownLibCard.race == LibraryCard.Race.skyC || ownLibCard.race == LibraryCard.Race.bliC) && oppLibCard.atkRange == 1) ? (-1) : 0;
+        //TOUGH ABILITY DAMAGE MODIFIER
+        damage += ((ownLibCard.race == LibraryCard.Race.tough || ownLibCard.race == LibraryCard.Race.skyC || ownLibCard.race == LibraryCard.Race.dreC) && oppLibCard.atkRange > 1) ? (-1) : 0;
 
         if ((oppLibCard.atkRange >= ownLibCard.atkRange) || (distance == 1))
         {
@@ -1114,7 +1161,14 @@ public class GameManager : MonoBehaviour
                 }*/
             //else
             {
-                ownCard.health -= oppLibCard.attack;
+                if (ownCard.libId != 974)
+                {
+                    ownCard.health -= damage;
+                }
+                else if (ownCard.libId == 974)
+                {
+                    DamagePlayer(players[ownCard.owner].playerId, damage);
+                }
             }
             //}
         }
@@ -1256,7 +1310,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        opponent.playerHealth -= ownCard.attack;
+        DamagePlayer(opponent.playerId, ownCard.attack);
+        //opponent.playerHealth -= ownCard.attack;
         ownCard.actions--;
 
         if (ownCard.actions <= 0) { ownCard.tap++; }
@@ -1617,6 +1672,38 @@ public class GameManager : MonoBehaviour
                     if (CountCards(playerIndex, PlayCard.Pile.hand) < (CountCards((playerIndex + 1) % 2, PlayCard.Pile.hand))) { StartCardFx(playerIndex, 200, 0, -1, playCards[i]); }
                 }
                 #endregion
+                #region GODS ENDTURNFX
+                //Vilerose, God of Lust
+                if (playCards[i].libId == 972)
+                {
+                    for (int j = 0; j < playCards.Count; j++)
+                    {
+                        if (playCards[j].pile == PlayCard.Pile.field && playCards[j].owner == playCards[i].owner)
+                        {
+                            playCards[j].health += 2;
+                            if (playCards[j].health > playCards[j].GetLibCard().health) { playCards[j].health = playCards[j].GetLibCard().health; }
+                        }
+                    }
+
+                    DamagePlayer(playCards[i].owner, -2);
+                }
+                //Rashbite, Gluttony
+                if (playCards[i].libId == 975)
+                {
+                    Debug.Log("Rashbite found: ");
+                    for (int j = 0; j < playCards.Count; j++)
+                    {
+                        if (playCards[j].pile == PlayCard.Pile.field && playCards[j].owner != playCards[i].owner)
+                        {
+                            Debug.Log("Rashbite check: " + (playCards[j].tap > 0) + "|" + (playCards[j].health < playCards[j].GetLibCard().health));
+                            if (playCards[j].tap > 0 && playCards[j].health < playCards[j].GetLibCard().health)
+                            {
+                                DiscardCard(playCards[j].owner, playCards[j].globalIdx);
+                            }
+                        }
+                    }
+                }
+                #endregion
             }
         }
 
@@ -1627,10 +1714,26 @@ public class GameManager : MonoBehaviour
         {
             var card = playCards[i];
             card.actions = card.GetLibCard().moveRange;
-            card.attack = card.GetLibCard().attack;
+            if (playCards[i].libId != 974) { card.attack = card.GetLibCard().attack; }
             if (card.tap <= 0) { continue; }
             if (card.owner != newPlayer.playerId) { continue; }
             card.tap--;
+        }
+
+        //Dullmoor, God of Sloth
+        for (int i = 0; i < playCards.Count; i++)
+        {
+            if (playCards[i].libId == 976)
+            {
+                Debug.Log("Dullmoor found: ");
+                for (int j = 0; j < playCards.Count; j++)
+                {
+                    if (playCards[j].pile == PlayCard.Pile.field && playCards[j].owner != playCards[i].owner)
+                    {
+                        playCards[j].actions = 1;
+                    }
+                }
+            }
         }
 
         for (int i = 0; i < playCards.Count; i++)
@@ -1643,6 +1746,9 @@ public class GameManager : MonoBehaviour
                 //DiscardCard(card.owner, card.globalIdx);
             }
         }
+
+        newPlayer.spawns = 2;
+        newPlayer.monument = true;
 
         for (int i = 0; i < playCards.Count; i++)
         {
@@ -1733,12 +1839,50 @@ public class GameManager : MonoBehaviour
                             gameOver = newPlayer.playerId;
                         }
                 }
+                //Flamegrim, God of Wrath
+                if (playCards[i].libId == 973)
+                {
+                    for (int j = 0; j < playCards.Count; j++)
+                    {
+                        Debug.Log("flamegrim debug: " + playCards[j].owner + " " + playCards[i].owner);
+                        if (playCards[j].pile == PlayCard.Pile.field && playCards[j].owner != playCards[i].owner)
+                        {
+                            playCards[j].health -= 2;
+                            Debug.Log("health reduced? " + playCards[j].health);
+                        }
+                    }
+                }
+                //Dullmoor, God of Sloth
+                if (playCards[i].libId == 976)
+                {
+                    for (int j = 0; j < playCards.Count; j++)
+                    {
+                        if (playCards[j].pile == PlayCard.Pile.field && playCards[j].owner != playCards[i].owner)
+                        {
+                            playCards[j].actions = 0;
+                            //playCards[j].tap++;
+                        }
+                    }
+                }           
+                //Skinflint, God of Greed
+                if (playCards[i].libId == 977)
+                {
+                    for (int j = 0; j < playCards.Count; j++)
+                    {
+                        Debug.Log("skinflint fx check: " + players[playCards[i].owner].spawns);
+                        if(players[playCards[i].owner].spawns < 3)
+                        {
+                            if (playCards[i].owner == newPlayer.playerId)
+                            {
+                                newPlayer.spawns += 1;
+                                Debug.Log("skinflint fx check 2: " + players[playCards[i].owner].spawns);
+                            }
+                        }
+                    }
+                }
                 #endregion
             }
         }
-
-        newPlayer.spawns = 2;
-        newPlayer.monument = true;
 
         /*for (int i = 0; i < playCards.Count; i++)
         {

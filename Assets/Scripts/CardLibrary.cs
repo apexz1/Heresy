@@ -105,7 +105,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(976, "Dullmoor, God of Sloth", 8, 1, 30, 3, 0, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(977, "Skinflint, God of Greed", 10, 1, 28, 3, 0, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
 
-        cardList.Add(new LibraryCard(500, "Dummy", 10, 1, 10, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.none));
+        cardList.Add(new LibraryCard(500, "discard_fx", 10, 1, 10, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.none));
         cardList.Add(new LibraryCard(559, "Ripjaw Chosen_old", 8, 3, 11, 1, 3, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
 
 
@@ -140,6 +140,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(706, "sloth", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
         cardList.Add(new LibraryCard(707, "health_redux", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
 
+        cardList.Add(new LibraryCard(999, "Dummy", 5, 1, 10, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.none));
         //setSelector(pile, selectorType, true=ownCard, true=effectOwner)
 
         //CARD EFFECTS;
@@ -750,19 +751,7 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.buffAttack, -6);
         #endregion
         //------------------------------------------------------------------------------
-
-        //BRUTAL FX
-        GetCard(100).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard);
-        GetCard(500).AddFX()
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
-
-        //------------------------------------------------------------------------------
-        GetCard(200).AddFX()
-            .setAction(LibraryFX.ActionType.selfDestruct, 4);
-
+        #region leader fx
         GetCard(300).AddFX()
             .setAction(LibraryFX.ActionType.cultBuff, 2);
         GetCard(301).AddFX()
@@ -777,12 +766,6 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.cultBuff, 2);
         GetCard(306).AddFX()
             .setAction(LibraryFX.ActionType.cultBuff, 2);
-
-        GetCard(559).AddFX()
-            .setAction(LibraryFX.ActionType.damageOpp, 6);
-        GetCard(961).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.discard);
 
         //Belle-Dhin
         GetCard(364).AddFX()
@@ -810,8 +793,8 @@ public class CardLibrary
         //Mikoin
         GetCard(370).AddFX()
             .setAction(LibraryFX.ActionType.draw, 1);
-        //------------------------------------------------------------------------------
-
+        #endregion
+        #region monument fx
         //greed monument
         GetCard(700).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, 8);
@@ -855,8 +838,27 @@ public class CardLibrary
         //health reduction fx
         GetCard(707).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, 0);
+        #endregion
 
-        //------------------------------------------------------------------------------
+
+
+        //BRUTAL FX
+        GetCard(100).AddFX()
+            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
+            .setAction(LibraryFX.ActionType.damageCard);
+        //Colo self damag
+        GetCard(200).AddFX()
+            .setAction(LibraryFX.ActionType.selfDestruct, 4);
+        //simple discard
+        GetCard(500).AddFX()
+            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
+            .setAction(LibraryFX.ActionType.discard);
+        GetCard(559).AddFX()
+            .setAction(LibraryFX.ActionType.damageOpp, 6);
+        //Dreadbulge Chosen
+        GetCard(961).AddFX()
+            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
+            .setAction(LibraryFX.ActionType.discard);
 
         //CARD EFFECT REFERENCES
         //Card Effect Skyfolk Marauder
