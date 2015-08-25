@@ -75,7 +75,7 @@ public class DeckBuilder : MonoBehaviour
         GameObject card;
         for (int j = 0; j < 2; j++)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
                 nameCounter++;
                 counter++;

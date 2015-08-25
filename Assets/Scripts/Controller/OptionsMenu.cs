@@ -6,36 +6,47 @@ public class OptionsMenu : MonoBehaviour
 {
     public Resolution[] resolutions;
     private string curRes = "";
-    //public bool showRes = false;
     [System.NonSerialized]
     public bool fullscreen = true;
+    public bool toggleChecked = false;
+
     public static bool isDarkFantasy = false;
-    public static bool isWonderland = true;
+    public static bool isWonderland = false;
+    public int skin = 0;
 
     [SerializeField]
     public Button resolutionsButton;
-    //[SerializeField]
-    //public Button showResButton;
     [SerializeField]
     public Toggle toggleDarkFant;
     [SerializeField]
     public Toggle toggleWonder;
 
-    void Update() { if (Input.GetButtonDown("back")) { BackToMenu(); } }
+    void Update()
+    {
+        if (Input.GetButtonDown("back")) { BackToMenu(); }
+        /* if (toggleWonder.isOn == false && toggleDarkFant.isOn == false){ toggleChecked = true; }
+        else { toggleChecked = false; }*/
+
+
+        isWonderland = toggleWonder.isOn;
+        isDarkFantasy = toggleDarkFant.isOn;
+
+        if (isDarkFantasy) { skin = 0; }
+        if (isWonderland) { skin = 1; }
+
+
+        PlayerPrefs.SetInt("skin", skin);
+        PlayerPrefs.Save();
+    }
+
+    void Awake() { }
 
     void Start()
     {
         fullscreen = true;
         resolutions = Screen.resolutions;
         Vector3 pos;
-        //Button resButton = Instantiate(showResButton) as Button;
-        //Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, false);
-        /*
-        resButton.transform.SetParent(GetResListTransform().transform, false);
-        resButton.transform.localPosition = new Vector3(0, 0, 0);
-        resButton.GetComponentInChildren<Text>().text = "Choose Resolution";
-        resButton.GetComponent<Button>().onClick.AddListener(() => { ShowResButtons(); });
-        */
+
         for (int i = 0; i < resolutions.Length; i++)
         {
             pos = new Vector3(0, -(35f * (i + 1)), 0);
@@ -51,10 +62,10 @@ public class OptionsMenu : MonoBehaviour
             button.gameObject.SetActive(true);
         }
 
-        toggleDarkFant.isOn = true;
-        isDarkFantasy = true;
-        Debug.Log("isDarkFantasy " + isDarkFantasy);
-        Debug.Log("isWonderland " + isWonderland);
+        toggleWonder.isOn = isWonderland;
+        toggleDarkFant.isOn = isDarkFantasy;
+
+        Debug.Log("" + isDarkFantasy + " " + isWonderland);
     }
 
     #region Resolution
@@ -68,20 +79,7 @@ public class OptionsMenu : MonoBehaviour
     {
         return res.width + " x " + res.height;
     }
-    /*
-public void ShowResButtons() {
-    showRes = !showRes;
-    Debug.Log(showRes);
-    ShowResolutions();
-}
-    
-public void ShowResolutions() {
-    for (int i = 0; i < resolutions.Length; i++)
-    {
-        GameObject.Find("ResListTransform").transform.FindChild("Button" + i.ToString()).gameObject.SetActive(showRes);
-    }
-}
-*/
+
     public string ShowCurrentRes()
     {
         return curRes = Screen.currentResolution.width + "x" + Screen.currentResolution.height;
@@ -97,38 +95,44 @@ public void ShowResolutions() {
 
     public void DarkFantChosen()
     {
+        Debug.Log("DarkFantChosen()");
+        //if (toggleChecked) { return; }
 
-        isDarkFantasy = !isDarkFantasy;
+        //isDarkFantasy = !isDarkFantasy;
 
         if (toggleDarkFant.isOn)
         {
+            isDarkFantasy = true;
             toggleWonder.isOn = false;
         }
         else if (toggleDarkFant.isOn == false)
         {
+            isDarkFantasy = false;
             toggleWonder.isOn = true;
         }
 
-        Debug.Log("isDarkFantasy " + isDarkFantasy);
-        Debug.Log("isWonderland " + isWonderland);
+        Debug.Log("" + isDarkFantasy + " " + isWonderland);
     }
 
     public void WonderChosen()
     {
+        Debug.Log("WonderChosen()");
+        //if (toggleChecked) { return; }
 
-        isWonderland = !isWonderland;
+        //isWonderland = !isWonderland;
 
         if (toggleWonder.isOn)
         {
+            isWonderland = true;
             toggleDarkFant.isOn = false;
         }
         else if (toggleWonder.isOn == false)
         {
+            isWonderland = false;
             toggleDarkFant.isOn = true;
         }
 
-        Debug.Log("isDarkFantasy " + isDarkFantasy);
-        Debug.Log("isWonderland " + isWonderland);
+        Debug.Log("" + isDarkFantasy + " " + isWonderland);
     }
 
     #endregion

@@ -14,6 +14,19 @@ public class MenuButtonController : MonoBehaviour
         if (Input.GetButtonDown("gallery")) { LoadGallery(); }
         if (Input.GetButtonDown("credits")) { LoadCredits(); }
         if (Input.GetButtonDown("back")) { LoadMenu(); }
+
+        int skin = PlayerPrefs.GetInt("skin", 0);
+
+        if (skin == 0)
+        {
+            OptionsMenu.isDarkFantasy = true;
+            OptionsMenu.isWonderland = false;
+        }
+        if (skin == 1)
+        {
+            OptionsMenu.isDarkFantasy = false;
+            OptionsMenu.isWonderland = true;
+        }
     }
 
     public void LoadTutorial()
