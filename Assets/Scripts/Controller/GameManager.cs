@@ -659,12 +659,13 @@ public class GameManager : MonoBehaviour
             //PRIDE
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlMoreOwn)
             {
-                Debug.Log("value check storage: " + ((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount) + 1) + " / " + (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1));
+                Debug.Log("value check storage: " + ((CountCards(playerIndex, PlayCard.Pile.field) + 1) + " / " + (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1)));
                 
-                int storage = (((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount) + 1) / (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1));
-                storage = (CountCards(playerIndex, PlayCard.Pile.field) + 1) - (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1);
-                Debug.Log("storage: " + storage);
-                if (storage >= libFx.conditionCount) { storage = 1; }
+                //int storage = (((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount) + 1) / (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1));
+                int storage = (CountCards(playerIndex, PlayCard.Pile.field) + 1) - (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1);
+                Debug.Log("storage: " + storage + "conCount: " + libFx.conditionCount);
+                if (storage >= libFx.conditionCount) { storage = 1; Debug.Log(storage); }
+                else if (storage <  libFx.conditionCount) { storage = 0; Debug.Log(storage); }
                 storage = storage * currentFx.actionCount;
                 Debug.Log("storage: " + storage);
 
