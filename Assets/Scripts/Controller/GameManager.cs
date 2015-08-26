@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
             {
                 players[i].playerHealth = 20;
                 players[i].sac = 0;
-                players[i].kills = 0;
+                players[i].kills = 4;
                 players[i].monument = true;
             }
 
@@ -478,6 +478,8 @@ public class GameManager : MonoBehaviour
         //effectCounter = 0;
         //StartCardFxCon(playerIndex, cardIndex);
 
+
+        StartCardFx(playerIndex, card.libId);
         #region Chosen Entry FX
         //Skyfolk Chosen
         if (card.libId == 957)
@@ -554,7 +556,6 @@ public class GameManager : MonoBehaviour
             card.attack = players[card.owner].playerHealth;
         }
         #endregion
-        StartCardFx(playerIndex, card.libId);
         SendGameManager();
     }
 
@@ -628,6 +629,7 @@ public class GameManager : MonoBehaviour
         //Condition
         if (libFx.conditionType != LibraryFX.ConditionType.none)
         {
+            //GREED
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlOwn)
             {
                 //Debug.Log("value check storage: " + (CountCards(playerIndex, PlayCard.Pile.field) + 1) + " / " + libFx.conditionCount + " * " + currentFx.actionCount);
@@ -640,6 +642,7 @@ public class GameManager : MonoBehaviour
 
                 currentFx.actionCount = currentFx.selectorCount = storage;
             }
+            //ENVY
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlOpp)
             {
                 //Debug.Log("value check storage: " + (CountCards(playerIndex, PlayCard.Pile.field) + 1) + " / " + libFx.conditionCount + " * " + currentFx.actionCount);
@@ -651,31 +654,24 @@ public class GameManager : MonoBehaviour
                 currentFx.actionCount = currentFx.selectorCount = storage;
             }
 
+            //PRIDE
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlMoreOwn)
             {
-                int storage = (((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount)) / (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field)));
-
-                storage = CountCards(playerIndex, PlayCard.Pile.field) - CountCards(playerIndex + 1 % 2, PlayCard.Pile.field);
-
-                if (storage >= libFx.conditionCount)
-                {
-                    storage = 1;
-                }
-                else
-                {
-                    storage = 0;
-                }
-
+                int storage = (((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount) + 1) / (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1));
+                if (storage > 1) { storage = 1; }
                 storage = storage * currentFx.actionCount;
+
                 currentFx.actionCount = currentFx.selectorCount = storage;
             }
             /*
+             * //DELETE FOR BUILD, NOT IN USE
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlMoreOpp)
             {
                 currentFx.actionCount = currentFx.selectorCount = (CountCards(playerIndex, PlayCard.Pile.field) / libFx.conditionCount);
             }
             /**/
 
+            //WRATH
             if (libFx.conditionType == LibraryFX.ConditionType.kills)
             {
                 //Debug.Log("calc ints: " + (players[playerIndex].kills + " " + libFx.conditionCount + " " + libFx.actionCount));
@@ -734,6 +730,7 @@ public class GameManager : MonoBehaviour
                 currentFx.actionCount += Neverfall_God_of_Pride;
             }
 
+            Debug.Log("adgldjsoidjoisjoi draw");
             DrawCard(currentFx.playerIdx, currentFx.actionCount);
         }
 
@@ -906,8 +903,11 @@ public class GameManager : MonoBehaviour
             DamagePlayer((currentFx.playerIdx + 1) % 2, currentFx.actionCount);
         }
 
+        Debug.Log("nextfx bugged: " + currentFx.fxIdx + " " + CardLibrary.Get().GetCard(currentFx.libId).fxList.Count);
         if (currentFx.NextFx())
         {
+            Debug.Log("true");
+            Debug.Log("next fx started??");
             StartCardFx(currentFx.playerIdx, currentFx.libId, currentFx.fxIdx);
             return;
         }
@@ -1936,7 +1936,9 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log("Kills " + oldPlayer.kills);
-        oldPlayer.kills = 0;
+        //remove
+        oldPlayer.kills = 4;
+        newPlayer.kills = 4;
         DrawCard(newPlayer.playerId, 1);
 
         /* if (oldPlayer.sac > 0)

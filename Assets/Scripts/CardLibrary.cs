@@ -20,7 +20,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(903, "Graveborn Marauder", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.undead));   // *****
         cardList.Add(new LibraryCard(911, "Blightbark Preacher", 3, 2, 5, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(919, "Skyfolk Missionary", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.winged));
-        cardList.Add(new LibraryCard(927, "Ripjaw Slaver", 6, 1, 6, 3, 1, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
+        cardList.Add(new LibraryCard(927, "Ripjaw Slaver", 6, 1, 6, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(928, "Dreadbulge Worker", 4, 1, 6, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(936, "Pitkin Adept", 5, 2, 3, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.stealthy));   // *****
         cardList.Add(new LibraryCard(944, "Hexfin Doomsayer", 4, 2, 4, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.veiled)); // *****
@@ -89,7 +89,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(964, "Archbishop Belle-Dhin", 7, 3, 20, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(971, "Neverfall, God of Pride", 9, 1, 29, 3, 0, LibraryCard.Cult.pride, LibraryCard.Race.winged));
         // greed
-        cardList.Add(new LibraryCard(906, "Pitkin Merchant", 4, 1, 6, 3, 1, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
+        cardList.Add(new LibraryCard(906, "Pitkin Merchant", 4, 1, 6, 3, 0, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(907, "Hexfin Preacher", 2, 2, 4, 1, 0, LibraryCard.Cult.greed, LibraryCard.Race.veiled));
         cardList.Add(new LibraryCard(915, "Graveborn Missionary", 3, 1, 5, 2, 0, LibraryCard.Cult.greed, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(923, "Blightbark Overseer", 2, 1, 6, 2, 0, LibraryCard.Cult.greed, LibraryCard.Race.protective));
@@ -145,7 +145,6 @@ public class CardLibrary
 
         //CARD EFFECTS;
         //BASIC CULTISTS EFFECTS
-
         //------------------------------------------------------------------------------
         //---------------------------------------MARAUDERS
         #region Marauders
@@ -213,14 +212,14 @@ public class CardLibrary
         //Pitkin Merchant
         GetCard(906).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 3)
-            .setAction(LibraryFX.ActionType.draw, 2);
+            .setAction(LibraryFX.ActionType.draw, 1);
         #region extended FX
         GetCard(906).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 6)
-            .setAction(LibraryFX.ActionType.draw, 2);
+            .setAction(LibraryFX.ActionType.draw, 1);
         GetCard(906).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 9)
-            .setAction(LibraryFX.ActionType.draw, 2);
+            .setAction(LibraryFX.ActionType.draw, 1);
         #endregion
         #endregion
         //---------------------------------------PREACHERS
@@ -714,19 +713,19 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.buffAttack, -3);
         //Graveborn Doomsayer
         GetCard(946).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 2)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.buffAttack, -6);
-        #region extended FX
+       // #region extended FX
         GetCard(946).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 4)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.buffAttack, -6);
         GetCard(946).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 6)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.buffAttack, -6);
-        #endregion
+       // #endregion
         //Dreadbulge Doomsayer
         GetCard(947).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 3)
@@ -955,22 +954,7 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.discard).description = "Discard card";
 
         //Card Effect Ripjaw Slaver        
-        GetCard(906).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 2)
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 2);
-        GetCard(906).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 4)
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 2);
-        GetCard(906).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 6)
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 2);
-        GetCard(906).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 8)
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 2);
+
 
         //Card Effect Dreadbulge Worker
         GetCard(907).AddFX()

@@ -11,6 +11,7 @@ public class PlayFX {
     public int playerIdx;
     public int actionCount;
     public int selectorCount;
+    public int conditionCount;
     public bool selectorDone;
     public int adjacentPos = -1;
     public List<int> selectedCards=new List<int>();
