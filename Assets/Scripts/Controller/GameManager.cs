@@ -1020,7 +1020,7 @@ public class GameManager : MonoBehaviour
         }
 
         //VEILED RACE ABILITY
-        if ((card.GetLibCard().race == LibraryCard.Race.veiled || card.GetLibCard().race == LibraryCard.Race.hexC || card.GetLibCard().race == LibraryCard.Race.pitC) && card.pile == PlayCard.Pile.field && card.owner == players[(playerIndex + 1) % 2].playerId)
+        if (((card.GetLibCard().race == LibraryCard.Race.veiled || card.GetLibCard().race == LibraryCard.Race.hexC || card.GetLibCard().race == LibraryCard.Race.pitC) && card.pile == PlayCard.Pile.field && card.owner == players[(playerIndex + 1) % 2].playerId) && card.libId != 901)
         {
             if (notif)
                 SendNotification(playerIndex, "target veiled");
@@ -1036,7 +1036,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < playCards.Count; i++)
         {
-            if (playCards[i].pile == PlayCard.Pile.field && (playCards[i].GetLibCard().race != LibraryCard.Race.veiled || card.GetLibCard().race == LibraryCard.Race.hexC || card.GetLibCard().race == LibraryCard.Race.pitC))
+            if (playCards[i].pile == PlayCard.Pile.field && (playCards[i].GetLibCard().race != LibraryCard.Race.veiled || card.GetLibCard().race != LibraryCard.Race.hexC || card.GetLibCard().race != LibraryCard.Race.pitC || playCards[i].libId == 901))
             {
                 target = true;
             }
