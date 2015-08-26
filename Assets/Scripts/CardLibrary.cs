@@ -179,20 +179,20 @@ public class CardLibrary
         //Graveborn Marauder
         GetCard(903).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 1)
-            .setAction(LibraryFX.ActionType.draw);
+            .setAction(LibraryFX.ActionType.draw, 1);
         #region extended FX
         GetCard(903).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 2)
-            .setAction(LibraryFX.ActionType.draw);
+            .setAction(LibraryFX.ActionType.draw, 1);
         GetCard(903).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 3)
-            .setAction(LibraryFX.ActionType.draw);
+            .setAction(LibraryFX.ActionType.draw, 1);
         GetCard(903).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 4)
-            .setAction(LibraryFX.ActionType.draw);
+            .setAction(LibraryFX.ActionType.draw, 1);
         GetCard(903).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 5)
-            .setAction(LibraryFX.ActionType.draw);
+            .setAction(LibraryFX.ActionType.draw, 1);
         #endregion
         //Dreadbulge Marauder
         GetCard(904).AddFX()
