@@ -723,11 +723,21 @@ public class GameManager : MonoBehaviour
             Debug.Log("sdgdssh " + currentFx.selectorCount);
         }
         //Selector 
-        if (libFx.selectorPile == PlayCard.Pile.none || currentFx.selectorCount <= 0) { currentFx.selectorDone = true; }
+        Debug.Log("ACTIONCOUNT DEBUG: " + currentFx.actionCount);
+        if (currentFx.actionCount != 0)
+        {
+            if (libFx.selectorPile == PlayCard.Pile.none || currentFx.selectorCount <= 0) { currentFx.selectorDone = true; }
 
-        if (!CheckSelectorAll(playerIndex)) { currentFx.selectorDone = true; Debug.Log("Skip Selector"); }
-        Debug.Log("currentFx" + currentFx.GetLibFx().description);
-        ExeCardFx();
+            if (!CheckSelectorAll(playerIndex)) { currentFx.selectorDone = true; Debug.Log("Skip Selector"); }
+            Debug.Log("currentFx" + currentFx.GetLibFx().description);
+            ExeCardFx();
+        }
+        else if (currentFx.actionCount == 0)
+        {
+            effectInProgess = false;
+            currentFx = new PlayFX();
+        }
+
     }
     public void ExeCardFx()
     {
@@ -1012,6 +1022,7 @@ public class GameManager : MonoBehaviour
 
         currentFx.selectedCards.Add(cardIndex);
 
+        Debug.Log("selectorFX stuff " + currentFx.actionCount + currentFx.selectorCount);
         if (currentFx.selectedCards.Count >= currentFx.selectorCount)
         {
             currentFx.selectorDone = true;

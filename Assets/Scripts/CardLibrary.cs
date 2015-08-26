@@ -78,7 +78,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(976, "Dullmoor, God of Sloth", 8, 1, 30, 3, 0, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
         // pride
         cardList.Add(new LibraryCard(905, "Blightbark Marauder", 3, 1, 7, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.protective));
-        cardList.Add(new LibraryCard(913, "Skyfolk Priest", 3, 3, 6, 1, 2, LibraryCard.Cult.pride, LibraryCard.Race.winged));
+        cardList.Add(new LibraryCard(913, "Skyfolk Priest", 3, 3, 6, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(914, "Ripjaw Missionary", 5, 1, 5, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(922, "Dreadbulge Overseer", 3, 1, 7, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(930, "Pitkin Worker", 5, 1, 5, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.stealthy));
@@ -299,16 +299,16 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.buffAttack, 2);
         //Skyfolk Priest
         GetCard(913).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 2)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.buffAttack, 8);
         #region extended FX
         GetCard(913).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 4)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.buffAttack, 8);
         GetCard(913).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 6)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.buffAttack, 8);
         #endregion

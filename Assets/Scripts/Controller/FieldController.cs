@@ -594,8 +594,8 @@ public class FieldController : MonoBehaviour
 
         var card = GameManager.Get().playCards[cardSelected];
 
-        Debug.Log("confirm?" + confirm);
-        Debug.Log((libFx.selectorPile == PlayCard.Pile.none) + " " + (!GameManager.Get().effectInProgess) + " " + (libFx.selectorWho != ownFx));
+        //Debug.Log("confirm?" + confirm);
+        //Debug.Log((libFx.selectorPile == PlayCard.Pile.none) + " " + (!GameManager.Get().effectInProgess) + " " + (libFx.selectorWho != ownFx));
         if (libFx.selectorPile == PlayCard.Pile.none) { return; }
 
         if (card.pile != PlayCard.Pile.hand && card.pile != PlayCard.Pile.field) { return; }
