@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public bool running = false;
     public int gameVersion = 0;
     public int brutalOD = 0;
+    public bool setUp = false;
     //public bool monument = true;
 
     public static int Neverfall_God_of_Pride = 0;
@@ -59,6 +60,7 @@ public class GameManager : MonoBehaviour
         }
 
         gameOver = -1;
+        setUp = true;
 
         networkView = GetComponent<NetworkView>();
         Debug.Log(Application.dataPath);
@@ -147,9 +149,14 @@ public class GameManager : MonoBehaviour
 
         running = true;
 
-        GameObject.Find("SceneCam").transform.FindChild("curtain").gameObject.SetActive(false);
-        GameObject.Find("GameUI").transform.FindChild("Main").gameObject.SetActive(true);
         GameObject.Find("GameUI").transform.FindChild("PreGame").gameObject.SetActive(false);
+        GameObject.Find("GameUI").transform.FindChild("Main").gameObject.SetActive(true);
+        GameObject.Find("SceneCam").transform.FindChild("loading").gameObject.SetActive(true);
+
+        var o = GameObject.Find("SceneCam").transform.FindChild("curtain").gameObject;
+        GameObject.Destroy(o, 1.5f);
+        o = GameObject.Find("SceneCam").transform.FindChild("loading").gameObject;
+        GameObject.Destroy(o, 1.5f);
     }
 
     public void LoadDeck( int playerIdx, string deck )
@@ -646,10 +653,20 @@ public class GameManager : MonoBehaviour
 
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlMoreOwn)
             {
-                int storage = (((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount) + 1) / (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1));
-                if (storage > 1) { storage = 1; }
-                storage = storage * currentFx.actionCount;
+                int storage = (((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount)) / (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field)));
 
+                storage = CountCards(playerIndex, PlayCard.Pile.field) - CountCards(playerIndex + 1 % 2, PlayCard.Pile.field);
+
+                if (storage >= libFx.conditionCount)
+                {
+                    storage = 1;
+                }
+                else
+                {
+                    storage = 0;
+                }
+
+                storage = storage * currentFx.actionCount;
                 currentFx.actionCount = currentFx.selectorCount = storage;
             }
             /*
@@ -898,6 +915,16 @@ public class GameManager : MonoBehaviour
         effectInProgess = false;
         effectCounter++;
         Debug.Log("End effectCounter " + effectCounter);
+
+        SendGameManager();
+    }
+
+    public void StartMonumentFx(int playerIndex)
+    {
+        this.NetRPC("MonumentFx", RPCMode.Server, playerIndex);
+        players[playerIndex].monument = false;
+
+        SendNotification(localPlayerId, "Monument's power drained");
 
         SendGameManager();
     }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections;
 
 public class UIButtonController : MonoBehaviour
@@ -42,10 +43,14 @@ public class UIButtonController : MonoBehaviour
     {
         if (GameManager.Get().players[playerId].monument == false) { return; }
 
-        GameManager.Get().NetRPC("MonumentFx", RPCMode.Server, playerId);
-        GameManager.Get().players[playerId].monument = false;
-        FieldController.GetFieldController().FadeBanner();
-        GameManager.Get().SendNotification(GameManager.Get().localPlayerId, "Monument's power drained");
+        string banner = gameObject.transform.parent.name.Replace("banner_", "");
+
+        Debug.Log(banner);
+        int bannerId = (Int32.Parse(banner));
+
+        if (bannerId != GameManager.Get().localPlayerId) { return; }
+
+        GameManager.Get().StartMonumentFx(bannerId);
     }
 
     public void UISacrifice()

@@ -77,8 +77,14 @@ public class FieldController : MonoBehaviour
             init = false;
         }
 
-        ShowPlayerHealth(0);
-        ShowPlayerHealth(1);
+        if (GameManager.Get().running)
+        {
+            ShowPlayerHealth(0);
+            ShowPlayerHealth(1);
+
+            FadeBanner(0);
+            FadeBanner(1);
+        }
 
         // Debug.Log("FieldController " + playCards.Count + " ");
         for (int i = 0; i < playCards.Count; i++)
@@ -329,8 +335,6 @@ public class FieldController : MonoBehaviour
 
     public void AssignBanner( int playerId )
     {
-        if (!GameManager.Get().running) { return; }
-
         Debug.Log("banner_" + playerId);
         Debug.Log(GameObject.Find("banner_" + playerId).GetComponent<Image>());
         Debug.Log(GameManager.Get().players[playerId].cult);
@@ -375,21 +379,26 @@ public class FieldController : MonoBehaviour
             }
         }
     }
-    public void FadeBanner()
+    public void FadeBanner(int playerIndex)
     {
-        var image = GameObject.Find("banner_" + GameManager.Get().localPlayerId).GetComponent<Image>();
         Color c = new Color();
 
-        if (GameManager.Get().players[GameManager.Get().localPlayerId].monument == false)
-        {
-            c = Color.grey;
-        }
-        else
-        {
-            c = Color.white;
-        }
+        if (!GameManager.Get().running || !GameManager.Get().setUp) { return; }
 
-        image.color = c;
+        for (int i = 0; i < GameManager.Get().players.Length; i++ )
+        {
+            if (GameManager.Get().players[i].monument == false)
+            {
+                c = Color.grey;
+            }
+            else
+            {
+                c = Color.white;
+            }
+
+            var image = GameObject.Find("banner_" + GameManager.Get().players[i].playerId).GetComponent<Image>();
+            image.color = c;
+        }
     }
     public void LoadMonument( int playerIndex )
     {
