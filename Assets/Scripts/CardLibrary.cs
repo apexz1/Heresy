@@ -167,14 +167,14 @@ public class CardLibrary
         //Ripjaw Marauder
         GetCard(902).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 3)
-            .setAction(LibraryFX.ActionType.draw);
+            .setAction(LibraryFX.ActionType.draw, 1);
         #region extended FX
         GetCard(902).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 6)
-            .setAction(LibraryFX.ActionType.draw);
+            .setAction(LibraryFX.ActionType.draw, 1);
         GetCard(902).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 9)
-            .setAction(LibraryFX.ActionType.draw);
+            .setAction(LibraryFX.ActionType.draw, 1);
         #endregion
         //Graveborn Marauder
         GetCard(903).AddFX()

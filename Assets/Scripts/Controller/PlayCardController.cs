@@ -79,7 +79,7 @@ public class PlayCardController : MonoBehaviour {
                 {
                     if (card != null && card.owner == playerId)
                     {
-                        Debug.Log("Select clicked " + cardIndex);
+                        //Debug.Log("Select clicked " + cardIndex);
                         fieldController.SelectCard(cardIndex);
                     }
                     if (!currentFx.selectorDone && currentFx.selectorCount > 0)
@@ -99,7 +99,7 @@ public class PlayCardController : MonoBehaviour {
                     {
                         if (card != null && card.owner == playerId)
                         {
-                            Debug.Log("Effect select " + cardIndex);
+                            //Debug.Log("Effect select " + cardIndex);
                             fieldController.SelectCard(cardIndex);
                             fxSelect = true;
                         }
@@ -108,7 +108,7 @@ public class PlayCardController : MonoBehaviour {
                     {
                         if (card != null && !(card.owner == playerId))
                         {
-                            Debug.Log("Effect select " + cardIndex);
+                            //Debug.Log("Effect select " + cardIndex);
                             fieldController.SelectCard(cardIndex);
                             fxSelect = true;
                         }
@@ -170,7 +170,7 @@ public class PlayCardController : MonoBehaviour {
 
     public void StartMoveAnimation(Vector3 to, float duration)
     {
-        Debug.Log("MoveAnimation(): " + transform.localPosition + " " + to);
+        //Debug.Log("MoveAnimation(): " + transform.localPosition + " " + to);
 
         moveFrom = transform.localPosition;
         moveTo = to;

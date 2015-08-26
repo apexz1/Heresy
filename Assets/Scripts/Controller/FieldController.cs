@@ -372,7 +372,7 @@ public class FieldController : MonoBehaviour
 
         for (int i = 0; i < sprites.Count; i++)
         {
-            Debug.Log("name: " + spritesRef[i] + " " + "b_" + player.cult);
+            //Debug.Log("name: " + spritesRef[i] + " " + "b_" + player.cult);
             if (spritesRef[i].Equals("b_" + player.cult))
             {
                 image.sprite = sprites[i];
@@ -418,8 +418,8 @@ public class FieldController : MonoBehaviour
             skin = "cards_DF";
         }
 
-        Debug.Log(playerIndex);
-        Debug.Log("monument load path check: " + "Images/" + skin + "/monuments/m_" + players[playerIndex].cult);
+        //Debug.Log(playerIndex);
+        //Debug.Log("monument load path check: " + "Images/" + skin + "/monuments/m_" + players[playerIndex].cult);
         Texture2D tex = (Texture2D)Resources.Load("Images/" + skin + "/monuments/m_" + players[playerIndex].cult);
         //tex = (Texture2D)Resources.Load("Images/cards_DF/monuments/m_wrath");
         MeshRenderer rend = new MeshRenderer();
@@ -430,11 +430,11 @@ public class FieldController : MonoBehaviour
         }
         if (playerIndex == 1)
         {
-            Debug.Log(GameObject.Find("16").transform.FindChild("GFX").GetComponent<MeshRenderer>());
+            //Debug.Log(GameObject.Find("16").transform.FindChild("GFX").GetComponent<MeshRenderer>());
             rend = GameObject.Find("4").transform.FindChild("GFX").GetComponent<MeshRenderer>();
         }
 
-        Debug.Log(rend.name);
+        //Debug.Log(rend.name);
         rend.material.mainTexture = tex;
 
         //var rend = cardSpawn.transform.FindChild("GFX").GetComponent<MeshRenderer>();

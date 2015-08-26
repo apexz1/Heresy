@@ -629,6 +629,7 @@ public class GameManager : MonoBehaviour
         //Condition
         if (libFx.conditionType != LibraryFX.ConditionType.none)
         {
+            Debug.Log(currentFx.GetLibFx().conditionType);
             //GREED
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlOwn)
             {
@@ -645,11 +646,12 @@ public class GameManager : MonoBehaviour
             //ENVY
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlOpp)
             {
-                //Debug.Log("value check storage: " + (CountCards(playerIndex, PlayCard.Pile.field) + 1) + " / " + libFx.conditionCount + " * " + currentFx.actionCount);
+                Debug.Log("value check storage: " + (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) + 1) + " / " + libFx.conditionCount + " * " + currentFx.actionCount);
                 int storage = ((CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) + 1) / libFx.conditionCount);
+                Debug.Log("storage " + storage);
                 if (storage > 1) { storage = 1; }
                 storage = storage * currentFx.actionCount;
-                //Debug.Log("storage: " + storage);
+                Debug.Log("storage: " + storage);
 
                 currentFx.actionCount = currentFx.selectorCount = storage;
             }

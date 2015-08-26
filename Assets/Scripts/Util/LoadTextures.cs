@@ -67,7 +67,7 @@ public class LoadTextures
 
         for (int i = 0; i < imgArray.Length; i++)
         {
-            Debug.Log("texname " + imgArray[i].name);
+            //Debug.Log("texname " + imgArray[i].name);
             for (int j = 0; j < CardLibrary.Get().cardList.Count; j++)
             {
                 if (CardLibrary.Get().cardList[j].cardID == Int32.Parse(imgArray[i].name))
