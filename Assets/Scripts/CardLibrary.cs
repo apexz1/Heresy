@@ -317,16 +317,16 @@ public class CardLibrary
         #region Missionaries
         //Ripjaw Missionary
         GetCard(914).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 2)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard);
         #region extended FX
         GetCard(914).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 4)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard);
         GetCard(914).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 6)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard);
         #endregion
