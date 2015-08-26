@@ -414,16 +414,16 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.buffAction, 1);
         //Dreadbulge Overseer
         GetCard(922).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 2)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.buffAction, 1);
         #region extended FX
         GetCard(922).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 4)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.buffAction, 1);
         GetCard(922).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 6)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.buffAction, 1);
         #endregion
@@ -521,14 +521,14 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.damageSelf, -3);
         //Pitkin Worker
         GetCard(930).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 2)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setAction(LibraryFX.ActionType.damageSelf, -3);
         #region extended FX
         GetCard(930).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 4)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setAction(LibraryFX.ActionType.damageSelf, -3);
         GetCard(930).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 6)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setAction(LibraryFX.ActionType.damageSelf, -3);
         #endregion
         //Skyfolk Worker
@@ -615,16 +615,16 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.damageCard, 2);
         //Hexfin Adept
         GetCard(938).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 2)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.damageCard, 4);
         #region extended FX
         GetCard(938).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 4)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.damageCard, 4);
         GetCard(938).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 6)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.damageCard, 4);
         #endregion
