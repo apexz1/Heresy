@@ -649,11 +649,20 @@ public class GameManager : MonoBehaviour
                 Debug.Log("value check storage: " + (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) + 1) + " / " + libFx.conditionCount + " * " + currentFx.actionCount);
                 int storage = ((CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) + 1) / libFx.conditionCount);
                 Debug.Log("storage " + storage);
-                if (storage > 1) { storage = 1; }
+                if (storage > 1) { storage = 1; Debug.Log(storage); }
+                else if (storage < 0) { storage = 0; Debug.Log(storage); }
                 storage = storage * currentFx.actionCount;
                 Debug.Log("storage: " + storage);
 
-                currentFx.actionCount = currentFx.selectorCount = storage;
+                currentFx.actionCount = storage;
+                if (storage > 0)
+                {
+                    currentFx.selectorCount = storage;
+                }
+                if (storage < 0)
+                {
+                    currentFx.selectorCount = -storage;
+                }
             }
 
             //PRIDE
