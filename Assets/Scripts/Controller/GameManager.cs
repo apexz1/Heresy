@@ -659,11 +659,24 @@ public class GameManager : MonoBehaviour
             //PRIDE
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlMoreOwn)
             {
+                Debug.Log("value check storage: " + ((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount) + 1) + " / " + (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1));
+                
                 int storage = (((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount) + 1) / (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1));
-                if (storage > 1) { storage = 1; }
+                storage = (CountCards(playerIndex, PlayCard.Pile.field) + 1) - (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1);
+                Debug.Log("storage: " + storage);
+                if (storage >= libFx.conditionCount) { storage = 1; }
                 storage = storage * currentFx.actionCount;
+                Debug.Log("storage: " + storage);
 
-                currentFx.actionCount = currentFx.selectorCount = storage;
+                currentFx.actionCount = storage;
+                if (storage > 0)
+                {
+                    currentFx.selectorCount = storage;
+                }
+                if (storage < 0)
+                {
+                    currentFx.selectorCount = -storage;
+                }
             }
             /*
              * //DELETE FOR BUILD, NOT IN USE
@@ -802,13 +815,23 @@ public class GameManager : MonoBehaviour
                 currentFx.actionCount += Neverfall_God_of_Pride;
             }
 
+            Debug.Log(currentFx.actionCount);
+            Debug.Log(10 + currentFx.actionCount);
+
             for (int i = 0; i < currentFx.selectedCards.Count; i++)
             {
                 int cardIndex = currentFx.selectedCards[i];
                 var card = playCards[cardIndex];
+
+                Debug.Log(card.attack);
                 card.attack += currentFx.actionCount;
 
-                if (currentFx.libId == 912)
+                if (currentFx.libId == 957)
+                {
+                    card.attack = 0;
+                }
+
+                if (card.attack < 0)
                 {
                     card.attack = 0;
                 }

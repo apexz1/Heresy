@@ -230,7 +230,7 @@
 				"selectorDone":false,
 				"adjacentPos":-1},
 		"effectInProgess":false,
-		"gameVersion":0,
+		"gameVersion":1,
 		"Player0":{
 				"Name":"",
 				"PlayerId":0,

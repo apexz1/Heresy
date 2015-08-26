@@ -716,7 +716,7 @@ public class CardLibrary
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.buffAttack, -6);
-       // #region extended FX
+        #region extended FX
         GetCard(946).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
@@ -725,7 +725,7 @@ public class CardLibrary
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.buffAttack, -6);
-       // #endregion
+        #endregion
         //Dreadbulge Doomsayer
         GetCard(947).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 3)
