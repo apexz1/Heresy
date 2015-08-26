@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
             {
                 players[i].playerHealth = 20;
                 players[i].sac = 0;
-                players[i].kills = 4;
+                players[i].kills = 2;
                 players[i].monument = true;
             }
 
@@ -660,12 +660,12 @@ public class GameManager : MonoBehaviour
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlMoreOwn)
             {
                 Debug.Log("value check storage: " + ((CountCards(playerIndex, PlayCard.Pile.field) + 1) + " / " + (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1)));
-                
+
                 //int storage = (((CountCards(playerIndex, PlayCard.Pile.field) - libFx.conditionCount) + 1) / (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1));
                 int storage = (CountCards(playerIndex, PlayCard.Pile.field) + 1) - (CountCards(playerIndex + 1 % 2, PlayCard.Pile.field) + 1);
                 Debug.Log("storage: " + storage + "conCount: " + libFx.conditionCount);
                 if (storage >= libFx.conditionCount) { storage = 1; Debug.Log(storage); }
-                else if (storage <  libFx.conditionCount) { storage = 0; Debug.Log(storage); }
+                else if (storage < libFx.conditionCount) { storage = 0; Debug.Log(storage); }
                 storage = storage * currentFx.actionCount;
                 Debug.Log("storage: " + storage);
 
@@ -945,7 +945,7 @@ public class GameManager : MonoBehaviour
         SendGameManager();
     }
 
-    public void StartMonumentFx(int playerIndex)
+    public void StartMonumentFx( int playerIndex )
     {
         this.NetRPC("MonumentFx", RPCMode.Server, playerIndex);
         players[playerIndex].monument = false;
@@ -1920,14 +1920,14 @@ public class GameManager : MonoBehaviour
                             //playCards[j].tap++;
                         }
                     }
-                }           
+                }
                 //Skinflint, God of Greed
                 if (playCards[i].libId == 977)
                 {
                     for (int j = 0; j < playCards.Count; j++)
                     {
                         Debug.Log("skinflint fx check: " + players[playCards[i].owner].spawns);
-                        if(players[playCards[i].owner].spawns < 3)
+                        if (players[playCards[i].owner].spawns < 3)
                         {
                             if (playCards[i].owner == newPlayer.playerId)
                             {
@@ -1963,8 +1963,8 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Kills " + oldPlayer.kills);
         //remove
-        oldPlayer.kills = 4;
-        newPlayer.kills = 4;
+        oldPlayer.kills = 0;
+        newPlayer.kills = 0;
         DrawCard(newPlayer.playerId, 1);
 
         /* if (oldPlayer.sac > 0)
