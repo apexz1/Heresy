@@ -634,13 +634,14 @@ public class GameManager : MonoBehaviour
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlOwn)
             {
                 //Debug.Log("value check storage: " + (CountCards(playerIndex, PlayCard.Pile.field) + 1) + " / " + libFx.conditionCount + " * " + currentFx.actionCount);
-                Debug.Log(CountCards(playerIndex, PlayCard.Pile.field));
-                Debug.Log(CountCards(playerIndex, PlayCard.Pile.field) + 1);
+                Debug.Log("value storage check: " + (CountCards(playerIndex, PlayCard.Pile.field) +1) + " / " + libFx.conditionCount);
                 int storage = ((CountCards(playerIndex, PlayCard.Pile.field) + 1) / libFx.conditionCount);
-                if (storage > 1) { storage = 1; Debug.Log(storage); }
+                Debug.Log("storage: " + storage);
+
+                if (storage > 1) { storage = 1; Debug.Log("storage: " + storage); }
                 else if (storage < 0) { storage = 0; Debug.Log(storage); }
                 storage = storage * currentFx.actionCount;
-                //Debug.Log("storage: " + storage);
+                Debug.Log("storage: " + storage);
 
                 currentFx.actionCount = storage;
                 currentFx.actionCount = storage;
@@ -720,7 +721,7 @@ public class GameManager : MonoBehaviour
             }
 
             if (currentFx.selectorCount > 1) { currentFx.selectorCount = 1; }
-            Debug.Log("sdgdssh " + currentFx.selectorCount);
+            //Debug.Log("sdgdssh " + currentFx.selectorCount);
         }
         //Selector 
         Debug.Log("ACTIONCOUNT DEBUG: " + currentFx.actionCount);

@@ -212,14 +212,14 @@ public class CardLibrary
         //Pitkin Merchant
         GetCard(906).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 3)
-            .setAction(LibraryFX.ActionType.draw, 1);
+            .setAction(LibraryFX.ActionType.draw, 2);
         #region extended FX
         GetCard(906).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 6)
-            .setAction(LibraryFX.ActionType.draw, 1);
+            .setAction(LibraryFX.ActionType.draw, 2);
         GetCard(906).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 9)
-            .setAction(LibraryFX.ActionType.draw, 1);
+            .setAction(LibraryFX.ActionType.draw, 2);
         #endregion
         #endregion
         //---------------------------------------PREACHERS
@@ -319,31 +319,31 @@ public class CardLibrary
         GetCard(914).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         #region extended FX
         GetCard(914).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         GetCard(914).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         #endregion
         //Graveborn Missionary
         GetCard(915).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 3)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         #region extended FX
         GetCard(915).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 6)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         GetCard(915).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 9)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         #endregion
         //Dreadbulge Missionary
         GetCard(916).AddFX()
@@ -351,7 +351,7 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.tap);
         GetCard(916).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         //Blightbark Missionary
         GetCard(917).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
@@ -359,52 +359,52 @@ public class CardLibrary
             .description = "Choose entity to damage";
         GetCard(917).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         //Pitkin Missionary
         GetCard(918).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 3)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         #region extended FX
         GetCard(918).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 6)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         GetCard(918).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 9)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         #endregion
         //Skyfolk Missionary
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 1)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         #region extended FX
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 2)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 3)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 4)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 5)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         #endregion
         //Hexfin Persuader
         GetCard(920).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         GetCard(920).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         #endregion
         //---------------------------------------OVERSEERS
         #region Overseers
@@ -773,7 +773,7 @@ public class CardLibrary
         //Salina
         GetCard(365).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         //Zarkhul
         GetCard(366).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
@@ -851,13 +851,13 @@ public class CardLibrary
         //simple discard
         GetCard(500).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
         GetCard(559).AddFX()
             .setAction(LibraryFX.ActionType.damageOpp, 6);
         //Dreadbulge Chosen
         GetCard(961).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.discard);
+            .setAction(LibraryFX.ActionType.discard, 1);
 
         //CARD EFFECT REFERENCES
         //Card Effect Skyfolk Marauder
