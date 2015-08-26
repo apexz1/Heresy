@@ -637,11 +637,21 @@ public class GameManager : MonoBehaviour
                 Debug.Log(CountCards(playerIndex, PlayCard.Pile.field));
                 Debug.Log(CountCards(playerIndex, PlayCard.Pile.field) + 1);
                 int storage = ((CountCards(playerIndex, PlayCard.Pile.field) + 1) / libFx.conditionCount);
-                if (storage > 1) { storage = 1; }
+                if (storage > 1) { storage = 1; Debug.Log(storage); }
+                else if (storage < 0) { storage = 0; Debug.Log(storage); }
                 storage = storage * currentFx.actionCount;
                 //Debug.Log("storage: " + storage);
 
-                currentFx.actionCount = currentFx.selectorCount = storage;
+                currentFx.actionCount = storage;
+                currentFx.actionCount = storage;
+                if (storage > 0)
+                {
+                    currentFx.selectorCount = storage;
+                }
+                if (storage < 0)
+                {
+                    currentFx.selectorCount = -storage;
+                }
             }
             //ENVY
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlOpp)

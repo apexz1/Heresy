@@ -65,6 +65,7 @@ public class UIButtonController : MonoBehaviour
     {
         if (GameManager.Get().turnPlayer == playerId)
         {
+            if (GameManager.Get().effectInProgess) { return; }
             if (FieldController.GetFieldController().cardSelected != -1) { FieldController.GetFieldController().SelectCard(FieldController.GetFieldController().cardSelected); }
             GameManager.Get().NetRPC("EndTurn", RPCMode.Server, playerId);
         }
