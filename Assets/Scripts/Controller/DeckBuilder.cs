@@ -19,6 +19,7 @@ public class DeckBuilder : MonoBehaviour
     const int maxDeckCount = 30;
     const int maxCardCount = 3;
     const int maxUICount = 13;
+    const int cardsCount = 77;
     string deckName;
     string deckLocation;
 
@@ -71,9 +72,9 @@ public class DeckBuilder : MonoBehaviour
         float y = 3.5f;
         int counter = -1;
         int nameCounter = -1;
-
+        int cardCounter = 0;
         GameObject card;
-        for (int j = 0; j < 2; j++)
+        for (int j = 0; j < 27; j++)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -101,6 +102,8 @@ public class DeckBuilder : MonoBehaviour
                 {
                     counter = -1;
                 }
+                cardCounter++;
+                if (cardCounter == cardsCount) { return; }
             }
         }
     }

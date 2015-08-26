@@ -28,7 +28,7 @@ public class CameraControllerDB : MonoBehaviour
     public void ScrollCamera()
     {
         Vector3 pos = cam.transform.position;
-        pos.y = -(-2.1f + (slider.value * 55));
+        pos.y = -(-2.1f + (slider.value * 74f));
         cam.transform.position = new Vector3(pos.x, pos.y, pos.z);
     }
 }
