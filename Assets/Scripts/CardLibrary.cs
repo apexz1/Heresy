@@ -199,14 +199,14 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.draw, 1);
         //Blightbark Marauder
         GetCard(905).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 2)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setAction(LibraryFX.ActionType.draw, 2);
         #region extended FX
         GetCard(905).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 4)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setAction(LibraryFX.ActionType.draw, 2);
         GetCard(905).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlMoreOpp, 6)
+            .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setAction(LibraryFX.ActionType.draw, 2);
         #endregion
         //Pitkin Merchant
