@@ -113,6 +113,10 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Deck to load: " + deckChoice);
         LoadDeck(localPlayerId, deckChoice);
+
+        //FieldController.GetFieldController().LoadMonument(0);
+        //FieldController.GetFieldController().LoadMonument(1);
+
         if (network == false) { LoadDeck(1, "default"); };
 
         if (Network.isServer)
@@ -138,7 +142,6 @@ public class GameManager : MonoBehaviour
         if (network == false)
         {
             players[0].spawns = 3;
-
             players[1].spawns = 3;
         }
 
@@ -173,7 +176,9 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("start");
         this.NetRPC("AssignDeck", RPCMode.Server, playerIdx, jsPlayer["Deck"].ToString());
-        this.NetRPC("AssignCult", RPCMode.Server, playerIdx, jsPlayer["Cult"].ToString());
+        //this.NetRPC("AssignCult", RPCMode.Server, playerIdx, jsPlayer["Cult"].ToString());
+        AssignCult(0, jsPlayer["Cult"].ToString());
+        AssignCult(1, jsPlayer["Cult"].ToString());
         //Debug.Log(players[0].cult + " " + players[1].cult);
     }
 
@@ -209,7 +214,6 @@ public class GameManager : MonoBehaviour
         SendGameManager();
     }
 
-    [RPC]
     public void AssignCult( int playerId, string cult )
     {
         Debug.Log("AssignCult()" + playerId + " : " + cult);

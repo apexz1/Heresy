@@ -18,9 +18,6 @@ public class UIController : MonoBehaviour
             images[i] = GameObject.Find("HUD").transform.FindChild("uiS_0" + (i + 1)).gameObject.GetComponent<Image>();
             //Debug.Log("image test " + images[i].name);
         }
-
-        AssignCult(0);
-        AssignCult(1);
     }
 
     // Update is called once per frame
@@ -81,48 +78,5 @@ public class UIController : MonoBehaviour
             images[i + (players[playerIndex].playerId * 3)].color = Color.white;
         }
 
-    }
-
-    public void AssignCult(int playerId)
-    {
-        var player = GameManager.Get().players[playerId];
-        //Debug.Log("cult: " + player.cult);
-        var image = GameObject.Find("banner_" + playerId).GetComponent<Image>();
-
-        var array = Resources.LoadAll("Images/UI/main/banner", typeof(Texture2D));
-        var sprites = new List<Sprite>();
-        var spritesRef = new List<String>();
-        var current = new Sprite();
-        string currentRef = "";
-
-        //Debug.Log("files loaded " + array.Length);
-
-        var imgArray = new Texture2D[array.Length];
-
-        for (int i = 0; i < array.Length; i++)
-        {
-            imgArray[i] = array[i] as Texture2D;
-        }
-
-        for (int i = 0; i < imgArray.Length; i++)
-        {
-            //Debug.Log("tex name: " + imgArray[i].name);
-            current = Sprite.Create(imgArray[i], new Rect(0, 0, imgArray[i].width, imgArray[i].height), new Vector2(0.5f, 0.5f));
-            currentRef = imgArray[i].name;
-            //Debug.Log(current);
-            sprites.Add(current);
-            spritesRef.Add(currentRef);
-        }
-
-        //image.sprite = sprites[0];
-
-        for (int i = 0; i < sprites.Count; i++)
-        {
-            Debug.Log("name: " + spritesRef[i] + " " + "b_" + player.cult);
-            if (spritesRef[i].Equals("b_" + player.cult))
-            {
-                image.sprite = sprites[i];
-            }
-        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -12,6 +14,7 @@ public class FieldController : MonoBehaviour
     public Camera cam;
     public bool isActive = false;
     public bool confirm = false;
+    public bool init = false;
     public int gameVersion = -1;
 
     public void Awake()
@@ -31,6 +34,12 @@ public class FieldController : MonoBehaviour
         Transform res = null;
         cardGfxs.TryGetValue(globalIndex, out res);
         return res;
+    }
+
+    public void Start()
+    {
+        Debug.LogWarning("FIELDCONTROLLER RUNNING");
+        init = true;
     }
     public void Update()
     {
@@ -56,6 +65,16 @@ public class FieldController : MonoBehaviour
                 Destroy(gfx.gameObject);
             }
             cardGfxs.Clear();           
+        }
+
+        if (GameManager.Get().running && init)
+        {
+            AssignBanner(0);
+            AssignBanner(1);
+            LoadMonument(0);
+            LoadMonument(1);
+
+            init = false;
         }
 
         ShowPlayerHealth(0);
@@ -307,6 +326,55 @@ public class FieldController : MonoBehaviour
         Camera.main.transform.FindChild("ZoomCardL").gameObject.SetActive(false);
         Camera.main.transform.FindChild("ZoomCardR").gameObject.SetActive(false);
     }
+
+    public void AssignBanner( int playerId )
+    {
+        if (!GameManager.Get().running) { return; }
+
+        Debug.Log("banner_" + playerId);
+        Debug.Log(GameObject.Find("banner_" + playerId).GetComponent<Image>());
+        Debug.Log(GameManager.Get().players[playerId].cult);
+
+        var player = GameManager.Get().players[playerId];
+        //Debug.Log("cult: " + player.cult);
+        var image = GameObject.Find("banner_" + playerId).GetComponent<Image>();
+
+        var array = Resources.LoadAll("Images/UI/main/banner", typeof(Texture2D));
+        var sprites = new List<Sprite>();
+        var spritesRef = new List<String>();
+        var current = new Sprite();
+        string currentRef = "";
+
+        //Debug.Log("files loaded " + array.Length);
+
+        var imgArray = new Texture2D[array.Length];
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            imgArray[i] = array[i] as Texture2D;
+        }
+
+        for (int i = 0; i < imgArray.Length; i++)
+        {
+            //Debug.Log("tex name: " + imgArray[i].name);
+            current = Sprite.Create(imgArray[i], new Rect(0, 0, imgArray[i].width, imgArray[i].height), new Vector2(0.5f, 0.5f));
+            currentRef = imgArray[i].name;
+            //Debug.Log(current);
+            sprites.Add(current);
+            spritesRef.Add(currentRef);
+        }
+
+        //image.sprite = sprites[0];
+
+        for (int i = 0; i < sprites.Count; i++)
+        {
+            Debug.Log("name: " + spritesRef[i] + " " + "b_" + player.cult);
+            if (spritesRef[i].Equals("b_" + player.cult))
+            {
+                image.sprite = sprites[i];
+            }
+        }
+    }
     public void FadeBanner()
     {
         var image = GameObject.Find("banner_" + GameManager.Get().localPlayerId).GetComponent<Image>();
@@ -322,6 +390,45 @@ public class FieldController : MonoBehaviour
         }
 
         image.color = c;
+    }
+    public void LoadMonument( int playerIndex )
+    {
+        var players = GameManager.Get().players;
+        string skin = "";
+
+        if (OptionsMenu.isDarkFantasy)
+        {
+            skin = "cards_DF";
+        }
+        else if (OptionsMenu.isWonderland)
+        {
+            skin = "cards_WL";
+        }
+        else
+        {
+            skin = "cards_DF";
+        }
+
+        Debug.Log(playerIndex);
+        Debug.Log("monument load path check: " + "Images/" + skin + "/monuments/m_" + players[playerIndex].cult);
+        Texture2D tex = (Texture2D)Resources.Load("Images/" + skin + "/monuments/m_" + players[playerIndex].cult);
+        //tex = (Texture2D)Resources.Load("Images/cards_DF/monuments/m_wrath");
+        MeshRenderer rend = new MeshRenderer();
+
+        if (playerIndex == 0)
+        {
+            rend = GameObject.Find("16").transform.FindChild("GFX").GetComponent<MeshRenderer>();
+        }
+        if (playerIndex == 1)
+        {
+            Debug.Log(GameObject.Find("16").transform.FindChild("GFX").GetComponent<MeshRenderer>());
+            rend = GameObject.Find("4").transform.FindChild("GFX").GetComponent<MeshRenderer>();
+        }
+
+        Debug.Log(rend.name);
+        rend.material.mainTexture = tex;
+
+        //var rend = cardSpawn.transform.FindChild("GFX").GetComponent<MeshRenderer>();
     }
 
     /*public void ShowSacFields()
