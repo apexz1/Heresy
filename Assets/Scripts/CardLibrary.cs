@@ -17,13 +17,13 @@ public class CardLibrary
         /**/
 
         // wrath
-        cardList.Add(new LibraryCard(903, "Graveborn Marauder", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.undead));   // *****
+        cardList.Add(new LibraryCard(903, "Graveborn Marauder", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(911, "Blightbark Preacher", 3, 2, 5, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(919, "Skyfolk Missionary", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(927, "Ripjaw Slaver", 6, 1, 6, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(928, "Dreadbulge Worker", 4, 1, 6, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.tough));
-        cardList.Add(new LibraryCard(936, "Pitkin Adept", 5, 2, 3, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.stealthy));   // *****
-        cardList.Add(new LibraryCard(944, "Hexfin Doomsayer", 4, 2, 4, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.veiled)); // *****
+        cardList.Add(new LibraryCard(936, "Pitkin Adept", 5, 2, 3, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.stealthy));
+        cardList.Add(new LibraryCard(944, "Hexfin Doomsayer", 4, 2, 4, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.veiled));
         cardList.Add(new LibraryCard(952, "Ripjaw Colossus", 7, 1, 16, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.ripC));
         cardList.Add(new LibraryCard(959, "Ripjaw Chosen", 9, 1, 14, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(966, "Ragelord Zarkhul", 8, 3, 19, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
@@ -32,7 +32,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(904, "Dreadbulge Marauder", 2, 1, 6, 2, 0, LibraryCard.Cult.lust, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(912, "Pitkin Preacher", 3, 2, 3, 1, 0, LibraryCard.Cult.lust, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(920, "Hexfin Persuader", 3, 1, 7, 3, 0, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
-        cardList.Add(new LibraryCard(921, "Graveborn Overseer", 3, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.undead));
+        cardList.Add(new LibraryCard(921, "Graveborn Overseer", 3, 1, 5, 2, 0, LibraryCard.Cult.lust, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(929, "Blightbark Worker", 2, 1, 6, 2, 0, LibraryCard.Cult.lust, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(937, "Skyfolk Adept", 2, 2, 4, 1, 0, LibraryCard.Cult.lust, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(945, "Ripjaw Doomsayer", 3, 2, 3, 1, 0, LibraryCard.Cult.lust, LibraryCard.Race.brutal));
