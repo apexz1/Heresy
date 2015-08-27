@@ -630,7 +630,7 @@ public class FieldController : MonoBehaviour
 
         //up to 20 for all hard code checks, maybe seperate
 
-        if (currentFx.libId == 901 && cardSelected == currentFx.libId) { Debug.LogWarning("Cant target self"); return; }
+        //if (currentFx.libId == 901 && cardSelected == currentFx.libId) { Debug.LogWarning("Cant target self"); return; }
 
         //DOESNT WORK; WORK IN PROGRESS
         /*

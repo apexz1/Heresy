@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     [RPC]
     public void StartGame( int playerId, bool network )
     {
-        AudioManager.ChangeMainMusic();
+        //AudioManager.ChangeMainMusic();
         string deckLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy";
         InputField inputField = GameObject.Find("GameUI").transform.FindChild("PreGame").FindChild("DeckChoice").gameObject.GetComponent<InputField>();
         deckChoice = inputField.text;
@@ -455,7 +455,15 @@ public class GameManager : MonoBehaviour
 
         player.spawns -= 1;
         player.sac = 0;
-        SortHand(playerIndex);
+
+        for (int i = 0; i < playCards.Count; i++ )
+        {
+            if (playCards[i].saced == true)
+            {
+                DiscardCard(playCards[i].owner, playCards[i].globalIdx);
+            }
+        }
+            SortHand(playerIndex);
 
         if (card.GetLibCard().costs > 0)
         {
@@ -635,7 +643,7 @@ public class GameManager : MonoBehaviour
             if (libFx.conditionType == LibraryFX.ConditionType.ctrlOwn)
             {
                 //Debug.Log("value check storage: " + (CountCards(playerIndex, PlayCard.Pile.field) + 1) + " / " + libFx.conditionCount + " * " + currentFx.actionCount);
-                Debug.Log("value storage check: " + (CountCards(playerIndex, PlayCard.Pile.field) +1) + " / " + libFx.conditionCount);
+                Debug.Log("value storage check: " + (CountCards(playerIndex, PlayCard.Pile.field) + 1) + " / " + libFx.conditionCount);
                 int storage = ((CountCards(playerIndex, PlayCard.Pile.field) + 1) / libFx.conditionCount);
                 Debug.Log("storage: " + storage);
 
@@ -724,6 +732,9 @@ public class GameManager : MonoBehaviour
             if (currentFx.selectorCount > 1) { currentFx.selectorCount = 1; }
             //Debug.Log("sdgdssh " + currentFx.selectorCount);
         }
+
+        //Target checks
+
         //Selector 
         Debug.Log("ACTIONCOUNT DEBUG: " + currentFx.actionCount);
         if (currentFx.actionCount != 0)
@@ -1053,14 +1064,6 @@ public class GameManager : MonoBehaviour
         }
          * /**/
 
-        if (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) <= 0 && currentFx.GetLibFx().selectorOwn == false)
-        {
-            if (notif)
-                SendNotification(playerIndex, "No eligable target");
-            //currentFx = new PlayFX();
-            return false;
-        }
-
         if (CountCards(playerIndex, PlayCard.Pile.field) <= 0 && currentFx.GetLibFx().selectorOwn == true)
         {
             if (notif)
@@ -1069,6 +1072,39 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
+        if (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) <= 0 && currentFx.GetLibFx().selectorOwn == false)
+        {
+            if (notif)
+                SendNotification(playerIndex, "No eligable target");
+            //currentFx = new PlayFX();
+            Debug.Log("enemy no board, can't target card");
+            return false;
+        }
+
+        if (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) > 0 && currentFx.GetLibFx().selectorOwn == false)
+        {
+            for (int i = 0; i < playCards.Count; i++)
+            {
+                if (playCards[i].pile == PlayCard.Pile.field && playCards[i].owner == ((playerIndex + 1) % 2))
+                {
+                    if (playCards[i].GetLibCard().race != LibraryCard.Race.veiled)
+                    {
+                        if (playCards[i].GetLibCard().race != LibraryCard.Race.hexC)
+                        {
+                            if (playCards[i].GetLibCard().race != LibraryCard.Race.pitC)
+                            {
+                                target = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (target == false)
+            {
+                Debug.LogWarning("enemy has veiled units only");
+            }
+        }
 
         if (card.pile != libFx.selectorPile)
         {
@@ -1078,11 +1114,17 @@ public class GameManager : MonoBehaviour
         }
 
         //VEILED RACE ABILITY
-        if (((card.GetLibCard().race == LibraryCard.Race.veiled || card.GetLibCard().race == LibraryCard.Race.hexC || card.GetLibCard().race == LibraryCard.Race.pitC) && card.pile == PlayCard.Pile.field && card.owner == players[(playerIndex + 1) % 2].playerId) && card.libId != 901)
+        if (card.pile == PlayCard.Pile.field)
         {
-            if (notif)
-                SendNotification(playerIndex, "target veiled");
-            return false;
+            if (card.GetLibCard().race == LibraryCard.Race.veiled || card.GetLibCard().race == LibraryCard.Race.hexC || card.GetLibCard().race == LibraryCard.Race.pitC)
+            {
+                if (card.owner == ((playerIndex + 1) % 2))
+                {
+                    if (notif)
+                        SendNotification(playerIndex, "target veiled");
+                    return false;
+                }
+            }
         }
 
         if (currentFx.libId == 961 && card.GetLibCard().costs > 0)
@@ -1092,17 +1134,13 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
+        /*
         for (int i = 0; i < playCards.Count; i++)
         {
             if (playCards[i].pile == PlayCard.Pile.field && (playCards[i].GetLibCard().race != LibraryCard.Race.veiled || card.GetLibCard().race != LibraryCard.Race.hexC || card.GetLibCard().race != LibraryCard.Race.pitC || playCards[i].libId == 901))
             {
                 target = true;
             }
-        }
-
-        if (!target)
-        {
-            return false;
         }
 
         /*
@@ -1118,6 +1156,10 @@ public class GameManager : MonoBehaviour
             }
         }
         /**/
+        if (!target)
+        {
+            return false;
+        }
 
         return true;
     }
