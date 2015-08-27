@@ -783,11 +783,11 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.damageSelf, -3);
         //Gilgamosh
         GetCard(368).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, false)
+            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.damageCard, 2);
         //Keenu
         GetCard(369).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, false)
+            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.buffAttack, -3);
         //Mikoin
         GetCard(370).AddFX()
