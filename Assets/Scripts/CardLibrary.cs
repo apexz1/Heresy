@@ -132,8 +132,9 @@ public class CardLibrary
         cardList.Add(new LibraryCard(370, "mikoin_startfx", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
 
 
+		cardList.Add(new LibraryCard(998, "Dummy", 1, 1, 1, 1, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
+        cardList.Add(new LibraryCard(999, "Dummy", 5, 1 , 10, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.stealthy));
 
-        cardList.Add(new LibraryCard(999, "Dummy", 5, 1, 10, 1, 0, LibraryCard.Cult.none, LibraryCard.Race.stealthy));
 
         //setSelector(pile, selectorType, true=ownCard, true=effectOwner)
 

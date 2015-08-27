@@ -1382,13 +1382,15 @@ public class GameManager : MonoBehaviour
         if ((oppLibCard.atkRange >= ownLibCard.atkRange) || (distance == 1))
         {
             //STEALTHY RACE ABILITY; NOT TESTED YET
-            /*if (ownCard.GetLibCard().race == LibraryCard.Race.stealthy && !(oppCard.GetLibCard().race == LibraryCard.Race.stealthy))
+            if (ownCard.GetLibCard().race == LibraryCard.Race.stealthy && !(oppCard.GetLibCard().race == LibraryCard.Race.stealthy))
             {
                 if (oppCard.health <= 0)
                 {
                     Debug.Log("Stealthy activated, no retaliate");
-                }*/
-            //else
+					ownCard.health += damage;
+                }
+			}
+			/**/
             {
                 if (ownCard.libId != 974)
                 {
