@@ -351,6 +351,14 @@ public class GameManager : MonoBehaviour
         playCards[cardIndex].pile = PlayCard.Pile.discard;
         playCards[cardIndex].pos = -1;
 
+
+		/*if (playCards[cardIndex].GetLibCard().cardID == 948) 
+		{
+			Transform gfx = FieldController.GetFieldController().GetGFX(playCards[cardIndex].globalIdx);
+			PlayCardController controller = gfx.GetComponent<PlayCardController>();
+
+		}
+		/**/
         if (playCards[cardIndex].GetLibCard().cardID == 971)
         {
             Neverfall_God_of_Pride = 0;
@@ -474,7 +482,7 @@ public class GameManager : MonoBehaviour
         card.pile = PlayCard.Pile.field;
         card.pos = slotIndex;
         FieldController.GetFieldController().SelectCard(card.globalIdx);
-
+		
         if (card.GetLibCard().costs > 0)
         {
             card.actions = 0;
@@ -514,8 +522,6 @@ public class GameManager : MonoBehaviour
 
         //effectCounter = 0;
         //StartCardFxCon(playerIndex, cardIndex);
-
-
 		//Blightbark Dashdrainer Sac Condition
 		if (card.libId == 948)
 		{
@@ -536,13 +542,19 @@ public class GameManager : MonoBehaviour
 					}
 				}
 			}
-
+			
 			if (sac == true)
 			{
 				DiscardCard(playerIndex, card.globalIdx);
+				SendNotification(playerIndex, "No other eligable target found; Blightbark Dashdrainer destroyed");
+				/*
+				card.tap = 0;
+				card.actions = 1;
+
+				SacCard (playerIndex, card.globalIdx);
+				/**/
 			}
 		}
-
         StartCardFx(playerIndex, card.libId);
         #region Chosen Entry FX
         //Skyfolk Chosen

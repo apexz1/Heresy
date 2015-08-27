@@ -29,7 +29,7 @@ public class FieldController : MonoBehaviour
     {
         return GameObject.Find("PlayField").GetComponent<FieldController>();
     }
-    Transform GetGfx( int globalIndex )
+    public Transform GetGfx( int globalIndex )
     {
         Transform res = null;
         cardGfxs.TryGetValue(globalIndex, out res);
@@ -102,17 +102,17 @@ public class FieldController : MonoBehaviour
 
                 if (controller.pile != PlayCard.Pile.discard)
                 {
-                    //Debug.Log("Card detroyed?");
+					Debug.Log (controller.pile);
+					if (controller.pile == PlayCard.Pile.field)
+					{
+						Debug.Log(card.pos.ToString());
+						GameObject.Find(controller.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
+					}
+					//Debug.Log("Card detroyed?");
                     Destroy(gfx.gameObject);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardR").gameObject.SetActive(false);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardL").gameObject.SetActive(false);
                     controller.pile = PlayCard.Pile.discard;
-
-					//could go nullreference, if yes delete "|| controller.pile == PlayCard.Pile.hand"
-					if (controller.pile == PlayCard.Pile.field || controller.pile == PlayCard.Pile.hand)
-                    {
-                        GameObject.Find(card.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
-                    }
 
                     cardGfxs.Remove(card.globalIdx);
                 }
