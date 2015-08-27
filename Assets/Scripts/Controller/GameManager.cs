@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
             {
                 players[i].playerHealth = 20;
                 players[i].sac = 0;
-                players[i].kills = 2;
+                players[i].kills = 0;
                 players[i].monument = true;
             }
 
@@ -155,8 +155,8 @@ public class GameManager : MonoBehaviour
 
         if (network == false)
         {
-            players[0].spawns = 1;
-            players[1].spawns = 2;
+            players[0].spawns = 10;
+            players[1].spawns = 10;
         }
 
         running = true;
