@@ -1270,68 +1270,70 @@ public class GameManager : MonoBehaviour
         if ((oppLibCard.atkRange >= ownLibCard.atkRange) || (distance == 1))
         {
             //STEALTHY RACE ABILITY; NOT TESTED YET
-            /*if (ownCard.GetLibCard().race == LibraryCard.Race.stealthy && !(oppCard.GetLibCard().race == LibraryCard.Race.stealthy))
+            if (ownCard.GetLibCard().race == LibraryCard.Race.stealthy && !(oppCard.GetLibCard().race == LibraryCard.Race.stealthy))
             {
                 if (oppCard.health <= 0)
                 {
                     Debug.Log("Stealthy activated, no retaliate");
-                }*/
-            //else
-            {
-                if (ownCard.libId != 974)
-                {
-                    ownCard.health -= damage;
                 }
-                else if (ownCard.libId == 974)
+                /**/
+                else
                 {
-                    DamagePlayer(players[ownCard.owner].playerId, damage);
+                    if (ownCard.libId != 974)
+                    {
+                        ownCard.health -= damage;
+                    }
+                    else if (ownCard.libId == 974)
+                    {
+                        DamagePlayer(players[ownCard.owner].playerId, damage);
+                    }
                 }
+                //}
             }
-            //}
+
+            if (ownCard.actions <= 0) { ownCard.tap++; }
+
+            if (oppCard.health <= 0)
+            {
+                if (ownCard.GetLibCard().race == LibraryCard.Race.brutal || ownCard.GetLibCard().race == LibraryCard.Race.ripC || ownCard.GetLibCard().race == LibraryCard.Race.graC)
+                {
+                    StartCardFx(playerIndex, 100, 0, oppCard.pos);
+                    brutalOD = ownCard.attack - oppCard.health;
+                }
+
+                if (oppCard.GetLibCard().race == LibraryCard.Race.undead || oppCard.GetLibCard().race == LibraryCard.Race.hexC || oppCard.GetLibCard().race == LibraryCard.Race.graC)
+                {
+                    ResetStats(oppCard.globalIdx);
+                    oppCard.pile = PlayCard.Pile.hand;
+                    oppCard.pos = 0;
+                    SortHand(opponent.playerId);
+                }
+                else
+                {
+                    DiscardCard(opponent.playerId, oppCard.globalIdx);
+                }
+
+                player.kills++;
+            }
+
+            if (ownCard.health <= 0)
+            {
+                if (ownCard.GetLibCard().race == LibraryCard.Race.undead || ownCard.GetLibCard().race == LibraryCard.Race.hexC || ownCard.GetLibCard().race == LibraryCard.Race.graC)
+                {
+                    ResetStats(ownCard.globalIdx);
+                    ownCard.pile = PlayCard.Pile.hand;
+                    ownCard.pos = 0;
+                    SortHand(playerIndex);
+                }
+                else
+                {
+                    DiscardCard(player.playerId, ownCard.globalIdx);
+                }
+                //player.kills++;
+            }
+
+            SendGameManager();
         }
-
-        if (ownCard.actions <= 0) { ownCard.tap++; }
-
-        if (oppCard.health <= 0)
-        {
-            if (ownCard.GetLibCard().race == LibraryCard.Race.brutal || ownCard.GetLibCard().race == LibraryCard.Race.ripC || ownCard.GetLibCard().race == LibraryCard.Race.graC)
-            {
-                StartCardFx(playerIndex, 100, 0, oppCard.pos);
-                brutalOD = ownCard.attack - oppCard.health;
-            }
-
-            if (oppCard.GetLibCard().race == LibraryCard.Race.undead || oppCard.GetLibCard().race == LibraryCard.Race.hexC || oppCard.GetLibCard().race == LibraryCard.Race.graC)
-            {
-                ResetStats(oppCard.globalIdx);
-                oppCard.pile = PlayCard.Pile.hand;
-                oppCard.pos = 0;
-                SortHand(opponent.playerId);
-            }
-            else
-            {
-                DiscardCard(opponent.playerId, oppCard.globalIdx);
-            }
-
-            player.kills++;
-        }
-
-        if (ownCard.health <= 0)
-        {
-            if (ownCard.GetLibCard().race == LibraryCard.Race.undead || ownCard.GetLibCard().race == LibraryCard.Race.hexC || ownCard.GetLibCard().race == LibraryCard.Race.graC)
-            {
-                ResetStats(ownCard.globalIdx);
-                ownCard.pile = PlayCard.Pile.hand;
-                ownCard.pos = 0;
-                SortHand(playerIndex);
-            }
-            else
-            {
-                DiscardCard(player.playerId, ownCard.globalIdx);
-            }
-            //player.kills++;
-        }
-
-        SendGameManager();
     }
 
     public bool SelectorProtective( int playerIndex, int oppCardIndex, int ownCardIndex = 0 )
@@ -1344,8 +1346,8 @@ public class GameManager : MonoBehaviour
         var oppCard = playCards[oppCardIndex];
         var oppLibCard = CardLibrary.Get().GetCard(oppCard.libId);
 
-        if (ownCardIndex != 0)
-        {
+//        if (ownCardIndex != 0)
+  //      {
             for (int i = 0; i < playCards.Count; i++)
             {
                 if (playCards[i].pile == PlayCard.Pile.field && playCards[i].owner == opponent.playerId)
@@ -1363,8 +1365,9 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-        }
+ //       }
 
+        /*
         if (ownCardIndex == 0)
         {
             for (int i = 0; i < playCards.Count; i++)
@@ -1382,6 +1385,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+        /**/
 
         return true;
     }
