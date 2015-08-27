@@ -139,7 +139,7 @@ public class CardLibrary
 
 
 
-        cardList.Add(new LibraryCard(999, "Dummy", 5, 1, 10, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.none));
+        cardList.Add(new LibraryCard(999, "Dummy", 5, 1, 10, 1, 0, LibraryCard.Cult.none, LibraryCard.Race.veiled));
 
         //setSelector(pile, selectorType, true=ownCard, true=effectOwner)
 

@@ -1069,6 +1069,32 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
+        //BUGGED
+        if (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) > 0 && currentFx.GetLibFx().selectorOwn == false)
+        {
+            for (int i = 0; i < playCards.Count; i++)
+            {
+                if (playCards[i].pile == PlayCard.Pile.field && playCards[i].owner == ((playerIndex + 1) % 2))
+                {
+                    if (playCards[i].GetLibCard().race != LibraryCard.Race.veiled)
+                    {
+                        if (playCards[i].GetLibCard().race != LibraryCard.Race.hexC)
+                        {
+                            if (playCards[i].GetLibCard().race != LibraryCard.Race.pitC)
+                            {
+                                target = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (target == false)
+            {
+                Debug.LogWarning("enemy has veiled units only");
+            }
+        }
+
 
         if (card.pile != libFx.selectorPile)
         {
@@ -1078,7 +1104,7 @@ public class GameManager : MonoBehaviour
         }
 
         //VEILED RACE ABILITY
-        if (((card.GetLibCard().race == LibraryCard.Race.veiled || card.GetLibCard().race == LibraryCard.Race.hexC || card.GetLibCard().race == LibraryCard.Race.pitC) && card.pile == PlayCard.Pile.field && card.owner == players[(playerIndex + 1) % 2].playerId) && card.libId != 901)
+        if (((card.GetLibCard().race == LibraryCard.Race.veiled || card.GetLibCard().race == LibraryCard.Race.hexC || card.GetLibCard().race == LibraryCard.Race.pitC) && card.pile == PlayCard.Pile.field && card.owner == players[(playerIndex + 1) % 2].playerId))
         {
             if (notif)
                 SendNotification(playerIndex, "target veiled");
@@ -1092,6 +1118,7 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
+        //COMMENT TO BUG SELECTOR
         for (int i = 0; i < playCards.Count; i++)
         {
             if (playCards[i].pile == PlayCard.Pile.field && (playCards[i].GetLibCard().race != LibraryCard.Race.veiled || card.GetLibCard().race != LibraryCard.Race.hexC || card.GetLibCard().race != LibraryCard.Race.pitC || playCards[i].libId == 901))
@@ -1099,6 +1126,7 @@ public class GameManager : MonoBehaviour
                 target = true;
             }
         }
+        /**/
 
         if (!target)
         {
