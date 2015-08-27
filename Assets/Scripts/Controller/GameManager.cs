@@ -1067,11 +1067,6 @@ public class GameManager : MonoBehaviour
     public void StartMonumentFx( int playerIndex )
     {
         this.NetRPC("MonumentFx", RPCMode.Server, playerIndex);
-        players[playerIndex].monument = false;
-
-        //SendNotification(localPlayerId, "Monument's power drained");
-
-        SendGameManager();
     }
 
     [RPC]
@@ -1084,7 +1079,11 @@ public class GameManager : MonoBehaviour
         if (players[playerIndex].cult == "gluttony") { StartCardFx(playerIndex, 707); StartCardFx(playerIndex, 704); }
         if (players[playerIndex].cult == "lust") { StartCardFx(playerIndex, 707); StartCardFx(playerIndex, 705); }
         if (players[playerIndex].cult == "sloth") { StartCardFx(playerIndex, 707); StartCardFx(playerIndex, 706); }
-    }
+
+		players[playerIndex].monument = false;
+		//SendNotification(localPlayerId, "Monument's power drained");
+		SendGameManager();
+	}
 
     public int CountCultMember()
     {
@@ -1184,30 +1183,25 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
-        if (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) > 0 && currentFx.GetLibFx().selectorOwn == false)
-        {
-            for (int i = 0; i < playCards.Count; i++)
-            {
-                if (playCards[i].pile == PlayCard.Pile.field && playCards[i].owner == ((playerIndex + 1) % 2))
-                {
-                    if (playCards[i].GetLibCard().race != LibraryCard.Race.veiled)
-                    {
-                        if (playCards[i].GetLibCard().race != LibraryCard.Race.hexC)
-                        {
-                            if (playCards[i].GetLibCard().race != LibraryCard.Race.pitC)
-                            {
-                                target = true;
-                            }
-                        }
-                    }
-                }
-            }
+        if (CountCards ((playerIndex + 1) % 2, PlayCard.Pile.field) > 0 && currentFx.GetLibFx ().selectorOwn == false) {
+			for (int i = 0; i < playCards.Count; i++) {
+				if (playCards [i].pile == PlayCard.Pile.field && playCards [i].owner == ((playerIndex + 1) % 2)) {
+					if (playCards [i].GetLibCard ().race != LibraryCard.Race.veiled) {
+						if (playCards [i].GetLibCard ().race != LibraryCard.Race.hexC) {
+							if (playCards [i].GetLibCard ().race != LibraryCard.Race.pitC) {
+								target = true;
+							}
+						}
+					}
+				}
+			}
 
-            if (target == false)
-            {
-                Debug.LogWarning("enemy has veiled units only");
-            }
-        }
+			if (target == false) {
+				Debug.LogWarning ("enemy has veiled units only");
+			}
+		} else {
+			target=true;
+		}
 
         if (card.pile != libFx.selectorPile && (currentFx.libId >= 701 && currentFx.libId <= 706))
         {
