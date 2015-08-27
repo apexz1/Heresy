@@ -674,7 +674,7 @@ public class FieldController : MonoBehaviour
         int playerId = GameManager.Get().localPlayerId;
 
         //Cheat Stuff
-        /*
+        
         if (GUI.Button(new Rect(0, 0, 60, 25), "Swap:" + playerId))
         {
             GameManager.Get().localPlayerId = GameManager.Get().localPlayerId == 0 ? 1 : 0;
