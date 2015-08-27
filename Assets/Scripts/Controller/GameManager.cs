@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
     public int brutalOD = 0;
     public bool setUp = false;
     //public bool monument = true;
+    bool monumentfx = false;
+
+    public List<int> legendary = new List<int>();
 
     public static int Neverfall_God_of_Pride = 0;
 
@@ -62,7 +65,15 @@ public class GameManager : MonoBehaviour
         gameOver = -1;
         setUp = true;
 
-        networkView = GetComponent<NetworkView>();
+        #region single copy cards
+        for (int i = 957; i < 978; i++)
+        {
+            legendary.Add(i);
+            Debug.Log(i);
+        }
+        #endregion
+
+            networkView = GetComponent<NetworkView>();
         Debug.Log(Application.dataPath);
         LoadTextures.LoadFromFile(0);
         LoadTextures.LoadFromFile(1);
@@ -76,11 +87,11 @@ public class GameManager : MonoBehaviour
     {
         if (running)
         {
-            if (players[0].playerHealth == 0)
+            if (players[0].playerHealth <= 0)
             {
                 gameOver = 0;
             }
-            if (players[1].playerHealth == 0)
+            if (players[1].playerHealth <= 0)
             {
                 gameOver = 1;
             }
@@ -444,7 +455,16 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        card.pile = PlayCard.Pile.field;
+        for (int i = 0; i < legendary.Count; i++)
+        {
+            if (legendary[i] == cardIndex)
+            {
+                SendNotification(playerIndex, "Can't control multiple copies of legendary cards");
+                return;
+            }
+        }
+
+            card.pile = PlayCard.Pile.field;
         card.pos = slotIndex;
         FieldController.GetFieldController().SelectCard(card.globalIdx);
 
@@ -456,14 +476,14 @@ public class GameManager : MonoBehaviour
         player.spawns -= 1;
         player.sac = 0;
 
-        for (int i = 0; i < playCards.Count; i++ )
+        for (int i = 0; i < playCards.Count; i++)
         {
             if (playCards[i].saced == true)
             {
                 DiscardCard(playCards[i].owner, playCards[i].globalIdx);
             }
         }
-            SortHand(playerIndex);
+        SortHand(playerIndex);
 
         if (card.GetLibCard().costs > 0)
         {
@@ -645,7 +665,7 @@ public class GameManager : MonoBehaviour
 
         //if (libCard == null) { return; }
 
-        Debug.Log("StartCardFX()" + libCard.fxList.Count + " " + fxIndex);
+        Debug.Log("StartCardFX()" + libCard.fxList.Count + " " + fxIndex + " " + libCardIndex);
         if (libCard.fxList.Count <= 0) { return; }
 
         Debug.Log("Start effectCounter " + effectCounter);
@@ -653,6 +673,7 @@ public class GameManager : MonoBehaviour
         //currentFx.cardId = libCardIndex;
         currentFx.fxIdx = effectCounter;
         currentFx.libId = libCardIndex;
+        Debug.Log("currentfx = 0?" + currentFx.libId);
         currentFx.fxIdx = fxIndex;
         currentFx.playerIdx = playerIndex;
         if (card != null)
@@ -793,10 +814,9 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        bool monumentfx = false;
-
         if (currentFx.libId >= 701 && currentFx.libId <= 706)
         {
+            //Debug.LogError("monument bool not set correctly");
             monumentfx = true;
         }
 
@@ -839,11 +859,12 @@ public class GameManager : MonoBehaviour
                 DiscardCard(card.owner, cardIndex);
             }
 
-            if (monumentfx == true)
+            /*if (Neverfall_God_of_Pride > 0)
             {
                 monumentfx = false;
                 StartCardFx(currentFx.playerIdx, 500);
             }
+            /**/
         }
 
         if (libFx.actionType == LibraryFX.ActionType.tap)
@@ -1003,6 +1024,15 @@ public class GameManager : MonoBehaviour
             DamagePlayer((currentFx.playerIdx + 1) % 2, currentFx.actionCount);
         }
 
+        /*
+        Debug.Log(currentFx);
+        Debug.Log(currentFx.fxIdx);
+        Debug.Log(currentFx.libId);
+        Debug.Log((CardLibrary.Get()));
+        Debug.Log(CardLibrary.Get().GetCard(currentFx.libId));
+        Debug.Log(CardLibrary.Get().GetCard(currentFx.libId).fxList.Count);
+        Debug.Log(CardLibrary.Get().GetCard(currentFx.libId).fxList.Count);
+        /**/
         Debug.Log("nextfx bugged: " + currentFx.fxIdx + " " + CardLibrary.Get().GetCard(currentFx.libId).fxList.Count);
         if (currentFx.NextFx())
         {
@@ -1024,7 +1054,7 @@ public class GameManager : MonoBehaviour
         this.NetRPC("MonumentFx", RPCMode.Server, playerIndex);
         players[playerIndex].monument = false;
 
-        SendNotification(localPlayerId, "Monument's power drained");
+        //SendNotification(localPlayerId, "Monument's power drained");
 
         SendGameManager();
     }
@@ -1082,6 +1112,14 @@ public class GameManager : MonoBehaviour
         var libFx = currentFx.GetLibFx();
         bool target = false;
 
+        Debug.Log("CheckSelector id check: " + currentFx.libId);
+
+        /*if (currentFx.libId >= 701)
+        {
+            card.pile = libFx.selectorPile;
+            Debug.Log(libFx.selectorPile + " " + card.pile);
+        }*/
+
         if (libFx == null)
             return false;
 
@@ -1096,7 +1134,7 @@ public class GameManager : MonoBehaviour
         }
          * /**/
 
-        if (CountCards(playerIndex, PlayCard.Pile.field) <= 0 && currentFx.GetLibFx().selectorOwn == true)
+        if (CountCards(playerIndex, PlayCard.Pile.field) <= 0 && (currentFx.GetLibFx().selectorOwn == true && currentFx.GetLibFx().selectorPile == PlayCard.Pile.field))
         {
             if (notif)
                 SendNotification(playerIndex, "No eligable target");
@@ -1104,7 +1142,25 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
-        if (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) <= 0 && currentFx.GetLibFx().selectorOwn == false)
+        if (CountCards(playerIndex, PlayCard.Pile.hand) <= 0 && (currentFx.GetLibFx().selectorOwn == true && currentFx.GetLibFx().selectorPile == PlayCard.Pile.hand))
+        {
+            if (notif)
+                SendNotification(playerIndex, "No eligable target");
+            //currentFx = new PlayFX();
+            return false;
+
+        }
+
+        if (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) <= 0 && currentFx.GetLibFx().selectorOwn == false && currentFx.GetLibFx().selectorPile == PlayCard.Pile.field)
+        {
+            if (notif)
+                SendNotification(playerIndex, "No eligable target");
+            //currentFx = new PlayFX();
+            Debug.Log("enemy no board, can't target card");
+            return false;
+        }
+
+        if (CountCards((playerIndex + 1) % 2, PlayCard.Pile.hand) <= 0 && currentFx.GetLibFx().selectorOwn == false && currentFx.GetLibFx().selectorPile == PlayCard.Pile.hand)
         {
             if (notif)
                 SendNotification(playerIndex, "No eligable target");
@@ -1138,10 +1194,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (card.pile != libFx.selectorPile)
+        if (card.pile != libFx.selectorPile && (currentFx.libId >= 701 && currentFx.libId <= 706))
         {
             if (notif)
                 SendNotification(playerIndex, ".pile wrong");
+            Debug.Log("no idea what the fuck is wrong yo: " + card.pile + " " + libFx.selectorPile);
             return false;
         }
 
