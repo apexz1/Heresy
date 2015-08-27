@@ -477,7 +477,8 @@ public class GameManager : MonoBehaviour
 
         if (card.GetLibCard().costs > 0)
         {
-            card.tap++;
+            card.actions = 0;
+			card.tap++;
         }
 
         player.spawns -= 1;
@@ -514,6 +515,33 @@ public class GameManager : MonoBehaviour
         //effectCounter = 0;
         //StartCardFxCon(playerIndex, cardIndex);
 
+
+		//Blightbark Dashdrainer Sac Condition
+		if (card.libId == 948)
+		{
+			bool sac = true;
+			/*
+			if (CountCards (card.owner, PlayCard.Pile.field) <= 1)
+			{
+				sac = true;
+			}
+			/**/
+			for (int i = 0; i < playCards.Count; i++)
+			{
+				if (playCards[i].pile == PlayCard.Pile.field && playCards[i].owner == card.owner)
+				{
+					if (playCards[i].tap <= 0)
+					{
+						sac = false;
+					}
+				}
+			}
+
+			if (sac == true)
+			{
+				DiscardCard(playerIndex, card.globalIdx);
+			}
+		}
 
         StartCardFx(playerIndex, card.libId);
         #region Chosen Entry FX
@@ -804,8 +832,8 @@ public class GameManager : MonoBehaviour
         //Target checks
 
         //Selector 
-        Debug.Log("ACTIONCOUNT DEBUG: " + currentFx.actionCount);
-        if (currentFx.actionCount != 0)
+		Debug.Log("ACTIONCOUNT DEBUG: " + currentFx.actionCount + " " + currentFx.GetLibFx().actionType);
+		if (currentFx.actionCount != 0 || (currentFx.GetLibFx().actionType == LibraryFX.ActionType.tap || currentFx.GetLibFx().actionType == LibraryFX.ActionType.ready))
         {
             if (libFx.selectorPile == PlayCard.Pile.none || currentFx.selectorCount <= 0) { currentFx.selectorDone = true; }
 
@@ -813,11 +841,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("currentFx" + currentFx.GetLibFx().description);
             ExeCardFx();
         }
-        else if (currentFx.actionCount == 0)
-        {
-            effectInProgess = false;
-            currentFx = new PlayFX();
-        }
+		else if (currentFx.GetLibFx().actionType != LibraryFX.ActionType.tap || currentFx.GetLibFx().actionType != LibraryFX.ActionType.ready)
+		{
+			if (currentFx.actionCount == 0)
+        	{
+            	effectInProgess = false;
+            	currentFx = new PlayFX();
+        	}			
+		}
 
     }
     public void ExeCardFx()

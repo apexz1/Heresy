@@ -108,7 +108,8 @@ public class FieldController : MonoBehaviour
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardL").gameObject.SetActive(false);
                     controller.pile = PlayCard.Pile.discard;
 
-                    if (controller.pile == PlayCard.Pile.field)
+					//could go nullreference, if yes delete "|| controller.pile == PlayCard.Pile.hand"
+					if (controller.pile == PlayCard.Pile.field || controller.pile == PlayCard.Pile.hand)
                     {
                         GameObject.Find(card.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
                     }
