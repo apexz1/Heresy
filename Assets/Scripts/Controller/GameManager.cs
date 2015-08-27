@@ -553,6 +553,38 @@ public class GameManager : MonoBehaviour
             players[card.owner].spawns++;
         }
         #endregion
+        #region Leader Entry FX
+        //964-70
+        //Belle-Dhin
+        if (card.libId == 964)
+        {
+            StartCardFx(playerIndex, 300);
+        }
+        if (card.libId == 965)
+        {
+            StartCardFx(playerIndex, 301);
+        }
+        if (card.libId == 966)
+        {
+            StartCardFx(playerIndex, 302);
+        }
+        if (card.libId == 967)
+        {
+            StartCardFx(playerIndex, 303);
+        }
+        if (card.libId == 968)
+        {
+            StartCardFx(playerIndex, 304);
+        }
+        if (card.libId == 969)
+        {
+            StartCardFx(playerIndex, 305);
+        }
+        if (card.libId == 970)
+        {
+            StartCardFx(playerIndex, 306);
+        }
+        #endregion
         #region God Entry FX
         //Neverfall, God of Pride
         if (card.libId == 971)
@@ -1663,7 +1695,7 @@ public class GameManager : MonoBehaviour
     public void EndTurn( int playerIndex )
     {
         if (effectInProgess) { return; }
-        if (players[playerIndex].sac > 0) { SendNotification(playerIndex, "Sacrificial rite in progess, can't end turn"); return; }
+        if (players[playerIndex].sac > 0 && (players[playerIndex].spawns > 0 && CountCards(playerIndex, PlayCard.Pile.hand) > 0)) { SendNotification(playerIndex, "Sacrificial rite in progess, can't end turn"); return; }
 
         var controller = FieldController.GetFieldController();
 
