@@ -52,6 +52,7 @@ public class LibraryFX
 
     public ActionType actionType;
     public int actionCount;
+    public bool actionSelf;
 
 
     public string description;
@@ -75,10 +76,10 @@ public class LibraryFX
         conditionCount = count;
         return this;
     }
-    public LibraryFX setAction( ActionType type, int count = 0 ) {
+    public LibraryFX setAction( ActionType type, int count = 0, bool self = true ) {
         actionType = type;
         actionCount = count;
-
+        actionSelf = self;
         return this;
     }
 }
