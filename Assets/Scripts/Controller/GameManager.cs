@@ -457,14 +457,21 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < legendary.Count; i++)
         {
-            if (legendary[i] == cardIndex)
+            Debug.Log(cardIndex +" " + legendary[i]);
+            if (legendary[i] == card.libId)
             {
-                SendNotification(playerIndex, "Can't control multiple copies of legendary cards");
-                return;
+                for (int j = 0; j < playCards.Count; j++)
+                {
+                    if (playCards[j].pile == PlayCard.Pile.field && playCards[j].libId == card.libId)
+                    {
+                        SendNotification(playerIndex, "Can't control multiple copies of legendary cards");
+                        return;
+                    }
+                }                    
             }
         }
 
-            card.pile = PlayCard.Pile.field;
+        card.pile = PlayCard.Pile.field;
         card.pos = slotIndex;
         FieldController.GetFieldController().SelectCard(card.globalIdx);
 
