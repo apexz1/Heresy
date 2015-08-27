@@ -1468,7 +1468,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (CalcDistance(ownCard.pos, playCards[i].pos) <= ownCard.GetLibCard().atkRange)
                         {
-                            if (!(oppLibCard.race == LibraryCard.Race.protective))
+							if (!(oppLibCard.race == LibraryCard.Race.protective || oppLibCard.race == LibraryCard.Race.ripC))
                             {
                                 SendNotification(playerIndex, "Must attack protective units if possible");
                                 return false;
