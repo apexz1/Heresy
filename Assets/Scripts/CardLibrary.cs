@@ -10,12 +10,6 @@ public class CardLibrary
 
     void Init()
     {
-        /*
-        cardList.Add(new LibraryCard(910, "Ripjaw Chosen", 8, 3, 11, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
-        cardList.Add(new LibraryCard(911, "Blightbark Chosen", 4, 3, 13, 1, 0, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
-        cardList.Add(new LibraryCard(912, "Skyfolk Chosen", 6, 3, 5, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.winged));
-        /**/
-
         // wrath
         cardList.Add(new LibraryCard(903, "Graveborn Marauder", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(911, "Blightbark Preacher", 3, 2, 5, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.protective));
@@ -152,14 +146,14 @@ public class CardLibrary
         GetCard(900).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.ready, true, true)
             .setAction(LibraryFX.ActionType.tap)
-            .description = "Choose entity to exhaust.";
+            .description = "choose entity to exhaust.";
         GetCard(900).AddFX()
             .setAction(LibraryFX.ActionType.draw, 1);
         //Hexfin Marauder
         GetCard(901).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.damageCard, 4)
-            .description = "Choose entity to damage.";
+            .description = "choose entity to damage.";
         GetCard(901).AddFX()
             .setAction(LibraryFX.ActionType.draw, 1);
         //Ripjaw Marauder
@@ -511,34 +505,41 @@ public class CardLibrary
         GetCard(926).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 1);
+            .setAction(LibraryFX.ActionType.buffAction, 1)
+            .description = "choose entity to buff actions.";
         GetCard(926).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 9)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 1);
+            .setAction(LibraryFX.ActionType.buffAction, 1)
+            .description = "choose entity to buff actions.";
         #endregion
         //Ripjaw Slaver
         GetCard(927).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 1)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 2);
+            .setAction(LibraryFX.ActionType.buffAction, 2)
+            .description = "choose entity to buff actions.";
         #region extended FX
         GetCard(927).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 2);
+            .setAction(LibraryFX.ActionType.buffAction, 2)
+            .description = "choose entity to buff actions.";
         GetCard(927).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 3)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 2);
+            .setAction(LibraryFX.ActionType.buffAction, 2)
+            .description = "choose entity to buff actions.";
         GetCard(927).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 2);
+            .setAction(LibraryFX.ActionType.buffAction, 2)
+            .description = "choose entity to buff actions.";
         GetCard(927).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 5)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 2);
+            .setAction(LibraryFX.ActionType.buffAction, 2)
+            .description = "choose entity to buff actions.";
         #endregion
         #endregion
         //---------------------------------------WORKERS
@@ -591,14 +592,15 @@ public class CardLibrary
         //Hexfin Worker
         GetCard(932).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.ready, true, true)
-            .setAction(LibraryFX.ActionType.tap);
+            .setAction(LibraryFX.ActionType.tap)
+            .description = "choose entity to exhaust.";
         GetCard(932).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, -3);
         //Ripjaw Worker
         GetCard(933).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.damageCard, 4)
-            .description = "Choose entity to damage";
+            .description = "Choose entity to damage.";
         GetCard(933).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, -3);
         //Graveborn Battlemason
@@ -620,89 +622,107 @@ public class CardLibrary
         GetCard(935).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 3)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         #region extended FX
         GetCard(935).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         GetCard(935).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 9)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         #endregion
         //Pitkin Adept
         GetCard(936).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 1)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         #region extended FX
         GetCard(936).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         GetCard(936).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 3)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         GetCard(936).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         GetCard(936).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 5)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         #endregion
         //Skyfolk Adept
         GetCard(937).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         //Hexfin Adept
         GetCard(938).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 4);
+            .setAction(LibraryFX.ActionType.damageCard, 4)
+            .description = "choose entity to damage.";
         #region extended FX
         GetCard(938).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 4);
+            .setAction(LibraryFX.ActionType.damageCard, 4)
+            .description = "choose entity to damage.";
         GetCard(938).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 4);
+            .setAction(LibraryFX.ActionType.damageCard, 4)
+            .description = "choose entity to damage.";
         #endregion
         //Ripjaw Adept
         GetCard(939).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 3)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         #region extended FX
         GetCard(939).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         GetCard(939).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 9)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         #endregion
         //Graveborn Adept
         GetCard(940).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.ready, true, true)
-            .setAction(LibraryFX.ActionType.tap);
+            .setAction(LibraryFX.ActionType.tap)
+            .description = "choose entity to exhaust.";
         GetCard(940).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         //Dreadbulge Butcher
         GetCard(941).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.damageCard, 4)
-            .description = "Choose entity to damage";
+            .description = "Choose entity to damage.";
         GetCard(941).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 4);
+            .setAction(LibraryFX.ActionType.damageCard, 4)
+            .description = "choose entity to damage.";
         #endregion
         //---------------------------------------DOOMSAYERS
         #region Doomsayers
@@ -710,89 +730,107 @@ public class CardLibrary
         GetCard(942).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
             .setAction(LibraryFX.ActionType.damageCard, 4)
-            .description = "Choose entity to damage";
+            .description = "Choose entity to damage.";
         GetCard(942).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         //Skyfolk Doomsayer
         GetCard(943).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 3)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         #region extended FX
         GetCard(943).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         GetCard(943).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 9)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         #endregion
         //Hexfin Doomsayer
         GetCard(944).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 1)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         #region extended FX
         GetCard(944).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         GetCard(944).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 3)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         GetCard(944).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         GetCard(944).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 5)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         #endregion
         //Ripjaw Doomsayer
         GetCard(945).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         //Graveborn Doomsayer
         GetCard(946).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -6);
+            .setAction(LibraryFX.ActionType.buffAttack, -6)
+            .description = "choose entity to debuff.";
         #region extended FX
         GetCard(946).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -6);
+            .setAction(LibraryFX.ActionType.buffAttack, -6)
+            .description = "choose entity to debuff.";
         GetCard(946).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -6);
+            .setAction(LibraryFX.ActionType.buffAttack, -6)
+            .description = "choose entity to debuff.";
         #endregion
         //Dreadbulge Doomsayer
         GetCard(947).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 3)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         #region extended FX
         GetCard(947).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 6)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         GetCard(947).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 9)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         #endregion
         //Blightbark Dashdrainer
         GetCard(948).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.ready, true, true)
-            .setAction(LibraryFX.ActionType.tap);
+            .setAction(LibraryFX.ActionType.tap)
+            .description = "choose entity to exhaust.";
         GetCard(948).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -6);
+            .setAction(LibraryFX.ActionType.buffAttack, -6)
+            .description = "choose entity to debuff.";
         #endregion
         //------------------------------------------------------------------------------
         #region leader fx
@@ -904,147 +942,6 @@ public class CardLibrary
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
             .setAction(LibraryFX.ActionType.discard, 1);
 
-        //CARD EFFECT REFERENCES
-        //Card Effect Skyfolk Marauder
-        /*
-        GetCard(900).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.ready, true, true)
-            .setAction(LibraryFX.ActionType.tap)
-            .description = "Choose entity to exhaust";
-        GetCard(900).AddFX()
-            .setAction(LibraryFX.ActionType.draw, 1);
-
-        //Card Effect Hexfin Marauder
-        GetCard(901).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.damageCard, 4)
-            .description = "Choose entity to damage";
-        GetCard(901).AddFX()
-            .setAction(LibraryFX.ActionType.draw, 1);
-
-        //Card Effect Graveborn Preacher
-        GetCard(902).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.damageCard, 4)
-            .description = "Choose entity to damage";
-        GetCard(902).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAttack, 2)
-            .description = "Choose entity to buff";
-
-        //Card Effect Dreadbulge Preacher
-        GetCard(903).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlOpp, 3)
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAttack, 2)
-            .description = "Choose entity to buff";
-        GetCard(903).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlOpp, 6)
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAttack, 2)
-            .description = "Choose entity to buff";
-        GetCard(903).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlOpp, 9)
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAttack, 2)
-            .description = "Choose entity to buff";
-        GetCard(903).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlOpp, 12)
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAttack, 2)
-            .description = "Choose entity to buff";
-
-        //Card Effect Pitkin Missionary
-        GetCard(904).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlOpp, 3)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-        GetCard(904).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlOpp, 6)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-        GetCard(904).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlOpp, 9)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-        GetCard(904).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlOpp, 12)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-        GetCard(904).AddFX()
-            .setCondition(LibraryFX.ConditionType.ctrlOpp, 15)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-
-        //Card Effect Skyfolk Missionary
-        GetCard(905).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 2)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-        GetCard(905).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 4)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-        GetCard(905).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 6)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-        GetCard(905).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 8)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-        GetCard(905).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 10)
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard).description = "Discard card";
-
-        //Card Effect Ripjaw Slaver        
-
-
-        //Card Effect Dreadbulge Worker
-        GetCard(907).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 2)
-            .setAction(LibraryFX.ActionType.damageSelf, -3);
-        GetCard(907).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 4)
-            .setAction(LibraryFX.ActionType.damageSelf, -3);
-        GetCard(907).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 6)
-            .setAction(LibraryFX.ActionType.damageSelf, -3);
-        GetCard(907).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 8)
-            .setAction(LibraryFX.ActionType.damageSelf, -3);
-        GetCard(907).AddFX()
-            .setCondition(LibraryFX.ConditionType.kills, 10)
-            .setAction(LibraryFX.ActionType.damageSelf, -3);
-
-        //Card Effect Blightbark Worker
-        GetCard(908).AddFX()
-            .setAction(LibraryFX.ActionType.damageSelf, -3);
-
-        //Card Effect Skyfolk Adept
-        GetCard(909).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2)
-            .description = "Choose entity to damage.";
-        /*
-        // Ripjaw Chosen
-        GetCard(910).AddFX()
-            .setAction(LibraryFX.ActionType.damageOpp, 4);
-
-        // Blightbark Chosen
-        GetCard(911).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.ready, false, true)
-            .setAction(LibraryFX.ActionType.tap)
-            .description = "Exhaust target ready entity from opponent";
-
-        // Skyfolk Chosen
-        GetCard(912).AddFX()
-            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack)
-            .description = "Target entity your opponent controls has 0 attack this turn.";
-        //NON-CARD EFFECTS; NON-SPAWN EFFECTS
-        /**/
     }
 
     public static CardLibrary Get()
