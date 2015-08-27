@@ -155,8 +155,8 @@ public class GameManager : MonoBehaviour
 
         if (network == false)
         {
-            players[0].spawns = 3;
-            players[1].spawns = 3;
+            players[0].spawns = 1;
+            players[1].spawns = 2;
         }
 
         running = true;
