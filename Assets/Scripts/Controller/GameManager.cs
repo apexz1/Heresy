@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
         }
         #endregion
 
-            networkView = GetComponent<NetworkView>();
+        networkView = GetComponent<NetworkView>();
         Debug.Log(Application.dataPath);
         LoadTextures.LoadFromFile(0);
         LoadTextures.LoadFromFile(1);
@@ -457,7 +457,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < legendary.Count; i++)
         {
-            Debug.Log(cardIndex +" " + legendary[i]);
+            Debug.Log(cardIndex + " " + legendary[i]);
             if (legendary[i] == card.libId)
             {
                 for (int j = 0; j < playCards.Count; j++)
@@ -467,7 +467,7 @@ public class GameManager : MonoBehaviour
                         SendNotification(playerIndex, "Can't control multiple copies of legendary cards");
                         return;
                     }
-                }                    
+                }
             }
         }
 
@@ -622,6 +622,14 @@ public class GameManager : MonoBehaviour
         if (card.libId == 974)
         {
             card.attack = players[card.owner].playerHealth;
+        }
+        //Skinflint, God of Greed
+        if (card.libId == 977)
+        {
+            if (players[card.owner].spawns < 3)
+            {
+                players[card.owner].spawns++;
+            }
         }
         #endregion
         SendGameManager();
