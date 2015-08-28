@@ -376,6 +376,11 @@ public class DeckBuilder : MonoBehaviour
     {
         //Debug.Log(deckLocation);
 
+        if(deck.Count != maxDeckCount)
+        {
+            return;
+        }
+
         string cult = AssignCult();
         Debug.Log(cult);
 
