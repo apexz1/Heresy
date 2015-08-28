@@ -1617,9 +1617,7 @@ public class GameManager : MonoBehaviour
         }
 
         DamagePlayer(opponent.playerId, ownCard.attack);
-        //opponent.playerHealth -= ownCard.attack;
         ownCard.actions--;
-
         if (ownCard.actions <= 0) { ownCard.tap++; }
 
         SendGameManager();
