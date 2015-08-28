@@ -337,7 +337,7 @@ public class GameManager : MonoBehaviour
         return -1;
     }
     [RPC]
-    public void DiscardCard( int playerIndex, int cardIndex )
+    public void DiscardCard( int playerIndex, int cardIndex)
     {
         var player = players[playerIndex];
         Debug.Log("DiscardCard() Log: " + playerIndex + " " + cardIndex);
@@ -352,13 +352,13 @@ public class GameManager : MonoBehaviour
         playCards[cardIndex].pos = -1;
 
 
-		/*if (playCards[cardIndex].GetLibCard().cardID == 948) 
-		{
-			Transform gfx = FieldController.GetFieldController().GetGFX(playCards[cardIndex].globalIdx);
-			PlayCardController controller = gfx.GetComponent<PlayCardController>();
+        /*if (playCards[cardIndex].GetLibCard().cardID == 948) 
+        {
+            Transform gfx = FieldController.GetFieldController().GetGFX(playCards[cardIndex].globalIdx);
+            PlayCardController controller = gfx.GetComponent<PlayCardController>();
 
-		}
-		/**/
+        }
+        /**/
         if (playCards[cardIndex].GetLibCard().cardID == 971)
         {
             Neverfall_God_of_Pride = 0;
@@ -465,7 +465,7 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < legendary.Count; i++)
         {
-            Debug.Log(cardIndex + " " + legendary[i]);
+            //Debug.Log(cardIndex + " " + legendary[i]);
             if (legendary[i] == card.libId)
             {
                 for (int j = 0; j < playCards.Count; j++)
@@ -482,11 +482,11 @@ public class GameManager : MonoBehaviour
         card.pile = PlayCard.Pile.field;
         card.pos = slotIndex;
         FieldController.GetFieldController().SelectCard(card.globalIdx);
-		
+
         if (card.GetLibCard().costs > 0)
         {
             card.actions = 0;
-			card.tap++;
+            card.tap++;
         }
 
         player.spawns -= 1;
@@ -522,39 +522,39 @@ public class GameManager : MonoBehaviour
 
         //effectCounter = 0;
         //StartCardFxCon(playerIndex, cardIndex);
-		//Blightbark Dashdrainer Sac Condition
-		if (card.libId == 948)
-		{
-			bool sac = true;
-			/*
-			if (CountCards (card.owner, PlayCard.Pile.field) <= 1)
-			{
-				sac = true;
-			}
-			/**/
-			for (int i = 0; i < playCards.Count; i++)
-			{
-				if (playCards[i].pile == PlayCard.Pile.field && playCards[i].owner == card.owner)
-				{
-					if (playCards[i].tap <= 0)
-					{
-						sac = false;
-					}
-				}
-			}
-			
-			if (sac == true)
-			{
-				DiscardCard(playerIndex, card.globalIdx);
-				SendNotification(playerIndex, "No other eligable target found; Blightbark Dashdrainer destroyed");
-				/*
-				card.tap = 0;
-				card.actions = 1;
+        //Blightbark Dashdrainer Sac Condition
+        if (card.libId == 948)
+        {
+            bool sac = true;
+            /*
+            if (CountCards (card.owner, PlayCard.Pile.field) <= 1)
+            {
+                sac = true;
+            }
+            /**/
+            for (int i = 0; i < playCards.Count; i++)
+            {
+                if (playCards[i].pile == PlayCard.Pile.field && playCards[i].owner == card.owner)
+                {
+                    if (playCards[i].tap <= 0)
+                    {
+                        sac = false;
+                    }
+                }
+            }
 
-				SacCard (playerIndex, card.globalIdx);
-				/**/
-			}
-		}
+            if (sac == true)
+            {
+                DiscardCard(playerIndex, card.globalIdx);
+                SendNotification(playerIndex, "No other eligable target found; Blightbark Dashdrainer destroyed");
+                /*
+                card.tap = 0;
+                card.actions = 1;
+
+                SacCard (playerIndex, card.globalIdx);
+                /**/
+            }
+        }
         StartCardFx(playerIndex, card.libId);
         #region Chosen Entry FX
         //Skyfolk Chosen
@@ -844,8 +844,8 @@ public class GameManager : MonoBehaviour
         //Target checks
 
         //Selector 
-		Debug.Log("ACTIONCOUNT DEBUG: " + currentFx.actionCount + " " + currentFx.GetLibFx().actionType);
-		if (currentFx.actionCount != 0 || (currentFx.GetLibFx().actionType == LibraryFX.ActionType.tap || currentFx.GetLibFx().actionType == LibraryFX.ActionType.ready))
+        Debug.Log("ACTIONCOUNT DEBUG: " + currentFx.actionCount + " " + currentFx.GetLibFx().actionType);
+        if (currentFx.actionCount != 0 || (currentFx.GetLibFx().actionType == LibraryFX.ActionType.tap || currentFx.GetLibFx().actionType == LibraryFX.ActionType.ready))
         {
             if (libFx.selectorPile == PlayCard.Pile.none || currentFx.selectorCount <= 0) { currentFx.selectorDone = true; }
 
@@ -853,14 +853,14 @@ public class GameManager : MonoBehaviour
             Debug.Log("currentFx" + currentFx.GetLibFx().description);
             ExeCardFx();
         }
-		else if (currentFx.GetLibFx().actionType != LibraryFX.ActionType.tap || currentFx.GetLibFx().actionType != LibraryFX.ActionType.ready)
-		{
-			if (currentFx.actionCount == 0)
-        	{
-            	effectInProgess = false;
-            	currentFx = new PlayFX();
-        	}			
-		}
+        else if (currentFx.GetLibFx().actionType != LibraryFX.ActionType.tap || currentFx.GetLibFx().actionType != LibraryFX.ActionType.ready)
+        {
+            if (currentFx.actionCount == 0)
+            {
+                effectInProgess = false;
+                currentFx = new PlayFX();
+            }
+        }
 
     }
     public void ExeCardFx()
@@ -946,6 +946,25 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        if (libFx.actionType == LibraryFX.ActionType.buffHeal)
+        {
+            if (monumentfx == true)
+            {
+                currentFx.actionCount += Neverfall_God_of_Pride;
+            }
+
+            for (int i = 0; i < currentFx.selectedCards.Count; i++)
+            {
+                int cardIndex = currentFx.selectedCards[i];
+                var card = playCards[cardIndex];
+                if(card.health < card.GetLibCard().health)
+                {
+                    card.health += currentFx.actionCount;
+                }
+                if (card.actions > 0) { card.tap = 0; }
+            }
+        }
+
         if (libFx.actionType == LibraryFX.ActionType.buffAction)
         {
             if (monumentfx == true)
@@ -1014,6 +1033,7 @@ public class GameManager : MonoBehaviour
                 currentFx.actionCount += Neverfall_God_of_Pride;
             }
 
+            Debug.Log("brutal fix " + currentFx.libId + " " + brutalOD);
             if (currentFx.libId == 100)
             {
                 currentFx.actionCount = brutalOD;
@@ -1123,10 +1143,10 @@ public class GameManager : MonoBehaviour
         if (players[playerIndex].cult == "lust") { StartCardFx(playerIndex, 707); StartCardFx(playerIndex, 705); }
         if (players[playerIndex].cult == "sloth") { StartCardFx(playerIndex, 707); StartCardFx(playerIndex, 706); }
 
-		players[playerIndex].monument = false;
-		//SendNotification(localPlayerId, "Monument's power drained");
-		SendGameManager();
-	}
+        players[playerIndex].monument = false;
+        //SendNotification(localPlayerId, "Monument's power drained");
+        SendGameManager();
+    }
 
     public int CountCultMember()
     {
@@ -1226,25 +1246,34 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
-        if (CountCards ((playerIndex + 1) % 2, PlayCard.Pile.field) > 0 && currentFx.GetLibFx ().selectorOwn == false) {
-			for (int i = 0; i < playCards.Count; i++) {
-				if (playCards [i].pile == PlayCard.Pile.field && playCards [i].owner == ((playerIndex + 1) % 2)) {
-					if (playCards [i].GetLibCard ().race != LibraryCard.Race.veiled) {
-						if (playCards [i].GetLibCard ().race != LibraryCard.Race.hexC) {
-							if (playCards [i].GetLibCard ().race != LibraryCard.Race.pitC) {
-								target = true;
-							}
-						}
-					}
-				}
-			}
+        if (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field) > 0 && currentFx.GetLibFx().selectorOwn == false)
+        {
+            for (int i = 0; i < playCards.Count; i++)
+            {
+                if (playCards[i].pile == PlayCard.Pile.field && playCards[i].owner == ((playerIndex + 1) % 2))
+                {
+                    if (playCards[i].GetLibCard().race != LibraryCard.Race.veiled)
+                    {
+                        if (playCards[i].GetLibCard().race != LibraryCard.Race.hexC)
+                        {
+                            if (playCards[i].GetLibCard().race != LibraryCard.Race.pitC)
+                            {
+                                target = true;
+                            }
+                        }
+                    }
+                }
+            }
 
-			if (target == false) {
-				Debug.LogWarning ("enemy has veiled units only");
-			}
-		} else {
-			target=true;
-		}
+            if (target == false)
+            {
+                Debug.LogWarning("enemy has veiled units only");
+            }
+        }
+        else
+        {
+            target = true;
+        }
 
         if (card.pile != libFx.selectorPile && (currentFx.libId >= 701 && currentFx.libId <= 706))
         {
@@ -1430,10 +1459,10 @@ public class GameManager : MonoBehaviour
                 if (oppCard.health <= 0)
                 {
                     Debug.Log("Stealthy activated, no retaliate");
-					ownCard.health += damage;
+                    ownCard.health += damage;
                 }
-			}
-			/**/
+            }
+            /**/
             {
                 if (ownCard.libId != 974)
                 {
@@ -1511,7 +1540,7 @@ public class GameManager : MonoBehaviour
                     {
                         if (CalcDistance(ownCard.pos, playCards[i].pos) <= ownCard.GetLibCard().atkRange)
                         {
-							if (!(oppLibCard.race == LibraryCard.Race.protective || oppLibCard.race == LibraryCard.Race.ripC))
+                            if (!(oppLibCard.race == LibraryCard.Race.protective || oppLibCard.race == LibraryCard.Race.ripC))
                             {
                                 SendNotification(playerIndex, "Must attack protective units if possible");
                                 return false;
@@ -1830,7 +1859,16 @@ public class GameManager : MonoBehaviour
             {
                 #region Colossi EndTurn FX
                 //Skyfolk Colossus
-                if (playCards[i].libId == 950) { if (CountCards(playerIndex, PlayCard.Pile.field) < (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field))) { StartCardFx(playerIndex, 200, 0, -1, playCards[i]); } }
+                if (playCards[i].libId == 950)
+                {
+                    if (CountCards(playerIndex, PlayCard.Pile.field) < (CountCards((playerIndex + 1) % 2, PlayCard.Pile.field)))
+                    {
+                        if (playCards[i].owner == oldPlayer.playerId)
+                        {
+                            StartCardFx(playerIndex, 200, 0, -1, playCards[i]);
+                        }
+                    }
+                }
 
                 //Hexfin Colossus
                 if (playCards[i].libId == 951)
@@ -1854,7 +1892,10 @@ public class GameManager : MonoBehaviour
 
                     if (opp > own)
                     {
-                        StartCardFx(playerIndex, 200, 0, -1, playCards[i]);
+                        if (playCards[i].owner == oldPlayer.playerId)
+                        {
+                            StartCardFx(playCards[i].owner, 200, 0, -1, playCards[i]);
+                        }
                     }
                 }
 
@@ -1864,30 +1905,51 @@ public class GameManager : MonoBehaviour
                     int own = 0;
                     int opp = 0;
 
+                    Debug.Log("ripjaw col found;");
+
                     for (int j = 0; j < playCards.Count; j++)
                     {
-                        if ((playCards[j].owner == playerIndex && playCards[j].pile == PlayCard.Pile.field) && (playCards[j].GetLibCard().costs > 0))
+                        if ((playCards[j].owner == playCards[i].owner && playCards[j].pile == PlayCard.Pile.field))
                         {
-                            own++;
+                            if (playCards[j].GetLibCard().costs > 0)
+                            {
+                                own++;
+                            }
                         }
-                        if ((playCards[j].owner == (playerIndex + 1) % 2 && playCards[j].pile == PlayCard.Pile.field) && (playCards[j].GetLibCard().costs > 0))
+
+                        if ((playCards[j].owner == (playCards[i].owner + 1) % 2) && (playCards[j].pile == PlayCard.Pile.field))
                         {
-                            opp++;
+                            if (playCards[j].GetLibCard().costs > 0)
+                            {
+                                opp++;
+                            }
                         }
+
+                        //Debug.Log("ripjaw col test: " + own + " " + opp);
+
                     }
 
-                    //Debug.Log("ripjaw col debug: " + opp + " " + own);
+                    Debug.Log("ripjaw col debug: " + opp + " " + own);
 
                     if (opp > own)
                     {
-                        StartCardFx(playerIndex, 200, 0, -1, playCards[i]);
+                        if (playCards[i].owner == oldPlayer.playerId)
+                        {
+                            StartCardFx(playCards[i].owner, 200, 0, -1, playCards[i]);
+                        }
                     }
                 }
 
                 //Graveborn Colossus
                 if (playCards[i].libId == 953)
                 {
-                    if (players[playerIndex].playerHealth < players[(playerIndex + 1) % 2].playerHealth) { StartCardFx(playerIndex, 200, 0, -1, playCards[i]); }
+                    if (players[playerIndex].playerHealth < players[(playerIndex + 1) % 2].playerHealth)
+                    {
+                        if (playCards[i].owner == oldPlayer.playerId)
+                        {
+                            StartCardFx(playerIndex, 200, 0, -1, playCards[i]);
+                        }
+                    }
                 }
 
                 //Dreadbulge Colossus
@@ -1912,7 +1974,10 @@ public class GameManager : MonoBehaviour
 
                     if (opp > own)
                     {
-                        StartCardFx(playerIndex, 200, 0, -1, playCards[i]);
+                        if (playCards[i].owner == oldPlayer.playerId)
+                        {
+                            StartCardFx(playCards[i].owner, 200, 0, -1, playCards[i]);
+                        }
                     }
                 }
 
@@ -1936,14 +2001,23 @@ public class GameManager : MonoBehaviour
 
                     if (opp > own)
                     {
-                        StartCardFx(playerIndex, 200, 0, -1, playCards[i]);
+                        if (playCards[i].owner == oldPlayer.playerId)
+                        {
+                            StartCardFx(playCards[i].owner, 200, 0, -1, playCards[i]);
+                        }
                     }
                 }
 
                 //Pitkin Colossus
                 if (playCards[i].libId == 956)
                 {
-                    if (CountCards(playerIndex, PlayCard.Pile.hand) < (CountCards((playerIndex + 1) % 2, PlayCard.Pile.hand))) { StartCardFx(playerIndex, 200, 0, -1, playCards[i]); }
+                    if (CountCards(playerIndex, PlayCard.Pile.hand) < (CountCards((playerIndex + 1) % 2, PlayCard.Pile.hand)))
+                    {
+                        if (playCards[i].owner == oldPlayer.playerId)
+                        {
+                            StartCardFx(playerIndex, 200, 0, -1, playCards[i]);
+                        }
+                    }
                 }
                 #endregion
                 #region GODS ENDTURNFX

@@ -14,11 +14,11 @@ public class CardLibrary
         cardList.Add(new LibraryCard(903, "Graveborn Marauder", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(911, "Blightbark Preacher", 3, 2, 5, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(919, "Skyfolk Missionary", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.winged));
-        cardList.Add(new LibraryCard(927, "Ripjaw Slaver", 6, 1, 6, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
+        cardList.Add(new LibraryCard(927, "Ripjaw Slaver", 6, 1, 6, 3, 1, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(928, "Dreadbulge Worker", 4, 1, 6, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(936, "Pitkin Adept", 5, 2, 3, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(944, "Hexfin Doomsayer", 4, 2, 4, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.veiled));
-        cardList.Add(new LibraryCard(952, "Ripjaw Colossus", 7, 1, 16, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.ripC));
+        cardList.Add(new LibraryCard(952, "Ripjaw Colossus", 7, 1, 16, 2, 1, LibraryCard.Cult.wrath, LibraryCard.Race.ripC));
         cardList.Add(new LibraryCard(959, "Ripjaw Chosen", 9, 1, 14, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(966, "Ragelord Zarkhul", 8, 3, 19, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(973, "Flamegrim, God of Wrath", 10, 1, 28, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
@@ -132,8 +132,8 @@ public class CardLibrary
         cardList.Add(new LibraryCard(370, "mikoin_startfx", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
 
 
-		cardList.Add(new LibraryCard(998, "Dummy", 1, 1, 1, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.protective));
-        cardList.Add(new LibraryCard(999, "Dummy", 5, 1 , 10, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
+		cardList.Add(new LibraryCard(998, "Dummy", 1, 1, 1, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
+        cardList.Add(new LibraryCard(999, "Dummy", 5, 1 , 10, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.brutal));
 
 
         //setSelector(pile, selectorType, true=ownCard, true=effectOwner)
@@ -515,6 +515,7 @@ public class CardLibrary
             .description = "choose entity to buff actions.";
         #endregion
         //Ripjaw Slaver
+        /*
         GetCard(927).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 1)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
@@ -542,6 +543,7 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.buffAction, 2)
             .description = "choose entity to buff actions.";
         #endregion
+        /**/
         #endregion
         //---------------------------------------WORKERS
         #region Workers
@@ -910,8 +912,8 @@ public class CardLibrary
         GetCard(705).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, 8);
         GetCard(705).AddFX()
-            .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
-            .setAction(LibraryFX.ActionType.discard, 1);
+            .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
+            .setAction(LibraryFX.ActionType.buffHeal, 2);
         //sloth monument
         GetCard(706).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, 8);
@@ -928,7 +930,7 @@ public class CardLibrary
         //BRUTAL FX
         GetCard(100).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard);
+            .setAction(LibraryFX.ActionType.damageCard, 1);
         //Colo self damag
         GetCard(200).AddFX()
             .setAction(LibraryFX.ActionType.selfDestruct, 4);

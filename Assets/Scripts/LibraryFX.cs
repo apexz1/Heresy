@@ -45,6 +45,7 @@ public class LibraryFX
         selfDestruct,
         buffAction,
         buffAttack,
+        buffHeal,
         cultBuff,
         tap,
         ready,
