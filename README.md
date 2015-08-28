@@ -1,5 +1,3 @@
-# Heresy: Cults of War
+![Heresy](http://i.imgur.com/i396Vcc.png)
 
 **Living Card Game**(LCG)
-
-![gif yo](http://im.ezgif.com/tmp/ezgif-3391827933.gif)
