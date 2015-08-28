@@ -916,7 +916,7 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.damageSelf, 8);
         GetCard(705).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffHeal, 2)
+            .setAction(LibraryFX.ActionType.buffHeal, 3)
             .description = "choose entity to heal.";
         //sloth monument
         GetCard(706).AddFX()
