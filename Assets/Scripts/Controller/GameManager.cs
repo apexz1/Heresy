@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
 
         running = true;
 
-        //GameObject.Find("GameUI").transform.FindChild("PreGame").gameObject.SetActive(false);
+        GameObject.Find("GameUI").transform.FindChild("PreGame").gameObject.SetActive(false);
         GameObject.Find("GameUI").transform.FindChild("Main").gameObject.SetActive(true);
         GameObject.Find("SceneCam").transform.FindChild("loading").gameObject.SetActive(true);
 
