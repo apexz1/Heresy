@@ -11,7 +11,6 @@ public class MenuButtonController : MonoBehaviour
         if (Input.GetButtonDown("play")) { LoadGame(); }
         if (Input.GetButtonDown("deckbuilder")) { LoadDeckbuilder(); }
         if (Input.GetButtonDown("options")) { LoadOptions(); }
-        if (Input.GetButtonDown("gallery")) { LoadGallery(); }
         if (Input.GetButtonDown("credits")) { LoadCredits(); }
         if (Input.GetButtonDown("back")) { LoadMenu(); }
 

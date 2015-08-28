@@ -18,34 +18,34 @@ public class CardLibrary
         cardList.Add(new LibraryCard(928, "Dreadbulge Worker", 4, 1, 6, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(936, "Pitkin Adept", 5, 2, 3, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(944, "Hexfin Doomsayer", 4, 2, 4, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.veiled));
-        cardList.Add(new LibraryCard(952, "Ripjaw Colossus", 7, 1, 16, 2, 1, LibraryCard.Cult.wrath, LibraryCard.Race.ripC));
-        cardList.Add(new LibraryCard(959, "Ripjaw Chosen", 9, 1, 14, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
-        cardList.Add(new LibraryCard(966, "Ragelord Zarkhul", 8, 3, 19, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
-        cardList.Add(new LibraryCard(973, "Flamegrim, God of Wrath", 10, 1, 28, 3, 0, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
+        cardList.Add(new LibraryCard(952, "Ripjaw Colossus", 7, 1, 16, 2, 2, LibraryCard.Cult.wrath, LibraryCard.Race.ripC));
+        cardList.Add(new LibraryCard(959, "Ripjaw Chosen", 9, 1, 14, 3, 3, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
+        cardList.Add(new LibraryCard(966, "Ragelord Zarkhul", 8, 3, 19, 3, 4, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
+        cardList.Add(new LibraryCard(973, "Flamegrim, God of Wrath", 10, 1, 28, 3, 5, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
         // lust
         cardList.Add(new LibraryCard(904, "Dreadbulge Marauder", 2, 1, 6, 2, 0, LibraryCard.Cult.lust, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(912, "Pitkin Preacher", 3, 2, 3, 1, 0, LibraryCard.Cult.lust, LibraryCard.Race.stealthy));
-        cardList.Add(new LibraryCard(920, "Hexfin Persuader", 3, 1, 7, 3, 0, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
+        cardList.Add(new LibraryCard(920, "Hexfin Persuader", 3, 1, 7, 3, 1, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
         cardList.Add(new LibraryCard(921, "Graveborn Overseer", 3, 1, 5, 2, 0, LibraryCard.Cult.lust, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(929, "Blightbark Worker", 2, 1, 6, 2, 0, LibraryCard.Cult.lust, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(937, "Skyfolk Adept", 2, 2, 4, 1, 0, LibraryCard.Cult.lust, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(945, "Ripjaw Doomsayer", 3, 2, 3, 1, 0, LibraryCard.Cult.lust, LibraryCard.Race.brutal));
-        cardList.Add(new LibraryCard(951, "Hexfin Colossus", 6, 1, 17, 2, 0, LibraryCard.Cult.lust, LibraryCard.Race.hexC));
-        cardList.Add(new LibraryCard(958, "Hexfin Chosen", 8, 1, 15, 3, 0, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
-        cardList.Add(new LibraryCard(965, "First Mistress Salina", 7, 3, 20, 1, 0, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
-        cardList.Add(new LibraryCard(972, "Vilerose, God of Lust", 9, 1, 29, 3, 0, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
+        cardList.Add(new LibraryCard(951, "Hexfin Colossus", 6, 1, 17, 2, 2, LibraryCard.Cult.lust, LibraryCard.Race.hexC));
+        cardList.Add(new LibraryCard(958, "Hexfin Chosen", 8, 1, 15, 3, 3, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
+        cardList.Add(new LibraryCard(965, "First Mistress Salina", 7, 3, 20, 1, 4, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
+        cardList.Add(new LibraryCard(972, "Vilerose, God of Lust", 9, 1, 29, 3, 5, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
         //gluttony
         cardList.Add(new LibraryCard(901, "Hexfin Marauder", 4, 1, 8, 2, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.veiled));
         cardList.Add(new LibraryCard(909, "Graveborn Preacher", 3, 2, 7, 1, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(917, "Blightbark Missionary", 3, 1, 9, 2, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(925, "Skyfolk Overseer", 4, 1, 8, 2, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(933, "Ripjaw Worker", 5, 1, 7, 2, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.brutal));
-        cardList.Add(new LibraryCard(941, "Dreadbulge Butcher", 2, 3, 9, 1, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
+        cardList.Add(new LibraryCard(941, "Dreadbulge Butcher", 2, 3, 9, 1, 1, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(942, "Pitkin Doomsayer", 4, 2, 6, 1, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.stealthy));
-        cardList.Add(new LibraryCard(954, "Dreadbulge Colossus", 5, 1, 18, 2, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.dreC));
-        cardList.Add(new LibraryCard(961, "Dreadbulge Chosen", 7, 1, 16, 3, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
-        cardList.Add(new LibraryCard(968, "Great Devourer Gilgamosh", 6, 3, 21, 1, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
-        cardList.Add(new LibraryCard(975, "Rashbite, God of Gluttony", 8, 3, 30, 3, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
+        cardList.Add(new LibraryCard(954, "Dreadbulge Colossus", 5, 1, 18, 2, 2, LibraryCard.Cult.gluttony, LibraryCard.Race.dreC));
+        cardList.Add(new LibraryCard(961, "Dreadbulge Chosen", 7, 1, 16, 3, 3, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
+        cardList.Add(new LibraryCard(968, "Great Devourer Gilgamosh", 6, 3, 21, 1, 4, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
+        cardList.Add(new LibraryCard(975, "Rashbite, God of Gluttony", 8, 3, 30, 3, 5, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
         //envy
         cardList.Add(new LibraryCard(902, "Ripjaw Marauder", 5, 1, 3, 2, 0, LibraryCard.Cult.envy, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(910, "Dreadbulge Preacher", 2, 2, 4, 1, 0, LibraryCard.Cult.envy, LibraryCard.Race.tough));
@@ -54,10 +54,10 @@ public class CardLibrary
         cardList.Add(new LibraryCard(934, "Graveborn Battlemason", 4, 1, 6, 3, 1, LibraryCard.Cult.envy, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(935, "Blightbark Adept", 2, 2, 4, 1, 0, LibraryCard.Cult.envy, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(943, "Skyfolk Doomsayer", 3, 2, 3, 1, 0, LibraryCard.Cult.envy, LibraryCard.Race.winged));
-        cardList.Add(new LibraryCard(953, "Graveborn Colossus", 7, 1, 16, 2, 0, LibraryCard.Cult.envy, LibraryCard.Race.graC));
-        cardList.Add(new LibraryCard(960, "Graveborn Chosen", 9, 1, 14, 3, 0, LibraryCard.Cult.envy, LibraryCard.Race.undead));
-        cardList.Add(new LibraryCard(967, "High Inquisitor Waljakov", 8, 3, 19, 1, 0, LibraryCard.Cult.envy, LibraryCard.Race.undead));
-        cardList.Add(new LibraryCard(974, "Bitterface, God of Envy", 1, 1, 1, 3, 0, LibraryCard.Cult.envy, LibraryCard.Race.undead));
+        cardList.Add(new LibraryCard(953, "Graveborn Colossus", 7, 1, 16, 2, 2, LibraryCard.Cult.envy, LibraryCard.Race.graC));
+        cardList.Add(new LibraryCard(960, "Graveborn Chosen", 9, 1, 14, 3, 3, LibraryCard.Cult.envy, LibraryCard.Race.undead));
+        cardList.Add(new LibraryCard(967, "High Inquisitor Waljakov", 8, 3, 19, 1, 4, LibraryCard.Cult.envy, LibraryCard.Race.undead));
+        cardList.Add(new LibraryCard(974, "Bitterface, God of Envy", 1, 1, 1, 3, 5, LibraryCard.Cult.envy, LibraryCard.Race.undead));
         // sloth                
         cardList.Add(new LibraryCard(900, "Skyfolk Marauder", 3, 1, 7, 2, 0, LibraryCard.Cult.sloth, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(908, "Ripjaw Preacher", 3, 2, 5, 1, 0, LibraryCard.Cult.sloth, LibraryCard.Race.brutal));
@@ -66,34 +66,34 @@ public class CardLibrary
         cardList.Add(new LibraryCard(932, "Hexfin Worker", 3, 1, 7, 2, 0, LibraryCard.Cult.sloth, LibraryCard.Race.veiled));
         cardList.Add(new LibraryCard(940, "Graveborn Adept", 2, 2, 6, 1, 0, LibraryCard.Cult.sloth, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(948, "Blightbark Dashdrainer", 1, 3, 8, 1, 1, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
-        cardList.Add(new LibraryCard(955, "Blightbark Colossus", 5, 1, 18, 2, 0, LibraryCard.Cult.sloth, LibraryCard.Race.bliC));
-        cardList.Add(new LibraryCard(962, "Blightbark Chosen", 7, 1, 16, 3, 0, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
-        cardList.Add(new LibraryCard(969, "Yawnbringer Keenu", 6, 3, 21, 1, 0, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
-        cardList.Add(new LibraryCard(976, "Dullmoor, God of Sloth", 8, 1, 30, 3, 0, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
+        cardList.Add(new LibraryCard(955, "Blightbark Colossus", 5, 1, 18, 2, 2, LibraryCard.Cult.sloth, LibraryCard.Race.bliC));
+        cardList.Add(new LibraryCard(962, "Blightbark Chosen", 7, 1, 16, 3, 3, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
+        cardList.Add(new LibraryCard(969, "Yawnbringer Keenu", 6, 3, 21, 1, 4, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
+        cardList.Add(new LibraryCard(976, "Dullmoor, God of Sloth", 8, 1, 30, 3, 5, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
         // pride
         cardList.Add(new LibraryCard(905, "Blightbark Marauder", 3, 1, 7, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.protective));
-        cardList.Add(new LibraryCard(913, "Skyfolk Priest", 3, 3, 6, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.winged));
+        cardList.Add(new LibraryCard(913, "Skyfolk Priest", 3, 3, 6, 1, 1, LibraryCard.Cult.pride, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(914, "Ripjaw Missionary", 5, 1, 5, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(922, "Dreadbulge Overseer", 3, 1, 7, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(930, "Pitkin Worker", 5, 1, 5, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(938, "Hexfin Adept", 3, 2, 5, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.veiled));
         cardList.Add(new LibraryCard(946, "Graveborn Doomsayer", 3, 2, 5, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.undead));
-        cardList.Add(new LibraryCard(950, "Skyfolk Colossus", 6, 1, 17, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.skyC));
-        cardList.Add(new LibraryCard(957, "Skyfolk Chosen", 8, 1, 15, 3, 0, LibraryCard.Cult.pride, LibraryCard.Race.winged));
-        cardList.Add(new LibraryCard(964, "Archbishop Belle-Dhin", 7, 3, 20, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.winged));
-        cardList.Add(new LibraryCard(971, "Neverfall, God of Pride", 9, 1, 29, 3, 0, LibraryCard.Cult.pride, LibraryCard.Race.winged));
+        cardList.Add(new LibraryCard(950, "Skyfolk Colossus", 6, 1, 17, 2, 2, LibraryCard.Cult.pride, LibraryCard.Race.skyC));
+        cardList.Add(new LibraryCard(957, "Skyfolk Chosen", 8, 1, 15, 3, 3, LibraryCard.Cult.pride, LibraryCard.Race.winged));
+        cardList.Add(new LibraryCard(964, "Archbishop Belle-Dhin", 7, 3, 20, 1, 4, LibraryCard.Cult.pride, LibraryCard.Race.winged));
+        cardList.Add(new LibraryCard(971, "Neverfall, God of Pride", 9, 1, 29, 3, 5, LibraryCard.Cult.pride, LibraryCard.Race.winged));
         // greed
-        cardList.Add(new LibraryCard(906, "Pitkin Merchant", 4, 1, 6, 3, 0, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
+        cardList.Add(new LibraryCard(906, "Pitkin Merchant", 4, 1, 6, 3, 1, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(907, "Hexfin Preacher", 2, 2, 4, 1, 0, LibraryCard.Cult.greed, LibraryCard.Race.veiled));
         cardList.Add(new LibraryCard(915, "Graveborn Missionary", 3, 1, 5, 2, 0, LibraryCard.Cult.greed, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(923, "Blightbark Overseer", 2, 1, 6, 2, 0, LibraryCard.Cult.greed, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(931, "Skyfolk Worker", 3, 1, 5, 2, 0, LibraryCard.Cult.greed, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(939, "Ripjaw Adept", 3, 2, 3, 1, 0, LibraryCard.Cult.greed, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(947, "Dreadbulge Doomsayer", 1, 2, 5, 1, 0, LibraryCard.Cult.greed, LibraryCard.Race.tough));
-        cardList.Add(new LibraryCard(956, "Pitkin Colossus", 7, 1, 16, 2, 0, LibraryCard.Cult.greed, LibraryCard.Race.pitC));
-        cardList.Add(new LibraryCard(963, "Pitkin Chosen", 9, 1, 14, 3, 0, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
-        cardList.Add(new LibraryCard(970, "Master Miser Mikoin", 8, 3, 19, 1, 0, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
-        cardList.Add(new LibraryCard(977, "Skinflint, God of Greed", 10, 1, 28, 3, 0, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
+        cardList.Add(new LibraryCard(956, "Pitkin Colossus", 7, 1, 16, 2, 2, LibraryCard.Cult.greed, LibraryCard.Race.pitC));
+        cardList.Add(new LibraryCard(963, "Pitkin Chosen", 9, 1, 14, 3, 3, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
+        cardList.Add(new LibraryCard(970, "Master Miser Mikoin", 8, 3, 19, 1, 4, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
+        cardList.Add(new LibraryCard(977, "Skinflint, God of Greed", 10, 1, 28, 3, 5, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
 
         //monuments
         cardList.Add(new LibraryCard(703, "pride", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
