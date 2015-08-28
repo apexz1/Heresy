@@ -55,12 +55,12 @@ public class NetworkManager : MonoBehaviour {
 
     public void Connect()
     {
-        InputField inputField = GameObject.Find("GameUI").transform.FindChild("PreGame").FindChild("ip").gameObject.GetComponent<InputField>();
-        userInput = inputField.text;
+        //InputField inputField = GameObject.Find("GameUI").transform.FindChild("PreGame").FindChild("ip").gameObject.GetComponent<InputField>();
+        //userInput = inputField.text;
 
         PlayerPrefs.SetString("ip", userInput);
         PlayerPrefs.Save();
-        var initConnection = Network.Connect(inputField.text, port);
+        var initConnection = Network.Connect(userInput, port);
         Debug.Log(initConnection);
     }
 
