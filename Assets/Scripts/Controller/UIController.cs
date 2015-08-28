@@ -28,13 +28,13 @@ public class UIController : MonoBehaviour
 
     void FixedUpdate()
     {
-        //SpawnBlend();
+        SpawnBlend();
     }
 
     public void SpawnBlend()
     {
-       var player = GameManager.Get().players[GameManager.Get().localPlayerId];
-       if (player.spawns > 3) { Debug.LogWarning("cheat mode, dude"); return; }
+        var player = GameManager.Get().players[GameManager.Get().localPlayerId];
+        if (player.spawns > 3) { Debug.LogWarning("cheat mode, dude"); return; }
 
         var g = GameManager.Get();
 

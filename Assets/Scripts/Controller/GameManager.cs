@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
 
         running = true;
 
-        GameObject.Find("GameUI").transform.FindChild("PreGame").gameObject.SetActive(false);
+        //GameObject.Find("GameUI").transform.FindChild("PreGame").gameObject.SetActive(false);
         GameObject.Find("GameUI").transform.FindChild("Main").gameObject.SetActive(true);
         GameObject.Find("SceneCam").transform.FindChild("loading").gameObject.SetActive(true);
 
@@ -340,7 +340,7 @@ public class GameManager : MonoBehaviour
         return -1;
     }
     [RPC]
-    public void DiscardCard( int playerIndex, int cardIndex)
+    public void DiscardCard( int playerIndex, int cardIndex )
     {
         var player = players[playerIndex];
         Debug.Log("DiscardCard() Log: " + playerIndex + " " + cardIndex);
@@ -960,7 +960,7 @@ public class GameManager : MonoBehaviour
             {
                 int cardIndex = currentFx.selectedCards[i];
                 var card = playCards[cardIndex];
-                if(card.health < card.GetLibCard().health)
+                if (card.health < card.GetLibCard().health)
                 {
                     card.health += currentFx.actionCount;
                 }

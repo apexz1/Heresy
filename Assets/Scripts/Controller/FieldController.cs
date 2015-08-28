@@ -55,7 +55,7 @@ public class FieldController : MonoBehaviour
         var playCards = GameManager.Get().playCards;
 
         //RESET GAME
-        if (gameVersion!=GameManager.Get().gameVersion)
+        if (gameVersion != GameManager.Get().gameVersion)
         {
             gameVersion = GameManager.Get().gameVersion;
 
@@ -64,7 +64,7 @@ public class FieldController : MonoBehaviour
                 var gfx = cardGfxs[i];
                 Destroy(gfx.gameObject);
             }
-            cardGfxs.Clear();           
+            cardGfxs.Clear();
         }
 
         if (GameManager.Get().running && init)
@@ -102,13 +102,13 @@ public class FieldController : MonoBehaviour
 
                 if (controller.pile != PlayCard.Pile.discard)
                 {
-					Debug.Log (controller.pile);
-					if (controller.pile == PlayCard.Pile.field)
-					{
-						Debug.Log(card.pos.ToString());
-						GameObject.Find(controller.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
-					}
-					//Debug.Log("Card detroyed?");
+                    Debug.Log(controller.pile);
+                    if (controller.pile == PlayCard.Pile.field)
+                    {
+                        Debug.Log(card.pos.ToString());
+                        GameObject.Find(controller.pos.ToString()).transform.FindChild("SacField").gameObject.SetActive(false);
+                    }
+                    //Debug.Log("Card detroyed?");
                     Destroy(gfx.gameObject);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardR").gameObject.SetActive(false);
                     GameObject.Find("SceneCam").transform.FindChild("ZoomCardL").gameObject.SetActive(false);
@@ -380,13 +380,13 @@ public class FieldController : MonoBehaviour
             }
         }
     }
-    public void FadeBanner(int playerIndex)
+    public void FadeBanner( int playerIndex )
     {
         Color c = new Color();
 
         if (!GameManager.Get().running || !GameManager.Get().setUp) { return; }
 
-        for (int i = 0; i < GameManager.Get().players.Length; i++ )
+        for (int i = 0; i < GameManager.Get().players.Length; i++)
         {
             if (GameManager.Get().players[i].monument == false)
             {
@@ -594,7 +594,7 @@ public class FieldController : MonoBehaviour
         string desc = "";
         string indicatr = "";
         string who = "";
- 
+
         if (currentFx.GetLibFx().selectorWho == true)
         {
             indicatr = "Player 1, ";
@@ -619,7 +619,7 @@ public class FieldController : MonoBehaviour
         #endregion
 
         desc = (indicatr + who + libFx.description);
-        GUI.Label(new Rect(((Screen.width/2) - 3 * desc.Length), (Screen.height - Screen.height/4.4f), 1000, 25), desc);
+        GUI.Label(new Rect(((Screen.width / 2) - 3 * desc.Length), (Screen.height - Screen.height / 4.4f), 1000, 25), desc);
 
         if (cardSelected == -1) { return; }
 
@@ -690,7 +690,7 @@ public class FieldController : MonoBehaviour
     }
 
 
-    public void GameOver(int player)
+    public void GameOver( int player )
     {
         //Debug.Log("player " + ((player+1)%2+1) + " won");
         GameObject.Find("SceneCam").transform.FindChild("gameOver").gameObject.SetActive(true);
@@ -705,7 +705,7 @@ public class FieldController : MonoBehaviour
         int playerId = GameManager.Get().localPlayerId;
 
         //Cheat Stuff
-        
+        /*
         if (GUI.Button(new Rect(0, 0, 60, 25), "Swap:" + playerId))
         {
             GameManager.Get().localPlayerId = GameManager.Get().localPlayerId == 0 ? 1 : 0;
