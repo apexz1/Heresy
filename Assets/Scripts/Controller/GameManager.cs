@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public List<PlayCard> playCards = new List<PlayCard>();
     //public List<PlayCard> sacList = new List<PlayCard>();
     public PlayFX currentFx = new PlayFX();
-    public string deckChoice;
+    //public string deckChoice;
     string deckLocation;
 
     public bool effectInProgess;
@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         LoadTextures.LoadFromFile(1);
 
         deckLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy";
-        deckChoice = "default";
+        NetworkManager.deckChoice = "default";
         Debug.Log(OptionsMenu.isDarkFantasy);
     }
 
@@ -103,14 +103,14 @@ public class GameManager : MonoBehaviour
     {
         //AudioManager.ChangeMainMusic();
         string deckLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy";
-        InputField inputField = GameObject.Find("GameUI").transform.FindChild("PreGame").FindChild("DeckChoice").gameObject.GetComponent<InputField>();
-        deckChoice = inputField.text;
+        //InputField inputField = GameObject.Find("GameUI").transform.FindChild("PreGame").FindChild("DeckChoice").gameObject.GetComponent<InputField>();
+        //NetworkManager.deckChoice = inputField.text;
 
-        if (!File.Exists(deckLocation + "/" + deckChoice + ".json"))
+        if (!File.Exists(deckLocation + "/" + NetworkManager.deckChoice + ".json"))
         {
             if (Resources.Load("default") != null)
             {
-                deckChoice = "default";
+                NetworkManager.deckChoice = "default";
             }
 
             else
@@ -125,8 +125,8 @@ public class GameManager : MonoBehaviour
         localPlayerId = playerId;
         turnPlayer = 0;
 
-        Debug.Log("Deck to load: " + deckChoice);
-        LoadDeck(localPlayerId, deckChoice);
+        Debug.Log("Deck to load: " + NetworkManager.deckChoice);
+        LoadDeck(localPlayerId, NetworkManager.deckChoice);
 
         //FieldController.GetFieldController().LoadMonument(0);
         //FieldController.GetFieldController().LoadMonument(1);
@@ -155,8 +155,8 @@ public class GameManager : MonoBehaviour
 
         if (network == false)
         {
-            players[0].spawns = 10;
-            players[1].spawns = 10;
+            players[0].spawns = 1;
+            players[1].spawns = 2;
         }
 
         running = true;
@@ -171,13 +171,13 @@ public class GameManager : MonoBehaviour
         GameObject.Destroy(o, 1.5f);
     }
 
-    public void LoadDeck( int playerIdx, string deck )
+    public int LoadDeck( int playerIdx, string deck )
     {
         JSONObject jsPlayer = new JSONObject();
 
-        if (File.Exists(deckLocation + "/" + deckChoice + ".json"))
+        if (File.Exists(deckLocation + "/" + NetworkManager.deckChoice + ".json"))
         {
-            string file = File.ReadAllText(deckLocation + "/" + deckChoice + ".json");
+            string file = File.ReadAllText(deckLocation + "/" + NetworkManager.deckChoice + ".json");
             //TextAsset textFile = (TextAsset)Resources.Load(deck);
             jsPlayer = JSONParser.parse(file);
         }
@@ -199,6 +199,9 @@ public class GameManager : MonoBehaviour
         AssignCult(0, jsPlayer["Cult"].ToString());
         AssignCult(1, jsPlayer["Cult"].ToString());
         //Debug.Log(players[0].cult + " " + players[1].cult);
+
+        Debug.Log(jsPlayer.Count);
+        return jsPlayer.Count;
     }
 
     /* public int FindPlayer(short playerId)

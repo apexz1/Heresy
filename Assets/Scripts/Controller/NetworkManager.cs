@@ -5,6 +5,7 @@ using System.Collections;
 public class NetworkManager : MonoBehaviour {
 
     string userInput = "localhost";
+    public static string deckChoice = "";
     int port = 35271;
 	// Use this for initialization
 	void Start () {
@@ -27,7 +28,8 @@ public class NetworkManager : MonoBehaviour {
             //GameObject.Find("Table").SetActive(false);
         }
 
-        userInput = GUI.TextField(new Rect(200, 250, 120, 40), userInput);
+        userInput = GUI.TextField(new Rect(200, 250, 120, 25), userInput);
+        deckChoice = GUI.TextField(new Rect(325, 250, 120, 25), deckChoice);
 
         if (GUI.Button (new Rect(340,200,120,40), "Connect"))
         {
@@ -53,9 +55,12 @@ public class NetworkManager : MonoBehaviour {
 
     public void Connect()
     {
+        InputField inputField = GameObject.Find("GameUI").transform.FindChild("PreGame").FindChild("ip").gameObject.GetComponent<InputField>();
+        userInput = inputField.text;
+
         PlayerPrefs.SetString("ip", userInput);
         PlayerPrefs.Save();
-        var initConnection = Network.Connect(userInput, port);
+        var initConnection = Network.Connect(inputField.text, port);
         Debug.Log(initConnection);
     }
 

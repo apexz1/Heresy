@@ -17,11 +17,22 @@ public class UIButtonController : MonoBehaviour
 
     public void UIHost()
     {
+
+        /*if (!(CheckDeckCount()))
+        {
+            return;
+        }
+         * /**/
         NetworkManager.Get().HostServer();
     }
 
     public void UIConnect()
     {
+        /*if (!(CheckDeckCount()))
+        {
+            return;
+        }
+         * /**/
         NetworkManager.Get().Connect();
     }
     public void UIConfirm()
@@ -73,5 +84,13 @@ public class UIButtonController : MonoBehaviour
     public void LoadMenu()
     {
         Application.LoadLevel("menu");
+    }
+
+    public bool CheckDeckCount()
+    {
+        InputField inputField = GameObject.Find("GameUI").transform.FindChild("PreGame").FindChild("DeckChoice").gameObject.GetComponent<InputField>();
+        string deckChoice = inputField.text;
+
+        return ((GameManager.Get().LoadDeck(GameManager.Get().localPlayerId, deckChoice) == 30));
     }
 }
