@@ -30,11 +30,11 @@ public class TutorialButtonController : MonoBehaviour
         {
             p.SetActive(false);
         }
-        else if (index == tutCtrl.sprites.Count-1)
+        else if (index == tutCtrl.sprites.Count)
         {
             n.SetActive(false);
         }
-        else if (index > 0 && index < tutCtrl.sprites.Count-1)
+        else if (index > 0 && index < tutCtrl.sprites.Count)
         {
             p.SetActive(true);
             n.SetActive(true);
