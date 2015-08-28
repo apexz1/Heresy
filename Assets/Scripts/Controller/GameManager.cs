@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         LoadTextures.LoadFromFile(1);
 
         deckLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy";
-        NetworkManager.deckChoice = "default";
+        //NetworkManager.deckChoice = "default";
         Debug.Log(OptionsMenu.isDarkFantasy);
     }
 
