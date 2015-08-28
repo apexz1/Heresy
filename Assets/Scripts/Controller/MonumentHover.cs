@@ -6,6 +6,7 @@ public class MonumentHover : MonoBehaviour
 
     GameObject child;
     bool side = true;
+    bool init = true;
 
     // Use this for initialization
     void Start()
@@ -16,7 +17,7 @@ public class MonumentHover : MonoBehaviour
     void Update()
     {
 
-        if(GameManager.Get().running)
+        if(GameManager.Get().running && init)
         {
             Texture2D tex = (Texture2D)Resources.Load("Images/cards_DF/preview/700");
 
@@ -59,8 +60,9 @@ public class MonumentHover : MonoBehaviour
             Debug.Log("agmjdstdhasdhofidasjf" + GameObject.Find("SceneCam").transform.FindChild("ZoomCard" + (side ? "L" : "R")).gameObject);
             child = GameObject.Find("SceneCam").transform.FindChild("ZoomCard" + (side ? "L" : "R")).gameObject;
 
-            MeshRenderer rend = child.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
-            rend.material.mainTexture = tex;
+            AssignTexture(tex);
+
+            init = false;
         }
     }
 
@@ -75,5 +77,10 @@ public class MonumentHover : MonoBehaviour
         child.SetActive(false);
     }
 
+    void AssignTexture (Texture2D tex)
+    {
+        MeshRenderer rend = child.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+        rend.material.mainTexture = tex;
+    }
 
 }

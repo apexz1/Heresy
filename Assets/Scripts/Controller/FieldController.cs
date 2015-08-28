@@ -597,25 +597,29 @@ public class FieldController : MonoBehaviour
  
         if (currentFx.GetLibFx().selectorWho == true)
         {
-            indicatr = "Player 1,";
+            indicatr = "Player 1, ";
         }
         if (currentFx.GetLibFx().selectorWho == false)
         {
-            indicatr = "Player 2,";
+            indicatr = "Player 2, ";
         }
 
-        if (currentFx.GetLibFx().selectorOwn == true)
+        if (currentFx.GetLibFx().actionType != LibraryFX.ActionType.discard)
         {
-            who = "own";
+            if (currentFx.GetLibFx().selectorOwn == true)
+            {
+                who = "choose own ";
+            }
+            if (currentFx.GetLibFx().selectorOwn == true)
+            {
+                who = "choose enemy ";
+            }
         }
-        if (currentFx.GetLibFx().selectorOwn == true)
-        {
-            who = "enemy";
-        }
+
         #endregion
 
         desc = (indicatr + who + libFx.description);
-        GUI.Label(new Rect(0, Screen.height - 50, 1000, 25), desc);
+        GUI.Label(new Rect(((Screen.width/2) - 3 * desc.Length), (Screen.height - Screen.height/4.4f), 1000, 25), desc);
 
         if (cardSelected == -1) { return; }
 
