@@ -132,8 +132,8 @@ public class CardLibrary
         cardList.Add(new LibraryCard(370, "mikoin_startfx", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
 
 
-		cardList.Add(new LibraryCard(998, "Dummy", 1, 1, 1, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
-        cardList.Add(new LibraryCard(999, "Dummy", 5, 1 , 10, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.brutal));
+        cardList.Add(new LibraryCard(998, "Dummy", 1, 1, 1, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
+        cardList.Add(new LibraryCard(999, "Dummy", 5, 1, 10, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.brutal));
 
 
         //setSelector(pile, selectorType, true=ownCard, true=effectOwner)
@@ -895,31 +895,36 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.damageSelf, 8);
         GetCard(702).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAction, 1);
+            .setAction(LibraryFX.ActionType.buffAction, 1)
+            .description = "choose entity to buff actions.";
         //pride monument
         GetCard(703).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, 8);
         GetCard(703).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffAttack, 2);
+            .setAction(LibraryFX.ActionType.buffAttack, 2)
+            .description = "choose entity to buff attack.";
         //gluttony monument
         GetCard(704).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, 8);
         GetCard(704).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.damageCard, 2);
+            .setAction(LibraryFX.ActionType.damageCard, 2)
+            .description = "choose entity to damage.";
         //lust monument
         GetCard(705).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, 8);
         GetCard(705).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
-            .setAction(LibraryFX.ActionType.buffHeal, 2);
+            .setAction(LibraryFX.ActionType.buffHeal, 2)
+            .description = "choose entity to heal.";
         //sloth monument
         GetCard(706).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, 8);
         GetCard(706).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, false, true)
-            .setAction(LibraryFX.ActionType.buffAttack, -3);
+            .setAction(LibraryFX.ActionType.buffAttack, -3)
+            .description = "choose entity to debuff.";
         //health reduction fx
         GetCard(707).AddFX()
             .setAction(LibraryFX.ActionType.damageSelf, 0);
