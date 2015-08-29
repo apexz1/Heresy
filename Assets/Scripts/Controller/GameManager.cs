@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
     [RPC]
     public void StartGame( int playerId, bool network )
     {
-        //AudioManager.ChangeMainMusic();
+        AudioManager.ChangeMainMusic();
         string deckLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy";
         //InputField inputField = GameObject.Find("GameUI").transform.FindChild("PreGame").FindChild("DeckChoice").gameObject.GetComponent<InputField>();
         //NetworkManager.deckChoice = inputField.text;
