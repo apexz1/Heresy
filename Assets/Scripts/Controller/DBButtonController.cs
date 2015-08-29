@@ -8,7 +8,7 @@ public class DBButtonController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("back") && !inputField.isFocused) { LoadMenu(); }
+        if(Input.GetButtonDown("back") || Input.GetKeyDown(KeyCode.Escape) && !inputField.isFocused){ LoadMenu(); }
     }
 
     void Start()

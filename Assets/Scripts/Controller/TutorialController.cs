@@ -13,9 +13,9 @@ public class TutorialController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow)) { TutorialButtonController.GetTBC().UITutNext(); }
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) { TutorialButtonController.GetTBC().UITutPrev(); }
-        if (Input.GetButtonDown("back")) { TutorialButtonController.GetTBC().LoadMenu(); }
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetButtonDown("Fire1")) { TutorialButtonController.GetTBC().UITutNext(); }
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetButtonDown("Fire2")) { TutorialButtonController.GetTBC().UITutPrev(); }
+        if (Input.GetButtonDown("back") || Input.GetKeyDown(KeyCode.Escape)) { TutorialButtonController.GetTBC().LoadMenu(); }
     }
 
     public void Start()

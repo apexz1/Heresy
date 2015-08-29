@@ -24,7 +24,7 @@ public class OptionsMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("back")) { BackToMenu(); }
+        if (Input.GetButtonDown("back") || Input.GetKeyDown(KeyCode.Escape)) { BackToMenu(); }
         volumeText.text = "" + (AudioManager.volumeControl * 100) + "%";
 
 

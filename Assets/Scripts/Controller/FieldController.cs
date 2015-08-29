@@ -816,7 +816,9 @@ public class FieldController : MonoBehaviour
 
         if (GameManager.Get().notification.Length > 0 && Time.time - GameManager.Get().notifTime < 3.5f)
         {
-            GUI.Label(new Rect(0, Screen.height - 20, 1000, 25), GameManager.Get().notification);
+            //GUI.Label(new Rect(0, Screen.height - 20, 1000, 25), GameManager.Get().notification);
+            GUI.Label(new Rect(((Screen.width / 2) - 3 * GameManager.Get().notification.Length), 
+                (Screen.height - Screen.height / 4.4f), 1000, 25), GameManager.Get().notification);
         }
     }
 }

@@ -23,6 +23,8 @@ public class DeckBuilder : MonoBehaviour
     string deckName;
     string deckLocation;
 
+    public Text deckCounterTxt;
+
     int[] cultArray = new int[7];
 
     private Rect rect = new Rect((Screen.width - 200) / 2, (Screen.height - 50) / 2, 200, 50);
@@ -170,6 +172,7 @@ public class DeckBuilder : MonoBehaviour
 
         uiCards.Add(listCard);
         MoveCardsUI();
+        deckCounterTxt.text = "Size: " + deck.Count;
     }
     public Color CultColorUI( string cult )
     {

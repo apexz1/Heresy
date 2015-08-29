@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 
 
 public class MenuButtonController : MonoBehaviour
@@ -12,9 +10,9 @@ public class MenuButtonController : MonoBehaviour
         if (Input.GetButtonDown("deckbuilder")) { LoadDeckbuilder(); }
         if (Input.GetButtonDown("options")) { LoadOptions(); }
         if (Input.GetButtonDown("credits")) { LoadCredits(); }
-        if (Input.GetButtonDown("back")) { LoadMenu(); }
+        if (Input.GetButtonDown("back") || Input.GetKeyDown(KeyCode.Escape)) { LoadMenu(); }
 
-        AudioManager.volumeControl = PlayerPrefs.GetFloat("volume", 0);
+        AudioManager.volumeControl = PlayerPrefs.GetFloat("volume", 1);
 
         int skin = PlayerPrefs.GetInt("skin", 0);
 
