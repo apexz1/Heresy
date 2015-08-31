@@ -57,9 +57,14 @@ public class AudioManager : MonoBehaviour
     {
         if (Application.loadedLevelName == "main") {   
             Debug.Log("ChangeMainMusic");
-            audio.Stop();
-            audio.clip = sound_main;
-            audio.Play();
+			if(audio!=null)
+			{
+            	audio.Stop();
+            	audio.clip = sound_main;
+            	audio.Play();
+			} else {
+				Debug.LogError("Missing Audio Src!!!");
+			}
         } else { Debug.LogError("Coudln't load Main music"); }
     }
 }
