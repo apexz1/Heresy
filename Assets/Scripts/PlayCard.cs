@@ -7,7 +7,7 @@ public class PlayCard
     public int libId;
     public int health;
     public int attack;
-    public int actions;
+	public int actions ;//{ get; private set;}
     public int globalIdx;
     public int pos;
     public int tap;
