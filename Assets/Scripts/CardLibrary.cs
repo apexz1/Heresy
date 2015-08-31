@@ -10,7 +10,7 @@ public class CardLibrary
 
     void Init()
     {
-        // wrath
+        //wrath
         cardList.Add(new LibraryCard(903, "Graveborn Marauder", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(911, "Blightbark Preacher", 3, 2, 5, 1, 0, LibraryCard.Cult.wrath, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(919, "Skyfolk Missionary", 5, 1, 5, 2, 0, LibraryCard.Cult.wrath, LibraryCard.Race.winged));
@@ -22,7 +22,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(959, "Ripjaw Chosen", 9, 1, 14, 3, 3, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(966, "Ragelord Zarkhul", 8, 3, 19, 3, 4, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(973, "Flamegrim, God of Wrath", 10, 1, 28, 3, 5, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
-        // lust
+        //lust
         cardList.Add(new LibraryCard(904, "Dreadbulge Marauder", 2, 1, 6, 2, 0, LibraryCard.Cult.lust, LibraryCard.Race.tough));
         cardList.Add(new LibraryCard(912, "Pitkin Preacher", 3, 2, 3, 1, 0, LibraryCard.Cult.lust, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(920, "Hexfin Persuader", 3, 1, 7, 3, 1, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
@@ -58,7 +58,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(960, "Graveborn Chosen", 9, 1, 14, 3, 3, LibraryCard.Cult.envy, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(967, "High Inquisitor Waljakov", 8, 3, 19, 1, 4, LibraryCard.Cult.envy, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(974, "Bitterface, God of Envy", 1, 1, 1, 3, 5, LibraryCard.Cult.envy, LibraryCard.Race.undead));
-        // sloth                
+        //sloth                
         cardList.Add(new LibraryCard(900, "Skyfolk Marauder", 3, 1, 7, 2, 0, LibraryCard.Cult.sloth, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(908, "Ripjaw Preacher", 3, 2, 5, 1, 0, LibraryCard.Cult.sloth, LibraryCard.Race.brutal));
         cardList.Add(new LibraryCard(916, "Dreadbulge Missionary", 2, 1, 8, 2, 0, LibraryCard.Cult.sloth, LibraryCard.Race.tough));
@@ -70,7 +70,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(962, "Blightbark Chosen", 7, 1, 16, 3, 3, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(969, "Yawnbringer Keenu", 6, 3, 21, 1, 4, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(976, "Dullmoor, God of Sloth", 8, 1, 30, 3, 5, LibraryCard.Cult.sloth, LibraryCard.Race.protective));
-        // pride
+        //pride
         cardList.Add(new LibraryCard(905, "Blightbark Marauder", 3, 1, 7, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(913, "Skyfolk Priest", 3, 3, 6, 1, 1, LibraryCard.Cult.pride, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(914, "Ripjaw Missionary", 5, 1, 5, 2, 0, LibraryCard.Cult.pride, LibraryCard.Race.brutal));
@@ -82,7 +82,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(957, "Skyfolk Chosen", 8, 1, 15, 3, 3, LibraryCard.Cult.pride, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(964, "Archbishop Belle-Dhin", 7, 3, 20, 1, 4, LibraryCard.Cult.pride, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(971, "Neverfall, God of Pride", 9, 1, 29, 3, 5, LibraryCard.Cult.pride, LibraryCard.Race.winged));
-        // greed
+        //greed
         cardList.Add(new LibraryCard(906, "Pitkin Merchant", 4, 1, 6, 3, 1, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(907, "Hexfin Preacher", 2, 2, 4, 1, 0, LibraryCard.Cult.greed, LibraryCard.Race.veiled));
         cardList.Add(new LibraryCard(915, "Graveborn Missionary", 3, 1, 5, 2, 0, LibraryCard.Cult.greed, LibraryCard.Race.undead));
@@ -94,7 +94,6 @@ public class CardLibrary
         cardList.Add(new LibraryCard(963, "Pitkin Chosen", 9, 1, 14, 3, 3, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(970, "Master Miser Mikoin", 8, 3, 19, 1, 4, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(977, "Skinflint, God of Greed", 10, 1, 28, 3, 5, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
-
         //monuments
         cardList.Add(new LibraryCard(703, "pride", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
         cardList.Add(new LibraryCard(705, "lust", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
@@ -105,11 +104,8 @@ public class CardLibrary
         cardList.Add(new LibraryCard(700, "greed", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
         cardList.Add(new LibraryCard(707, "health_redux", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
 
-
-
         cardList.Add(new LibraryCard(500, "discard_fx", 10, 1, 10, 1, 0, LibraryCard.Cult.pride, LibraryCard.Race.none));
         cardList.Add(new LibraryCard(559, "Ripjaw Chosen_old", 8, 3, 11, 1, 3, LibraryCard.Cult.wrath, LibraryCard.Race.brutal));
-
 
         //Non-playCards
         cardList.Add(new LibraryCard(100, "BrutalFx", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
@@ -330,36 +326,36 @@ public class CardLibrary
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 2)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         #region extended FX
         GetCard(914).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 4)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         GetCard(914).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlMoreOwn, 6)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         #endregion
         //Graveborn Missionary
         GetCard(915).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 3)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         #region extended FX
         GetCard(915).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 6)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         GetCard(915).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOwn, 9)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         #endregion
         //Dreadbulge Missionary
         GetCard(916).AddFX()
@@ -369,7 +365,7 @@ public class CardLibrary
         GetCard(916).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         //Blightbark Missionary
         GetCard(917).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
@@ -378,62 +374,62 @@ public class CardLibrary
         GetCard(917).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         //Pitkin Missionary
         GetCard(918).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 3)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         #region extended FX
         GetCard(918).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 6)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         GetCard(918).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 9)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         #endregion
         //Skyfolk Missionary
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 1)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         #region extended FX
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 2)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 3)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 4)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         GetCard(919).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 5)
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         #endregion
         //Hexfin Persuader
         GetCard(920).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         GetCard(920).AddFX()
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
-            .description = "choose card to discard..";
+            .description = "card to discard.";
         #endregion
         //---------------------------------------OVERSEERS
         #region Overseers

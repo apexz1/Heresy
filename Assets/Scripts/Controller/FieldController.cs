@@ -202,6 +202,7 @@ public class FieldController : MonoBehaviour
                     cardCtrl.pos = -1;
                     gfx.localRotation = Quaternion.EulerAngles(0, 0, 0);
                     gfx.transform.FindChild("owner" + card.owner).gameObject.SetActive(true);
+                    //cardSelected = -1;
                 }
 
                 if (cardCtrl.pos != card.pos)
@@ -589,37 +590,37 @@ public class FieldController : MonoBehaviour
         var libFx = currentFx.GetLibFx();
         bool ownFx = currentFx.playerIdx == GameManager.Get().localPlayerId;
 
-        #region description
-        //description
-        string desc = "";
-        string indicatr = "";
-        string who = "";
+        /*
+#region description
+//description
+string desc = "";
+string indicatr = "";
+string who = "";
+if (currentFx.GetLibFx().selectorWho == true)
+{
+    indicatr = "Choose ";
+}
+if (currentFx.GetLibFx().selectorWho == false)
+{
+    indicatr = "Enemy chooses ";
+}
 
-        if (currentFx.GetLibFx().selectorWho == true)
-        {
-            indicatr = "Player 1, ";
-        }
-        if (currentFx.GetLibFx().selectorWho == false)
-        {
-            indicatr = "Player 2, ";
-        }
+if (currentFx.GetLibFx().actionType != LibraryFX.ActionType.discard)
+{
+    if (currentFx.GetLibFx().selectorOwn == true)
+    {
+        who = "own ";
+    }
+    if (currentFx.GetLibFx().selectorOwn == false)
+    {
+        who = "enemy ";
+    }
+}
+#endregion
 
-        if (currentFx.GetLibFx().actionType != LibraryFX.ActionType.discard)
-        {
-            if (currentFx.GetLibFx().selectorOwn == true)
-            {
-                who = "choose own ";
-            }
-            if (currentFx.GetLibFx().selectorOwn == true)
-            {
-                who = "choose enemy ";
-            }
-        }
-
-        #endregion
-
-        desc = (indicatr + who + libFx.description);
-        GUI.Label(new Rect(((Screen.width / 2) - 3 * desc.Length), (Screen.height - Screen.height / 4.4f), 1000, 25), desc);
+//desc = (indicatr + who + libFx.description);
+//GUI.Label(new Rect(((Screen.width / 2) - 3 * desc.Length), (Screen.height - Screen.height / 4.4f), 1000, 25), desc);
+/**/
 
         if (cardSelected == -1) { return; }
 
@@ -705,7 +706,6 @@ public class FieldController : MonoBehaviour
         int playerId = GameManager.Get().localPlayerId;
 
         //Cheat Stuff
-        /*
         if (GUI.Button(new Rect(0, 0, 60, 25), "Swap:" + playerId))
         {
             GameManager.Get().localPlayerId = GameManager.Get().localPlayerId == 0 ? 1 : 0;

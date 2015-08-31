@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
             {
                 players[i].playerHealth = 20;
                 players[i].sac = 0;
-                players[i].kills = 0;
+                players[i].kills = 3;
                 players[i].monument = true;
             }
 
@@ -854,6 +854,7 @@ public class GameManager : MonoBehaviour
 
             if (!CheckSelectorAll(playerIndex)) { currentFx.selectorDone = true; Debug.Log("Skip Selector"); }
             Debug.Log("currentFx" + currentFx.GetLibFx().description);
+            SendGameManager();
             ExeCardFx();
         }
         else if (currentFx.GetLibFx().actionType != LibraryFX.ActionType.tap || currentFx.GetLibFx().actionType != LibraryFX.ActionType.ready)

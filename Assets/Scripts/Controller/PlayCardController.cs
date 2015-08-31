@@ -91,6 +91,7 @@ public class PlayCardController : MonoBehaviour {
 
             if (GameManager.Get().effectInProgess)
             {
+                Debug.Log("currentfx stats " + currentFx.GetLibFx().selectorOwn + " " + currentFx.GetLibFx().selectorWho + " " + currentFx.GetLibFx().selectorPile + " " + currentFx.GetLibFx().actionType);
                 var libFx = currentFx.GetLibFx();
 
                 if (pile == libFx.selectorPile)
