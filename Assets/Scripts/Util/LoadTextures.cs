@@ -30,7 +30,7 @@ public class LoadTextures
         Debug.Log(OptionsMenu.isDarkFantasy + " " + OptionsMenu.isWonderland);
 
         //DELETE FOR BUILD VERSION
-        OptionsMenu.isDarkFantasy = true;
+        //OptionsMenu.isDarkFantasy = true;
 
         if (OptionsMenu.isDarkFantasy)
         {

@@ -621,6 +621,7 @@ if (currentFx.GetLibFx().actionType != LibraryFX.ActionType.discard)
 //desc = (indicatr + who + libFx.description);
 //GUI.Label(new Rect(((Screen.width / 2) - 3 * desc.Length), (Screen.height - Screen.height / 4.4f), 1000, 25), desc);
 /**/
+        GUI.Label(new Rect(((Screen.width / 2) - 50), (Screen.height - Screen.height / 4.4f), 1000, 25), "Effect in progress");
 
         if (cardSelected == -1) { return; }
 
@@ -693,8 +694,19 @@ if (currentFx.GetLibFx().actionType != LibraryFX.ActionType.discard)
 
     public void GameOver( int player )
     {
+        var o = GameObject.Find("SceneCam").transform.FindChild("gameOver").gameObject;
+        var rend = o.GetComponent<MeshRenderer>();
         //Debug.Log("player " + ((player+1)%2+1) + " won");
-        GameObject.Find("SceneCam").transform.FindChild("gameOver").gameObject.SetActive(true);
+        if (GameManager.Get().gameOver == GameManager.Get().localPlayerId)
+        {
+            rend.material.mainTexture = (Texture2D)Resources.Load("Images/UI/inGame/lose");
+        }
+        if (GameManager.Get().gameOver != GameManager.Get().localPlayerId)
+        {
+            rend.material.mainTexture = (Texture2D)Resources.Load("Images/UI/inGame/win");
+        }
+
+        o.SetActive(true);
         GameObject.Find("GameUI").transform.FindChild("Main").gameObject.SetActive(false);
         GameObject.Find("GameUI").transform.FindChild("PreGame").gameObject.SetActive(false);
     }

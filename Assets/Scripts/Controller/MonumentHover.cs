@@ -68,8 +68,10 @@ public class MonumentHover : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Debug.Log("adoghjdsohofijdapokdfsg");
-        child.SetActive(true);
+        if (gameObject.transform.parent.name == "16" && GameManager.Get().localPlayerId == 0 || gameObject.transform.parent.name == "4" && GameManager.Get().localPlayerId == 1)
+        {
+            child.SetActive(true);
+        }
     }
 
     void OnMouseExit()

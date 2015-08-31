@@ -358,6 +358,8 @@ public class CardLibrary
             .description = "card to discard.";
         #endregion
         //Dreadbulge Missionary
+        /* 
+        //FXs bugged; uncomment if ever fixed
         GetCard(916).AddFX()
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.ready, true, true)
             .setAction(LibraryFX.ActionType.tap)
@@ -375,6 +377,7 @@ public class CardLibrary
             .setSelector(PlayCard.Pile.hand, LibraryFX.SelectorTap.none, true, false)
             .setAction(LibraryFX.ActionType.discard, 1)
             .description = "card to discard.";
+        /**/
         //Pitkin Missionary
         GetCard(918).AddFX()
             .setCondition(LibraryFX.ConditionType.ctrlOpp, 3)

@@ -90,10 +90,12 @@ public class GameManager : MonoBehaviour
             if (players[0].playerHealth <= 0)
             {
                 gameOver = 0;
+                running = false;
             }
             if (players[1].playerHealth <= 0)
             {
                 gameOver = 1;
+                running = false;
             }
         }
     }
@@ -101,7 +103,11 @@ public class GameManager : MonoBehaviour
     [RPC]
     public void StartGame( int playerId, bool network )
     {
-        AudioManager.ChangeMainMusic();
+        if (AudioManager.audio != null)
+        {
+            AudioManager.ChangeMainMusic();
+        }
+
         string deckLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy";
         //InputField inputField = GameObject.Find("GameUI").transform.FindChild("PreGame").FindChild("DeckChoice").gameObject.GetComponent<InputField>();
         //NetworkManager.deckChoice = inputField.text;
