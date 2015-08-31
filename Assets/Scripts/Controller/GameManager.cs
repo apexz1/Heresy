@@ -1593,6 +1593,8 @@ public class GameManager : MonoBehaviour
         var ownCard = playCards[cardIndex];
         var ownLibCard = CardLibrary.Get().GetCard(ownCard.libId);
 
+        Debug.Log("Ok, weird stuff going on... " + ownCard.actions + " " + ownCard.tap);
+
         if (ownCard.tap > 0)
         {
             SendNotification(playerIndex, "Card is tapped");
@@ -1618,10 +1620,14 @@ public class GameManager : MonoBehaviour
         }
 
         DamagePlayer(opponent.playerId, ownCard.attack);
+        Debug.Log("checking card actions pre-attack " + ownCard.actions);
         ownCard.actions--;
+        Debug.Log("card actions post attack " + ownCard.actions);
         if (ownCard.actions <= 0) { ownCard.tap++; }
+        Debug.Log("card tapped? " + ownCard.actions + " " + ownCard.tap);
 
         SendGameManager();
+        Debug.Log("stats syncing? " + ownCard.actions + " " + ownCard.tap);
     }
 
     [RPC]
