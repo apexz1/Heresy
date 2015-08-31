@@ -981,6 +981,7 @@ public class GameManager : MonoBehaviour
                 int cardIndex = currentFx.selectedCards[i];
                 var card = playCards[cardIndex];
                 card.actions += currentFx.actionCount;
+				Debug.Log ("BuffSelectedCards, Action reset");
                 if (card.actions > 0) { card.tap = 0; }
             }
         }
@@ -1369,6 +1370,7 @@ public class GameManager : MonoBehaviour
         card.health = card.GetLibCard().health;
         card.actions = card.GetLibCard().moveRange;
         card.tap = 0;
+		Debug.Log ("ResetStats, Action reset");
     }
 
     [RPC]
@@ -1620,6 +1622,17 @@ public class GameManager : MonoBehaviour
         }
 
         DamagePlayer(opponent.playerId, ownCard.attack);
+		/*!!!!!!!!!!
+		 * DamagePlayer will send & Recieve
+		 * -> playCards will be overwritten
+		 * -> ownCard is an old entry of playCards
+		 * ownCard.actions-- won't have an effect on the real one
+		 * 
+		 * either get the variable again after DamagePlayer:
+		 * 	ownCard = playCards[cardIndex];
+		 * or use RPCMode.Others in SendGameManager, so playCards won't get
+		 * overwritten on the Server
+		 * !!!!!!!!!!!!!*/
         Debug.Log("checking card actions pre-attack " + ownCard.actions);
         ownCard.actions--;
         Debug.Log("card actions post attack " + ownCard.actions);
@@ -1786,6 +1799,7 @@ public class GameManager : MonoBehaviour
 
             case 2:
                 card.actions += amount;
+				Debug.Log ("BuffCard2, Action+="+amount);
                 if ((card.actions > 0) && (card.tap > 0))
                 {
                     card.tap--;
