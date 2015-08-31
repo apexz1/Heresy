@@ -35,6 +35,7 @@ public class PlayFX {
     {
         //cardId = (int)jsCard["cardId"];
         libId = (int)jsCard["id"];
+		fxIdx = (int)jsCard["fxIdx"];
         globalIdx = (int)jsCard["globalIdx"];
         adjacentPos = (int)jsCard["adjacentPos"];
         playerIdx = (int)jsCard["playerIdx"];
