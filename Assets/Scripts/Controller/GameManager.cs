@@ -2286,13 +2286,16 @@ public class GameManager : MonoBehaviour
     [RPC]
     public void SaveGame()
     {
-        File.WriteAllText("D:/ProtoTest/Assets/game.json", ToJSON().ToString(), Encoding.UTF8);
+		Directory.CreateDirectory (SaveGameLocation.getSaveGameDirectory () + "/Heresy");
+		var saveLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy/game.json";
+		File.WriteAllText(saveLocation, ToJSON().ToString(), Encoding.UTF8);
     }
 
     [RPC]
     public void LoadGame()
     {
-        string textFile = File.ReadAllText("D:/ProtoTest/Assets/game.json", Encoding.UTF8);
+		var saveLocation = SaveGameLocation.getSaveGameDirectory() + "/Heresy/game.json";
+		string textFile = File.ReadAllText(saveLocation, Encoding.UTF8);
         JSONObject jsGameState = JSONParser.parse(textFile);
         int tmp = gameVersion;
         FromJSON(jsGameState);
