@@ -22,8 +22,8 @@ public class OptionsMenu : MonoBehaviour
     public Slider slider;
     public Text volumeText;
 
-	private static int resW = 0;
-	private static int resH = 0;
+	private static int resW = Screen.currentResolution.width;
+	private static int resH = Screen.currentResolution.height;
 
     void Update()
     {
