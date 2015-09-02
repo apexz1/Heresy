@@ -190,6 +190,12 @@ public class FieldController : MonoBehaviour
 					cardCtrl.pos = -1;
 					gfx.localRotation = Quaternion.EulerAngles (0, 0, 0);
 					gfx.transform.FindChild ("owner" + card.owner).gameObject.SetActive (true);
+
+					if (card.owner == GameManager.Get().localPlayerId)
+					{
+						SelectCard(card.globalIdx);
+					}
+
 					//cardSelected = -1;
 				}
 
@@ -555,8 +561,7 @@ public class FieldController : MonoBehaviour
 
 		var libFx = currentFx.GetLibFx ();
 		bool ownFx = currentFx.playerIdx == GameManager.Get ().localPlayerId;
-
-   /*     
+		    
 #region description
 //description
 
@@ -564,30 +569,57 @@ public class FieldController : MonoBehaviour
 		string indicatr = "";
 		string who = "";
 
+		if (currentFx.playerIdx == GameManager.Get ().localPlayerId)
+		{
 
-		if (currentFx.GetLibFx ().selectorWho == true) {
+			if (currentFx.GetLibFx ().selectorWho == true) {
 				indicatr = "Choose ";
-		}
 
-		if (currentFx.GetLibFx ().selectorWho == false) {
+				if (currentFx.GetLibFx ().actionType != LibraryFX.ActionType.discard) {
+					if (currentFx.GetLibFx ().selectorOwn == true) {
+						who = "own ";
+						
+					}
+					if (currentFx.GetLibFx ().selectorOwn == false) {
+						who = "enemy ";
+						
+					}
+				}
+			}
+
+			if (currentFx.GetLibFx ().selectorWho == false) {
 				indicatr = "Enemy chooses ";
+			}
 		}
-
-		if (currentFx.GetLibFx ().actionType != LibraryFX.ActionType.discard) {
-			if (currentFx.GetLibFx ().selectorOwn == true) {
-					who = "own ";
-
+		if (currentFx.playerIdx != GameManager.Get ().localPlayerId)
+		{
+			if (currentFx.GetLibFx ().selectorWho == true) {
+				indicatr = "Enemy chooses ";
 			}
-			if (currentFx.GetLibFx ().selectorOwn == false) {
-					who = "enemy ";
+			
+			if (currentFx.GetLibFx ().selectorWho == false) {
+				indicatr = "Choose ";
 
+				if (currentFx.GetLibFx ().actionType != LibraryFX.ActionType.discard) {
+					if (currentFx.GetLibFx ().selectorOwn == true) {
+						who = "enemy ";
+						
+					}
+					if (currentFx.GetLibFx ().selectorOwn == false) {
+						who = "own ";
+						
+					}
+				}
 			}
+
 		}
 #endregion
 
 		desc = (indicatr + who + libFx.description);
 		GUI.Label (new Rect (((Screen.width / 2) - 3 * desc.Length), (Screen.height - Screen.height / 4.4f), 1000, 25), desc);
 /**/
+
+
 		if (cardSelected == -1) {
 			return;
 		}

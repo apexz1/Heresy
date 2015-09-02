@@ -36,7 +36,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(972, "Vilerose, God of Lust", 9, 1, 29, 3, 5, LibraryCard.Cult.lust, LibraryCard.Race.veiled));
         //gluttony
         cardList.Add(new LibraryCard(901, "Hexfin Marauder", 4, 1, 8, 2, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.veiled));
-        cardList.Add(new LibraryCard(909, "Graveborn Preacher", 3, 2, 7, 1, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.tough));
+        cardList.Add(new LibraryCard(909, "Graveborn Preacher", 3, 2, 7, 1, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.undead));
         cardList.Add(new LibraryCard(917, "Blightbark Missionary", 3, 1, 9, 2, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.protective));
         cardList.Add(new LibraryCard(925, "Skyfolk Overseer", 4, 1, 8, 2, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.winged));
         cardList.Add(new LibraryCard(933, "Ripjaw Worker", 5, 1, 7, 2, 0, LibraryCard.Cult.gluttony, LibraryCard.Race.brutal));
@@ -130,7 +130,7 @@ public class CardLibrary
 
 
         cardList.Add(new LibraryCard(998, "Dummy", 1, 1, 1, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
-        cardList.Add(new LibraryCard(999, "Dummy", 5, 1, 10, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.brutal));
+        cardList.Add(new LibraryCard(999, "Dummy", 5, 1, 10, 5, 0, LibraryCard.Cult.none, LibraryCard.Race.undead));
 
 
         //setSelector(pile, selectorType, true=ownCard, true=effectOwner)

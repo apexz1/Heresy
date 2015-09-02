@@ -170,7 +170,7 @@ public class GameManager : MonoBehaviour
         o = GameObject.Find("SceneCam").transform.FindChild("loading").gameObject;
         GameObject.Destroy(o, 1.5f);
 
-		SendGameManager();
+		//SendGameManager();
     }
 
     public int LoadDeck( int playerIdx, string deck )
@@ -502,7 +502,6 @@ public class GameManager : MonoBehaviour
 
         card.pile = PlayCard.Pile.field;
         card.pos = slotIndex;
-        FieldController.GetFieldController().SelectCard(card.globalIdx);
 
         if (card.GetLibCard().costs > 0)
         {
