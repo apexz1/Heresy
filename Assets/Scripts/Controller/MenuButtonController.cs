@@ -31,6 +31,7 @@ public class MenuButtonController : MonoBehaviour
     public void LoadTutorial()
     {
         Application.LoadLevel("tutorial");
+		Destroy(GameObject.Find("LoadingScreen").gameObject);
     }
     public void LoadGame()
     {
@@ -47,6 +48,7 @@ public class MenuButtonController : MonoBehaviour
     public void LoadOptions()
     {
         Application.LoadLevel("options");
+		Destroy(GameObject.Find("LoadingScreen").gameObject);
     }
     public void LoadGallery()
     {
@@ -55,6 +57,7 @@ public class MenuButtonController : MonoBehaviour
     public void LoadCredits()
     {
         Application.LoadLevel("credits");
+		Destroy(GameObject.Find("LoadingScreen").gameObject);
     }
     public void QuitGame()
     {

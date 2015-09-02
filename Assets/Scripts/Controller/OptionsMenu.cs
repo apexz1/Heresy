@@ -22,6 +22,9 @@ public class OptionsMenu : MonoBehaviour
     public Slider slider;
     public Text volumeText;
 
+	private static int resW = 0;
+	private static int resH = 0;
+
     void Update()
     {
         if (Input.GetButtonDown("back") || Input.GetKeyDown(KeyCode.Escape)) { BackToMenu(); }
@@ -82,7 +85,10 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetResolution( int index )
     {
-        Screen.SetResolution(resolutions[index].width, resolutions[index].height, fullscreen);
+		resW = resolutions[index].width;
+		resH = resolutions[index].height;
+		
+		Screen.SetResolution(resW, resH, fullscreen);
     }
 
     public string ResToString( Resolution res )
@@ -98,6 +104,7 @@ public class OptionsMenu : MonoBehaviour
     public void SwitchFullscreen()
     {
         fullscreen = !fullscreen;
+		Screen.SetResolution(resW, resH, fullscreen);
     }
     #endregion
 

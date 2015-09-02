@@ -28,8 +28,11 @@ public class NetworkManager : MonoBehaviour {
             //GameObject.Find("Table").SetActive(false);
         }
 
-        userInput = GUI.TextField(new Rect(200, 250, 120, 25), userInput);
-        deckChoice = GUI.TextField(new Rect(325, 250, 120, 25), deckChoice);
+        userInput = GUI.TextField(new Rect(200, 270, 150, 25), userInput);
+		GUI.Label(new Rect(205, 250, 150, 25), "Enter IP (connect only)");
+
+        deckChoice = GUI.TextField(new Rect(360, 270, 120, 25), deckChoice);
+		GUI.Label(new Rect(365, 250, 120, 100), "Enter deck name");
 
         if (GUI.Button (new Rect(340,200,120,40), "Connect"))
         {
@@ -37,7 +40,7 @@ public class NetworkManager : MonoBehaviour {
             //GameObject.Find("Table").SetActive(false);
         }
 
-        if (GUI.Button (new Rect(480,200,120,40), "Start Game"))
+        if (GUI.Button (new Rect(480,200,180,40), "Debug Mode: No network"))
         {
             StartGame();
             //GameObject o = GameObject.FindGameObjectWithTag("Table");

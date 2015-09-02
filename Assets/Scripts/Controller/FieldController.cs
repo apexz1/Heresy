@@ -721,6 +721,8 @@ public class FieldController : MonoBehaviour
 		int playerId = GameManager.Get ().localPlayerId;
 
 		//Cheat Stuff
+		if (GameManager.Get().offline == true)
+		{
 		if (GUI.Button (new Rect (0, 0, 60, 25), "Swap:" + playerId)) {
 			GameManager.Get ().localPlayerId = GameManager.Get ().localPlayerId == 0 ? 1 : 0;
 			//GameManager.Get().turn = !GameManager.Get().turn;
@@ -803,10 +805,11 @@ public class FieldController : MonoBehaviour
 				GameManager.Get ().NetRPC ("EndTurn", RPCMode.Server, playerId);
 			}
 		}
+		}
 		/**/
 
 
-		if (GameManager.Get ().notification.Length > 0 && Time.time - GameManager.Get ().notifTime < 3.5f) {
+		if (GameManager.Get().notification.Length > 0 && Time.time - GameManager.Get ().notifTime < 2.0f + (GameManager.Get().notification.Length * 0.05f)) {
 			//GUI.Label(new Rect(0, Screen.height - 20, 1000, 25), GameManager.Get().notification);
 			GUI.Label (new Rect (((Screen.width / 2) - 3 * GameManager.Get ().notification.Length), 
                 (Screen.height - Screen.height / 4.4f), 1000, 25), GameManager.Get ().notification);

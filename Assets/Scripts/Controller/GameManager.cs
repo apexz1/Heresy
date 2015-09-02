@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     public int gameVersion = 0;
     public int brutalOD = 0;
     public bool setUp = false;
+	public bool offline = false;
     //public bool monument = true;
     bool monumentfx = false;
 
@@ -131,7 +132,7 @@ public class GameManager : MonoBehaviour
         //FieldController.GetFieldController().LoadMonument(0);
         //FieldController.GetFieldController().LoadMonument(1);
 
-		if (network == false) { LoadDeck(1, "default"); }
+		if (network == false) { LoadDeck(1, "default"); offline = true; }
 
         if (Network.isServer)
         {

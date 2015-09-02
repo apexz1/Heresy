@@ -38,7 +38,7 @@ public class SceneFader : MonoBehaviour
         FadeToClear();
 
         // If the texture is almost clear...
-        if (image.color.a <= 0.1f)
+        if (image.color.a <= 0.01f)
         {
             image.color = Color.clear;
             image.enabled = false;
