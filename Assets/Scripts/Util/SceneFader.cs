@@ -5,7 +5,7 @@ using System.Collections;
 public class SceneFader : MonoBehaviour
 {
 
-    private float fadeSpeed = 2f;
+    private float fadeSpeed = 2.0f;
     private bool sceneStarting = true;
     public Image image;
 

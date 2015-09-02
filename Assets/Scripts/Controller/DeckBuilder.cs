@@ -27,8 +27,9 @@ public class DeckBuilder : MonoBehaviour
 
     int[] cultArray = new int[7];
 
-    private Rect rect = new Rect((Screen.width - 200) / 2, (Screen.height - 50) / 2, 200, 50);
+    private Rect rect = new Rect((Screen.width - 200) / 2, (Screen.height - 50) / 2, 250, 50);
     bool window;
+    int windowInd;
 
     public CardLibrary cardLibrary
     {
@@ -381,6 +382,8 @@ public class DeckBuilder : MonoBehaviour
 
         if(deck.Count != maxDeckCount)
         {
+            window = true;
+            windowInd = 4;
             return;
         }
 
@@ -390,6 +393,8 @@ public class DeckBuilder : MonoBehaviour
         if (cult == null)
         {
             Debug.LogWarning("no cult dominant");
+            window = true;
+            windowInd = 2;
             return;
         }
 
@@ -406,10 +411,17 @@ public class DeckBuilder : MonoBehaviour
         jsSave.AddField("Cult", cult);
 
         if (name.Equals(""))
+        {
             name = "deck";
+            window = true;
+            windowInd = 3;
+        }
+
 
         File.WriteAllText(GetDeckPath(name), jsSave.ToString(), Encoding.UTF8);
         Debug.Log(name + "saved " + DeckBuilder.Get().deck.Count + " entries");
+        window = true;
+        windowInd = 0;
 
         for (int i = 0; i < cultArray.Length; i++)
         {
@@ -428,6 +440,7 @@ public class DeckBuilder : MonoBehaviour
         if (!File.Exists(deckLocation + "/" + name + ".json"))
         {
             window = true;
+            windowInd = 1;
             return;
         }
 
@@ -490,7 +503,30 @@ public class DeckBuilder : MonoBehaviour
     {
         if (window)
         {
-            rect = GUI.Window(0, rect, ErrorWindow, "Error: File not found");
+            if (windowInd == -1)
+            {
+                return;
+            }
+            if (windowInd == 0)
+            {
+                rect = GUI.Window(0, rect, ErrorWindow, "File saved");
+            }
+            if (windowInd == 1)
+            {
+                rect = GUI.Window(0, rect, ErrorWindow, "Error: File not found");
+            }
+            if (windowInd == 2)
+            {
+                rect = GUI.Window(0, rect, ErrorWindow, "Error: No cult dominant");
+            }
+            if (windowInd == 3)
+            {
+                rect = GUI.Window(0, rect, ErrorWindow, "No name entered; saved as \"deck\"");
+            }
+            if (windowInd == 4)
+            {
+                rect = GUI.Window(0, rect, ErrorWindow, "Error: Deck does not have 30 cards");
+            }
         }
     }
     public void ErrorWindow( int windowID )
@@ -498,6 +534,7 @@ public class DeckBuilder : MonoBehaviour
         if (GUI.Button(new Rect(5, 20, rect.width - 10, 20), "Close"))
         {
             window = false;
+            windowInd = -1;
         }
     }
 

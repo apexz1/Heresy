@@ -58,6 +58,7 @@ public class UIButtonController : MonoBehaviour
     public void UIBanner()
     {
         if (GameManager.Get().players[playerId].monument == false) { return; }
+		if (GameManager.Get().turnPlayer != playerId) { return; }
 
         string banner = gameObject.transform.parent.name.Replace("banner_", "");
 

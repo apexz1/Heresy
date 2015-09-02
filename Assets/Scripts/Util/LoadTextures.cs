@@ -30,7 +30,7 @@ public class LoadTextures
         Debug.Log(OptionsMenu.isDarkFantasy + " " + OptionsMenu.isWonderland);
 
         //DELETE FOR BUILD VERSION
-        OptionsMenu.isDarkFantasy = true;
+        //OptionsMenu.isDarkFantasy = true;
 
         if (OptionsMenu.isDarkFantasy)
         {
@@ -44,7 +44,8 @@ public class LoadTextures
         }
         else
         {
-            Debug.LogError("NO SKIN ASSIGNED;");
+            Debug.LogError("NO SKIN ASSIGNED; DEFAULTED TO DARK FANTASY");
+			skin = "cards_DF/";
             Debug.Log(skin);
         }
 

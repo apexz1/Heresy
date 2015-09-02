@@ -94,6 +94,7 @@ public class CardLibrary
         cardList.Add(new LibraryCard(963, "Pitkin Chosen", 9, 1, 14, 3, 3, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(970, "Master Miser Mikoin", 8, 3, 19, 1, 4, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
         cardList.Add(new LibraryCard(977, "Skinflint, God of Greed", 10, 1, 28, 3, 5, LibraryCard.Cult.greed, LibraryCard.Race.stealthy));
+
         //monuments
         cardList.Add(new LibraryCard(703, "pride", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
         cardList.Add(new LibraryCard(705, "lust", 0, 0, 0, 0, 0, LibraryCard.Cult.none, LibraryCard.Race.none));
@@ -511,7 +512,6 @@ public class CardLibrary
             .description = "entity to buff actions.";
         #endregion
         //Ripjaw Slaver
-        /*
         GetCard(927).AddFX()
             .setCondition(LibraryFX.ConditionType.kills, 1)
             .setSelector(PlayCard.Pile.field, LibraryFX.SelectorTap.none, true, true)
@@ -539,7 +539,6 @@ public class CardLibrary
             .setAction(LibraryFX.ActionType.buffAction, 2)
             .description = "entity to buff actions.";
         #endregion
-        /**/
         #endregion
         //---------------------------------------WORKERS
         #region Workers

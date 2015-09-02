@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 {
 
     private static AudioManager _instance;
-    public static float volumeControl = 1.0f;
+    public static float volumeControl = 0.0f;
 
     public static AudioSource audio;
     public static AudioClip sound_menus;
@@ -27,7 +27,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    void Start() { audio = GetComponent<AudioSource>(); }
+	void Start() { audio = GetComponent<AudioSource>(); volumeControl = 1.0f; }
 
     void Update() { audio.volume = volumeControl; }
 

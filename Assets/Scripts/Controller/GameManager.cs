@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
         //FieldController.GetFieldController().LoadMonument(0);
         //FieldController.GetFieldController().LoadMonument(1);
 
-        if (network == false) { LoadDeck(1, "default"); };
+		if (network == false) { LoadDeck(1, "default"); }
 
         if (Network.isServer)
         {
@@ -141,7 +141,7 @@ public class GameManager : MonoBehaviour
             {
                 players[i].playerHealth = 20;
                 players[i].sac = 0;
-                players[i].kills = 3;
+                players[i].kills = 0;
                 players[i].monument = true;
             }
 
@@ -169,6 +169,8 @@ public class GameManager : MonoBehaviour
         GameObject.Destroy(o, 1.5f);
         o = GameObject.Find("SceneCam").transform.FindChild("loading").gameObject;
         GameObject.Destroy(o, 1.5f);
+
+		SendGameManager();
     }
 
     public int LoadDeck( int playerIdx, string deck )
@@ -195,9 +197,8 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("start");
         this.NetRPC("AssignDeck", RPCMode.Server, playerIdx, jsPlayer["Deck"].ToString());
+		this.NetRPC("AssignCult", RPCMode.Server, playerIdx, jsPlayer["Cult"].ToString());
         //this.NetRPC("AssignCult", RPCMode.Server, playerIdx, jsPlayer["Cult"].ToString());
-        AssignCult(0, jsPlayer["Cult"].ToString());
-        AssignCult(1, jsPlayer["Cult"].ToString());
         //Debug.Log(players[0].cult + " " + players[1].cult);
 
         Debug.Log(jsPlayer.Count);
@@ -236,13 +237,30 @@ public class GameManager : MonoBehaviour
         SendGameManager();
     }
 
+	[RPC]
     public void AssignCult( int playerId, string cult )
     {
-        Debug.Log("AssignCult()" + playerId + " : " + cult);
+		players[playerId].cult = DeckBuilder.CultFromJSON(JSONParser.parse(cult));
+		Debug.Log("cults: " + players[0].cult + " " + players[1].cult);
 
-        players[playerId].cult = DeckBuilder.CultFromJSON(JSONParser.parse(cult));
-        Debug.Log("cults: " + players[0].cult + " " + players[1].cult);
+		SendGameManager();
     }
+
+	/*
+	public void LoadMonument(int playerId)
+	{
+		var card = new PlayCard();
+		card.globalIdx = 700 + playerId;
+
+		if (players[playerId].cult == "greed") {}
+		if (players[playerId].cult == "envy") {}
+		if (players[playerId].cult == "wrath") {}
+		if (players[playerId].cult == "pride") {}
+		if (players[playerId].cult == "gluttony") {}
+		if (players[playerId].cult == "lust") {}
+		if (players[playerId].cult == "sloth") {}
+	}
+	/**/
 
     [RPC]
     public void DamagePlayer( int playerIndex, int amount )
@@ -1595,8 +1613,6 @@ public class GameManager : MonoBehaviour
         var ownCard = playCards[cardIndex];
         var ownLibCard = CardLibrary.Get().GetCard(ownCard.libId);
 
-        Debug.Log("Ok, weird stuff going on... " + ownCard.actions + " " + ownCard.tap);
-
         if (ownCard.tap > 0)
         {
             SendNotification(playerIndex, "Card is tapped");
@@ -1622,6 +1638,7 @@ public class GameManager : MonoBehaviour
         }
 
         DamagePlayer(opponent.playerId, ownCard.attack);
+		ownCard = playCards[cardIndex];
 		/*!!!!!!!!!!
 		 * DamagePlayer will send & Recieve
 		 * -> playCards will be overwritten
@@ -1633,14 +1650,10 @@ public class GameManager : MonoBehaviour
 		 * or use RPCMode.Others in SendGameManager, so playCards won't get
 		 * overwritten on the Server
 		 * !!!!!!!!!!!!!*/
-        Debug.Log("checking card actions pre-attack " + ownCard.actions);
         ownCard.actions--;
-        Debug.Log("card actions post attack " + ownCard.actions);
         if (ownCard.actions <= 0) { ownCard.tap++; }
-        Debug.Log("card tapped? " + ownCard.actions + " " + ownCard.tap);
 
         SendGameManager();
-        Debug.Log("stats syncing? " + ownCard.actions + " " + ownCard.tap);
     }
 
     [RPC]
@@ -2206,7 +2219,7 @@ public class GameManager : MonoBehaviour
 
                         if (CountCards(newPlayer.playerId, PlayCard.Pile.field) > CountCards(oldPlayer.playerId, PlayCard.Pile.field))
                         {
-                            gameOver = newPlayer.playerId;
+                            gameOver = oldPlayer.playerId;
                         }
                 }
                 //Flamegrim, God of Wrath
